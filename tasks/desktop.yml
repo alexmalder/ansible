@@ -1,0 +1,35 @@
+---
+# COPY SPECIFIED
+- name: Generate i3 config file | DESKTOP
+  template:
+    src: ./templates/i3.jinja
+    dest: ~/.config/i3/config
+    mode: 0640
+
+- name: Deploy circle script | DESKTOP
+  copy:
+    src: ./modules/circle
+    dest: ~/.config/i3/circle
+    mode: a+x
+
+- name: Deploy xresources configuration file | DESKTOP
+  template:
+    src: ./templates/Xresources
+    dest: ~/.Xresources
+
+- name: Deploy sound configuration file to modprobe | DESKTOP
+  become: true
+  copy:
+    src: ./templates/alsa.conf
+    dest: /etc/modprobe.d/alsa.conf
+
+# COPY TEMPLATED
+- name: Deploy configuration files | DESKTOP
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ copy.files }}"
+
+# FORCE RESTART
+- name: Restart i3 | DESKTOP
+  command: i3-msg restart

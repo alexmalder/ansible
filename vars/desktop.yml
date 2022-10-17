@@ -1,0 +1,65 @@
+---
+raw:
+  - floating_modifier $mod
+  - default_border none
+  - default_floating_border none
+  - font pango:Iosevka 10
+  - for_window [class=".*"] border pixel 0
+  - assign [class="kitty"] term
+
+
+setters:
+  - $mod Mod4
+  - $circle exec ~/.config/i3/circle
+
+startup:
+  - XDG_CONFIG_HOME=$HOME/.config polybar
+  - xfce4-power-manager
+  - setxkbmap -option ctrl:swapcaps
+  - xss-lock --transfer-sleep-lock -- i3lock --nofork
+  - gnome-keyring-daemon -r -d
+  - feh --bg-scale ~/.config/i3/purple-19.jpg
+  - syndaemon -i 1
+  - picom --experimental-backend
+  #- sudo wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlo1
+
+circle:
+  - ["x", "kitty", "term"]
+  - ["w", "qutebrowser", "qutebrowser"]
+  - ["n", "Evernote", "evernote"]
+  - ["v", "virt-manager", "virt-manager"]
+  - ["s", "lens", "lens"]
+  - ["d", "drawio", "draw"]
+  - ["p", "qtpass", "qtpass"]
+  - ["1", "code", "code"]
+  - ["2", "qtcreator", "qtcreator"]
+  - ["z", "zoom", "zoom"]
+  - ["e", "evolution", "evolution"]
+  - ["t", "telegram-desktop", "tg"]
+  - ["a", "android-studio", "android-studio"]
+  - ["b", "dbeaver", "dbeaver"]
+  - ["o", "wps", "wps"]
+  - ["4", "4kvideodownloader", "4kvideodownloader"]
+
+bindsym:
+  - $mod+Return exec kitty
+  - $mod+Shift+q kill
+  - $mod+j focus left
+  - $mod+semicolon focus right
+  - $mod+Left focus left
+  - $mod+Down focus down
+  - $mod+Up focus up
+  - $mod+Right focus right
+  - $mod+Shift+semicolon move right
+  - $mod+Shift+Left move left
+  - $mod+Shift+Down move down
+  - $mod+Shift+Up move up
+  - $mod+Shift+Right move right
+  - $mod+h split h
+  - $mod+Shift+space floating toggle
+  - $mod+space focus mode_toggle
+  - $mod+Shift+r restart
+  - $mod+r mode resize
+  - $mod+g exec dmenu_run -nb '#000000' -sf '#000000' -sb '#909090' -nf '#909090' -fn 'Iosevka Nerd Font-12'
+  - $mod+f fullscreen toggle
+  #- $mod+Shift+p exec deepin-screenshot

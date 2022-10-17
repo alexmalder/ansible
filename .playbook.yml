@@ -1,0 +1,36 @@
+---
+- name: i3 wm configuration
+  hosts: 127.0.0.1
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: use vars
+      include_vars:
+        file: "{{ item }}"
+      with_items:
+        - ./vars/packages.yml
+        - ./vars/desktop.yml
+        - ./vars/files.yml
+      tags: 
+        - packages
+        - desktop
+        - iptables
+        - salt
+
+    - name: install packages
+      include: ./tasks/packages.yml
+      tags: packages
+
+    - name: setup desktop environment
+      include: ./tasks/desktop.yml
+      vars:
+        xft_dpi: 192
+      tags: desktop
+
+    - name: setup iptables
+      include: ./tasks/iptables.yml
+      tags: iptables
+
+    - name: setup salt master
+      include: ./tasks/salt.yml
+      tags: salt

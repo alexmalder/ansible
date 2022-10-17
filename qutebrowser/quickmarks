@@ -1,0 +1,2 @@
+ail https://duckduckgo.com/?q=gitlab+notifications&ia=web
+i https://grafana.homeoperator.pro/d/rYdddlPWj/node-exporter-full?orgId=1&refresh=1m&var-DS_PROMETHEUS=default&var-job=node_exporter&var-node=vpn:9100&var-diskdevices=%5Ba-z%5D%2B%7Cnvme%5B0-9%5D%2Bn%5B0-9%5D%2B

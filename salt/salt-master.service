@@ -1,0 +1,18 @@
+[Unit]
+Description=salt-master
+After=network.target
+Documentation=man:salt-master
+
+[Service]
+Type=simple
+User=alexmalder
+
+Restart=always
+RestartSec=3
+ExecStart=salt-master -l debug
+ExecReload=/bin/kill -HUP $MAINPID
+
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target

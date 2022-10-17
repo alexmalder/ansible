@@ -1,0 +1,24 @@
+---
+- name: virt manager setup service
+  hosts: 127.0.0.1
+  gather_facts: false
+  tasks:
+    - name: install packages
+      become: true
+      pacman:
+        name: 
+          - libvirt
+          - virt-manager
+          - ebtables
+          - dnsmasq
+          - dmidecode
+          - qemu-desktop
+        state: present
+
+    - name: enable and start libvirtd
+      become: yes
+      systemd:
+        name: libvirtd
+        enabled: yes
+        daemon_reload: yes
+        state: started

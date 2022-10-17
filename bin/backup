@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -eo pipefail
+
+# declare variables
+DT=`date '+%d-%m-%Y-%H-%M-%S'`
+WORKDIR="$HOME/backup-$DT"
+mkdir -p $WORKDIR
+
+# backup salt
+cp -r "/srv/salt" $WORKDIR/srv
+cp -r "/etc/salt" $WORKDIR/etc
+
+# backup documents
+cp -r "$HOME/Documents" $WORKDIR
+
+# backup zsh
+cp -r "$HOME/.zsh" $WORKDIR
+cp -r "$HOME/.zshrc" $WORKDIR
+
+# backup secrets
+cp -r "$HOME/.netrc" $WORKDIR
+cp -r "$HOME/.ssh" $WORKDIR
+cp -r "$HOME/.gnupg" $WORKDIR
+
+# backup vpn configuration
+cp -r "/etc/wireguard" $WORKDIR
+
+# compress and autoclean
+tar -czf $WORKDIR.tar.gz $WORKDIR
+rm -rfv $WORKDIR
+#mv $WORKDIR.tar.gz $HOME/

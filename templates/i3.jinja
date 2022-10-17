@@ -1,0 +1,42 @@
+{% for item in vars.raw %}
+{{ item }}
+{% endfor %}
+
+{% for item in vars.setters %}
+set {{ item }}
+{% endfor %}
+
+{% for item in vars.startup %}
+exec --no-startup-id {{ item }}
+{% endfor %}
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+{% for item in vars.bindsym %}
+bindsym {{ item }}
+{% endfor %}
+
+{% for item in vars.circle %}
+bindsym $mod+{{ item[0] }} $circle -t "{{ item[1] }}" -c "{{ item[2] }}"
+{% endfor %}
+
+{% for item in vars.circle %}
+bindsym $mod+Shift+{{ item[0] }} move container to workspace "{{ item[2] }}"
+{% endfor %}
+
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}

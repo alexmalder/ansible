@@ -1,0 +1,61 @@
+---
+pacman:
+  base:
+    - vim
+    - zsh
+    - tmux
+    - mc
+    - ncdu
+    - neovim
+    - git
+    - colordiff
+    - net-tools
+    - fzf
+    - ripgrep
+    - exa
+    - tree
+  dev:
+    - go
+    - python-pip
+    - xorg
+    - xorg-server
+    - xorg-xinit
+    - i3-gaps
+    - dmenu
+    - qutebrowser
+    - telegram-desktop
+    - evolution
+    - xfce4-power-manager
+    - nautilus
+    - alacritty
+    - xdotool
+    - feh
+    - polybar
+    - picom
+    - fontconfig
+    - wireguard-tools
+    - lxappearance
+    - xf86-input-synaptics
+    - gcc11
+    - gcc11-libs
+    - make
+    - cmake
+    - llvm
+    - clang
+    - glab
+    - kubectl
+    - helm
+    - gopls
+    - qtcreator
+    - deepin-screenshot
+    - dunst
+    - kitty
+pip:
+  base:
+    - ansible 
+    - salt 
+    - conan 
+    - twine
+  dev:
+    - asyncio
+    - aiohttp
