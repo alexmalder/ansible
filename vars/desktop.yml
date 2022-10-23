@@ -13,14 +13,6 @@ setters:
   - $circle exec ~/.config/i3/circle
 
 startup:
-  - XDG_CONFIG_HOME=$HOME/.config polybar
-  - xfce4-power-manager
-  - setxkbmap -option ctrl:swapcaps
-  - xss-lock --transfer-sleep-lock -- i3lock --nofork
-  - gnome-keyring-daemon -r -d
-  - feh --bg-scale ~/.config/i3/purple-19.jpg
-  - syndaemon -i 1
-  - picom --experimental-backend
   #- sudo wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlo1
 
 circle:
