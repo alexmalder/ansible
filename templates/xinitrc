@@ -3,7 +3,6 @@ sudo chown -R $USER:$USER /var/run/salt
 xrdb -merge .Xresources
 dbus-update-activation-environment --all
 
-XDG_CONFIG_HOME=$HOME/.config polybar &
 xfce4-power-manager &
 setxkbmap -option ctrl:swapcaps &
 xss-lock --transfer-sleep-lock -- i3lock --nofork &

@@ -1,18 +1,4 @@
 ---
-# COPY SPECIFIED
-
-#- name: Generate i3 config file | DESKTOP
-#  template:
-#    src: ./templates/i3.jinja
-#    dest: ~/.config/i3/config
-#    mode: 0640
-
-- name: Deploy circle script | DESKTOP
-  copy:
-    src: ./modules/circle
-    dest: ~/.config/i3/circle
-    mode: a+x
-
 - name: Deploy xresources configuration file | DESKTOP
   template:
     src: ./templates/Xresources
@@ -24,12 +10,55 @@
     src: ./templates/alsa.conf
     dest: /etc/modprobe.d/alsa.conf
 
-# COPY TEMPLATED
 - name: Deploy configuration files | DESKTOP
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-  with_items: "{{ copy.files }}"
+  with_items:
+    # KITTY
+    - src: "./kitty"
+      dest: "~/.config"
+    # NEOVIM
+    - src: "./nvim"
+      dest: "~/.config"
+    # QUTEBROWSER
+    - src: "./qutebrowser"
+      dest: "~/.config"
+    # POLYBAR
+    - src: "./polybar" 
+      dest: "~/.config"
+    # BACKGOUND
+    - src: "./images/purple-19.jpg" 
+      dest: "~/.config/i3/purple-19.jpg"
+    # PICOM
+    - src: "./picom/picom.conf" 
+      dest: "~/.config/picom.conf"
+    # XINITRC
+    - src: "./templates/xinitrc" 
+      dest: "~/.xinitrc"
+    # ZSH
+    - src: "./home/.zshrc"
+      dest: "~/"
+    - src: "./home/.zsh"
+      dest: "~/"
+    # TMUX
+    - src: "./home/.tmux.conf"
+      dest: "~/"
+    # CLANG
+    - src: "./home/.clang-format"
+      dest: "~/"
+
+#- name: Generate i3 config file | DESKTOP
+#  template:
+#    src: ./templates/i3.jinja
+#    dest: ~/.config/i3/config
+#    mode: 0640
+
+#- name: Deploy circle script | DESKTOP
+#  copy:
+#    src: ./modules/circle
+#    dest: ~/.config/i3/circle
+#    mode: a+x
 
 # FORCE RESTART
 - name: Restart i3 | DESKTOP
