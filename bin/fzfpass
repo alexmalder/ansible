@@ -1,0 +1,2 @@
+#!/usr/bin/env /bin/bash
+pass edit $(find /home/alexmalder/.password-store | grep gpg | sed 's/\.password-store\///g' | sed 's/.gpg//g' | sed 's/\.\///g' | fzf)

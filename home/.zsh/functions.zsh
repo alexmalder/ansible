@@ -60,6 +60,10 @@ function bluetooth {
     sudo systemctl restart bluetooth
 }
 
+function fzfpass {
+    pass edit $(find .password-store | grep gpg | sed 's/\.password-store\///g' | sed 's/.gpg//g' | sed 's/\.\///g' | fzf)
+}
+
 function helm_upload {
     curl --insecure -v -F file=@$1 -u "$CHARTMUSEUM_USERNAME:$CHARTMUSEUM_PASSWORD" $CHARTMUSEUM
 }
