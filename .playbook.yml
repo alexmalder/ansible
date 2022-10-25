@@ -10,7 +10,6 @@
       with_items:
         - ./vars/packages.yml
         - ./vars/desktop.yml
-        - ./vars/files.yml
       tags: 
         - packages
         - desktop

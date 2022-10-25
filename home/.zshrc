@@ -2,14 +2,6 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 source "$XDG_CONFIG_HOME/zi/zi.zsh"
 
-#  TMUX 
-if ! xset q &>/dev/null; then
-    echo "X server starting..."
-    startx
-else
-    #tmux attach -t term || tmux new -s term > /dev/null
-fi
-
 zi load zsh-users/zsh-syntax-highlighting
 zi light zsh-users/zsh-autosuggestions
 zi light sunlei/zsh-ssh
@@ -36,5 +28,13 @@ HISTFILE=~/.zsh_history
 PROMPT='%{$fg_bold[green]%}%~%<< $(git_prompt_info)%{$fg[magenta]%}>%{${reset_color}%} '
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#  TMUX 
+if ! xset q &>/dev/null; then
+    echo "X server starting..."
+    startx
+else
+    #tmux attach -t term || tmux new -s term > /dev/null
+fi
 
 #scl enable gcc-toolset-10 zsh
