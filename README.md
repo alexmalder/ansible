@@ -36,6 +36,7 @@ My i3wm configuration center
 
 - `./bin`
 - `./systemd`
+- `./.themes`
 
 ## Example playbook
 
