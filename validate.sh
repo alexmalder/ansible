@@ -2,32 +2,29 @@
 
 set -eo pipefail
 
-diff_config() {
-    for file in $(find .config -type f); do
-        echo "colordiff $file $HOME/$file"
-        colordiff $file $HOME/$file
-    done
-}
-
-diff_home() {
-    for file in $(find home -type f); do
-        sed_file=$(echo "$file" | sed 's/home\///g')
+diff_not_origin() {
+    find_path=$1
+    sed_pattern=$2
+    for file in $(find ${find_path} -type f); do
+        sed_file=$(echo "$file" | sed "s/$sed_pattern//g")
         echo "colordiff $file $HOME/$sed_file"
         colordiff $file $HOME/$sed_file
     done
 }
 
-diff_themes() {
-    for file in $(find ./.themes/Material-Black-Cherry-4.0 -type f); do
-        echo "colordiff $file $HOME/$file"
-        colordiff $file $HOME/$file
+diff_by_path() {
+    find_path=$1
+    second_path=$2
+    for file in $(find ${find_path} -type f); do
+        echo "colordiff $file $second_path/$file"
+        colordiff $file $second_path/$file
     done
 }
 
 main() {
-    diff_themes
-    diff_config
-    diff_home
+    diff_by_path .config $HOME
+    diff_not_origin home "home/"
+    diff_by_path etc
 }
 
 main
