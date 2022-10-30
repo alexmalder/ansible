@@ -58,8 +58,6 @@ home
 
     - name: setup desktop environment
       include_tasks: ./.ansible/desktop.yml
-      vars:
-        xft_dpi: 192
 
     - name: setup iptables
       include_tasks: ./.ansible/iptables.yml
