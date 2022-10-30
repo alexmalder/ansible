@@ -74,8 +74,9 @@ My i3wm configuration center
 
 - [ansible](https://www.ansible.com/)
 - [i3](https://i3wm.org/)
+- [negwm](https://github.com/neg-serg/negwm)
 - [polybar](https://polybar.github.io/)
-- [alacritty](https://alacritty.org/)
+- [kitty](https://github.com/kovidgoyal/kitty)
 - [picom](https://wiki.archlinux.org/title/Picom)
 - [alsa](https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture)
 - [iptables](https://wiki.archlinux.org/title/Iptables)
