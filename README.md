@@ -32,6 +32,11 @@ My i3wm configuration center
 - `master`
 - `Xresources`
 
+## Undeclared configs and scripts
+
+- `./bin`
+- `./systemd`
+
 ## Example playbook
 
 ```yaml
