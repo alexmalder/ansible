@@ -22,8 +22,6 @@
 
     - name: setup desktop environment
       include: ./.ansible/desktop.yml
-      vars:
-        xft_dpi: 192
       tags: desktop
 
     - name: setup iptables

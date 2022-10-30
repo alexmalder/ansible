@@ -1,9 +1,4 @@
 ---
-- name: Deploy xresources configuration file | DESKTOP
-  template:
-    src: ./templates/Xresources
-    dest: ~/.Xresources
-
 - name: Deploy sound configuration file to modprobe | DESKTOP
   become: true
   copy:
