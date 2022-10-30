@@ -2,26 +2,21 @@
 
 set -eo pipefail
 
-compare_negwm() {
-    for file in $(ls ./negwm); do
-        colordiff ./negwm/$file ~/.config/negwm/$file
+diff_config() {
+    for file in $(find .config -type f); do
+        echo "colordiff $file $HOME/$file"
+        colordiff $file $HOME/$file
     done
 }
 
-compare_dunst(){
-    colordiff ./config/dunst/dunstrc ~/.config/dunst/dunstrc
-}
-
-compare_kitty() {
-    for file in $(ls ./config/kitty); do
-        colordiff ./config/kitty/$file ~/.config/kitty/$file
-    done
+print_directories(){
+    echo "Directories:"
+    find .config -type d
 }
 
 main() {
-    compare_negwm
-    compare_dunst
-    compare_kitty
+    diff_config
+    print_directories
 }
 
 main

@@ -6,6 +6,16 @@ My i3wm configuration center
 
 `ansible-playbook playbook.yml` 
 
+## Directories in config
+
+- `.config/nvim`
+- `.config/negwm`
+- `.config/qutebrowser`
+- `.config/kitty`
+- `.config/dunst`
+- `.config/polybar`
+- `.config/i3`
+
 ## Example playbook
 
 ```yaml
