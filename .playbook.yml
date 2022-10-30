@@ -17,19 +17,19 @@
         - salt
 
     - name: install packages
-      include: ./tasks/packages.yml
+      include: ./.ansible/packages.yml
       tags: packages
 
     - name: setup desktop environment
-      include: ./tasks/desktop.yml
+      include: ./.ansible/desktop.yml
       vars:
         xft_dpi: 192
       tags: desktop
 
     - name: setup iptables
-      include: ./tasks/iptables.yml
+      include: ./.ansible/iptables.yml
       tags: iptables
 
     - name: setup salt master
-      include: ./tasks/salt.yml
+      include: ./.ansible/salt.yml
       tags: salt

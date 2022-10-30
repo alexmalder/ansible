@@ -9,14 +9,17 @@ diff_config() {
     done
 }
 
-print_directories(){
-    echo "Directories:"
-    find .config -type d
+diff_home() {
+    for file in $(find home -type f); do
+        sed_file=$(echo "$file" | sed 's/home\///g')
+        echo "colordiff $file $HOME/$sed_file"
+        colordiff $file $HOME/$sed_file
+    done
 }
 
 main() {
     diff_config
-    print_directories
+    diff_home
 }
 
 main

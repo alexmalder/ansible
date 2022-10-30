@@ -28,13 +28,3 @@ HISTFILE=~/.zsh_history
 PROMPT='%{$fg_bold[green]%}%~%<< $(git_prompt_info)%{$fg[magenta]%}>%{${reset_color}%} '
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-#  TMUX 
-if ! xset q &>/dev/null; then
-    echo "X server starting..."
-    startx
-else
-    #tmux attach -t term || tmux new -s term > /dev/null
-fi
-
-#scl enable gcc-toolset-10 zsh

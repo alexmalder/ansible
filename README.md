@@ -4,9 +4,9 @@ My i3wm configuration center
 
 ## How to apply
 
-`ansible-playbook playbook.yml` 
+`ansible-playbook .playbook.yml` 
 
-## Directories in config
+## Top level in config
 
 - `.config/nvim`
 - `.config/negwm`
@@ -15,6 +15,22 @@ My i3wm configuration center
 - `.config/dunst`
 - `.config/polybar`
 - `.config/i3`
+- `.config/zathura`
+- `.config/picom`
+
+## Top level in home
+- `.clang-format`
+- `.tmux.conf`
+- `.xinitrc`
+- `.zsh`
+- `.zshrc`
+
+## Undeclared templates
+
+- `alsa.conf`
+- `i3.jinja`
+- `master`
+- `Xresources`
 
 ## Example playbook
 
