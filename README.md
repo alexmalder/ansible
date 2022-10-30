@@ -1,10 +1,6 @@
 # I3
 
-My i3wm configuration center
-
-## How to apply
-
-`ansible-playbook .playbook.yml` 
+My i3wm configuration and more
 
 ## Configuration directories
 
