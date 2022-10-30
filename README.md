@@ -6,35 +6,36 @@ My i3wm configuration center
 
 `ansible-playbook .playbook.yml` 
 
-## Top level in config
+## Configuration directories
 
-- `.config/nvim`
-- `.config/negwm`
-- `.config/qutebrowser`
-- `.config/kitty`
-- `.config/dunst`
-- `.config/polybar`
-- `.config/i3`
-- `.config/zathura`
-- `.config/picom`
-
-## Top level in home
-- `.clang-format`
-- `.tmux.conf`
-- `.xinitrc`
-- `.zsh`
-- `.zshrc`
-
-## System
-
-- `templates`
-- `bin`
-- `systemd`
-
-
-## GUI
-
-- `.themes`
+```bash
+# exa --tree -L 1 -a .config home etc .themes
+.config
+├── dunst
+├── i3
+├── kitty
+├── negwm
+├── nvim
+├── picom.conf
+├── polybar
+├── qutebrowser
+├── systemd
+└── zathura
+.themes
+├── Material-Black-Cherry-4.0
+└── README.md
+etc
+├── modprobe.d
+├── salt
+└── systemd
+home
+├── .clang-format
+├── .tmux.conf
+├── .xinitrc
+├── .Xresources
+├── .zsh
+└── .zshrc
+```
 
 ## Example playbook
 

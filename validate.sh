@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-diff_prog="colordiff"
+diff_prog="diff"
 
 diff_not_origin() {
     find_path=$1
