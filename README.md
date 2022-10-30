@@ -51,21 +51,20 @@ My i3wm configuration center
       with_items:
         - ./vars/packages.yml
         - ./vars/desktop.yml
-        - ./vars/files.yml
 
     - name: install packages
-      include_tasks: ./tasks/packages.yml
+      include_tasks: ./.ansible/packages.yml
 
     - name: setup desktop environment
-      include_tasks: ./tasks/desktop.yml
+      include_tasks: ./.ansible/desktop.yml
       vars:
-        xft_dpi: 180
+        xft_dpi: 192
 
     - name: setup iptables
-      include_tasks: ./tasks/iptables.yml
+      include_tasks: ./.ansible/iptables.yml
 
     - name: setup salt master
-      include_tasks: ./tasks/salt.yml
+      include_tasks: ./.ansible/salt.yml
 ```
 
 ## Links
