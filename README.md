@@ -25,18 +25,16 @@ My i3wm configuration center
 - `.zsh`
 - `.zshrc`
 
-## Undeclared templates
+## System
 
-- `alsa.conf`
-- `i3.jinja`
-- `master`
-- `Xresources`
+- `templates`
+- `bin`
+- `systemd`
 
-## Undeclared configs and scripts
 
-- `./bin`
-- `./systemd`
-- `./.themes`
+## GUI
+
+- `.themes`
 
 ## Example playbook
 
