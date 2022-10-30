@@ -1,0 +1,14 @@
+[Unit]
+Description=negwm window manager mod for i3wm
+PartOf=graphical-session.target
+StartLimitBurst=3
+StartLimitIntervalSec=10
+After=xserver.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/negwm
+Restart=on-failure
+RestartSec=5
+#User=alexmalder
+Environment="XDG_CONFIG_HOME=/home/alexmalder/.config"
