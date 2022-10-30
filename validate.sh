@@ -17,7 +17,15 @@ diff_home() {
     done
 }
 
+diff_themes() {
+    for file in $(find ./.themes/Material-Black-Cherry-4.0 -type f); do
+        echo "colordiff $file $HOME/$file"
+        colordiff $file $HOME/$file
+    done
+}
+
 main() {
+    diff_themes
     diff_config
     diff_home
 }
