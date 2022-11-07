@@ -45,6 +45,5 @@ return require('packer').startup(function()
     use 'sindrets/diffview.nvim'
     use 'dstein64/vim-startuptime'
     use 'TimUntersberger/neogit'
-    use 'lepture/vim-jinja'
     use {'neg-serg/neg.nvim'}
 end)
