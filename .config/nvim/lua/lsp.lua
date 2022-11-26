@@ -68,36 +68,17 @@ cmp.setup.cmdline('/', {
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lsp.bashls.setup {
-    capabilities = capabilities,
-}
-
-lsp.tsserver.setup {
-    capabilities = capabilities,
-}
-
-lsp.gopls.setup {
-    capabilities = capabilities,
-}
-
+lsp.bashls.setup { capabilities = capabilities, }
+lsp.tsserver.setup { capabilities = capabilities, }
+lsp.gopls.setup { capabilities = capabilities, }
 lsp.omnisharp.setup{
     cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
     capabilities = capabilities,
 }
-
-
-lsp.pyright.setup {
-    capabilities = capabilities,
-}
-lsp.jdtls.setup{
-    capabilities = capabilities,
-}
-lsp.yamlls.setup{
-    capabilities = capabilities,
-}
-lsp.rust_analyzer.setup{
-    capabilities=capabilities
-}
+lsp.pyright.setup { capabilities = capabilities, }
+lsp.jdtls.setup{ capabilities = capabilities, }
+--lsp.yamlls.setup{ capabilities = capabilities, }
+lsp.rust_analyzer.setup{ capabilities=capabilities }
 lsp.clangd.setup{
     cmd = { "/usr/bin/clangd" },
     filetypes = { "c", "cpp", "objc" },
