@@ -1,3 +1,3 @@
-#!/usr/bin/env /bin/bash
+#!/usr/bin/env /bin/zsh
 source /home/alexmalder/.zshrc
-pass edit $(find /home/alexmalder/.password-store | grep gpg | sed 's/\.password-store\///g' | sed 's/.gpg//g' | sed 's/\.\///g' | fzf)
+pass edit $(find /home/alexmalder/.password-store | grep gpg | sed 's/\/home\/alexmalder\/\.password-store\///g' | sed 's/.gpg//g' | sed 's/\.\///g' | fzf)
