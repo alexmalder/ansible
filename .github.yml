@@ -8,6 +8,7 @@
       git:
         repo: "git@github.com:alexmalder/{{ item }}"
         dest: "~/GitHub/{{ item }}"
+        version: master
       with_items:
         - openldap
         - helm-deployment
