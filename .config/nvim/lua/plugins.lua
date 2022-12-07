@@ -36,7 +36,6 @@ return require('packer').startup(function()
     use 'bfrg/vim-cpp-modern'
     use 'makerj/vim-pdf'
     use 'saltstack/salt-vim'
-    use 'sjbach/lusty'
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
     use 'voldikss/vim-floaterm'
