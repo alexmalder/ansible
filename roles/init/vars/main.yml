@@ -34,6 +34,7 @@ packages:
     - virt-manager
     - salt-ssh
     - salt-master
+    - bluez
   archlinux_spec:
     - python-pip
     - xorg
