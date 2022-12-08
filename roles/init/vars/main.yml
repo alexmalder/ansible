@@ -23,11 +23,15 @@ packages:
     - salt
     - flatpak
     - docker
+    - npm
     - cpupower
+    - pass
   alpine_spec:
     - font-iosevka
     - font-iosevka-nerd
     - font-manager
+    - wl-clipboard
+    - virt-manager
   archlinux_spec:
     - python-pip
     - xorg

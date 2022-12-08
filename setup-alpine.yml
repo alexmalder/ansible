@@ -4,4 +4,6 @@
   connection: local
   roles:
     - role: init
+      vars:
+        flatpak_enabled: yes
     - role: configuration

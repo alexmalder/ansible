@@ -1,0 +1,9 @@
+---
+- name: Install flatpak packages | PACKAGES
+  community.general.flatpak:
+    name:
+      - com.visualstudio.code
+      - md.obsidian.Obsidian
+      - io.github.shiftey.Desktop
+      - io.github.kotatogram
+      - io.podman_desktop.PodmanDesktop

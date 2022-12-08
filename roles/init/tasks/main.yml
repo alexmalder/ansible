@@ -29,3 +29,6 @@
     state: present
   when:
     - ansible_distribution == "Alpine"
+
+- name: Install flatpak packages | PACKAGES
+  import_tasks: ./flatpak.yml
