@@ -32,6 +32,8 @@ packages:
     - font-manager
     - wl-clipboard
     - virt-manager
+    - salt-ssh
+    - salt-master
   archlinux_spec:
     - python-pip
     - xorg
