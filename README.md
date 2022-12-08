@@ -4,7 +4,10 @@
 
 ### `init`
 
-Install base packages
+Install base packages. Supported distributions:
+
+- alpine
+- archlinux
 
 ### `configuration`
 
