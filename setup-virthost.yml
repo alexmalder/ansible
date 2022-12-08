@@ -1,0 +1,19 @@
+---
+- hosts: selectel
+  tasks:
+    - name: Remove the firewalld package
+      ansible.builtin.yum:
+        name: firewalld
+        state: absent
+
+    - name: Install the 'Virtualization Host' package group
+      ansible.builtin.dnf:
+        name: '@Virtualization Host'
+        state: present
+
+    - name: Enable and start libvirtd
+      ansible.builtin.systemd:
+        name: libvirtd
+        state: started
+        enabled: yes
+        daemon_reload: no
