@@ -1,0 +1,61 @@
+---
+- name: clone repositories
+  hosts: 127.0.0.1
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: apk add packages
+      apk:
+        name:
+          - vim
+          - zsh
+          - tmux
+          - mc
+          - ncdu
+          - neovim
+          - git
+          - colordiff
+          - net-tools
+          - fzf
+          - ripgrep
+          - exa
+          - tree
+          - nnn
+          - kitty
+          - chromium
+          - font-iosevka 
+          - font-iosevka-nerd
+          - ansible
+          - salt
+      become: yes
+
+    - name: install zi to .config
+      git:
+        repo: "https://github.com/z-shell/zi"
+        dest: "~/.config/zi"
+        version: main
+
+    - name: setup zsh
+      copy:
+        src: "roles/configuration/files/home/{{ item }}"
+        dest: "~/{{ item }}"
+      with_items:
+        - .zsh
+        - .zshrc
+
+    - name: clone repository by example
+      git:
+        repo: "git@github.com:alexmalder/{{ item }}"
+        dest: "~/Github/{{ item }}"
+        version: master
+      with_items:
+        - openldap
+        - helm-deployment
+        - helm-job
+        - salt
+        - audit
+        - raw-tcp
+        - kanban
+        - obsidian-vault
+        # - i3
+        # - store
