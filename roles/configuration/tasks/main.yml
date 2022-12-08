@@ -12,10 +12,20 @@
     dest: "{{ item.dest }}"
   with_items:
     # CONFIG
-    - src: "./.config"
+    - src: "roles/configuration/files/.config"
       dest: "~/"
     # HOME
-    - src: "./home"
+    - src: "roles/configuration/files/.zshrc"
+      dest: "~/"
+    - src: "roles/configuration/files/.zsh"
+      dest: "~/"
+    - src: "roles/configuration/files/.clang-format"
+      dest: "~/"
+    - src: "roles/configuration/files/.tmux.conf"
+      dest: "~/"
+    - src: "roles/configuration/files/.xinitrc"
+      dest: "~/"
+    - src: "roles/configuration/files/.Xresources"
       dest: "~/"
 
 - name: Deploy sound configuration file to modprobe for archlinux | DESKTOP
@@ -33,23 +43,6 @@
     dest: /etc/modprobe.d/alsa.conf
   when:
     - ansible_distribution == "Alpine"
-
-- name: Clone repositories by example
-  git:
-    repo: "git@github.com:alexmalder/{{ item }}"
-    dest: "~/Github/{{ item }}"
-    version: master
-  with_items:
-    - openldap
-    - helm-deployment
-    - helm-job
-    - salt
-    - audit
-    - raw-tcp
-    - kanban
-    - obsidian-vault
-    # - i3
-    # - store
 
 - name: Restart i3 if needed | DESKTOP
   command: i3-msg restart

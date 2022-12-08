@@ -23,6 +23,7 @@ packages:
     - salt
     - flatpak
     - docker
+    - cpupower
   alpine_spec:
     - font-iosevka
     - font-iosevka-nerd
