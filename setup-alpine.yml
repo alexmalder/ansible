@@ -27,9 +27,11 @@
           - ansible
           - salt
           - flatpak
+          - docker
           # alpine spec
           - font-iosevka 
           - font-iosevka-nerd
+          - font-manager
       become: yes
 
     - name: install zi to .config
