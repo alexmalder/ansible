@@ -32,3 +32,5 @@
 
 - name: Install flatpak packages | PACKAGES
   import_tasks: ./flatpak.yml
+  when:
+    - flatpak_enabled == "yes"
