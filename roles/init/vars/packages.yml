@@ -15,8 +15,8 @@ pacman:
     - exa
     - tree
     - kitty
-  dev:
     - go
+  dev:
     - python-pip
     - xorg
     - xorg-server
@@ -54,7 +54,7 @@ pacman:
 pip:
   base:
     - ansible 
-    - salt 
+    - salt
     - conan 
     - twine
   dev:
