@@ -1,5 +1,6 @@
 ---
-pacman:
+# vars file for init
+packages:
   base:
     - vim
     - zsh
@@ -14,8 +15,24 @@ pacman:
     - ripgrep
     - exa
     - tree
-  dev:
+    - kitty
     - go
+    - nnn
+    - chromium
+    - ansible
+    - salt
+    - flatpak
+    - docker
+    - npm
+    - cpupower
+    - pass
+  alpine_spec:
+    - font-iosevka
+    - font-iosevka-nerd
+    - font-manager
+    - wl-clipboard
+    - virt-manager
+  archlinux_spec:
     - python-pip
     - xorg
     - xorg-server
@@ -49,13 +66,3 @@ pacman:
     - qtcreator
     - deepin-screenshot
     - dunst
-    - kitty
-pip:
-  base:
-    - ansible 
-    - salt 
-    - conan 
-    - twine
-  dev:
-    - asyncio
-    - aiohttp

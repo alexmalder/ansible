@@ -1,66 +1,35 @@
-# I3
+# Ansible
 
-My i3wm configuration and more
+## Roles
 
-## Configuration directories
+### `init`
 
-```bash
-# exa --tree -L 1 -a .config home etc .themes
-.config
-├── dunst
-├── i3
-├── kitty
-├── negwm
-├── nvim
-├── picom.conf
-├── polybar
-├── qutebrowser
-├── systemd
-└── zathura
-.themes
-├── Material-Black-Cherry-4.0
-└── README.md
-etc
-├── modprobe.d
-├── salt
-└── systemd
-home
-├── .clang-format
-├── .tmux.conf
-├── .xinitrc
-├── .Xresources
-├── .zsh
-└── .zshrc
-```
+Install base packages. Supported distributions:
 
-## Example playbook
+- alpine
+- archlinux
 
-```yaml
----
-- name: i3 wm configuration
-  hosts: 127.0.0.1
-  gather_facts: false
-  connection: local
-  tasks:
-    - name: use vars
-      include_vars:
-        file: "{{ item }}"
-      with_items:
-        - ./vars/packages.yml
-        - ./vars/desktop.yml
+### `configuration`
 
-    - name: install packages
-      include_tasks: ./.ansible/packages.yml
+Configure base applications and utilities
 
-    - name: setup desktop environment
-      include_tasks: ./.ansible/desktop.yml
+### `i3`
 
-    - name: setup iptables
-      include_tasks: ./.ansible/iptables.yml
+Setup i3 if needed
 
-    - name: setup salt master
-      include_tasks: ./.ansible/salt.yml
-```
+### `libvirt`
+
+Setup libvirt if needed
+
+### `salt`
+
+Setup salt if needed
+
+## Scripts
+
+### `validate.sh`
+
+### `pull.sh`
 
 ## Links
 

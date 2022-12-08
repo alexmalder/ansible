@@ -1,0 +1,34 @@
+---
+# tasks file for init
+- name: Install base ARCHLINUX packages | PACKAGES
+  become: true
+  pacman:
+    name: "{{ packages.base }}"
+  when:
+    - ansible_distribution == "Archlinux"
+
+- name: Install base ALPINE packages | PACKAGES
+  become: true
+  apk:
+    name: "{{ packages.base }}"
+  when:
+    - ansible_distribution == "Alpine"    
+
+- name: Install dev ARCHLINUX packages | PACKAGES
+  become: true
+  pacman:
+    name: "{{ packages.archlinux_spec }}"
+    state: present
+  when:
+    - ansible_distribution == "Archlinux"
+
+- name: Install dev ALPINE packages | PACKAGES
+  become: true
+  apk:
+    name: "{{ packages.alpine_spec }}"
+    state: present
+  when:
+    - ansible_distribution == "Alpine"
+
+- name: Install flatpak packages | PACKAGES
+  import_tasks: ./flatpak.yml

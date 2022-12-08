@@ -1,4 +1,5 @@
 ---
+# tasks file for salt
 - name: Copy salt master config | SALT
   copy:
     src: ./salt/master
