@@ -35,6 +35,10 @@ packages:
     - salt-ssh
     - salt-master
     - bluez
+    - alsa-utils 
+    - alsa-utils-doc 
+    - alsa-lib alsaconf 
+    - alsa-ucm-conf
   archlinux_spec:
     - python-pip
     - xorg
