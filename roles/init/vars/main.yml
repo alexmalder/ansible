@@ -41,6 +41,7 @@ packages:
     - alsa-ucm-conf
     - task
     - libvirt
+    - libvirt-qemu
   archlinux_spec:
     - python-pip
     - xorg
