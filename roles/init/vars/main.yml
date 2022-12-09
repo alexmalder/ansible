@@ -42,6 +42,11 @@ packages:
     - task
     - libvirt
     - libvirt-qemu
+    - libvirt-daemon 
+    - qemu-img 
+    - qemu-system-x86_64 
+    - qemu-modules 
+    - openrc
   archlinux_spec:
     - python-pip
     - xorg
