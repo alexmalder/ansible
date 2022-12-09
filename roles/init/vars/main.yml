@@ -39,6 +39,8 @@ packages:
     - alsa-utils-doc 
     - alsa-lib alsaconf 
     - alsa-ucm-conf
+    - task
+    - libvirt
   archlinux_spec:
     - python-pip
     - xorg
