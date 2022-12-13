@@ -1,33 +1,9 @@
 ---
-- name: i3 wm configuration
+- name: setup archlinux
   hosts: 127.0.0.1
-  gather_facts: false
   connection: local
   tasks:
-    - name: use vars
-      include_vars:
-        file: "{{ item }}"
-      with_items:
-        - ./vars/packages.yml
-        - ./vars/desktop.yml
-      tags: 
-        - packages
-        - desktop
-        - iptables
-        - salt
-
-    - name: install packages
-      include: ./.ansible/packages.yml
-      tags: packages
-
-    - name: setup desktop environment
-      include: ./.ansible/desktop.yml
-      tags: desktop
-
-    - name: setup iptables
-      include: ./.ansible/iptables.yml
-      tags: iptables
-
-    - name: setup salt master
-      include: ./.ansible/salt.yml
-      tags: salt
+    - role: init
+      vars:
+        flatpak_enabled: no
+    - role: configuration

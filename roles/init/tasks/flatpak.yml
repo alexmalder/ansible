@@ -1,4 +1,11 @@
 ---
+- name: Install flatpak
+  apk:
+    name: flatpak
+
+- name: Setup flatpak default repository
+  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
 - name: Install flatpak packages | PACKAGES
   community.general.flatpak:
     name:

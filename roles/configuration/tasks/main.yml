@@ -11,10 +11,8 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    # CONFIG
     - src: "roles/configuration/files/.config"
       dest: "~/"
-    # HOME
     - src: "roles/configuration/files/.zshrc"
       dest: "~/"
     - src: "roles/configuration/files/.zsh"
