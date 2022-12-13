@@ -2,8 +2,12 @@
 - name: Install flatpak packages | PACKAGES
   community.general.flatpak:
     name:
-      - com.visualstudio.code
-      - md.obsidian.Obsidian
-      - io.github.shiftey.Desktop
-      - io.github.kotatogram
-      - io.podman_desktop.PodmanDesktop
+      - com.dec05eba.gpu_screen_recorder 
+      - com.mattjakeman.ExtensionManager
+      - com.visualstudio.code        
+      - io.dbeaver.DBeaverCommunity 
+      - io.github.kotatogram                      
+      - io.podman_desktop.PodmanDesktop           
+      - md.obsidian.Obsidian                      
+      - org.mozilla.firefox                       
+      - us.zoom.Zoom 
