@@ -1,0 +1,12 @@
+---
+- name: Install base ALPINE packages | PACKAGES
+  become: true
+  apk:
+    name: "{{ packages.base }}"
+
+
+- name: Install dev ALPINE packages | PACKAGES
+  become: true
+  apk:
+    name: "{{ packages.alpine_spec }}"
+    state: present

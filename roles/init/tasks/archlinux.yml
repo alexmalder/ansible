@@ -1,0 +1,10 @@
+- name: Install base ARCHLINUX packages | PACKAGES
+  become: true
+  pacman:
+    name: "{{ packages.base }}"
+
+- name: Install dev ARCHLINUX packages | PACKAGES
+  become: true
+  pacman:
+    name: "{{ packages.archlinux_spec }}"
+    state: present

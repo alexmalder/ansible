@@ -26,14 +26,6 @@
     - src: "roles/configuration/files/.Xresources"
       dest: "~/"
 
-- name: Deploy sound configuration file to modprobe for archlinux | DESKTOP
-  become: true
-  copy:
-    src: roles/configuration/files/etc/modprobe.d/alsa-archlinux.conf
-    dest: /etc/modprobe.d/alsa.conf
-  when:
-    - ansible_distribution == "Archlinux"
-
 - name: Deploy sound configuration file to modprobe for alpine | DESKTOP
   become: true
   copy:
@@ -41,6 +33,14 @@
     dest: /etc/modprobe.d/alsa.conf
   when:
     - ansible_distribution == "Alpine"
+
+- name: Deploy sound configuration file to modprobe for archlinux | DESKTOP
+  become: true
+  copy:
+    src: roles/configuration/files/etc/modprobe.d/alsa-archlinux.conf
+    dest: /etc/modprobe.d/alsa.conf
+  when:
+    - ansible_distribution == "Archlinux"
 
 - name: Restart i3 if needed | DESKTOP
   command: i3-msg restart
