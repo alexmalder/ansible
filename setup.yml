@@ -6,4 +6,4 @@
     - role: init
       vars:
         role_name: init
-        flatpak_enabled: yes
+        flatpak_enabled: no
