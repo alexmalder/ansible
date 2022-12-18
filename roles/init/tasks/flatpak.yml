@@ -8,13 +8,14 @@
 
 - name: Install flatpak packages | PACKAGES
   community.general.flatpak:
-    name:
-      - com.dec05eba.gpu_screen_recorder 
-      - com.mattjakeman.ExtensionManager
-      - com.visualstudio.code        
-      - io.dbeaver.DBeaverCommunity 
-      - io.github.kotatogram                      
-      - io.podman_desktop.PodmanDesktop           
-      - md.obsidian.Obsidian                      
-      - org.mozilla.firefox                       
-      - us.zoom.Zoom 
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - com.mattjakeman.ExtensionManager
+    - com.visualstudio.code        
+    - io.dbeaver.DBeaverCommunity 
+    - io.github.kotatogram                      
+    - io.podman_desktop.PodmanDesktop           
+    - md.obsidian.Obsidian                      
+    - org.mozilla.firefox                       
+    - us.zoom.Zoom

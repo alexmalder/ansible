@@ -4,31 +4,26 @@
 
 ### `init`
 
-Install base packages. Supported distributions:
+Install base packages, configure applications and utilities
+
+Supported distributions:
 
 - alpine
 - archlinux
 
-### `configuration`
+### `salt`
 
-Configure base applications and utilities
+Setup salt stack
 
-### `i3`
-
-Setup i3 if needed
+## Playbooks
 
 ### `libvirt`
 
-Setup libvirt if needed
-
-### `salt`
-
-Setup salt if needed
+Setup libvirtd for centos or archlinux
 
 ## Scripts
 
 ### `validate.sh`
-
 ### `pull.sh`
 
 ## Links
