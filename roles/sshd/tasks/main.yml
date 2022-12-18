@@ -1,0 +1,12 @@
+---
+- name: Push sshd configuration
+  copy:
+    src: ./roles/sshd/files/sshd_config
+    dest: /etc/ssh/sshd_config
+
+- name: Enable and restart sshd service
+  systemd:
+    name: sshd
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

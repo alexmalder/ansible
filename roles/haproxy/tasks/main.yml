@@ -1,5 +1,8 @@
 ---
-# tasks file for haproxy
+- name: Disable SELinux
+  selinux: 
+    state: disabled
+
 - name: Install haproxy
   yum:
     name: haproxy
@@ -16,3 +19,15 @@
   copy:
     src: ./roles/haproxy/files/haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
+
+- name: Push service
+  copy:
+    src: ./roles/haproxy/files/haproxy.service
+    dest: /usr/lib/systemd/system/haproxy.service
+
+- name: Enable and restart haproxy service
+  systemd:
+    name: haproxy
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

@@ -1,0 +1,22 @@
+$TTL 86400
+@   IN  SOA     ns1.{{ vars.DNS_DOMAIN }}. root.{{ vars.DNS_DOMAIN }}. (
+                                              3           ;Serial
+                                              3600        ;Refresh
+                                              1800        ;Retry
+                                              604800      ;Expire
+                                              86400       ;Minimum TTL
+)
+
+;Name Server Information
+@           IN    NS      ns1.{{ vars.DNS_DOMAIN }}.
+
+;IP address of Name Server
+ns1         IN    A       {{ vars.DNS_IP }}
+
+;A - Record HostName To Ip Address
+www         IN    A       {{ vars.DNS_PROXY_IP }}
+
+;CNAME record
+{% for domain in vars.DNS_DOMAINS %}
+{{ domain }}        IN    CNAME   www
+{% endfor %}

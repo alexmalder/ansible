@@ -1,4 +1,4 @@
 ---
-- name: selectel
+- hosts: selectel
   roles:
     - role: bind

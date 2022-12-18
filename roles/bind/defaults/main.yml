@@ -1,2 +1,10 @@
 ---
-# defaults file for bind
+DNS_DOMAIN: vnmntn.pro
+DNS_DB: 10.10.10
+DNS_IP: 10.10.10.1
+DNS_PROXY_IP: 10.10.10.1
+DNS_DOMAINS:
+  - jira
+  - superset
+  - tutors
+  - gitea
