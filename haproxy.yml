@@ -1,0 +1,4 @@
+---
+- hosts: selectel
+  roles:
+    - role: haproxy

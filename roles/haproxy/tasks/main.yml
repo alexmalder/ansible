@@ -1,0 +1,18 @@
+---
+# tasks file for haproxy
+- name: Install haproxy
+  yum:
+    name: haproxy
+
+- name: Push temp configuration
+  copy:
+    src: ./roles/haproxy/files/haproxy.cfg
+    dest: /etc/haproxy/haproxy_temp.cfg
+
+- name: Check config
+  command: haproxy -f /etc/haproxy/haproxy_temp.cfg -c
+
+- name: Push configuration
+  copy:
+    src: ./roles/haproxy/files/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg

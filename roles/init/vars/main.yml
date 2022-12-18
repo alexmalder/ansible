@@ -2,7 +2,7 @@
 # vars file for init
 packages:
   base:
-    - vim
+    #- vim
     - zsh
     - tmux
     - mc
