@@ -7,4 +7,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN ansible-playbook setup-alpine.yml
+RUN ansible-playbook setup.yml
