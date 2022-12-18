@@ -1,9 +1,9 @@
 ---
-- name: setup alpine
+- name: setup system
   hosts: 127.0.0.1
   connection: local
   roles:
     - role: init
       vars:
+        role_name: init
         flatpak_enabled: yes
-    - role: configuration

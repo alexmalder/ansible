@@ -1,3 +1,4 @@
+---
 - name: Install base ARCHLINUX packages | PACKAGES
   become: true
   pacman:

@@ -1,9 +1,0 @@
----
-- name: setup archlinux
-  hosts: 127.0.0.1
-  connection: local
-  tasks:
-    - role: init
-      vars:
-        flatpak_enabled: no
-    - role: configuration
