@@ -1,10 +1,10 @@
 #/bin/bash
 
-#set -eo pipefail
+set -eo pipefail
 
 diff_prog="colordiff"
 
-diff_not_origin() {
+diff_func() {
     find_path=$1
     sed_pattern=$2
     for file in $(find ${find_path} -type f); do
@@ -14,19 +14,9 @@ diff_not_origin() {
     done
 }
 
-diff_by_path() {
-    find_path=$1
-    second_path=$2
-    for file in $(find ${find_path} -type f); do
-        echo "$diff_prog $file $second_path/$file"
-        $diff_prog $file $second_path/$file
-    done
-}
-
 main() {
-    diff_by_path .config $HOME
-    diff_not_origin home "home\/"
-    diff_by_path etc
+    diff_func roles/init/files/home "roles\/init\/files\/home\/"
+    diff_func roles/init/files/.config "roles\/init\/files\/"
 }
 
 main

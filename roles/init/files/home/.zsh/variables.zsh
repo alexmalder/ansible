@@ -10,7 +10,7 @@ export NVIM_PYTHON_LOG_LEVEL=DEBUG
 export FZF_DEFAULT_OPTS='--color=bg+:-1,bg:-1,spinner:0,hl:51'
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g !.git'
 export PATH=$PATH:$HOME/go/bin
-export TERM="screen-256color"
+export TERM="xterm-256color"
 export LANG="en_US.UTF-8"
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin

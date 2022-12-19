@@ -4,7 +4,7 @@ source "$XDG_CONFIG_HOME/zi/zi.zsh"
 
 zi load zsh-users/zsh-syntax-highlighting
 zi light zsh-users/zsh-autosuggestions
-zi light sunlei/zsh-ssh
+#zi light sunlei/zsh-ssh
 zi light joshskidmore/zsh-fzf-history-search
 
 source $HOME/.zsh/functions.zsh
