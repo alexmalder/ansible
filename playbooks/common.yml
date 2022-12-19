@@ -1,0 +1,8 @@
+---
+- hosts: vm
+  tasks:
+    - name: remove ugly packages
+      yum:
+        name: 
+          - firewalld
+        state: absent

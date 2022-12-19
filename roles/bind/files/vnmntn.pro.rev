@@ -1,0 +1,18 @@
+$TTL 86400
+@ IN SOA dns-primary.vnmntn.pro. admin.vnmntn.pro. (
+                                            2020011800 ;Serial
+                                            3600 ;Refresh
+                                            1800 ;Retry
+                                            604800 ;Expire
+                                            86400 ;Minimum TTL
+)
+;Name Server Information
+@ IN NS dns-primary.vnmntn.pro.
+dns-primary     IN      A       192.168.122.16
+
+;Reverse lookup for Name Server
+35 IN PTR dns-primary.vnmntn.pro.
+
+;PTR Record IP address to Hostname
+50      IN      PTR     www.vnmntn.pro.
+60      IN      PTR     mail.vnmntn.pro.
