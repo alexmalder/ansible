@@ -22,48 +22,24 @@ function git_prompt_info {
 }
 
 function rationalise-dot {
-local MATCH
-if [[ $LBUFFER =~ '(^|/| |  |'$'\n''|\||;|&)\.\.$' ]]; then
-    LBUFFER+=/
-    zle self-insert
-    zle self-insert
-else
-    zle self-insert
-fi
+    local MATCH
+    if [[ $LBUFFER =~ '(^|/| |  |'$'\n''|\||;|&)\.\.$' ]]; then
+        LBUFFER+=/
+        zle self-insert
+        zle self-insert
+    else
+        zle self-insert
+    fi
 }
 
 function search {
     cd $(find . -type d -print | fzf)
 }
 
-function vpn_switch {
-    sudo systemctl status openvpn-client.service > /dev/null
-    if [[ $? = 0 ]]; then
-        sudo systemctl stop openvpn-client.service > /dev/null
-        sudo systemctl start wg-quick@wg0.service > /dev/null
-        echo "enabling wireguard, exit..."
-    else
-        sudo systemctl stop wg-quick@wg0.service > /dev/null
-        sudo systemctl start openvpn-client.service > /dev/null
-        echo "enabling openvpn, exit..."
-    fi
-}
-
-function salt_enable {
-    sudo mkdir -p /var/run/salt 
-    sudo chown -R $USER /var/run/salt 
-    sudo systemctl restart salt-master
-}
-
-function bluetooth {
-    sudo setenforce 0
-    sudo systemctl restart bluetooth
-}
-
-function fzfpass {
-    pass edit $(find .password-store | grep gpg | sed 's/\.password-store\///g' | sed 's/.gpg//g' | sed 's/\.\///g' | fzf)
-}
-
 function helm_upload {
     curl --insecure -v -F file=@$1 -u "$CHARTMUSEUM_USERNAME:$CHARTMUSEUM_PASSWORD" $CHARTMUSEUM
+}
+
+function url_to_md {
+    curl $1 | pandoc -f html -t markdown > $2
 }

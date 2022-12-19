@@ -5,48 +5,21 @@
     dest: "~/.config/zi"
     version: main
 
-- name: Deploy configuration files
+- name: Deploy user configuration files
   copy:
     src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    dest: "~/"
   with_items:
     - src: "roles/{{ role_name }}/files/.config"
-      dest: "~/"
-    - src: "roles/{{ role_name }}/files/.zshrc"
-      dest: "~/"
-    - src: "roles/{{ role_name }}/files/.zsh"
-      dest: "~/"
-    - src: "roles/{{ role_name }}/files/.clang-format"
-      dest: "~/"
-    - src: "roles/{{ role_name }}/files/.tmux.conf"
-      dest: "~/"
-    - src: "roles/{{ role_name }}/files/.xinitrc"
-      dest: "~/"
-    - src: "roles/{{ role_name }}/files/.Xresources"
-      dest: "~/"
+    - src: "roles/{{ role_name }}/files/home/.zshrc"
+    - src: "roles/{{ role_name }}/files/home/.zsh"
+    - src: "roles/{{ role_name }}/files/home/.clang-format"
+    - src: "roles/{{ role_name }}/files/home/.tmux.conf"
+    - src: "roles/{{ role_name }}/files/home/.xinitrc"
+    - src: "roles/{{ role_name }}/files/home/.Xresources"
 
 - name: Deploy sound configuration file to modprobe for alpine
   become: true
   copy:
-    src: "roles/{{ role_name }}/files/etc/modprobe.d/alsa-alpine.conf"
+    src: "roles/{{ role_name }}/files/etc/modprobe.d/{{ ansible_distribution }}.conf"
     dest: /etc/modprobe.d/alsa.conf
-  when:
-    - ansible_distribution == "Alpine"
-
-- name: Deploy sound configuration file to modprobe for archlinux
-  become: true
-  copy:
-    src: "roles/{{ role_name }}/files/etc/modprobe.d/alsa-archlinux.conf"
-    dest: /etc/modprobe.d/alsa.conf
-  when:
-    - ansible_distribution == "Archlinux"
-
-- name: Setup i3 by template
-  template:
-    src: "roles/{{ role_name }}/templates/i3.jinja"
-    dest: ~/.config/i3/config
-
-- name: Restart i3 if needed
-  command: i3-msg restart
-  when:
-    - ansible_distribution == "Archlinux"
