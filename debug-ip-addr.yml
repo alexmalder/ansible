@@ -1,0 +1,14 @@
+---
+- hosts: vm
+  tasks:
+    - name: Install net tools
+      yum:
+        name: net-tools
+
+    - name: Get ip addresses
+      command: ifconfig enp1s0 | grep inet
+      register: output
+
+    - name: Print ip addresses
+      debug:
+        msg: "{{ output.stdout_lines }}"

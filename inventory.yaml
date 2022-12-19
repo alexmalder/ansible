@@ -1,0 +1,27 @@
+---
+all:
+  children:
+    selectel:
+      hosts:
+        hypervisor:
+          ansible_host: 91.206.15.104
+          ansible_user: root
+    vm:
+      hosts:
+        db-master:
+          ansible_port: 10010
+        db-slave:
+          ansible_port: 10011
+        node1:
+          ansible_port: 10012
+        node2:
+          ansible_port: 10013
+        node3:
+          ansible_port: 10014
+        gitlab-runner:
+          ansible_port: 10015
+        dns:
+          ansible_port: 10016
+      vars:
+        ansible_host: 10.10.10.1
+        ansible_user: root
