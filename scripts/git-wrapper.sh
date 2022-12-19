@@ -8,14 +8,15 @@ GITLAB_DOMAIN=gitlab.com
 GITLAB_GROUP=alex_malder
 remotes=("gitlab" "origin") # origin is github
 
-push_repo() {
-    echo "$WORKDIR/$1"
-    git -C $WORKDIR/$1 remote add gitlab $GITLAB_USER@$GITLAB_DOMAIN:$GITLAB_GROUP/$1
-    for remote in $remotes; do
-        git -C $WORKDIR/$1 push -u $remote master
-    done
-}
-
 for repository in $(ls $WORKDIR); do
-    push_repo $repository &
+    #git -C $WORKDIR/$repository remote add gitlab $GITLAB_USER@$GITLAB_DOMAIN:$GITLAB_GROUP/$repository > /dev/null 2>&1
+    #echo ""
+    #echo "REPOSITORY: [ $repository ]  "
+    #echo ""
+    git -C $WORKDIR/$repository log -1
+    for remote in "${remotes[@]}"; do
+        #echo "git -C $repository push -u $remote master"
+        #git -C $WORKDIR/$repository push -u $remote master > /dev/null 2>&1
+        echo ""
+    done
 done
