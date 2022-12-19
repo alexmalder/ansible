@@ -20,6 +20,7 @@ packages:
     - nnn
     - chromium
     - ansible
+    - ansible-lint
     - salt
     - flatpak
     - docker
