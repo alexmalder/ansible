@@ -47,6 +47,8 @@ packages:
     - qemu-system-x86_64 
     - qemu-modules 
     - openrc
+    - ffmpeg
+    - mpv
   archlinux_spec:
     - python-pip
     - xorg
