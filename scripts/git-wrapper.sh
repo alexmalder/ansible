@@ -13,10 +13,9 @@ for repository in $(ls $WORKDIR); do
     #echo ""
     #echo "REPOSITORY: [ $repository ]  "
     #echo ""
-    git -C $WORKDIR/$repository log -1
     for remote in "${remotes[@]}"; do
         #echo "git -C $repository push -u $remote master"
-        #git -C $WORKDIR/$repository push -u $remote master > /dev/null 2>&1
-        echo ""
+        git -C $WORKDIR/$repository push -u $remote master > /dev/null 2>&1
     done
+    git -C $WORKDIR/$repository log -1 --oneline
 done
