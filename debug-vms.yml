@@ -1,0 +1,31 @@
+---
+- hosts: selectel
+  tasks:
+    - name: Install libvirt python
+      yum:
+        name: python3-libvirt
+
+    - name: List all VMs
+      community.libvirt.virt:
+        command: list_vms
+        state: running
+      register: output
+
+    - name: Print ip addresses
+      debug:
+        msg: "{{ output.list_vms }}"
+
+    - name: Set autostart for a VM
+      community.libvirt.virt:
+        name: "{{ item }}"
+        autostart: yes
+      with_items: "{{ output.list_vms }}"
+
+    - name: Get info by VMs
+      community.libvirt.virt:
+        command: info
+      register: info
+
+    - name: Print this
+      debug:
+        msg: "{{ info }}"
