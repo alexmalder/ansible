@@ -6,7 +6,7 @@
         name: net-tools
 
     - name: Get ip addresses
-      command: ifconfig enp1s0 | grep inet
+      command: ip addr show enp1s0
       register: output
 
     - name: Print ip addresses
