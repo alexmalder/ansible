@@ -11,9 +11,42 @@ Supported distributions:
 - alpine
 - archlinux
 
-### `salt`
+### `haproxy`
+### `bind`
 
-Setup salt stack
+## Migration from salt
+
+- [ ] auditbeat
+- [x] ci
+- [ ] clickhouse
+- [x] common
+- [x] dns
+- [ ] entrypoint
+    - [ ] wireguard
+    - [ ] iptables
+- [ ] fail2ban
+- [ ] filebeat
+- [x] haproxy
+- [ ] node_exporter
+- [ ] promstack
+- [ ] sftp
+- [ ] sshd
+- [ ] vector
+
+### Kafka
+
+- [ ] kafka
+- [ ] schema-registry
+
+### Optional
+
+- [ ] rabbitmq_exporter
+- [ ] elasticsearch
+- [ ] minion
+- [ ] gitea
+- [ ] jupyter
+- [ ] users
+- [ ] systemd
 
 ## Playbooks
 
@@ -25,6 +58,7 @@ Setup libvirtd for centos or archlinux
 
 ### `validate.sh`
 ### `pull.sh`
+### `git-wrapper.sh`
 
 ## Links
 
