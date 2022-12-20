@@ -1,12 +1,15 @@
 ---
 - name: Push sshd configuration
-  copy:
+  ansible.builtin.copy:
     src: ./roles/sshd/files/sshd_config
     dest: /etc/ssh/sshd_config
+    owner: sshd
+    group: sshd
+    mode: 0640
 
 - name: Enable and restart sshd service
-  systemd:
+  ansible.builtin.systemd:
     name: sshd
     state: restarted
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true

@@ -1,6 +1,10 @@
 ---
 - hosts: vm
   tasks:
+    - name: Disable SELinux
+      ansible.posix.selinux: 
+        state: disabled
+
     - name: remove ugly packages
       yum:
         name: 

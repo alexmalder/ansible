@@ -27,6 +27,12 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: username.rolename, x: 42 }
 
+TODO
+----
+
+- [ ] named-checkzone vnmntn.pro /var/named/vnmntn.pro.db
+- [ ] named-checkzone 192.168.122.16 /var/named/vnmntn.pro.rev
+
 License
 -------
 

@@ -1,11 +1,44 @@
 ---
-- name: Install base ARCHLINUX packages | PACKAGES
+- name: Install base archlinux packages
   become: true
-  pacman:
+  community.general.pacman:
     name: "{{ packages.base }}"
 
-- name: Install dev ARCHLINUX packages | PACKAGES
+- name: Install dev archlinux packages
   become: true
-  pacman:
-    name: "{{ packages.archlinux_spec }}"
+  community.general.pacman:
+    name:
+      - python-pip
+      - xorg
+      - xorg-server
+      - xorg-xinit
+      - i3-gaps
+      - dmenu
+      - qutebrowser
+      - telegram-desktop
+      - evolution
+      - xfce4-power-manager
+      - nautilus
+      - alacritty
+      - xdotool
+      - feh
+      - polybar
+      - picom
+      - fontconfig
+      - wireguard-tools
+      - lxappearance
+      - xf86-input-synaptics
+      - gcc11
+      - gcc11-libs
+      - make
+      - cmake
+      - llvm
+      - clang
+      - glab
+      - kubectl
+      - helm
+      - gopls
+      - qtcreator
+      - deepin-screenshot
+      - dunst
     state: present

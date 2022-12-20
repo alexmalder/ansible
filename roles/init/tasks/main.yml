@@ -1,14 +1,13 @@
 ---
-# tasks file for init
 - name: Install packages for archlinux
-  import_tasks: ./archlinux.yml
+  ansible.builtin.import_tasks: ./archlinux.yml
   when:
     - ansible_distribution == "Archlinux"
 
 - name: Install packages for alpine
-  import_tasks: ./alpine.yml
+  ansible.builtin.import_tasks: ./alpine.yml
   when:
-    - ansible_distribution == "Alpine"    
+    - ansible_distribution == "Alpine"
 
 - name: Configure system
-  import_tasks: ./configure.yml
+  ansible.builtin.import_tasks: ./configure.yml

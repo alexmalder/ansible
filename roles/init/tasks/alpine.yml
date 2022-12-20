@@ -1,11 +1,35 @@
 ---
 - name: Install base ALPINE packages | PACKAGES
   become: true
-  apk:
+  community.general.apk:
     name: "{{ packages.base }}"
 
 - name: Install dev ALPINE packages | PACKAGES
   become: true
-  apk:
-    name: "{{ packages.alpine_spec }}"
+  community.general.apk:
+    name:
+      - font-iosevka
+      - font-iosevka-nerd
+      - font-manager
+      - wl-clipboard
+      - virt-manager
+      - salt-ssh
+      - salt-master
+      - bluez
+      - alsa-utils
+      - alsa-utils-doc
+      - alsa-lib
+      - alsaconf
+      - alsa-ucm-conf
+      - task
+      - libvirt
+      - libvirt-qemu
+      - libvirt-daemon
+      - qemu-img
+      - qemu-system-x86_64
+      - qemu-modules
+      - openrc
+      - ffmpeg
+      - mpv
+      - util-linux
     state: present

@@ -1,33 +1,40 @@
 ---
-- name: Disable SELinux
-  selinux: 
-    state: disabled
-
 - name: Install haproxy
-  yum:
+  ansible.builtin.yum:
     name: haproxy
 
 - name: Push temp configuration
-  copy:
+  ansible.builtin.copy:
     src: ./roles/haproxy/files/haproxy.cfg
     dest: /etc/haproxy/haproxy_temp.cfg
+    owner: haproxy
+    group: haproxy
+    mode: 0640
 
 - name: Check config
-  command: haproxy -f /etc/haproxy/haproxy_temp.cfg -c
+  ansible.builtin.command: haproxy -f /etc/haproxy/haproxy_temp.cfg -c
+  register: validation_result
+  changed_when: "'Fatal errors found in configuration' not in {{ validation_result.stderr }}"
 
 - name: Push configuration
-  copy:
+  ansible.builtin.copy:
     src: ./roles/haproxy/files/haproxy.cfg
     dest: /etc/haproxy/haproxy.cfg
+    owner: haproxy
+    group: haproxy
+    mode: 0640
 
 - name: Push service
-  copy:
+  ansible.builtin.copy:
     src: ./roles/haproxy/files/haproxy.service
     dest: /usr/lib/systemd/system/haproxy.service
+    owner: haproxy
+    group: haproxy
+    mode: 0640
 
 - name: Enable and restart haproxy service
-  systemd:
+  ansible.builtin.systemd:
     name: haproxy
     state: restarted
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true

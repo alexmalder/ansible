@@ -1,12 +1,12 @@
 ---
 - name: Install bind
-  yum:
+  ansible.builtin.yum:
     name:
       - bind
       - bind-utils
 
 - name: Push named configuration
-  copy:
+  ansible.builtin.copy:
     src: "roles/bind/files/named.conf"
     dest: /etc/named.conf
     owner: root
@@ -14,7 +14,7 @@
     mode: 0640
 
 - name: Push db configuration
-  copy:
+  ansible.builtin.copy:
     src: "roles/bind/files/vnmntn.pro.db"
     dest: "/var/named/vnmntn.pro.db"
     owner: named
@@ -22,19 +22,16 @@
     mode: 0660
 
 - name: Push rev configuration
-  copy:
+  ansible.builtin.copy:
     src: "roles/bind/files/vnmntn.pro.rev"
     dest: "/var/named/vnmntn.pro.rev"
     owner: named
     group: named
     mode: 0660
 
-# named-checkzone vnmntn.pro /var/named/vnmntn.pro.db
-# named-checkzone 192.168.122.16 /var/named/vnmntn.pro.rev
-
 - name: Enable and restart named service
-  systemd:
+  ansible.builtin.systemd:
     name: named
     state: restarted
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true

@@ -12,8 +12,8 @@ setters:
   - $mod Mod4
   - $circle exec ~/.config/i3/circle
 
-startup:
-  #- sudo wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlo1
+# startup:
+#   - sudo wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlo1
 
 circle:
   - ["x", "kitty", "term"]
@@ -54,4 +54,4 @@ bindsym:
   - $mod+r mode resize
   - $mod+g exec dmenu_run -nb '#000000' -sf '#000000' -sb '#909090' -nf '#909090' -fn 'Iosevka Nerd Font-12'
   - $mod+f fullscreen toggle
-  #- $mod+Shift+p exec deepin-screenshot
+  - $mod+Shift+p exec deepin-screenshot
