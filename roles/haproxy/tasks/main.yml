@@ -5,7 +5,7 @@
 
 - name: Push temp configuration
   ansible.builtin.copy:
-    src: ./roles/haproxy/files/haproxy.cfg
+    src: "roles/haproxy/files/{{ ansible_hostname }}.cfg"
     dest: /etc/haproxy/haproxy_temp.cfg
     owner: haproxy
     group: haproxy
@@ -14,11 +14,11 @@
 - name: Check config
   ansible.builtin.command: haproxy -f /etc/haproxy/haproxy_temp.cfg -c
   register: validation_result
-  changed_when: "'Fatal errors found in configuration' not in {{ validation_result.stderr }}"
+  failed_when: validation_result.rc != 0
 
 - name: Push configuration
   ansible.builtin.copy:
-    src: ./roles/haproxy/files/haproxy.cfg
+    src: "roles/haproxy/files/{{ ansible_hostname }}.cfg"
     dest: /etc/haproxy/haproxy.cfg
     owner: haproxy
     group: haproxy
@@ -26,7 +26,7 @@
 
 - name: Push service
   ansible.builtin.copy:
-    src: ./roles/haproxy/files/haproxy.service
+    src: roles/haproxy/files/haproxy.service
     dest: /usr/lib/systemd/system/haproxy.service
     owner: haproxy
     group: haproxy

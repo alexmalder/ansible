@@ -1,14 +1,6 @@
 ---
 - hosts: vm
   tasks:
-    - name: Install net tools
-      yum:
-        name: net-tools
-
-    - name: Get ip addresses
-      command: ip addr show enp1s0
-      register: output
-
-    - name: Print ip addresses
+    - name: Print hostname
       debug:
-        msg: "{{ output.stdout_lines }}"
+        msg: "{{ ansible_hostname }}"

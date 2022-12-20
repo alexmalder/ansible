@@ -1,4 +1,5 @@
 ---
-- hosts: dns
+- hosts: DNS
   roles:
-    - role: bind
+    - name: Setup DNS
+      role: bind
