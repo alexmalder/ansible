@@ -1,0 +1,14 @@
+---
+stages:
+  - lint
+
+lint:
+  image: python:3.8
+  stage: lint
+  script:
+    - pip install ansible-lint
+    - ansible-lint .
+  only:
+    - master
+  tags:
+    - docker
