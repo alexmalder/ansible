@@ -17,11 +17,11 @@ dns-primary IN A 192.168.122.16
 vnmntn.pro. IN MX 10 mail.vnmntn.pro.
 
 ;A Record for the following Host name
-www  IN   A   192.168.43.50
-mail IN   A   192.168.43.60
+www   IN   A   10.10.10.1
+mail  IN   A   192.168.43.60
 node1 IN   A   192.168.122.12
 node2 IN   A   192.168.122.13
 node3 IN   A   192.168.122.14
 
 ;CNAME Record
-ftp  IN   CNAME www.vnmntn.pro.
+git   IN   CNAME www.vnmntn.pro.

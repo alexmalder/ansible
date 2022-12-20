@@ -1,0 +1,12 @@
+---
+- name: Setup haproxy
+  hosts: selectel
+  roles:
+    - name: Use haproxy role
+      role: haproxy
+
+- name: Setup DNS server
+  hosts: dns
+  roles:
+    - name: Use bind role
+      role: bind

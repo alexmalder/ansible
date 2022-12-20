@@ -1,6 +1,0 @@
----
-- name: Haproxy general playbook
-  hosts: selectel
-  roles:
-    - name: Run haproxy role
-      role: haproxy
