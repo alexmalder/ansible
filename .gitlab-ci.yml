@@ -1,6 +1,7 @@
 ---
 stages:
   - lint
+  - test
 
 lint:
   image: python:3.8
@@ -8,6 +9,17 @@ lint:
   script:
     - pip install ansible-lint
     - ansible-lint .
+  only:
+    - master
+  tags:
+    - docker
+
+test-setup:
+  image: alpine:3.17
+  stage: test
+  script:
+    - apk add ansible
+    - ansible-playbook ./setup.yml
   only:
     - master
   tags:
