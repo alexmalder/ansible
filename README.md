@@ -23,8 +23,6 @@ Supported distributions:
 - [x] common
 - [x] dns
 - [ ] entrypoint[wireguard]
-- [ ] fail2ban
-- [ ] filebeat
 - [x] haproxy
 - [ ] node_exporter
 - [ ] promstack
@@ -39,6 +37,8 @@ Supported distributions:
 
 ### Optional
 
+- [ ] fail2ban
+- [ ] filebeat
 - [ ] auditbeat
 - [ ] rabbitmq_exporter
 - [ ] elasticsearch
