@@ -16,7 +16,10 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Prepare env
-        run: sudo apt install ansible -y
+        run: sudo apt install ansible ansible-lint -y
+
+      - name: Lint all
+        run: ansible-lint *.yml
 
       - name: Docker build
         run: docker build . -t ansible
