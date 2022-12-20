@@ -7,4 +7,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN ansible-playbook setup.yml
+RUN ansible-playbook init.yml
