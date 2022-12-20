@@ -10,10 +10,5 @@
   when:
     - ansible_distribution == "Alpine"    
 
-- name: Install flatpak packages
-  import_tasks: ./flatpak.yml
-  when:
-    - ansible_distribution == "Alpine" and flatpak_enabled == "yes"
-
 - name: Configure system
   import_tasks: ./configure.yml
