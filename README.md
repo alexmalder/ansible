@@ -16,21 +16,20 @@ Supported distributions:
 
 ## Migration from salt
 
-- [ ] auditbeat
+### Required
+
 - [x] ci
 - [ ] clickhouse
 - [x] common
 - [x] dns
-- [ ] entrypoint
-    - [ ] wireguard
-    - [ ] iptables
+- [ ] entrypoint[wireguard]
 - [ ] fail2ban
 - [ ] filebeat
 - [x] haproxy
 - [ ] node_exporter
 - [ ] promstack
 - [ ] sftp
-- [ ] sshd
+- [x] sshd
 - [ ] vector
 
 ### Kafka
@@ -40,6 +39,7 @@ Supported distributions:
 
 ### Optional
 
+- [ ] auditbeat
 - [ ] rabbitmq_exporter
 - [ ] elasticsearch
 - [ ] minion
