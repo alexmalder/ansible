@@ -50,6 +50,7 @@ packages:
     - openrc
     - ffmpeg
     - mpv
+    - util-linux
   archlinux_spec:
     - python-pip
     - xorg

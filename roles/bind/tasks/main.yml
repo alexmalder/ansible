@@ -29,11 +29,8 @@
     group: named
     mode: 0660
 
-- name: Check db configuration
-  command: named-checkzone vnmntn.pro /var/named/vnmntn.pro.db
-
-- name: Check rev configuration
-  command: named-checkzone 192.168.122.16 /var/named/vnmntn.pro.rev
+# named-checkzone vnmntn.pro /var/named/vnmntn.pro.db
+# named-checkzone 192.168.122.16 /var/named/vnmntn.pro.rev
 
 - name: Enable and restart named service
   systemd:

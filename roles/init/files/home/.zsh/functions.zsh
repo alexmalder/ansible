@@ -43,3 +43,7 @@ function helm_upload {
 function url_to_md {
     curl $1 | pandoc -f html -t markdown > $2
 }
+
+function conn {
+    ssh $(cat .ssh/config | grep "Host " | sed 's/Host\ //g' | fzf)
+}
