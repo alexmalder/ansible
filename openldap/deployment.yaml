@@ -1,0 +1,58 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ldap-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ldap-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ldap
+  template:
+    metadata:
+      labels:
+        app: ldap
+    spec:
+      containers:
+        - name: ldap
+          image: almalinux:8.4
+          command: ["sleep", "infinity"]
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 22
+          volumeMounts:
+            - mountPath: /var/lib/openldap
+              name: ldap
+      volumes:
+        - name: ldap
+          persistentVolumeClaim:
+            claimName: ldap-pv-claim
