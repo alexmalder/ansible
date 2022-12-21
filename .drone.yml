@@ -27,3 +27,15 @@ steps:
       - master
     event:
       - push 
+
+- name: test init archlinux
+  image: archlinux
+  commands:
+    - pacman -Syyu --noconfirm
+    - pacman -S ansible ansible-lint --noconfirm
+    - ansible-playbook init.yml
+  when:
+    branch:
+      - master
+    event:
+      - push 
