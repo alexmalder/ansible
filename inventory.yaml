@@ -8,6 +8,8 @@ all:
           ansible_user: root
     vm:
       hosts:
+        drone-runner:
+          ansible_port: 10010
         dns:
           ansible_port: 10011
         node1:

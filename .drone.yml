@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: default
+name: lint and test
 
 steps:
 - name: lint
@@ -34,6 +34,22 @@ steps:
     - pacman -Syyu --noconfirm
     - pacman -S ansible ansible-lint --noconfirm
     - ansible-playbook init.yml
+  when:
+    branch:
+      - master
+    event:
+      - push
+
+---
+kind: pipeline
+type: docker
+name: openldap
+
+steps:
+- name: build
+  image: docker:dind
+  commands:
+    - docker build -f ./openldap/Dockerfile . openldap
   when:
     branch:
       - master

@@ -1,5 +1,5 @@
 ---
-- hosts: gitlab-runner
+- hosts: drone-runner
   vars:
     DOCKER_CE: 'https://download.docker.com/linux/centos/docker-ce.repo'
 
