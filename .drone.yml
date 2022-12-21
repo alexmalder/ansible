@@ -49,7 +49,7 @@ steps:
 - name: build
   image: docker:dind
   commands:
-    - docker build -f ./openldap/Dockerfile . openldap
+    - docker build -f ./openldap/Dockerfile . -t openldap
   when:
     branch:
       - master
