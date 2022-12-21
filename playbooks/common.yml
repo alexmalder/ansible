@@ -5,17 +5,17 @@
       ansible.posix.selinux: 
         state: disabled
 
-    - name: remove ugly packages
+    - name: Remove ugly packages
       yum:
         name: 
           - firewalld
         state: absent
 
-    - name: install epel release
+    - name: Install epel release
       yum:
         name: epel-release
 
-    - name: install admin tools
+    - name: Install admin tools
       yum:
         name:
           - git

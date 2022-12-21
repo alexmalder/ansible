@@ -1,6 +1,0 @@
----
-- hosts: vm
-  tasks:
-    - name: Print hostname
-      debug:
-        msg: "{{ ansible_hostname }}"
