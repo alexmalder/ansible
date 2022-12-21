@@ -1,5 +1,5 @@
 $TTL 86400
-@ IN SOA dns-primary.vnmntn.pro. admin.vnmntn.pro. (
+@ IN SOA dns-primary.{{ domain }}. admin.{{ domain }}. (
                                                 2020011800 ;Serial
                                                 3600 ;Refresh
                                                 1800 ;Retry
@@ -8,20 +8,20 @@ $TTL 86400
 )
 
 ;Name Server Information
-@ IN NS dns-primary.vnmntn.pro.
+@ IN NS dns-primary.{{ domain }}.
 
 ;IP Address for Name Server
-dns-primary IN A 192.168.122.16
+dns-primary IN A {{ listen_ip }}
 
 ;Mail Server MX (Mail exchanger) Record
-vnmntn.pro. IN MX 10 mail.vnmntn.pro.
+{{ domain }}. IN MX 10 mail.{{ domain }}.
 
 ;A Record for the following Host name
 www   IN   A   10.10.10.1
-mail  IN   A   192.168.43.60
 node1 IN   A   192.168.122.12
 node2 IN   A   192.168.122.13
 node3 IN   A   192.168.122.14
+mail  IN   A   192.168.122.15
 
 ;CNAME Record
-git   IN   CNAME www.vnmntn.pro.
+git   IN   CNAME www.{{ domain }}.

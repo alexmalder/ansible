@@ -6,25 +6,25 @@
       - bind-utils
 
 - name: Push named configuration
-  ansible.builtin.copy:
-    src: "roles/bind/files/named.conf"
+  ansible.builtin.template:
+    src: "roles/bind/files/named.conf.jinja"
     dest: /etc/named.conf
     owner: root
     group: named
     mode: 0640
 
 - name: Push db configuration
-  ansible.builtin.copy:
-    src: "roles/bind/files/vnmntn.pro.db"
-    dest: "/var/named/vnmntn.pro.db"
+  ansible.builtin.template:
+    src: "roles/bind/files/{{domain}}.db"
+    dest: "/var/named/{{domain}}.db"
     owner: named
     group: named
     mode: 0660
 
 - name: Push rev configuration
-  ansible.builtin.copy:
-    src: "roles/bind/files/vnmntn.pro.rev"
-    dest: "/var/named/vnmntn.pro.rev"
+  ansible.builtin.template:
+    src: "roles/bind/files/{{domain}}.rev"
+    dest: "/var/named/{{domain}}.rev"
     owner: named
     group: named
     mode: 0660

@@ -1,5 +1,5 @@
 $TTL 86400
-@ IN SOA dns-primary.vnmntn.pro. admin.vnmntn.pro. (
+@ IN SOA dns-primary.{{ domain }}. admin.{{ domain }}. (
                                             2020011800 ;Serial
                                             3600 ;Refresh
                                             1800 ;Retry
@@ -7,12 +7,12 @@ $TTL 86400
                                             86400 ;Minimum TTL
 )
 ;Name Server Information
-@ IN NS dns-primary.vnmntn.pro.
-dns-primary     IN      A       192.168.122.16
+@ IN NS dns-primary.{{ domain }}.
+dns-primary     IN      A       {{ listen_ip }}
 
 ;Reverse lookup for Name Server
-35 IN PTR dns-primary.vnmntn.pro.
+35 IN PTR dns-primary.{{ domain }}.
 
 ;PTR Record IP address to Hostname
-50      IN      PTR     www.vnmntn.pro.
-60      IN      PTR     mail.vnmntn.pro.
+50      IN      PTR     www.{{ domain }}.
+60      IN      PTR     mail.{{ domain }}.
