@@ -8,7 +8,6 @@ steps:
   image: alpine:3.17
   commands:
   - apk add ansible-lint
-  - pip install ansible-lint
   - ansible-lint ./cluster-network.yml
   - ansible-lint ./sshd.yml
   - ansible-lint ./wireguard.yml
