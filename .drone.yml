@@ -51,9 +51,22 @@ steps:
   commands:
     - docker build -f ./openldap/Dockerfile . -t openldap
   volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
+  - name: dockersock
+    path: /var/run
   when:
     branch:
       - master
     event:
       - push
+
+services:
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
