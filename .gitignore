@@ -1,1 +1,1 @@
-roles/wireguard/vars/config.yml
+roles/wireguard/vars/main.yml
