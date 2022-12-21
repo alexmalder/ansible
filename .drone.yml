@@ -7,7 +7,7 @@ steps:
 - name: lint
   image: alpine:3.17
   commands:
-  - apk add py3-pip
+  - apk add py3-pip gcc
   - pip3 install ansible-lint
   - ansible-lint *.yml
 - name: test init alpine
