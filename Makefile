@@ -1,5 +1,7 @@
-upgrade_cluster:
-	ansible-playbook haproxy.yml
-	ansible-playbook debug-ip-addr.yml
-	ansible-playbook sshd.yml
-	ansible-playbook bind.yml
+base:
+	ansible-playbook ./playbooks/common.yml
+	ansible-playbook ./sshd.yml
+dns:
+	ansible-playbook ./cluster-network.yml --tags dns
+proxy:
+	ansible-playbook ./cluster-network.yml --tags proxy
