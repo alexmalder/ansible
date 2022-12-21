@@ -11,22 +11,12 @@ steps:
   - ansible-lint ./cluster-network.yml
   - ansible-lint ./sshd.yml
   - ansible-lint ./wireguard.yml
-  when:
-    branch:
-      - master
-    event:
-      - push 
 
 - name: test init alpine
   image: alpine:3.17
   commands:
     - apk add ansible
     - ansible-playbook init.yml
-  when:
-    branch:
-      - master
-    event:
-      - push 
 
 - name: test init archlinux
   image: archlinux
@@ -34,11 +24,6 @@ steps:
     - pacman -Syyu --noconfirm
     - pacman -S ansible ansible-lint --noconfirm
     - ansible-playbook init.yml
-  when:
-    branch:
-      - master
-    event:
-      - push
 
 ---
 kind: pipeline
