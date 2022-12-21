@@ -7,11 +7,12 @@
 
 - name: Generate server config file
   ansible.builtin.template:
-    src: roles/wireguard/template/server.conf
+    src: roles/wireguard/templates/server.conf
     dest: "{{ ansible_env.HOME }}/WG/server.conf"
 
 - name: Generate client config files
   ansible.builtin.template:
     src: roles/wireguard/templates/client.conf
-    dest: "{{ ansible_env.HOME }}/WG/{{ item }}"
-  with_items: "{{ clients }}"
+    dest: "{{ ansible_env.HOME }}/WG/{{ item.name }}.conf"
+  loop: "{{ clients }}"
+  no_log: true

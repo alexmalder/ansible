@@ -5,3 +5,6 @@ dns:
 	ansible-playbook ./cluster-network.yml --tags dns
 proxy:
 	ansible-playbook ./cluster-network.yml --tags proxy
+
+wireguard:
+	ansible-playbook ./wireguard.yml
