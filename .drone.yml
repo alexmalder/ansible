@@ -7,6 +7,7 @@ steps:
 - name: lint
   image: alpine:3.17
   commands:
+  - cp roles/init/files/etc/apk/repositories /etc/apk/repositories
   - apk add ansible-lint
   - ansible-lint *.yml
   when:
