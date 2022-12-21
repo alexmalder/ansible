@@ -7,12 +7,20 @@ steps:
 - name: lint
   image: alpine:3.17
   commands:
-  - apk add py3-pip gcc
-  - pip3 install ansible-lint
+  - apk add ansible-lint
   - ansible-lint *.yml
+  when:
+    branch:
+      - master
+    event:
+      - push 
 - name: test init alpine
   image: alpine:3.17
   commands:
-    - apk add py3-pip
-    - pip3 install ansible
+    - apk add ansible
     - ansible-playbook init.yml
+  when:
+    branch:
+      - master
+    event:
+      - push 
