@@ -9,13 +9,18 @@ steps:
   commands:
   - apk add ansible-lint
   - ansible-lint *.yml
+  when:
+    branch:
+    - master
+    event:
+      - push 
 - name: test init alpine
   image: alpine:3.17
   commands:
     - apk add ansible
     - ansible-playbook init.yml
-  #when:
-  #  branch:
-  #  - master
-  #  event:
-  #    - push 
+  when:
+    branch:
+    - master
+    event:
+      - push 
