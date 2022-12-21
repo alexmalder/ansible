@@ -7,12 +7,11 @@ steps:
 - name: lint
   image: alpine:3.17
   commands:
-  - cp roles/init/files/etc/apk/repositories /etc/apk/repositories
-  - apk update
-  - apk upgrade
-  - apk add py3-pip
+  - apk add ansible-lint
   - pip install ansible-lint
-  - ansible-lint *.yml
+  - ansible-lint ./cluster-network.yml
+  - ansible-lint ./sshd.yml
+  - ansible-lint ./wireguard.yml
   when:
     branch:
       - master
