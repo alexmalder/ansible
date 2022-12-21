@@ -50,8 +50,10 @@ steps:
   image: docker:dind
   commands:
     - docker build -f ./openldap/Dockerfile . -t openldap
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
   when:
     branch:
       - master
     event:
-      - push 
+      - push

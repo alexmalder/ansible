@@ -10,3 +10,20 @@
         name: 
           - firewalld
         state: absent
+
+    - name: install epel release
+      yum:
+        name: epel-release
+
+    - name: install admin tools
+      yum:
+        name:
+          - git
+          - unzip
+          - tar
+          - yum-utils
+          - ncdu
+          - tmux
+          - net-tools
+          - htop
+          - vim
