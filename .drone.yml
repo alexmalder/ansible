@@ -24,4 +24,3 @@ steps:
       - master
     event:
       - push 
-
