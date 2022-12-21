@@ -1,0 +1,17 @@
+---
+# tasks file for wireguard
+- name: Create WG directory if does no exists
+  file:
+    path: "{{ ansible_env.HOME }}/WG"
+    state: directory
+
+- name: Generate server config file
+  ansible.builtin.template:
+    src: roles/wireguard/template/server.conf
+    dest: "{{ ansible_env.HOME }}/WG/server.conf"
+
+- name: Generate client config files
+  ansible.builtin.template:
+    src: roles/wireguard/templates/client.conf
+    dest: "{{ ansible_env.HOME }}/WG/{{ item }}"
+  with_items: "{{ clients }}"

@@ -1,0 +1,7 @@
+---
+- name: Generate wireguard configuration locally
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - name: Use wireguard role
+      role: wireguard
