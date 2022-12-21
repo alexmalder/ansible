@@ -8,6 +8,8 @@ all:
           ansible_user: root
     vm:
       hosts:
+        dns:
+          ansible_port: 10011
         node1:
           ansible_port: 10012
         node2:
