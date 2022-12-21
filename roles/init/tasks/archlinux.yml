@@ -1,12 +1,12 @@
 ---
 - name: Install base archlinux packages
   become: true
-  pacman:
+  community.general.pacman:
     name: "{{ packages.base }}"
 
 - name: Install dev archlinux packages
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - python-pip
       - xorg
