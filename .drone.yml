@@ -42,22 +42,17 @@ steps:
 
 ---
 kind: pipeline
-type: docker
-name: openldap
+name: docker
 
 steps:
-- name: build
+- name: test
   image: docker:dind
-  commands:
-    - docker build -f ./openldap/Dockerfile . -t openldap
   volumes:
   - name: dockersock
     path: /var/run
-  when:
-    branch:
-      - master
-    event:
-      - push
+  commands:
+  - sleep 5 # give docker enough time to start
+  - docker ps -a
 
 services:
 - name: docker
