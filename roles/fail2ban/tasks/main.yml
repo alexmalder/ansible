@@ -1,12 +1,13 @@
 ---
 - name: Install fail2ban
-  yum:
+  ansible.builtin.yum:
     name: fail2ban
 
 - name: Copy fail2ban config
-  copy:
+  ansible.builtin.copy:
     src: roles/fail2ban/files/jail.local
     dest: /etc/fail2ban/jail.local
+    mode: 0640
 
 - name: Setup service
   ansible.builtin.systemd:

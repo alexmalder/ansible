@@ -1,0 +1,6 @@
+---
+- name: Setup fail2ban
+  hosts: selectel
+  roles:
+    - name: Use fail2ban role
+      role: fail2ban

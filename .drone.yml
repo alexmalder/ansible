@@ -8,9 +8,10 @@ steps:
   image: alpine:3.17
   commands:
   - apk add ansible-lint
-  - ansible-lint ./sshd.yml
   - ansible-lint ./dns.yml
+  - ansible-lint ./fail2ban.yml
   - ansible-lint ./haproxy.yml
+  - ansible-lint ./sshd.yml
   - ansible-lint ./wireguard.yml
 
 - name: test init alpine
