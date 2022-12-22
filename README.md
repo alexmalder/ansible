@@ -14,40 +14,6 @@ Supported distributions:
 ### `haproxy`
 ### `bind`
 
-## Migration from salt
-
-### Required
-
-- [x] ci
-- [ ] clickhouse
-- [x] common
-- [x] dns
-- [ ] entrypoint[wireguard]
-- [x] haproxy
-- [ ] node_exporter
-- [ ] promstack
-- [ ] sftp
-- [x] sshd
-- [ ] vector
-
-### Kafka
-
-- [ ] kafka
-- [ ] schema-registry
-
-### Optional
-
-- [ ] fail2ban
-- [ ] filebeat
-- [ ] auditbeat
-- [ ] rabbitmq_exporter
-- [ ] elasticsearch
-- [ ] minion
-- [ ] gitea
-- [ ] jupyter
-- [ ] users
-- [ ] systemd
-
 ## Playbooks
 
 ### `libvirt`

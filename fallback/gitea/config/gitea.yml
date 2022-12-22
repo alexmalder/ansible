@@ -1,5 +1,0 @@
----
-systemd_env:
-  - key: GITEA_WORK_DIR
-    value: /var/lib/gitea
-DOMAIN: git.vnmntn.com

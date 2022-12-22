@@ -1,0 +1,16 @@
+---
+- name: Install fail2ban
+  yum:
+    name: fail2ban
+
+- name: Copy fail2ban config
+  copy:
+    src: roles/fail2ban/files/jail.local
+    dest: /etc/fail2ban/jail.local
+
+- name: Setup service
+  ansible.builtin.systemd:
+    name: fail2ban
+    state: restarted
+    enabled: true
+    daemon_reload: true

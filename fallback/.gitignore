@@ -1,7 +1,0 @@
-/bin/*
-/**/keys/*
-/secrets
-/**/users.yml
-/**/result.yml
-/*.docx
-/**/vars/*

@@ -1,8 +1,0 @@
-{% for item in system.hosts %}
-{{ item.hostname }}:
-    host: {{ item.allowed_ips }}
-    priv: /home/alexmalder/.ssh/id_ed25519
-    port: 22
-    user: root
-    sudo: True
-{% endfor %}
