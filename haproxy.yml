@@ -1,0 +1,6 @@
+---
+- name: Setup haproxy
+  hosts: selectel
+  roles:
+    - name: Use haproxy role
+      role: haproxy

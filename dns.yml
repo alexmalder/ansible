@@ -1,0 +1,6 @@
+---
+- name: Setup DNS
+  hosts: selectel
+  roles:
+    - name: Use bind role
+      role: bind
