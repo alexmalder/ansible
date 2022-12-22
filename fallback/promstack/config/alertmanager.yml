@@ -1,0 +1,16 @@
+---
+global:
+  resolve_timeout: 1m
+
+route:
+  receiver: "users"
+  routes:
+    - match:
+        severity: critical
+      receiver: users
+
+receivers:
+  - name: "users"
+    webhook_configs:
+      - send_resolved: true
+        url: "http://127.0.0.1:{{ alertmanager_vars.TG_USERS_LISTEN_PORT }}/webhooks/telegram/{{ alertmanager_vars.TG_USERS_CHAT_ID }}"

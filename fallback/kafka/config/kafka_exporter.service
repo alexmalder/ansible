@@ -1,0 +1,15 @@
+[Unit]
+Description=kafka_exporter
+Documentation=https://github.com/danielqsj/kafka_exporter
+Requires=kafka.service
+
+[Service]
+Type=simple
+User=kafka
+Group=kafka
+ExecStart=/usr/local/bin/kafka_exporter --kafka.server={{ kafka_server_ip }}:9092
+Restart=always
+RestartSec=90
+
+[Install]
+WantedBy=multi-user.target

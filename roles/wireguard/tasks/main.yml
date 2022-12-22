@@ -4,18 +4,21 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/WG"
     state: directory
-    mode: 0640
-
-- name: Generate server config file
-  ansible.builtin.template:
-    src: roles/wireguard/templates/server.conf
-    dest: "{{ ansible_env.HOME }}/WG/server.conf"
-    mode: 0640
+    #owner: alexmalder
+    #mode: 0640
 
 - name: Generate client config files
   ansible.builtin.template:
     src: roles/wireguard/templates/client.conf
     dest: "{{ ansible_env.HOME }}/WG/{{ item.name }}.conf"
-    mode: 0640
+    #owner: alexmalder
+    #mode: 0640
   loop: "{{ clients }}"
   no_log: true
+
+- name: Generate server config file
+  ansible.builtin.template:
+    src: roles/wireguard/templates/server.conf
+    dest: "{{ ansible_env.HOME }}/WG/server.conf"
+    #owner: alexmalder
+    #mode: 0640

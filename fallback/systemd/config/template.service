@@ -1,0 +1,26 @@
+[Unit]
+Description={{ user }}
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User={{ user }}
+Group={{ user }}
+Type=simple
+ExecStart={{ exec }}
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=90
+{% if working_directory is defined %}
+WorkingDirectory={{ working_directory }}
+{% endif %}
+{% if vars is defined %}
+{% if vars.systemd_env is defined %}
+{% for item in vars.systemd_env %}
+Environment="{{ item.key }}={{ item.value }}"
+{% endfor %}
+{% endif %}
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

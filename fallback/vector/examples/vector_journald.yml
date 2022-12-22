@@ -1,0 +1,18 @@
+---
+sources:
+  openldap_source:
+    type: journald
+    include_units:
+      - slapd
+
+sinks:
+  openldap_sink:
+    type: kafka
+    inputs:
+      - openldap_source
+    bootstrap_servers: "{{ kafka_bootstrap_servers }}"
+    topic: openldap
+    compression: none
+    encoding:
+      codec: json
+    healthcheck: true

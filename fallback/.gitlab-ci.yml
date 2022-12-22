@@ -1,0 +1,41 @@
+---
+stages:
+  - lint
+  - audit
+
+salt-lint:
+  image: python:3.8
+  stage: lint
+  script:
+    - pip3 install salt salt-lint
+    - find . | grep sls | xargs -l salt-lint
+  only:
+    - master
+  tags:
+    - docker
+
+yamllint:
+  image: python:3.8
+  stage: lint
+  script:
+    - pip3 install yamllint
+    - yamllint . -c .yamllint.yml
+  only:
+    - master
+  tags:
+    - docker
+
+audit:
+  image: python:3.8
+  stage: audit
+  script:
+    - apt update
+    - apt install jq -y
+    - pip install "aiochclient[aiohttp]"
+    - pip install jinja2
+    - python scripts/audit.py | jq
+  only:
+    - master
+  when: manual
+  tags:
+    - docker

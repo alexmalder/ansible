@@ -1,0 +1,13 @@
+---
+groups:
+  - name: Ceph
+    rules:
+      - alert: Ceph resource pool too small
+        expr: "ceph_pool_available_bytes{} < 268435456000"
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Ceph pool resource too small
+          description: "VALUE = {{ $value }}"
+          subscribers: "@alexmalder, @smiler25"

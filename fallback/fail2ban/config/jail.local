@@ -1,0 +1,13 @@
+[DEFAULT]
+bantime  = 10m
+findtime  = 10m
+maxretry = 3
+banaction = iptables-multiport
+backend = systemd
+banaction_allports = iptables-allports
+
+[ssh]
+enabled  = true
+port     = ssh
+filter   = sshd
+logpath  = /var/log/auth.log
