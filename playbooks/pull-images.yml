@@ -11,8 +11,6 @@
       tag: 2.12.1
     - image: docker.io/library/nginx
       tag: 1.23.2-alpine
-    - image: docker.io/library/nginx
-      tag: 1.23.2-alpine
     - image: drone/drone-runner-kube
       tag: 1.0.0-rc.3
     - image: gitea/gitea
@@ -23,26 +21,14 @@
       tag: v3.23.3
     - image: quay.io/calico/node
       tag: v3.23.3
-    - image: quay.io/calico/node
-      tag: v3.23.3
-    - image: quay.io/calico/node
-      tag: v3.23.3
     - image: quay.io/kiwigrid/k8s-sidecar
       tag: 1.21.0
-    - image: quay.io/kiwigrid/k8s-sidecar
-      tag: 1.21.0
-    - image: quay.io/prometheus-operator/prometheus-config-reloader
-      tag: v0.61.1
     - image: quay.io/prometheus-operator/prometheus-config-reloader
       tag: v0.61.1
     - image: quay.io/prometheus-operator/prometheus-operator
       tag: v0.61.1
     - image: quay.io/prometheus/alertmanager
       tag: v0.24.0
-    - image: quay.io/prometheus/node-exporter
-      tag: v1.5.0
-    - image: quay.io/prometheus/node-exporter
-      tag: v1.5.0
     - image: quay.io/prometheus/node-exporter
       tag: v1.5.0
     - image: quay.io/prometheus/prometheus
