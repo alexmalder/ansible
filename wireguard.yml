@@ -5,4 +5,4 @@
   roles:
     - name: Use wireguard role
       role: wireguard
-      #become: true
+      become: true
