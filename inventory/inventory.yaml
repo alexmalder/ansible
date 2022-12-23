@@ -10,7 +10,7 @@ all:
         hyper01:
           ansible_host: 91.206.15.104
           ansible_user: root
-          ansible_port: 22022
+          ansible_port: 22
     vm:
       hosts:
         drone-runner:
@@ -25,4 +25,4 @@ all:
           ansible_host: 192.168.122.14
       vars:
         ansible_user: root
-        ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22022 -W %h:%p -q root@91.206.15.104"'
+        ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22 -W %h:%p -q root@91.206.15.104"'
