@@ -11,9 +11,13 @@
 
 ## Playbooks
 
-### `libvirt`
-
-Setup libvirtd for centos or archlinux
+- `common`
+- `docker`
+- `dockercompose`
+- `gitlab-runner`
+- `libvirt-archlinux`
+- `libvirt-centos`
+- `pull-images`
 
 ## Scripts
 
