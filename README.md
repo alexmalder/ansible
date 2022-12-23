@@ -2,17 +2,12 @@
 
 ## Roles
 
-### `init`
-
-Install base packages, configure applications and utilities
-
-Supported distributions:
-
-- alpine
-- archlinux
-
-### `haproxy`
-### `bind`
+- `bind`
+- `fail2ban`
+- `haproxy`
+- `init`
+- `sshd`
+- `wireguard`
 
 ## Playbooks
 
