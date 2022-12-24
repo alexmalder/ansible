@@ -2,21 +2,21 @@
 - hosts: vm
   tasks:
     - name: Disable SELinux
-      ansible.posix.selinux: 
+      ansible.posix.selinux:
         state: disabled
 
     - name: Remove ugly packages
-      yum:
-        name: 
+      ansible.builtin.yum:
+        name:
           - firewalld
         state: absent
 
     - name: Install epel release
-      yum:
+      ansible.builtin.yum:
         name: epel-release
 
     - name: Install admin tools
-      yum:
+      ansible.builtin.yum:
         name:
           - git
           - unzip
@@ -27,3 +27,7 @@
           - net-tools
           - htop
           - vim
+
+    - name: Import role ssh
+      ansible.builtin.import_role:
+        name: sshd

@@ -1,9 +1,5 @@
 ---
 all:
-  #  hosts:
-  #    proxy:
-  #      ansible_host: 91.206.15.104
-  #      ansible_user: root
   children:
     selectel:
       hosts:
@@ -13,9 +9,9 @@ all:
           ansible_port: 22
     vm:
       hosts:
-        drone-runner:
-          ansible_host: 192.168.122.10
         dns:
+          ansible_host: 192.168.122.10
+        drone-runner:
           ansible_host: 192.168.122.11
         node1:
           ansible_host: 192.168.122.12
@@ -23,6 +19,8 @@ all:
           ansible_host: 192.168.122.13
         node3:
           ansible_host: 192.168.122.14
+        template:
+          ansible_host: 192.168.122.100
       vars:
         ansible_user: root
         ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22 -W %h:%p -q root@91.206.15.104"'
