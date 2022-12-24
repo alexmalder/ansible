@@ -1,7 +1,7 @@
 ---
 - name: Install base archlinux packages
   become: true
-  community.general.pacman:
+  pacman:
     name: "{{ item }}"
   with_items:
     - zsh
@@ -25,7 +25,7 @@
 
 - name: Install dev archlinux packages
   become: true
-  community.general.pacman:
+  pacman:
     name: "{{ item }}"
     state: present
   with_items:
