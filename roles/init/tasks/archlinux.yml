@@ -3,7 +3,25 @@
   become: true
   community.general.pacman:
     name: "{{ item }}"
-  with_items: "{{ packages.base }}"
+  with_items:
+    - zsh
+    - tmux
+    - mc
+    - ncdu
+    - neovim
+    - git
+    - colordiff
+    - net-tools
+    - fzf
+    - ripgrep
+    - exa
+    - tree
+    - kitty
+    - nnn
+    - docker
+    - npm
+    - cpupower
+    - pass
 
 - name: Install dev archlinux packages
   become: true
@@ -11,3 +29,57 @@
     name: "{{ item }}"
     state: present
   with_items:
+    - python-pip
+    - xorg
+    - xorg-server
+    - xorg-xinit
+    - i3-gaps
+    - dmenu
+    - qutebrowser
+    - telegram-desktop
+    - evolution
+    - xfce4-power-manager
+    - nautilus
+    - alacritty
+    - xdotool
+    - feh
+    - polybar
+    - picom
+    - fontconfig
+    - wireguard-tools
+    - lxappearance
+    - xf86-input-synaptics
+    #- gcc11
+    #- gcc11-libs
+    - make
+    - cmake
+    - llvm
+    - clang
+    - glab
+    - kubectl
+    - helm
+    - gopls
+    - qtcreator
+    - deepin-screenshot
+    - dunst
+    - xdo
+    - dash
+    - libtr
+    - libtk
+    - firefox
+    - ttf-iosevka-nerd
+    - unzip
+    - ttf-iosevka-nerd
+    - ttf-ubuntumono-nerd
+    - tk
+    - syndaemon
+    - rofi
+    - htop
+    - virt-manager
+    - go
+    - obsidian
+    - k9s
+    - font-manager
+    # negwm
+    - tk
+    - dash

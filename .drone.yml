@@ -20,13 +20,6 @@ steps:
     - apk add ansible
     - ansible-playbook init.yml
 
-- name: test init archlinux
-  image: archlinux
-  commands:
-    - pacman -Syyu --noconfirm
-    - pacman -S ansible ansible-lint --noconfirm
-    - ansible-playbook init.yml
-
 ---
 kind: pipeline
 name: docker
@@ -38,7 +31,7 @@ steps:
   - name: dockersock
     path: /var/run
   commands:
-  - sleep 5 # give docker enough time to start
+  - sleep 10
   - docker ps
 
 services:

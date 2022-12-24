@@ -1,0 +1,24 @@
+---
+- hosts: drone-runner
+  vars:
+    gitlab_runner_script_url: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
+
+  tasks:
+    - name: Install requests
+      pip:
+        name: requests
+        
+    - name: Container present
+      community.docker.docker_container:
+        name: drone-runner-docker-0
+        state: started
+        image: ubuntu:14.04
+        restart_policy: always
+        env:
+          DRONE_RPC_PROTO: http
+          DRONE_RPC_HOST: drone.vnmntn.com
+          DRONE_RPC_SECRET: super-duper-secret
+          DRONE_RUNNER_CAPACITY: '2'
+          DRONE_RUNNER_NAME: drone-runner-docker-0
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock

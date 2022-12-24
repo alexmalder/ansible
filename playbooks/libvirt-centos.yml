@@ -1,5 +1,8 @@
 ---
 - hosts: selectel
+  vars:
+    centos_stream: http://mirror.truenetwork.ru/centos/8-stream/isos/x86_64/
+    image_name: CentOS-Stream-8-x86_64-20221125-boot.iso
   tasks:
     - name: Remove the 'firewalld' package
       ansible.builtin.yum:
@@ -20,6 +23,6 @@
 
     - name: Download 'centos 8 stream' boot image
       get_url:
-        url: http://mirror.truenetwork.ru/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-20221125-boot.iso
-        dest: /var/lib/libvirt/images/CentOS-Stream-8-x86_64-20221125-boot.iso
+        url: "{{ centos_stream }}/{{ image_name }}"
+        dest: "/var/lib/libvirt/images/{{ image_name }}"
         mode: '0660'
