@@ -46,3 +46,4 @@ packages:
     - go
     - obsidian
     - k9s
+    - font-manager
