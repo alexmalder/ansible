@@ -1,0 +1,14 @@
+---
+- hosts: node1
+  vars:
+    helm_installation_script: 'https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3'
+
+  tasks:
+    - name: Download helm installation script
+      get_url:
+        url: "{{ helm_installation_script }}"
+        dest: /tmp/get-helm.sh
+        mode: 'a+x'
+
+    - name: Execute helm installation script
+      command: bash /tmp/get-helm.sh
