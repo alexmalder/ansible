@@ -7,7 +7,7 @@ After=xserver.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/negwm
+ExecStart=python3 -m negwm
 Restart=on-failure
 RestartSec=5
 #User=alexmalder
