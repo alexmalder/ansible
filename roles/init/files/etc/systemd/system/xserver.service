@@ -3,7 +3,7 @@ Description=X11 session for bernat
 After=graphical.target systemd-user-sessions.service
 
 [Service]
-User=alexmalder
+User=vnmntn
 WorkingDirectory=~
 
 PAMName=login
