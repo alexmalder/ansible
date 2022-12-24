@@ -22,12 +22,41 @@ packages:
     #- chromium
     #- salt
     #- flatpak
-    #- go
-  negwm:
+  dev:
+    - python-pip
+    - xorg
+    - xorg-server
+    - xorg-xinit
+    - i3-gaps
+    - dmenu
+    - qutebrowser
+    - telegram-desktop
+    - evolution
+    - xfce4-power-manager
+    - nautilus
+    - alacritty
+    - xdotool
+    - feh
+    - polybar
+    - picom
+    - fontconfig
+    - wireguard-tools
+    - lxappearance
+    - xf86-input-synaptics
+    #- gcc11
+    #- gcc11-libs
+    - make
+    - cmake
+    - llvm
+    - clang
+    - glab
+    - kubectl
+    - helm
+    - gopls
+    - qtcreator
+    - deepin-screenshot
+    - dunst
     - xdo
-    - tk
-    - dash
-  desktop:
     - dash
     - libtr
     - libtk
@@ -38,8 +67,6 @@ packages:
     - ttf-ubuntumono-nerd
     - tk
     - syndaemon
-    - telegram-desktop
-    - xdo
     - rofi
     - htop
     - virt-manager
@@ -47,3 +74,6 @@ packages:
     - obsidian
     - k9s
     - font-manager
+    # negwm
+    - tk
+    - dash

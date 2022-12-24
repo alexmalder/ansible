@@ -11,36 +11,3 @@
     name: "{{ item }}"
     state: present
   with_items:
-      - python-pip
-      - xorg
-      - xorg-server
-      - xorg-xinit
-      - i3-gaps
-      - dmenu
-      - qutebrowser
-      - telegram-desktop
-      - evolution
-      - xfce4-power-manager
-      - nautilus
-      - alacritty
-      - xdotool
-      - feh
-      - polybar
-      - picom
-      - fontconfig
-      - wireguard-tools
-      - lxappearance
-      - xf86-input-synaptics
-      #- gcc11
-      #- gcc11-libs
-      - make
-      - cmake
-      - llvm
-      - clang
-      - glab
-      - kubectl
-      - helm
-      - gopls
-      - qtcreator
-      - deepin-screenshot
-      - dunst
