@@ -83,3 +83,4 @@
     # negwm
     - tk
     - dash
+    - wl-clipboard
