@@ -5,19 +5,16 @@ name: lint and test
 
 steps:
 - name: lint
-  image: alpine:3.17
+  image: archlinux
   commands:
-  - apk add ansible-lint
-  - ansible-lint ./dns.yml
-  - ansible-lint ./fail2ban.yml
-  - ansible-lint ./haproxy.yml
-  - ansible-lint ./sshd.yml
-  - ansible-lint ./wireguard.yml
+  - pacman -Syyu ansible-lint --noconfirm
+  - ansible-lint *.yml
+  - ansible-lint playbooks/*.yml
 
-- name: test init alpine
-  image: alpine:3.17
+- name: init role
+  image: archlinux
   commands:
-    - apk add ansible
+    - pacman -Syyu ansible --noconfirm
     - ansible-playbook init.yml
 
 ---
