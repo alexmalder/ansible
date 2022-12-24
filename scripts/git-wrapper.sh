@@ -2,7 +2,7 @@
 
 #set -eo pipefail
 
-WORKDIR=$HOME/Git
+WORKDIR=$HOME/git
 NEW_REMOTE_DOMAIN=http://git.vnmntn.com
 NEW_REMOTE_GROUP=alexmalder
 remotes=("gitea" "origin") # origin is github
