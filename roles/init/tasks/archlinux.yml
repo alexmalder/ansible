@@ -49,8 +49,8 @@
     - wireguard-tools
     - lxappearance
     - xf86-input-synaptics
-    #- gcc11
-    #- gcc11-libs
+    # - gcc11
+    # - gcc11-libs
     - make
     - cmake
     - llvm
