@@ -2,12 +2,15 @@
 - name: Install base archlinux packages
   become: true
   community.general.pacman:
-    name: "{{ packages.base }}"
+    name: "{{ item }}"
+  with_items: "{{ packages.base }}"
 
 - name: Install dev archlinux packages
   become: true
   community.general.pacman:
-    name:
+    name: "{{ item }}"
+    state: present
+  with_items:
       - python-pip
       - xorg
       - xorg-server
@@ -28,8 +31,8 @@
       - wireguard-tools
       - lxappearance
       - xf86-input-synaptics
-      - gcc11
-      - gcc11-libs
+      #- gcc11
+      #- gcc11-libs
       - make
       - cmake
       - llvm
@@ -41,4 +44,3 @@
       - qtcreator
       - deepin-screenshot
       - dunst
-    state: present

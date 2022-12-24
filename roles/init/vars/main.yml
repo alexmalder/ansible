@@ -14,12 +14,35 @@ packages:
     - exa
     - tree
     - kitty
-    - go
     - nnn
-    - chromium
-    - salt
-    - flatpak
     - docker
     - npm
     - cpupower
     - pass
+    #- chromium
+    #- salt
+    #- flatpak
+    #- go
+  negwm:
+    - xdo
+    - tk
+    - dash
+  desktop:
+    - dash
+    - libtr
+    - libtk
+    - firefox
+    - ttf-iosevka-nerd
+    - unzip
+    - ttf-iosevka-nerd
+    - ttf-ubuntumono-nerd
+    - tk
+    - syndaemon
+    - telegram-desktop
+    - xdo
+    - rofi
+    - htop
+    - virt-manager
+    - go
+    - obsidian
+    - k9s
