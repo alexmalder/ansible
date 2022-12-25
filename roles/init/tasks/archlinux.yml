@@ -39,8 +39,6 @@
       - helm
       - gopls
       - dash
-      - libtr
-      - libtk
       - bottom
       - htop
       - virt-manager
