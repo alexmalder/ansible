@@ -19,7 +19,7 @@
     remote_src: true
 
 - name: Copy vector binary file
-  copy:
+  ansible.builtin.copy:
     src: "/tmp/{{ vector_output_dir }}/bin/vector"
     dest: /usr/bin/vector
     mode: 'a+x'
@@ -34,7 +34,7 @@
     mode: '0664'
 
 - name: Copy vector config file
-  copy:
+  ansible.builtin.copy:
     src: roles/vector/files/vector.yml
     dest: /etc/vector/vector.yml
     owner: vector
@@ -42,7 +42,7 @@
     mode: '0664'
 
 - name: Copy vector systemd service file
-  copy:
+  ansible.builtin.copy:
     src: roles/vector/files/vector.service
     dest: /usr/lib/systemd/system/vector.service
     mode: '0664'

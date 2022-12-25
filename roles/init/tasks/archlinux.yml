@@ -90,7 +90,7 @@
     global: true
     name: "{{ item }}"
   with_items:
-      - pyright
-      - pm2
-      - bash-language-server
-      - yaml-language-server
+    - pyright
+    - pm2
+    - bash-language-server
+    - yaml-language-server
