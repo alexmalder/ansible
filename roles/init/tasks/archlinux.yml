@@ -85,7 +85,8 @@
 
 - name: Install node packages
   become: true
-  npm:
+  community.general.npm:
+    global: true
     name:
       - pyright
       - pm2
