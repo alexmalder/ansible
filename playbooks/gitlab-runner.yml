@@ -11,8 +11,8 @@
         mode: 'a+x'
 
     - name: Execute gitlab-runner setup script
-      command: /tmp/script.rpm.sh
+      ansible.builtin.command: /tmp/script.rpm.sh
 
     - name: Install gitlab runner
-      yum:
+      ansible.builtin.yum:
         name: gitlab-runner

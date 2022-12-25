@@ -1,11 +1,12 @@
 ---
-- hosts: 127.0.0.1
+- name: Install libvirtd on archlinux
+  hosts: 127.0.0.1
   connection: local
   tasks:
-    - name: install packages
+    - name: Install packages
       become: true
-      pacman:
-        name: 
+      community.general.pacman:
+        name:
           - libvirt
           - virt-manager
           - ebtables
@@ -14,10 +15,10 @@
           - qemu-desktop
         state: present
 
-    - name: enable and start libvirtd
-      become: yes
-      systemd:
+    - name: Enable and start libvirtd
+      become: true
+      ansible.builtin.systemd:
         name: libvirtd
-        enabled: yes
-        daemon_reload: yes
+        enabled: true
+        daemon_reload: true
         state: started
