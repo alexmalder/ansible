@@ -1,0 +1,55 @@
+---
+- name: Create user vector if does not exists
+  ansible.builtin.user:
+    name: vector
+    home: /var/lib/vector
+    create_home: true
+
+- name: Download vector archive
+  ansible.builtin.get_url:
+    url: "{{ vector_download_url }}/{{ vector_archive_name }}"
+    dest: /tmp/vector.tar.gz
+    mode: '0640'
+
+- name: Extract vector archive into /tmp
+  ansible.builtin.unarchive:
+    src: /tmp/vector.tar.gz
+    dest: /tmp
+    mode: '0640'
+    remote_src: true
+
+- name: Copy vector binary file
+  copy:
+    src: "/tmp/{{ vector_output_dir }}/bin/vector"
+    dest: /usr/bin/vector
+    mode: 'a+x'
+    remote_src: true
+
+- name: Create a vector directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/vector
+    state: directory
+    owner: vector
+    group: vector
+    mode: '0640'
+
+- name: Copy vector config file
+  copy:
+    src: roles/vector/files/vector.yml
+    dest: /etc/vector/vector.yml
+    owner: vector
+    group: vector
+    mode: '0660'
+
+- name: Copy vector systemd service file
+  copy:
+    src: roles/vector/files/vector.service
+    dest: /usr/lib/systemd/system/vector.service
+    mode: '0640'
+
+- name: Setup service
+  ansible.builtin.systemd:
+    name: vector
+    state: restarted
+    enabled: true
+    daemon_reload: true

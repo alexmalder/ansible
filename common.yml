@@ -27,6 +27,7 @@
           - net-tools
           - htop
           - vim
+          - nnn
 
     - name: Import role ssh
       ansible.builtin.import_role:

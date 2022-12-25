@@ -1,0 +1,18 @@
+---
+sources:
+  my_source_id:
+    type: file
+    ignore_older_secs: 600
+    include:
+      - /var/log/messages
+    read_from: beginning
+
+sinks:
+  my_sink_id:
+    type: elasticsearch
+    inputs:
+      - my_source_id
+    endpoints: ['http://10.10.10.2:9200']
+    mode: bulk
+    pipeline: pipeline-name
+    compression: gzip
