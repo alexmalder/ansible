@@ -1,7 +1,7 @@
 ---
 - name: Install base archlinux packages
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - zsh
       - tmux
@@ -25,7 +25,7 @@
 
 - name: Install dev archlinux packages
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - python-pip
       - polybar
@@ -53,7 +53,7 @@
 
 - name: Install graphic packages
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - xorg
       - xorg-server

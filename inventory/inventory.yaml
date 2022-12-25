@@ -17,6 +17,8 @@ all:
           ansible_host: 192.168.122.12
         drone-runner:
           ansible_host: 192.168.122.13
+        vsftpd:
+          ansible_host: 192.168.122.14
         template:
           ansible_host: 192.168.122.100
       vars:

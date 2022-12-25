@@ -10,4 +10,4 @@ Type=simple
 ExecStart=/usr/bin/polybar
 Restart=on-failure
 RestartSec=5
-Environment="XDG_CONFIG_HOME=/home/alexmalder/.config"
+Environment="XDG_CONFIG_HOME=/var/lib/vnmntn/.config"

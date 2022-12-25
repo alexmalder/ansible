@@ -7,10 +7,10 @@ steps:
 - name: lint
   image: archlinux
   commands:
-  - pacman -Syyu git python-pip --noconfirm
-  - pip install ansible-lint
+  - pacman -Syyu git ansible-lint --noconfirm
   - ansible-lint *.yml
   - ansible-lint playbooks/*.yml
+
 - name: init role
   image: archlinux
   commands:

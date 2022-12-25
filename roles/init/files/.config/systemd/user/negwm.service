@@ -11,4 +11,4 @@ ExecStart=python3 -m negwm
 Restart=on-failure
 RestartSec=5
 #User=alexmalder
-Environment="XDG_CONFIG_HOME=/home/alexmalder/.config"
+Environment="XDG_CONFIG_HOME=/var/lib/vnmntn/.config"

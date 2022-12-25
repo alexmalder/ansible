@@ -14,5 +14,5 @@ sinks:
       - my_source_id
     endpoints: ['http://10.10.10.2:9200']
     mode: bulk
-    pipeline: pipeline-name
+    pipeline: file-pipeline
     compression: gzip
