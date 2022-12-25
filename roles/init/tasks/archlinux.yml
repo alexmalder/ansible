@@ -45,6 +45,7 @@
       - go
       - k9s
       - font-manager
+      - docker-compose
       # negwm
       - tk
       - dash
@@ -87,7 +88,8 @@
   become: true
   community.general.npm:
     global: true
-    name:
+    name: "{{ item }}"
+  with_items:
       - pyright
       - pm2
       - bash-language-server
