@@ -2,87 +2,95 @@
 - name: Install base archlinux packages
   become: true
   pacman:
-    name: "{{ item }}"
-  with_items:
-    - zsh
-    - tmux
-    - mc
-    - ncdu
-    - neovim
-    - git
-    - colordiff
-    - net-tools
-    - fzf
-    - ripgrep
-    - exa
-    - tree
-    - kitty
-    - nnn
-    - docker
-    - npm
-    - cpupower
-    - pass
+    name:
+      - zsh
+      - tmux
+      - mc
+      - ncdu
+      - neovim
+      - git
+      - colordiff
+      - net-tools
+      - fzf
+      - ripgrep
+      - exa
+      - tree
+      - kitty
+      - nnn
+      - docker
+      - npm
+      - cpupower
+      - pass
+      - unzip
 
 - name: Install dev archlinux packages
   become: true
   pacman:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - python-pip
-    - xorg
-    - xorg-server
-    - xorg-xinit
-    - i3-gaps
-    - dmenu
-    - qutebrowser
-    - telegram-desktop
-    - evolution
-    - xfce4-power-manager
-    - nautilus
-    - alacritty
-    - xdotool
-    - feh
-    - polybar
-    - picom
-    - fontconfig
-    - wireguard-tools
-    - lxappearance
-    - xf86-input-synaptics
-    # - gcc11
-    # - gcc11-libs
-    - make
-    - cmake
-    - llvm
-    - clang
-    - glab
-    - kubectl
-    - helm
-    - gopls
-    - qtcreator
-    - deepin-screenshot
-    - dunst
-    - xdo
-    - dash
-    - libtr
-    - libtk
-    - firefox
-    - ttf-iosevka-nerd
-    - unzip
-    - ttf-iosevka-nerd
-    - ttf-ubuntumono-nerd
-    - tk
-    - syndaemon
-    - rofi
-    - htop
-    - virt-manager
-    - go
-    - obsidian
-    - k9s
-    - font-manager
-    # negwm
-    - tk
-    - dash
-    - wl-clipboard
-    - gnome-keyring
-    - bottom
+    name:
+      - python-pip
+      - polybar
+      - wireguard-tools
+      - make
+      - cmake
+      - llvm
+      - clang
+      - glab
+      - kubectl
+      - helm
+      - gopls
+      - dash
+      - libtr
+      - libtk
+      - bottom
+      - htop
+      - virt-manager
+      - go
+      - k9s
+      - font-manager
+      # negwm
+      - tk
+      - dash
+      - xdo
+
+- name: Install graphic packages
+  become: true
+  pacman:
+    name:
+      - xorg
+      - xorg-server
+      - xorg-xinit
+      - i3-gaps
+      - dmenu
+      - qutebrowser
+      - telegram-desktop
+      - evolution
+      - xfce4-power-manager
+      - nautilus
+      - alacritty
+      - xdotool
+      - syndaemon
+      - rofi
+      - gnome-keyring
+      - xclip
+      - qtcreator
+      - deepin-screenshot
+      - dunst
+      - obsidian
+      - feh
+      - firefox
+      - xf86-input-synaptics
+      - picom
+      - lxappearance
+      # fonts
+      - fontconfig
+      - ttf-iosevka-nerd
+      - ttf-ubuntumono-nerd
+
+- name: Install node packages
+  become: true
+  npm:
+    name:
+      - pyright
+      - pm2
+      - bash-language-server
+      - yaml-language-server

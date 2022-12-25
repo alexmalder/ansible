@@ -4,18 +4,19 @@ type: kubernetes
 name: lint and test
 
 steps:
-- name: lint
-  image: archlinux
-  commands:
-  - pacman -Syyu ansible-lint --noconfirm
-  - ansible-lint *.yml
-  - ansible-lint playbooks/*.yml
-
 - name: init role
   image: archlinux
   commands:
     - pacman -Syyu ansible --noconfirm
     - ansible-playbook init.yml
+
+- name: lint
+  image: archlinux
+  commands:
+  - pacman -Syyu git ansible-lint --noconfirm
+  - ansible-lint --version
+  - ansible-lint *.yml
+  - ansible-lint playbooks/*.yml
 
 ---
 kind: pipeline
