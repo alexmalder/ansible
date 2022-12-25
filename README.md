@@ -1,29 +1,11 @@
 # Ansible
 
-## Roles
+## Struct of directories
 
-- `bind`
-- `fail2ban`
-- `haproxy`
-- `init`
-- `sshd`
-- `wireguard`
-
-## Playbooks
-
-- `common`
-- `docker`
-- `dockercompose`
-- `gitlab-runner`
-- `libvirt-archlinux`
-- `libvirt-centos`
-- `pull-images`
-
-## Scripts
-
-### `validate.sh`
-### `pull.sh`
-### `git-wrapper.sh`
+- `inventory`: inventory yaml configuration file
+- `roles`: all roles
+- `playbooks`: minimal playbooks
+- `scripts`: main scripts
 
 ## Links
 

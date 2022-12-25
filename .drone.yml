@@ -7,9 +7,11 @@ steps:
 - name: lint
   image: archlinux
   commands:
-  - pacman -Syyu git ansible-lint --noconfirm
-  - ansible-lint *.yml
-  - ansible-lint playbooks/*.yml
+    - pacman -Syyu git ansible ansible-lint --noconfirm
+    - ansible-galaxy collection install ansible.posix
+    - ansible-galaxy collection install community.general
+    - ansible-lint *.yml
+    - ansible-lint playbooks/*.yml
 
 - name: init role
   image: archlinux
