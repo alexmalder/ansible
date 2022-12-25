@@ -1,45 +1,18 @@
 ---
 kind: pipeline
 type: kubernetes
-name: lint and test
+name: default
 
 steps:
+- name: lint
+  image: archlinux
+  commands:
+  - pacman -Syyu git python-pip --noconfirm
+  - pip install ansible-lint
+  - ansible-lint *.yml
+  - ansible-lint playbooks/*.yml
 - name: init role
   image: archlinux
   commands:
     - pacman -Syyu ansible --noconfirm
     - ansible-playbook init.yml
-
-- name: lint
-  image: archlinux
-  commands:
-  - pacman -Syyu git ansible-lint --noconfirm
-  - ansible-lint --version
-  - ansible-lint *.yml
-  - ansible-lint playbooks/*.yml
-
----
-kind: pipeline
-name: docker
-
-steps:
-- name: test
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  commands:
-  - sleep 10
-  - docker ps
-
-services:
-- name: docker
-  image: docker:dind
-  privileged: true
-  volumes:
-  - name: dockersock
-    path: /var/run
-
-volumes:
-- name: dockersock
-  temp: {}
