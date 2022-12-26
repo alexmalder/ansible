@@ -1,6 +1,8 @@
 ---
 - name: Install docker compose
-  hosts: drone-runner
+  hosts: 
+    - selectel
+    - drone-runner
   tasks:
     - name: Install dependencies
       ansible.builtin.yum:

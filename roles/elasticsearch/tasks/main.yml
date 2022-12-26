@@ -1,0 +1,22 @@
+---
+# - name: Register elasticsearch rpm package
+# - name: Register kibana rpm package
+# - name: Push elasticsearch rpm package if does not exists
+# - name: Push kibana rpm package if does not exists
+- name: Deploy elasticsearch server configuration
+- name: Deploy elasticsearch jvm configuration
+- name: Deploy kibana server configuration
+
+#- name: Setup elasticsearch service
+#  ansible.builtin.systemd:
+#    name: elasticsearch
+#    state: restarted
+#    enabled: true
+#    daemon_reload: true
+#
+#- name: Setup kibana service
+#  ansible.builtin.systemd:
+#    name: kibana
+#    state: restarted
+#    enabled: true
+#    daemon_reload: true

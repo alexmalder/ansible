@@ -1,0 +1,6 @@
+---
+- name: Setup vector
+  hosts: drone-runner
+  roles:
+    - name: Use vector role
+      role: vector

@@ -1,2 +1,5 @@
+.monokle
+
 roles/wireguard/vars/main.yml
-./.monokle
+roles/haproxy/files/vnmntn.com/
+roles/elasticsearch/files/packages/
