@@ -1,6 +1,6 @@
 ---
-- name: Setup vector
-  hosts: drone-runner
+- name: Setup elasticsearch and kibana
+  hosts: elasticsearch
   roles:
-    - name: Use vector role
-      role: vector
+    - name: Use elasticsearch role
+      role: elasticsearch

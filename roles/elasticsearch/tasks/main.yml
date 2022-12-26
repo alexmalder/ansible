@@ -1,12 +1,23 @@
 ---
-# - name: Register elasticsearch rpm package
-# - name: Register kibana rpm package
-# - name: Push elasticsearch rpm package if does not exists
-# - name: Push kibana rpm package if does not exists
-- name: Deploy elasticsearch server configuration
-- name: Deploy elasticsearch jvm configuration
-- name: Deploy kibana server configuration
+- name: Install java 11
+  yum:
+    name:
+      - java-11-openjdk 
+      - java-11-openjdk-devel
 
+- name: Install elasticsearch from local package
+  ansible.builtin.import_tasks: ./install-package.yml
+  vars:
+    package_name: elasticsearch
+
+- name: Install kibana from local package
+  ansible.builtin.import_tasks: ./install-package.yml
+  vars:
+    package_name: kibana
+
+#- name: Deploy elasticsearch server configuration
+#- name: Deploy elasticsearch jvm configuration
+#- name: Deploy kibana server configuration
 #- name: Setup elasticsearch service
 #  ansible.builtin.systemd:
 #    name: elasticsearch
