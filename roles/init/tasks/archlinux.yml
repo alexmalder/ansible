@@ -46,6 +46,9 @@
       - k9s
       - font-manager
       - docker-compose
+      - ctop
+      - filezilla
+      - netcat
       # negwm
       - tk
       - dash
