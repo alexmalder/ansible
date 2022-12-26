@@ -1,18 +1,18 @@
 ---
-- name: Install docker compose role
+- name: Install docker compose
   hosts: drone-runner
   tasks:
     - name: Install dependencies
-      yum:
+      ansible.builtin.yum:
         name:
           - openssl-devel
           - rust
           - cargo
 
     - name: Install setuptools rust
-      pip:
+      ansible.builtin.pip:
         name: setuptools-rust
-    
+
     - name: Install docker compose
-      pip:
+      ansible.builtin.pip:
         name: docker-compose

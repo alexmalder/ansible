@@ -1,13 +1,14 @@
 ---
-- hosts: drone-runner
+- name: Install drone runner in docker
+  hosts: drone-runner
   vars:
     gitlab_runner_script_url: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
 
   tasks:
     - name: Install requests
-      pip:
+      ansible.builtin.pip:
         name: requests
-        
+
     - name: Container present
       community.docker.docker_container:
         name: drone-runner-docker-0

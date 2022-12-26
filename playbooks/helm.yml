@@ -13,3 +13,6 @@
 
     - name: Execute helm installation script
       ansible.builtin.command: bash /tmp/get-helm.sh
+      register: myoutput
+      changed_when: myoutput.rc != 0
+      failed_when: myoutput.rc != 0

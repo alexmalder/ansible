@@ -1,26 +1,30 @@
 ---
-- hosts: drone-runner
+- name: Install docker
+  hosts: drone-runner
   vars:
-    DOCKER_CE: 'https://download.docker.com/linux/centos/docker-ce.repo'
+    docker_ce: 'https://download.docker.com/linux/centos/docker-ce.repo'
 
   tasks:
-    - name: install yum utils
-      yum:
+    - name: Install yum utils
+      ansible.builtin.yum:
         name: yum-utils
 
-    - name: add docker repo
-      command: "yum-config-manager --add-repo {{ DOCKER_CE }}"
+    - name: Add repo
+      ansible.builtin.command: "yum-config-manager --add-repo {{ docker_ce }}"
+      register: myoutput
+      changed_when: myoutput.rc != 0
+      failed_when: myoutput.rc != 0
 
-    - name: install docker packages
-      yum:
+    - name: Install packages
+      ansible.builtin.yum:
         name:
           - docker-ce
           - docker-ce-cli
           - containerd.io
 
-    - name: enable and start docker
-      systemd:
+    - name: Setup service
+      ansible.builtin.systemd:
         name: docker
         state: restarted
-        enabled: yes
-        daemon_reload: yes
+        enabled: true
+        daemon_reload: true
