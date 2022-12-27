@@ -1,5 +1,5 @@
 ---
-- name: Install base archlinux packages
+- name: Install base packages
   become: true
   community.general.pacman:
     name:
@@ -17,47 +17,53 @@
       - tree
       - kitty
       - nnn
-      - docker
       - npm
       - cpupower
       - pass
       - unzip
+      - netcat
+      - bottom
+      - htop
 
-- name: Install dev archlinux packages
+- name: Install dev packages
   become: true
   community.general.pacman:
     name:
       - python-pip
-      - polybar
       - wireguard-tools
       - make
       - cmake
       - llvm
       - clang
-      - glab
-      - kubectl
-      - helm
-      - gopls
       - dash
-      - bottom
-      - htop
       - virt-manager
-      - go
-      - k9s
-      - font-manager
-      - docker-compose
-      - ctop
-      - filezilla
-      - netcat
       # negwm
       - tk
       - dash
       - xdo
 
+- name: Install ops packages
+  become: true
+  community.general.pacman:
+    name:
+      - docker
+      - go
+      - docker-compose
+      - ctop
+      - k9s
+      - glab
+      - kubectl
+      - helm
+      - gopls
+
+
 - name: Install graphic packages
   become: true
   community.general.pacman:
     name:
+      - filezilla
+      - font-manager
+      - polybar
       - xorg
       - xorg-server
       - xorg-xinit
