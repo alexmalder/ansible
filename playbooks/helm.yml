@@ -1,6 +1,6 @@
 ---
 - name: Install helm with script
-  hosts: node1
+  hosts: drone-runner
   vars:
     helm_installation_script: 'https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3'
 
