@@ -1,6 +1,0 @@
----
-- name: Setup elasticsearch and kibana
-  hosts: elasticsearch
-  roles:
-    - name: Use elasticsearch role
-      role: elasticsearch
