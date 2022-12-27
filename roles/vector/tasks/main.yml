@@ -5,33 +5,15 @@
     home: /var/lib/vector
     create_home: true
 
-- name: Download vector archive
+- name: Download vector package
   ansible.builtin.get_url:
-    url: "{{ vector_download_url }}/{{ vector_archive_name }}"
-    dest: /tmp/vector.tar.gz
-    mode: '0664'
+    url: "{{ vector_download_url }}/{{ vector_package_name }}"
+    dest: /tmp/vector.rpm
+    mode: '0660'
 
-- name: Extract vector archive into /tmp
-  ansible.builtin.unarchive:
-    src: /tmp/vector.tar.gz
-    dest: /tmp
-    mode: '0664'
-    remote_src: true
-
-- name: Copy vector binary file
-  ansible.builtin.copy:
-    src: "/tmp/{{ vector_output_dir }}/bin/vector"
-    dest: /usr/bin/vector
-    mode: 'a+x'
-    remote_src: true
-
-- name: Create a vector directory if it does not exist
-  ansible.builtin.file:
-    path: /etc/vector
-    state: directory
-    owner: vector
-    group: vector
-    mode: '0664'
+- name: Install vector package
+  yum:
+    name: /tmp/vector.rpm
 
 - name: Copy vector config file
   ansible.builtin.copy:
@@ -39,12 +21,6 @@
     dest: /etc/vector/vector.yml
     owner: vector
     group: vector
-    mode: '0664'
-
-- name: Copy vector systemd service file
-  ansible.builtin.copy:
-    src: roles/vector/files/vector.service
-    dest: /usr/lib/systemd/system/vector.service
     mode: '0664'
 
 - name: Setup service
