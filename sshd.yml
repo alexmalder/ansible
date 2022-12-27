@@ -1,5 +1,6 @@
 ---
-- hosts: Setup sshd without password login
+- name: Setup sshd without password login
+  hosts: vm
   roles:
     - name: Use sshd role
       role: sshd
