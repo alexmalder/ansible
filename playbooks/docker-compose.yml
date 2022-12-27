@@ -1,6 +1,6 @@
 ---
 - name: Install docker compose
-  hosts: 
+  hosts:
     - selectel
     - drone-runner
   tasks:

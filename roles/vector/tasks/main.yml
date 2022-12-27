@@ -12,7 +12,7 @@
     mode: '0660'
 
 - name: Install vector package
-  yum:
+  ansible.builtin.yum:
     name: /tmp/vector.rpm
 
 - name: Copy vector config file
