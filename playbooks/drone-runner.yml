@@ -13,7 +13,7 @@
       community.docker.docker_container:
         name: drone-runner-docker-0
         state: started
-        image: ubuntu:14.04
+        image: drone/drone-runner-docker:1
         restart_policy: always
         env:
           DRONE_RPC_PROTO: http
@@ -23,3 +23,4 @@
           DRONE_RUNNER_NAME: drone-runner-docker-0
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
+          - /root/.kube:/root/.kube:ro

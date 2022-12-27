@@ -27,6 +27,7 @@
           - net-tools
           - htop
           - vim
+          - wget
           - nnn
 
     - name: Import role ssh
