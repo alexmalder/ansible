@@ -1,18 +1,18 @@
 ---
 sources:
   my_source_id:
-    type: file
-    ignore_older_secs: 600
-    include:
-      - /var/log/messages
-    read_from: beginning
+    type: docker_logs
+    docker_host: http://localhost:2375
 
 sinks:
   my_sink_id:
     type: elasticsearch
     inputs:
       - my_source_id
-    endpoints: ['http://10.10.10.2:9200']
+    endpoints: ['http://192.168.122.13:9200']
     mode: bulk
-    pipeline: file-pipeline
     compression: gzip
+    api_version: v8
+    bulk:
+      action: create 
+      index: "vector-messages-%Y-%m-%d"
