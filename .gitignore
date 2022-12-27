@@ -2,4 +2,4 @@
 
 roles/wireguard/vars/main.yml
 roles/haproxy/files/vnmntn.com/
-roles/elasticsearch/files/packages/
+roles/**/files/packages/
