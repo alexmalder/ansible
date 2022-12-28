@@ -5,9 +5,9 @@ name: default
 
 steps:
 - name: ansible lint
-  image: archlinux
+  image: alpine:3.17
   commands:
-    - pacman -Syyu git ansible ansible-lint --noconfirm
+    - apk add git ansible ansible-lint
     - ansible-galaxy collection install ansible.posix
     - ansible-galaxy collection install community.general
     - ansible-lint *.yml
@@ -20,7 +20,7 @@ steps:
     - find . | grep md | xargs -I % sh -c "markdownlint %"
 
 - name: run init role
-  image: archlinux
+  image: alpine:3.17
   commands:
-    - pacman -Syyu ansible --noconfirm
+    - apk add ansible
     - ansible-playbook init.yml
