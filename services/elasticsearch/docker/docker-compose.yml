@@ -1,0 +1,21 @@
+---
+version: '2'
+services:
+#  elasticsearch:
+#    image: elasticsearch:6.8.20
+#    volumes:
+#      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    environment:
+#      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+  kibana:
+    image: kibana:6.8.20
+    volumes:
+      - ./kibana.yml/:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+#    depends_on:
+#      - elasticsearch
