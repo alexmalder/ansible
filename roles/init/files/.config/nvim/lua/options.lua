@@ -56,7 +56,7 @@ local git_branch = {
     width = 100,
 }
 -- FLOATERM
-vim.cmd[[let g:floaterm_keymap_toggle = '<F12>']]
+vim.cmd[[let g:floaterm_keymap_toggle = '<C-t>']]
 vim.cmd[[let g:floaterm_position = 'right']]
 vim.cmd[[let g:floaterm_height = 1.0]]
 vim.cmd[[let g:floaterm_width = 0.66]]

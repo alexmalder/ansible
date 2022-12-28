@@ -11,12 +11,10 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
     -- INITIALIZE
     use 'wbthomason/packer.nvim'
-    -- COMPLETION
-    use { 'L3MON4D3/LuaSnip' }
+    -- LSP
     use { 'hrsh7th/nvim-cmp' }
     use { 'saadparwaiz1/cmp_luasnip' }
-    -- LSP
-    use 'vim-autoformat/vim-autoformat'
+    use { 'L3MON4D3/LuaSnip' }
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
@@ -24,26 +22,27 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-cmdline'
     use 'ray-x/lsp_signature.nvim'
     use 'williamboman/nvim-lsp-installer'
-    use 'mcchrish/nnn.vim'
-    -- UI/UX
-    use 'windwp/windline.nvim'
-    use 'kyazdani42/nvim-web-devicons'
-    --use 'luochen1990/rainbow'
-    use 'sbdchd/neoformat'
-    use 'windwp/nvim-autopairs'
+    use 'glepnir/lspsaga.nvim'
+    -- SEARCH ENGINE
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
-    use 'bfrg/vim-cpp-modern'
-    use 'makerj/vim-pdf'
-    use 'saltstack/salt-vim'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-repeat'
-    use 'voldikss/vim-floaterm'
-    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+    -- COMPLETION
+    use 'windwp/nvim-autopairs'
+    -- UI/UX
+    use 'mcchrish/nnn.vim'
+    use 'neg-serg/neg.nvim'
     use 'romgrk/barbar.nvim'
-    use 'sindrets/diffview.nvim'
-    use 'dstein64/vim-startuptime'
+    use 'windwp/windline.nvim'
+    use 'kyazdani42/nvim-web-devicons'
+    use 'voldikss/vim-floaterm'
+    -- SYNTAX
+    use 'makerj/vim-pdf'
+    use 'bfrg/vim-cpp-modern'
+    -- FORMATTERS
+    use 'vim-autoformat/vim-autoformat'
+    use 'sbdchd/neoformat'
+    -- GIT
     use 'TimUntersberger/neogit'
-    use 'glepnir/lspsaga.nvim'
-    use {'neg-serg/neg.nvim'}
+    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+    use 'sindrets/diffview.nvim'
 end)

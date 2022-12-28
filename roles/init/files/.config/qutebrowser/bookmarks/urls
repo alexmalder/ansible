@@ -1,1 +1,4 @@
 https://github.com/ithewei/libhv ithewei/libhv: 🔥 比libevent、libuv更易用的网络库。A c/c++ network library for developing TCP/UDP/SSL/HTTP/WebSocket/MQTT client/server.
+https://kubernetes.io/docs/reference/access-authn-authz/rbac/ Using RBAC Authorization | Kubernetes
+https://vitobotta.com/2019/10/09/ci-cd-with-drone-for-deployment-to-kubernetes-with-helm/ Using Drone CI/CD to build, test your images and deploy to Kubernetes with Helm
+https://vc.ru/dev/174452-kak-proverit-pravopisanie-s-pomoshch-python-pyenchant Как проверить правописание с помощь Python pyenchant? — Разработка на vc.ru

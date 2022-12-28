@@ -14,7 +14,6 @@ map('n', '<space>l', ':vertical resize -15<CR>', opts)
 map('n', '<space>h', ':vertical resize +15<CR>', opts)
 map('n', '<space>j', ':resize -15<CR>', opts)
 map('n', '<space>k', ':resize +15<CR>', opts)
---map('n', '<space>n', ':LustyFilesystemExplorerFromHere<CR>', opts)
 map('n', '<space>n', ':NnnPicker %:p:h<CR>', opts)
 map('n', '<space>s', ':Lspsaga hover_doc<CR>', opts)
 
