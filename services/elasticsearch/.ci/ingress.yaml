@@ -1,0 +1,18 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: elasticsearch
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: elasticsearch.vnmntn.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: elasticsearch
+            port:
+              number: 9200
+        path: /
+        pathType: Prefix

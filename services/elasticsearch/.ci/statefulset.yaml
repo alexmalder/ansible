@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch 
+  serviceName: "elasticsearch"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: elasticsearch
+        image: elasticsearch:6.8.20
+        ports:
+        - containerPort: 9200
+          name: elastic
+        - containerPort: 9300
+          name: elastic-next
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/elasticsearch/data
+        # added for config
+        #- name: config
+        #  mountPath: "/etc/elasticsearch"
+        #  readOnly: true
+          
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        # storageClassName: ""
+        resources:
+          requests:
+            storage: 10Gi
