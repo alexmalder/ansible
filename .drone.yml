@@ -4,7 +4,7 @@ type: kubernetes
 name: default
 
 steps:
-- name: lint
+- name: ansible lint
   image: archlinux
   commands:
     - pacman -Syyu git ansible ansible-lint --noconfirm
@@ -13,7 +13,13 @@ steps:
     - ansible-lint *.yml
     - ansible-lint playbooks/*.yml
 
-- name: init role
+- name: markdown lint
+  image: node:18
+  commands:
+    - npm i -g markdownlint-cli
+    - find . | grep md | xargs -I % sh -c "markdownlint %"
+
+- name: run init role
   image: archlinux
   commands:
     - pacman -Syyu ansible --noconfirm
