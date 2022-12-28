@@ -1,3 +1,0 @@
-#!/usr/bin/env /bin/zsh
-source /var/lib/vnmntn/.zshrc
-pass edit $(find /var/lib/vnmntn/.password-store | grep gpg | sed 's/\/var\/lib\/vnmntn\/\.password-store\///g' | sed 's/.gpg//g' | sed 's/\.\///g' | fzf)
