@@ -20,7 +20,7 @@ steps:
     - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
 
 - name: run init role
-  image: alpine:3.17
+  image: archlinux
   commands:
     - apk add ansible
     - ansible-playbook init.yml
