@@ -17,7 +17,7 @@ steps:
   image: node:18
   commands:
     - npm i -g markdownlint-cli
-    - find . | grep md | xargs -I % sh -c "markdownlint %"
+    - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
 
 - name: run init role
   image: alpine:3.17
