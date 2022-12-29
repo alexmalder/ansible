@@ -22,5 +22,5 @@ steps:
 - name: run init role
   image: archlinux
   commands:
-    - apk add ansible
+    - pacman -Syyu ansible --noconfirm
     - ansible-playbook init.yml
