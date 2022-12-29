@@ -64,10 +64,11 @@
       - xorg-server
       - xorg-xinit
 
-- name: Install graphic packages
+- name: Install desktop packages
   become: true
   community.general.pacman:
     name:
+      - sof-firmware
       - filezilla
       - font-manager
       - polybar
