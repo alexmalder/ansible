@@ -56,6 +56,13 @@
       - helm
       - gopls
 
+- name: Install xorg packages
+  become: true
+  community.general.pacman:
+    name:
+      - xorg
+      - xorg-server
+      - xorg-xinit
 
 - name: Install graphic packages
   become: true
@@ -64,9 +71,6 @@
       - filezilla
       - font-manager
       - polybar
-      - xorg
-      - xorg-server
-      - xorg-xinit
       - i3-gaps
       - dmenu
       - qutebrowser
