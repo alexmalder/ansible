@@ -1,6 +1,6 @@
 #/bin/bash
 
-set -eo pipefail
+#set -eo pipefail
 
 diff_prog="colordiff"
 
