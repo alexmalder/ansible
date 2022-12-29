@@ -2,27 +2,27 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: elasticsearch
+  name: openldap
 spec:
   selector:
     matchLabels:
-      app: elasticsearch 
-  serviceName: "elasticsearch"
+      app: openldap 
+  serviceName: openldap
   replicas: 1
   template:
     metadata:
       labels:
-        app: elasticsearch
+        app: openldap
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: elasticsearch
-        image: elasticsearch:6.8.20
+      - name: openldap
+        image: openldap:2.6
         ports:
-        - containerPort: 9200
-          name: elastic
-        - containerPort: 9300
-          name: elastic-next
+        - containerPort: 1389
+          name: openldap
+        - containerPort: 1636
+          name: openldap-sec
         env:
           - name: ES_JAVA_OPTS 
             value: '-Xms1024m -Xmx1024m'
@@ -30,7 +30,7 @@ spec:
             value: single-node
         volumeMounts:
         - name: data
-          mountPath: /usr/share/elasticsearch/data
+          mountPath: /bitnami/openldap
           
   volumeClaimTemplates:
     - metadata:
@@ -41,4 +41,4 @@ spec:
         # storageClassName: ""
         resources:
           requests:
-            storage: 10Gi
+            storage: 1Gi
