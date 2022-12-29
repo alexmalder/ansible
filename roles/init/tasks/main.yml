@@ -1,6 +1,64 @@
 ---
 - name: Install packages for archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
+  
+---
+- name: Install base ALPINE packages | PACKAGES
+  become: true
+  community.general.apk:
+    name:
+    - zsh
+    - tmux
+    - mc
+    - ncdu
+    - neovim
+    - git
+    - colordiff
+    - net-tools
+    - fzf
+    - ripgrep
+    - exa
+    - tree
+    - kitty
+    - nnn
+    - docker
+    - npm
+    - cpupower
+    - pass
+    #- chromium
+    #- salt
+    #- flatpak
+
+- name: Install dev ALPINE packages | PACKAGES
+  become: true
+  community.general.apk:
+    name:
+      - font-iosevka
+      - font-iosevka-nerd
+      - font-manager
+      - wl-clipboard
+      - virt-manager
+      - salt-ssh
+      - salt-master
+      - bluez
+      - alsa-utils
+      - alsa-utils-doc
+      - alsa-lib
+      - alsaconf
+      - alsa-ucm-conf
+      - task
+      - libvirt
+      - libvirt-qemu
+      - libvirt-daemon
+      - qemu-img
+      - qemu-system-x86_64
+      - qemu-modules
+      - openrc
+      - ffmpeg
+      - mpv
+      - util-linux
+      - bind-tools
+    state: present
 
 - name: Configure system
   ansible.builtin.import_tasks: ./configure.yml
