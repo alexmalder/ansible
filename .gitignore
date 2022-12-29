@@ -1,5 +1,4 @@
-.monokle
-
-roles/wireguard/vars/main.yml
-roles/haproxy/files/vnmntn.com/
-roles/**/files/packages/
+/roles/wireguard/vars/main.yml
+/roles/haproxy/files/vnmntn.com/
+/roles/**/files/packages/
+/services/backup/configmap.yaml

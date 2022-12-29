@@ -1,0 +1,33 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: backup-gitea
+spec:
+  # retry 3 times
+  backoffLimit: 3
+  template:
+    spec:
+      # containers was never restarted
+      restartPolicy: Never
+      containers:
+      - name: backup-gitea
+        image: alpine:3.17
+        command: ["sleep"]
+        args:
+          - "infinity"
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+      # use volumes 
+      volumes:
+      # You set volumes at the Pod level, then mount them into containers inside that Pod
+      - name: config
+        configMap:
+          # Provide the name of the ConfigMap you want to mount.
+          name: backup-gitea
+          # An array of keys from the ConfigMap to create as files
+          items:
+          - key: "app.ini"
+            path: "app.ini"
