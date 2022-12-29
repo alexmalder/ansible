@@ -1,12 +1,12 @@
 ---
-- name: Install packages for archlinux
-  ansible.builtin.import_tasks: ./archlinux.yml
-  
----
+#- name: Install packages for archlinux
+#  ansible.builtin.import_tasks: ./archlinux.yml
+
 - name: Install base ALPINE packages | PACKAGES
   become: true
   community.general.apk:
-    name:
+    name: "{{ items }}"
+  with_items:
     - zsh
     - tmux
     - mc
@@ -32,33 +32,35 @@
 - name: Install dev ALPINE packages | PACKAGES
   become: true
   community.general.apk:
-    name:
-      - font-iosevka
-      - font-iosevka-nerd
-      - font-manager
-      - wl-clipboard
-      - virt-manager
-      - salt-ssh
-      - salt-master
-      - bluez
-      - alsa-utils
-      - alsa-utils-doc
-      - alsa-lib
-      - alsaconf
-      - alsa-ucm-conf
-      - task
-      - libvirt
-      - libvirt-qemu
-      - libvirt-daemon
-      - qemu-img
-      - qemu-system-x86_64
-      - qemu-modules
-      - openrc
-      - ffmpeg
-      - mpv
-      - util-linux
-      - bind-tools
+    name: "{{ items }}"
     state: present
+  with_items:
+    - font-iosevka
+    - font-iosevka-nerd
+    - font-manager
+    - wl-clipboard
+    - virt-manager
+    - salt-ssh
+    - salt-master
+    - bluez
+    - alsa-utils
+    - alsa-utils-doc
+    - alsa-lib
+    - alsaconf
+    - alsa-ucm-conf
+    - task
+    - libvirt
+    - libvirt-qemu
+    - libvirt-daemon
+    - qemu-img
+    - qemu-system-x86_64
+    - qemu-modules
+    - openrc
+    - ffmpeg
+    - mpv
+    - util-linux
+    - bind-tools
 
-- name: Configure system
-  ansible.builtin.import_tasks: ./configure.yml
+
+#- name: Configure system
+#  ansible.builtin.import_tasks: ./configure.yml
