@@ -44,6 +44,10 @@ function url_to_md {
     curl $1 | pandoc -f html -t markdown > $2
 }
 
-function conn {
-    ssh $(cat .ssh/config | grep "Host " | sed 's/Host\ //g' | fzf)
+function wg_gen_keys {
+    wg genkey | tee /tmp/privatekey | wg pubkey | sudo tee /tmp/publickey
+    echo "WIREGUARD PRIVATE KEY:"
+    cat /tmp/privatekey
+    echo "WIREGUARD PUBLIC KEY:"
+    cat /tmp/publickey
 }

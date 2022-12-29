@@ -18,13 +18,13 @@ window:
 
 font:
   normal:
-    family: "Iosevka"
+    family: "Iosevka Nerd Font"
     style: Medium
   bold:
-    family: "Iosevka"
+    family: "Iosevka Nerd Font"
     style: Bold
   italic:
-    family: "Iosevka"
+    family: "Iosevka Nerd Font"
     style: Italic
   size: 18.0
   offset:
