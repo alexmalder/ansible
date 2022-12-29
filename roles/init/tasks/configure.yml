@@ -13,7 +13,6 @@
   with_items:
     - src: "roles/{{ role_name }}/files/.config"
     - src: "roles/{{ role_name }}/files/home/.zshrc"
-    - src: "roles/{{ role_name }}/files/home/.zsh"
     - src: "roles/{{ role_name }}/files/home/.clang-format"
     - src: "roles/{{ role_name }}/files/home/.tmux.conf"
     - src: "roles/{{ role_name }}/files/home/.xinitrc"

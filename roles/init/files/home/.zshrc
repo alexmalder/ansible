@@ -7,13 +7,13 @@ zi light zsh-users/zsh-autosuggestions
 zi load sunlei/zsh-ssh
 zi light joshskidmore/zsh-fzf-history-search
 
-source $HOME/.zsh/functions.zsh
-source $HOME/.zsh/aliases.zsh
-source $HOME/.zsh/bindkeys.zsh
-source $HOME/.zsh/colors.zsh
-source $HOME/.zsh/setopts.zsh
-source $HOME/.zsh/ztyles.zsh
-source $HOME/.zsh/variables.zsh
+source $XDG_CONFIG_HOME/zsh/functions.zsh
+source $XDG_CONFIG_HOME/zsh/aliases.zsh
+source $XDG_CONFIG_HOME/zsh/bindkeys.zsh
+source $XDG_CONFIG_HOME/zsh/colors.zsh
+source $XDG_CONFIG_HOME/zsh/setopts.zsh
+source $XDG_CONFIG_HOME/zsh/ztyles.zsh
+source $XDG_CONFIG_HOME/zsh/variables.zsh
 
 zle -N rationalise-dot
 bindkey . rationalise-dot
