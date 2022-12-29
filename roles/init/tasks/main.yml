@@ -1,6 +1,13 @@
 ---
 - name: Install packages for archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
+  when:
+    - ansible_distribution == "Archlinux"
+
+- name: Install packages for alpine
+  ansible.builtin.import_tasks: ./alpine.yml
+  when:
+    - ansible_distribution == "Alpine"
 
 - name: Configure system
   ansible.builtin.import_tasks: ./configure.yml
