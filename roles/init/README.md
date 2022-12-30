@@ -28,6 +28,8 @@ No role dependencies
 
 ## TODO
 
+- [ ] systemd services
+- [ ] xorg configuration
 - [ ] add tags in tasks
 
 ## Links
