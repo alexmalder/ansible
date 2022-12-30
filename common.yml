@@ -1,5 +1,5 @@
 ---
-- hosts: vm
+- hosts: home
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
@@ -17,19 +17,20 @@
 
     - name: Install admin tools
       ansible.builtin.yum:
-        name:
-          - git
-          - unzip
-          - tar
-          - yum-utils
-          - ncdu
-          - tmux
-          - net-tools
-          - htop
-          - vim
-          - wget
-          - nnn
+        name: "{{ item }}"
+      with_items:
+        - git
+        - unzip
+        - tar
+        - yum-utils
+        - ncdu
+        - tmux
+        - net-tools
+        - htop
+        - vim
+        - wget
+        - nnn
 
-    - name: Import role ssh
-      ansible.builtin.import_role:
-        name: sshd
+#    - name: Import role ssh
+#      ansible.builtin.import_role:
+#        name: sshd

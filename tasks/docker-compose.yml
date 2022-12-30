@@ -1,0 +1,17 @@
+---
+# @tags: 
+# - ci
+- name: Install dependencies
+  ansible.builtin.yum:
+    name:
+      - openssl-devel
+      - rust
+      - cargo
+
+- name: Install setuptools rust
+  ansible.builtin.pip:
+    name: setuptools-rust
+
+- name: Install docker compose
+  ansible.builtin.pip:
+    name: docker-compose

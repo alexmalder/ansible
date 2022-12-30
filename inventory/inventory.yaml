@@ -3,8 +3,12 @@ all:
   children:
     selectel:
       hosts:
-        hyper01:
+        hypervisor:
           ansible_host: 91.206.15.104
+          ansible_user: root
+          ansible_port: 22
+        home:
+          ansible_host: 10.10.10.3
           ansible_user: root
           ansible_port: 22
     vm:
