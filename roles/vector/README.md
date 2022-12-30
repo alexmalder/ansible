@@ -1,18 +1,18 @@
 ## VECTOR
 
-Install and setup vector log collector.
+Install and setup vector log collector
 
 ## Requirements
 
-This role using rpm install.
+This role using rpm install
 
 ## Role Variables
 
-No role variables.
+No role variables
 
 ## Dependencies
 
-No role dependencies.
+No role dependencies
 
 ## Example Playbook
 
@@ -28,6 +28,10 @@ No role dependencies.
 ## TODO
 
 - [ ] test role in vm
+
+## Links
+
+- [https://vector.dev/docs/](https://vector.dev/docs/)
 
 ## License
 

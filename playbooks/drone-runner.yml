@@ -1,4 +1,6 @@
 ---
+# @tags: 
+# - ci
 - name: Install drone runner in docker
   hosts: drone-runner
   vars:

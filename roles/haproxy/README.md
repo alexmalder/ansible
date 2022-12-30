@@ -1,18 +1,18 @@
 ## HAPROXY
 
-Install and setup haproxy.
+Install and setup haproxy
 
 ## Requirements
 
-This role using haproxy centos package.
+This role using haproxy centos package
 
 ## Role Variables
 
-No role variables.
+No role variables
 
 ## Dependencies
 
-No role dependencies.
+No role dependencies
 
 ## Example Playbook
 
@@ -23,6 +23,14 @@ No role dependencies.
     - name: Use haproxy role
       role: haproxy
 ```
+
+## TODO
+
+- [ ] add role variables
+
+## Links
+
+- [https://www.haproxy.com/documentation/](https://www.haproxy.com/documentation/)
 
 ## License
 

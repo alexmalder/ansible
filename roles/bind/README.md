@@ -1,10 +1,10 @@
 ## BIND
 
-Install and setup bind dns server.
+Install and setup bind dns server
 
 ## Requirements
 
-This role using bind and bind-utils centos packages.
+This role using bind and bind-utils centos packages
 
 ## Role Variables
 
@@ -15,7 +15,7 @@ This role using bind and bind-utils centos packages.
 
 ## Dependencies
 
-No role dependencies.
+No role dependencies
 
 ## Example Playbook
 
@@ -32,6 +32,10 @@ No role dependencies.
 
 - [ ] named-checkzone vnmntn.pro /var/named/vnmntn.pro.db
 - [ ] named-checkzone 192.168.122.16 /var/named/vnmntn.pro.rev
+
+# Links
+
+- [https://bind9.readthedocs.io/en/v9_18_2/introduction.html](https://bind9.readthedocs.io/en/v9_18_2/introduction.html)
 
 ## License
 

@@ -1,4 +1,6 @@
 ---
+# @tags: 
+# - ci
 - name: Install docker compose
   hosts:
     - selectel

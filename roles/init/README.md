@@ -1,6 +1,6 @@
 ## INIT
 
-Install packages and configuration local system.
+Install packages and configuration local system
 
 ## Requirements
 
@@ -8,11 +8,11 @@ Install packages and configuration local system.
 
 ## Role Variables
 
-No role variables in the current state.
+No role variables in the current state
 
 ## Dependencies
 
-No role dependencies.
+No role dependencies
 
 ## Example Playbook
 

@@ -1,18 +1,18 @@
 ## SSHD
 
-Install and setup sshd server.
+Install and setup sshd server
 
 ## Requirements
 
-This role using default sshd centos server pacakge.
+This role using default sshd centos server pacakge
 
 ## Role Variables
 
-No role variables.
+No role variables
 
 ## Dependencies
 
-No role dependencies.
+No role dependencies
 
 ## Example Playbook
 
@@ -28,6 +28,10 @@ No role dependencies.
 ## TODO
 
 - [ ] check nonroot user login
+
+## Links
+
+- [https://www.openssh.com/manual.html](https://www.openssh.com/manual.html)
 
 ## License
 

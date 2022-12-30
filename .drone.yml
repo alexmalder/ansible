@@ -12,15 +12,30 @@ steps:
     - ansible-galaxy collection install community.general
     - ansible-lint *.yml
     - ansible-lint playbooks/*.yml
+  when:
+    branch:
+      - master
+    event:
+      - push 
 
 - name: markdown lint
   image: node:18
   commands:
     - npm i -g markdownlint-cli
     - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
+  when:
+    branch:
+      - master
+    event:
+      - push 
 
 - name: run init role
   image: archlinux
   commands:
     - pacman -Syyu ansible --noconfirm
     - ansible-playbook init.yml
+  when:
+    branch:
+      - master
+    event:
+      - push 

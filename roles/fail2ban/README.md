@@ -1,18 +1,18 @@
 ## FAIL2BAN
 
-Install and setup fail2ban.
+Install and setup fail2ban
 
 ## Requirements
 
-- fail2ban centos package
+Fail2ban centos package
 
 ## Role Variables
 
-No role variables.
+No role variables
 
 ## Dependencies
 
-No role dependencies.
+No role dependencies
 
 ## Example Playbook
 
@@ -27,6 +27,10 @@ No role dependencies.
 ## TODO
 
 - [ ] create variables
+
+## Links
+
+- [https://fail2ban.readthedocs.io/en/latest/](https://fail2ban.readthedocs.io/en/latest/)
 
 ## License
 

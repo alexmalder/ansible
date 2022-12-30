@@ -1,14 +1,14 @@
 ## BIND
 
-Install and setup bind dns server.
+Install and setup bind dns server
 
 ## Requirements
 
-This role using bind and bind-utils centos packages.
+This role using bind and bind-utils centos packages
 
 ## Role Variables
 
-Getted from `pass`.
+Getted from `pass`
 
 ```yaml
 ---
@@ -32,7 +32,7 @@ clients:
 
 ## Dependencies
 
-No role dependencies.
+No role dependencies
 
 ## Example Playbook
 
@@ -48,6 +48,10 @@ No role dependencies.
 ## TODO
 
 - [ ] create setup task for remote management
+
+## Links
+
+- [https://www.wireguard.com/](https://www.wireguard.com/)
 
 ## License
 
