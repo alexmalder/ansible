@@ -1,38 +1,50 @@
-Role Name
-=========
+## INIT
 
-A brief description of the role goes here.
+Install packages and configuration local system.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- `pacman[archlinux]`
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+No role variables in the current state.
 
-Dependencies
-------------
+## Dependencies
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No role dependencies.
 
-Example Playbook
-----------------
+## Example Playbook
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+- name: Setup system
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - role: init
+      vars:
+        role_name: init
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## TODO
 
-License
--------
+- [ ] add tags in tasks
+
+## Links
+
+- [ansible](https://www.ansible.com/)
+- [i3](https://i3wm.org/)
+- [negwm](https://github.com/neg-serg/negwm)
+- [polybar](https://polybar.github.io/)
+- [kitty](https://github.com/kovidgoyal/kitty)
+- [picom](https://wiki.archlinux.org/title/Picom)
+- [alsa](https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture)
+- [iptables](https://wiki.archlinux.org/title/Iptables)
+
+## License
 
 BSD
 
-Author Information
-------------------
+## Author Information
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+<vnmntn@mail.ru>
