@@ -1,38 +1,62 @@
-Role Name
-=========
+## BIND
 
-A brief description of the role goes here.
+Install and setup bind dns server
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role using bind and bind-utils centos packages
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Getted from `pass`
 
-Dependencies
-------------
+```yaml
+---
+server:
+  address: 10.10.10.1/24
+  listen_port: 50100
+  private_key: <server_private_key>
+  peers:
+    - name: username
+      public_key: <client_public_key>
+      allowed_ips: 10.10.10.2/32
+clients:
+  - name: username
+    private_key: <client_private_key>
+    address: 10.10.10.2/24
+    public_key: <server_public_key>
+    endpoint: <server_public_ip>:50100
+    allowed_ips: 10.10.10.0/24
+    persistent_keepalive: 25
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Dependencies
 
-Example Playbook
-----------------
+No role dependencies
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Example Playbook
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+---
+- name: Setup wireguard server and generate wireguard client config files
+  hosts: wireguard
+  roles:
+    - name: Use wireguard role
+      role: wireguard
+```
 
-License
--------
+## TODO
+
+- [ ] create setup task for remote management
+
+## Links
+
+- [https://www.wireguard.com/](https://www.wireguard.com/)
+
+## License
 
 BSD
 
-Author Information
-------------------
+## Author Information
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+<vnmntn@mail.ru>

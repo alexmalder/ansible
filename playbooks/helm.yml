@@ -1,4 +1,6 @@
 ---
+# @tags: 
+# - ci
 - name: Install helm with script
   hosts: drone-runner
   vars:

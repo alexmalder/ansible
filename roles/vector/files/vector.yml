@@ -12,7 +12,7 @@ sinks:
     endpoints: ['http://192.168.122.13:9200']
     mode: bulk
     compression: gzip
-    api_version: v8
+    api_version: v6
     bulk:
-      action: create 
+      #action: create 
       index: "vector-messages-%Y-%m-%d"
