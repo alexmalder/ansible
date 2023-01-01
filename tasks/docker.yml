@@ -1,13 +1,12 @@
 ---
 # @tags: 
 # - ci
-# docker_ce: 'https://download.docker.com/linux/centos/docker-ce.repo'
 - name: Install yum utils
   ansible.builtin.yum:
     name: yum-utils
 
 - name: Add repo
-  ansible.builtin.command: "yum-config-manager --add-repo {{ docker_ce }}"
+  ansible.builtin.command: "yum-config-manager --add-repo {{ docker_ce_url }}"
   register: myoutput
   changed_when: myoutput.rc != 0
   failed_when: myoutput.rc != 0

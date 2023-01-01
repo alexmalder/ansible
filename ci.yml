@@ -1,11 +1,21 @@
 ---
 - name: Install ci tools
   hosts: home
+  become: true
+  vars:
+    docker_ce_url: 'https://download.docker.com/linux/centos/docker-ce.repo'
+    kubectl_url: "https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
+    helm_url: "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
+
   tasks:
+    - name: Install docker
+      import_tasks: ./tasks/docker.yml
+
+    - name: Install docker-compose
+      import_tasks: ./tasks/docker-compose.yml
+
     - name: Install kubectl
       import_tasks: ./tasks/kubectl.yml
-      become: true
 
     - name: Install helm
       import_tasks: ./tasks/helm.yml
-      become: true
