@@ -19,6 +19,9 @@
     - nnn
     - docker
     - npm
+    - helm
+    - k9s
+    - bottom
     - cpupower
     - pass
     - chromium
@@ -58,5 +61,5 @@
     - util-linux
     - bind-tools
     - alacritty
-    - helm
-    - k9s
+    - zathura
+    - zathura-pdf-poppler
