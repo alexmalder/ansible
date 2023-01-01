@@ -2,8 +2,7 @@
 - name: Install base ALPINE packages | PACKAGES
   become: true
   community.general.apk:
-    name: "{{ items }}"
-  with_items:
+    name:
     - zsh
     - tmux
     - mc
@@ -22,30 +21,31 @@
     - npm
     - cpupower
     - pass
-    # - chromium
-    # - salt
-    # - flatpak
+    - chromium
+    - flatpak
+    - wireguard-tools
 
-- name: Install dev ALPINE packages | PACKAGES
+- name: Install fonts ALPINE packages | PACKAGES
   become: true
   community.general.apk:
-    name: "{{ items }}"
-    state: present
-  with_items:
+    name:
     - font-iosevka
     - font-iosevka-nerd
     - font-manager
+    - font-ubuntu-mono-nerd
+
+- name: Install other ALPINE packages | PACKAGES
+  become: true
+  community.general.apk:
+    name:
     - wl-clipboard
     - virt-manager
-    - salt-ssh
-    - salt-master
     - bluez
     - alsa-utils
     - alsa-utils-doc
     - alsa-lib
     - alsaconf
     - alsa-ucm-conf
-    - task
     - libvirt
     - libvirt-qemu
     - libvirt-daemon
@@ -57,3 +57,6 @@
     - mpv
     - util-linux
     - bind-tools
+    - alacritty
+    - helm
+    - k9s
