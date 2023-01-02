@@ -30,9 +30,9 @@ steps:
       - push 
 
 - name: run init role
-  image: archlinux
+  image: alpine
   commands:
-    - pacman -Syyu ansible --noconfirm
+    - apk add ansible
     - ansible-playbook init.yml
   when:
     branch:

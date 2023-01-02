@@ -27,6 +27,8 @@
     - chromium
     - flatpak
     - wireguard-tools
+    - ansible
+    - ansible-lint
 
 - name: Install fonts ALPINE packages | PACKAGES
   become: true
