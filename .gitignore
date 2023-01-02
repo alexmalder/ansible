@@ -1,4 +1,1 @@
-/roles/wireguard/vars/main.yml
-/roles/haproxy/files/vnmntn.com/
-/roles/**/files/packages/
-/services/backup/configmap.yaml
+# ignored files or patterns will be here
