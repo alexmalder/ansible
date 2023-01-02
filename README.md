@@ -2,7 +2,7 @@
 
 ## Struct of directories
 
-- `inventory`: inventory yaml
+- `inventory`: inventory yaml config file
 - `roles`: all roles
 - `playbooks`: minimal playbooks
 - `scripts`: main scripts
