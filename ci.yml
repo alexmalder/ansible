@@ -9,13 +9,13 @@
 
   tasks:
     - name: Install docker
-      import_tasks: ./tasks/docker.yml
+      ansible.builtin.import_tasks: ./tasks/docker.yml
 
     - name: Install docker-compose
-      import_tasks: ./tasks/docker-compose.yml
+      ansible.builtin.import_tasks: ./tasks/docker-compose.yml
 
     - name: Install kubectl
-      import_tasks: ./tasks/kubectl.yml
+      ansible.builtin.import_tasks: ./tasks/kubectl.yml
 
     - name: Install helm
-      import_tasks: ./tasks/helm.yml
+      ansible.builtin.import_tasks: ./tasks/helm.yml

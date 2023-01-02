@@ -1,6 +1,4 @@
 ---
-# @tags: 
-# - ci
 - name: Install dependencies
   ansible.builtin.yum:
     name:

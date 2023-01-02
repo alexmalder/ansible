@@ -1,6 +1,4 @@
 ---
-# @tags: 
-# - ci
 - name: Install yum utils
   ansible.builtin.yum:
     name: yum-utils

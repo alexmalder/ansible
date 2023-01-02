@@ -3,65 +3,65 @@
   become: true
   community.general.apk:
     name:
-    - zsh
-    - tmux
-    - mc
-    - ncdu
-    - neovim
-    - git
-    - colordiff
-    - net-tools
-    - fzf
-    - ripgrep
-    - exa
-    - tree
-    - kitty
-    - nnn
-    - docker
-    - npm
-    - helm
-    - k9s
-    - bottom
-    - cpupower
-    - pass
-    - chromium
-    - flatpak
-    - wireguard-tools
-    - ansible
-    - ansible-lint
+      - zsh
+      - tmux
+      - mc
+      - ncdu
+      - neovim
+      - git
+      - colordiff
+      - net-tools
+      - fzf
+      - ripgrep
+      - exa
+      - tree
+      - kitty
+      - nnn
+      - docker
+      - npm
+      - helm
+      - k9s
+      - bottom
+      - cpupower
+      - pass
+      - chromium
+      - flatpak
+      - wireguard-tools
+      - ansible
+      - ansible-lint
 
 - name: Install fonts ALPINE packages | PACKAGES
   become: true
   community.general.apk:
     name:
-    - font-iosevka
-    - font-iosevka-nerd
-    - font-manager
-    - font-ubuntu-mono-nerd
+      - font-iosevka
+      - font-iosevka-nerd
+      - font-manager
+      - font-ubuntu-mono-nerd
 
 - name: Install other ALPINE packages | PACKAGES
   become: true
   community.general.apk:
     name:
-    - wl-clipboard
-    - virt-manager
-    - bluez
-    - alsa-utils
-    - alsa-utils-doc
-    - alsa-lib
-    - alsaconf
-    - alsa-ucm-conf
-    - libvirt
-    - libvirt-qemu
-    - libvirt-daemon
-    - qemu-img
-    - qemu-system-x86_64
-    - qemu-modules
-    - openrc
-    - ffmpeg
-    - mpv
-    - util-linux
-    - bind-tools
-    - alacritty
-    - zathura
-    - zathura-pdf-poppler
+      - wl-clipboard
+      - virt-manager
+      - bluez
+      - alsa-utils
+      - alsa-utils-doc
+      - alsa-lib
+      - alsaconf
+      - alsa-ucm-conf
+      - libvirt
+      - libvirt-qemu
+      - libvirt-daemon
+      - qemu-img
+      - qemu-system-x86_64
+      - qemu-modules
+      - openrc
+      - ffmpeg
+      - mpv
+      - util-linux
+      - bind-tools
+      - alacritty
+      - zathura
+      - zathura-pdf-poppler
