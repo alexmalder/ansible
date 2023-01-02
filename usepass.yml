@@ -1,0 +1,20 @@
+---
+- name: Debug
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Register config
+      command: pass show config/wireguard.yml
+      register: wireguard
+
+    - name: Debug config
+      debug:
+        var: wireguard.stdout
+
+    - name: Import vars
+      set_fact: 
+        wg_config: "{{ wireguard.stdout | from_yaml }}"
+
+    - name: Debug fact
+      debug:
+        msg: "{{wg_config.server}}"

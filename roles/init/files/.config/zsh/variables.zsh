@@ -16,4 +16,4 @@ export GOPATH=$HOME/.go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export dt=`date '+%d-%m-%Y-%H-%M-%S'`
 export VISUAL="nvim"
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export PASSWORD_STORE_DIR="$HOME/git/store"

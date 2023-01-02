@@ -1,6 +1,6 @@
 ---
 - name: Setup haproxy
-  hosts: selectel
+  hosts: hypervisor
   roles:
     - name: Use haproxy role
       role: haproxy
