@@ -5,15 +5,15 @@
     name: haproxy
 
 - name: Push prepared certificate in pem format
-  copy:
-    content: "{{ hostvars['CERTIFICATE']['vnmntn.com'] }}" 
+  ansible.builtin.copy:
+    content: "{{ hostvars['CERTIFICATE']['vnmntn.com'] }}"
     dest: /etc/ssl/certs/vnmntn.com.pem
     owner: haproxy
     mode: 0640
 
 - name: Push dhparams in pem format
-  copy:
-    content: "{{ hostvars['CERTIFICATE']['dhparams'] }}" 
+  ansible.builtin.copy:
+    content: "{{ hostvars['CERTIFICATE']['dhparams'] }}"
     dest: /etc/haproxy/dhparams.pem
     owner: haproxy
     mode: 0640

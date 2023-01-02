@@ -1,7 +1,7 @@
 ---
 # tasks file for wireguard
 - name: Register secure variables
-  command: pass show config/wireguard.yml
+  ansible.builtin.command: pass show config/wireguard.yml
   register: wireguard
   changed_when: wireguard.rc == 0
   failed_when: wireguard.rc != 0
