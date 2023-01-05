@@ -4,7 +4,7 @@ all:
     selectel:
       hosts:
         hypervisor:
-          ansible_host: 91.206.15.104
+          ansible_host: 185.137.234.222
           ansible_user: root
           ansible_port: 22
         home:
