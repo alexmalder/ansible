@@ -1,7 +1,7 @@
 ---
 all:
   children:
-    selectel:
+    host:
       hosts:
         hypervisor:
           ansible_host: 185.137.234.222

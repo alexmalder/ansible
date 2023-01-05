@@ -1,0 +1,13 @@
+---
+- name: Setup libvirt
+  hosts: hypervisor
+  vars:
+    centos_stream: http://mirror.truenetwork.ru/centos/8-stream/isos/x86_64
+    image_name: CentOS-Stream-8-x86_64-20221125-boot.iso
+  tasks:
+    - name: Get ansible_distribution
+      debug:
+        var: ansible_distribution
+
+    - name: Use libvirt tasks
+      import_tasks: ./tasks/libvirt.yml

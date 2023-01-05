@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: home
+  hosts: hypervisor
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
