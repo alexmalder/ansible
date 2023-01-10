@@ -1,11 +1,12 @@
 ---
 - name: Install ci tools
-  hosts: home
+  hosts: gitlab-runner
   become: true
   vars:
     docker_ce_url: 'https://download.docker.com/linux/centos/docker-ce.repo'
     kubectl_url: "https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
     helm_url: "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
+    gitlab_runner_script_url: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
 
   tasks:
     - name: Install docker
@@ -13,6 +14,9 @@
 
     - name: Install docker-compose
       ansible.builtin.import_tasks: ./tasks/docker-compose.yml
+
+    - name: Install gitlab-runner
+      ansible.builtin.import_tasks: ./tasks/gitlab-runner.yml
 
     - name: Install kubectl
       ansible.builtin.import_tasks: ./tasks/kubectl.yml

@@ -41,10 +41,6 @@
 - name: Setup haproxy
   gather_facts: false
   hosts: hypervisor
-  tasks:
-    - name: Debug hostvars[CERTIFICATE]
-      ansible.builtin.debug:
-        var: hostvars['CERTIFICATE']
   roles:
     - name: Use haproxy role
       role: haproxy

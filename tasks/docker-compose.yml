@@ -1,5 +1,5 @@
 ---
-- name: Install dependencies
+- name: Install dependencies | docker-compose
   ansible.builtin.yum:
     name:
       - python38-pip
@@ -7,12 +7,12 @@
       - rust
       - cargo
 
-- name: Install setuptools rust
+- name: Install setuptools rust | docker-compose
   ansible.builtin.pip:
     name: setuptools-rust
     executable: pip3.8
 
-- name: Install docker compose
+- name: Install docker compose | docker-compose
   ansible.builtin.pip:
     name: docker-compose
     executable: pip3.8

@@ -13,18 +13,20 @@ all:
           ansible_port: 22
     vm:
       hosts:
+        gitlab-runner:
+          ansible_host: 192.168.122.7
+        gitlab:
+          ansible_host: 192.168.122.8
+        atl:
+          ansible_host: 192.168.122.9
         node1:
           ansible_host: 192.168.122.10
         node2:
           ansible_host: 192.168.122.11
         node3:
           ansible_host: 192.168.122.12
-        drone-runner:
-          ansible_host: 192.168.122.13
-        elasticsearch:
-          ansible_host: 192.168.122.14
         template:
           ansible_host: 192.168.122.100
       vars:
         ansible_user: root
-        ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22 -W %h:%p -q root@91.206.15.104"'
+        ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22 -W %h:%p -q root@185.137.234.222"'

@@ -3,12 +3,12 @@
 #set -eo pipefail
 
 WORKDIR=$HOME/git
-NEW_REMOTE_DOMAIN=http://git.vnmntn.com
+NEW_REMOTE_DOMAIN=http://gitlab.vnmntn.com
 NEW_REMOTE_GROUP=alexmalder
-remotes=("gitea" "origin") # origin is github
+remotes=("gitlab" "origin") # origin is github
 
 for repository in $(ls $WORKDIR); do
-    git -C $WORKDIR/$repository remote add gitea $NEW_REMOTE_DOMAIN/$NEW_REMOTE_GROUP/$repository > /dev/null 2>&1
+    git -C $WORKDIR/$repository remote add gitlab $NEW_REMOTE_DOMAIN/$NEW_REMOTE_GROUP/$repository > /dev/null 2>&1
     #echo ""
     #echo "REPOSITORY: [ $repository ]  "
     #echo ""

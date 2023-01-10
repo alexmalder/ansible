@@ -1,19 +1,16 @@
 ---
-# @tags: 
-# - ci
-# gitlab_runner_script_url: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
-- name: Download installation script
+- name: Download installation script | gitlab-runner
   ansible.builtin.get_url:
     url: "{{ gitlab_runner_script_url }}"
     dest: /tmp/script.rpm.sh
     mode: 'a+x'
 
-- name: Execute gitlab-runner setup script
+- name: Execute gitlab-runner setup script | gitlab-runner
   ansible.builtin.command: /tmp/script.rpm.sh
   register: myoutput
   changed_when: myoutput.rc != 0
   failed_when: myoutput.rc != 0
 
-- name: Install gitlab runner
+- name: Install gitlab runner | gitlab-runner
   ansible.builtin.yum:
     name: gitlab-runner

@@ -1,11 +1,13 @@
 ---
 - name: Install postgres 12
-  hosts: hypervisor
+  hosts: atl
   become: true
   vars:
-    db_user: testpg1
-    db_password: testpg1
-    db_name: testpg1
+    db_user: atl
+    db_password: atl
+    db_name: atl
+    listen_addresses: 127.0.0.1
+    allowed_ips: all
   tasks:
     - name: Install a modularity appstream with defined stream and profile
       ansible.builtin.dnf:
@@ -58,23 +60,23 @@
       become: true
       become_user: postgres
 
-    - name: Allow md5 connection for the database user
-      community.postgresql.postgresql_pg_hba:
-        dest: "~/data/pg_hba.conf"
-        contype: host
-        users: "{{ db_user }}"
-        source: 10.10.10.0/24
-        databases: "{{ db_name }}"
-        method: md5
-        create: true
-      become: true
-      become_user: postgres
+        #    - name: Allow md5 connection for the database user
+        #      community.postgresql.postgresql_pg_hba:
+        #        dest: "~/data/pg_hba.conf"
+        #        contype: host
+        #        users: "{{ db_user }}"
+        #        source: "{{ allowed_ips }}"
+        #        databases: "{{ db_name }}"
+        #        method: md5
+        #        create: true
+        #      become: true
+        #      become_user: postgres
 
     - name: Setup listen addresses
       ansible.builtin.replace:
         path: "~/data/postgresql.conf"
         regexp: '.*listen_add.*'
-        replace: "listen_addresses = '10.10.10.1'"
+        replace: "listen_addresses = '{{ listen_addresses }}'"
       become: true
       become_user: postgres
 

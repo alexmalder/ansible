@@ -1,11 +1,11 @@
 ---
-- name: Download helm installation script
+- name: Download helm installation script | HELM
   ansible.builtin.get_url:
     url: "{{ helm_url }}"
     dest: /tmp/get-helm.sh
     mode: 'a+x'
 
-- name: Execute helm installation script
+- name: Execute helm installation script | HELM
   ansible.builtin.command: bash /tmp/get-helm.sh
   register: myoutput
   changed_when: myoutput.rc != 0
