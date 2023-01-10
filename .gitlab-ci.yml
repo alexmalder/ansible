@@ -1,0 +1,33 @@
+---
+stages:
+  - lint
+  - test
+
+ansible-lint:
+  stage: lint
+  image: alpine:3.17
+  script:
+    - apk add git ansible ansible-lint
+    - ansible-galaxy collection install ansible.posix
+    - ansible-galaxy collection install community.general
+    - ansible-lint *.yml
+  only:
+    - master
+
+markdown-lint:
+  stage: lint
+  image: alpine:3.17
+  script:
+    - npm i -g markdownlint-cli
+    - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
+  only:
+    - master
+
+test-init:
+  stage: test
+  image: alpine:3.17
+  script:
+    - apk add ansible
+    - ansible-playbook init.yml
+  only:
+    - master
