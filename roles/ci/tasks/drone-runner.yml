@@ -1,12 +1,9 @@
 ---
-# @tags: 
-# - ci
-# gitlab_runner_script_url: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
-- name: Install requests
+- name: Install requests | drone-runner
   ansible.builtin.pip:
     name: requests
 
-- name: Container present
+- name: Container present | drone-runner
   community.docker.docker_container:
     name: drone-runner-docker-0
     state: started
@@ -20,4 +17,3 @@
       DRONE_RUNNER_NAME: drone-runner-docker-0
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.kube:/root/.kube:ro

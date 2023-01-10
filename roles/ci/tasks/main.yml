@@ -1,0 +1,16 @@
+---
+# tasks file for ci
+- name: Install docker
+  ansible.builtin.import_tasks: ./docker.yml
+
+- name: Install docker-compose
+  ansible.builtin.import_tasks: ./docker-compose.yml
+
+- name: Install gitlab-runner
+  ansible.builtin.import_tasks: ./gitlab-runner.yml
+
+- name: Install kubectl
+  ansible.builtin.import_tasks: ./kubectl.yml
+
+- name: Install helm
+  ansible.builtin.import_tasks: ./helm.yml

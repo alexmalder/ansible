@@ -45,26 +45,26 @@
         mode: 0660
       become: true
 
-#- name: Setup wireguard server
-#  hosts: hypervisor
-#  tasks:
-#    - name: Install wireguard
-#      dnf:
-#        name:
-#          - kmod-wireguard 
-#          - wireguard-tools
-#
-#    - name: Generate server config file
-#      ansible.builtin.template:
-#        src: "roles/wireguard/templates/server.conf"
-#        dest: "/etc/wireguard/wg0.conf"
-#        owner: vnmntn
-#        mode: 0660
-#      become: true
-#
-#    - name: Enable and restart wireguard service
-#      ansible.builtin.systemd:
-#        name: wg-quick@wg0
-#        state: restarted
-#        enabled: true
-#        daemon_reload: true
+- name: Setup wireguard server
+  hosts: hypervisor
+  tasks:
+    - name: Install wireguard
+      ansible.builtin.dnf:
+        name:
+          - kmod-wireguard
+          - wireguard-tools
+
+    - name: Generate server config file
+      ansible.builtin.template:
+        src: "roles/wireguard/templates/server.conf"
+        dest: "/etc/wireguard/wg0-new.conf"
+        owner: vnmntn
+        mode: 0660
+      become: true
+
+    - name: Enable and restart wireguard service
+      ansible.builtin.systemd:
+        name: wg-quick@wg0
+        state: reloaded
+        enabled: true
+        daemon_reload: true
