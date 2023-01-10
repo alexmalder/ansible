@@ -11,6 +11,8 @@ ansible-lint:
     - ansible-galaxy collection install ansible.posix
     - ansible-galaxy collection install community.general
     - ansible-lint *.yml
+  tags:
+    - docker
   only:
     - master
 
@@ -20,6 +22,8 @@ markdown-lint:
   script:
     - npm i -g markdownlint-cli
     - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
+  tags:
+    - docker
   only:
     - master
 
@@ -29,5 +33,7 @@ test-init:
   script:
     - apk add ansible
     - ansible-playbook init.yml
+  tags:
+    - docker
   only:
     - master
