@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: template
+  hosts: template-24gb
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:

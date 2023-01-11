@@ -25,8 +25,16 @@ all:
           ansible_host: 192.168.122.11
         node3:
           ansible_host: 192.168.122.12
-        template:
+        node4:
+          ansible_host: 192.168.122.13
+        node5:
+          ansible_host: 192.168.122.14
+        node6:
+          ansible_host: 192.168.122.15
+        template-80gb:
           ansible_host: 192.168.122.100
+        template-24gb:
+          ansible_host: 192.168.122.101
       vars:
         ansible_user: root
         ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22 -W %h:%p -q root@185.137.234.222"'
