@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: gitlab-runner
+  hosts: template
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
