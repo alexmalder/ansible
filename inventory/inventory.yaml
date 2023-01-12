@@ -7,10 +7,14 @@ all:
           ansible_host: 185.137.234.222
           ansible_user: root
           ansible_port: 22
-        home:
-          ansible_host: 10.10.10.3
-          ansible_user: root
-          ansible_port: 22
+    ceph:
+      hosts:
+        ceph1:
+          ansible_host: 192.168.122.16
+        ceph2:
+          ansible_host: 192.168.122.17
+        ceph3:
+          ansible_host: 192.168.122.18
     vm:
       hosts:
         gitlab-runner:
@@ -31,6 +35,12 @@ all:
           ansible_host: 192.168.122.14
         node6:
           ansible_host: 192.168.122.15
+        ceph1:
+          ansible_host: 192.168.122.16
+        ceph2:
+          ansible_host: 192.168.122.17
+        ceph3:
+          ansible_host: 192.168.122.18
         template-80gb:
           ansible_host: 192.168.122.100
         template-24gb:

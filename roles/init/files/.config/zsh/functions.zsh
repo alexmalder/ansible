@@ -40,6 +40,10 @@ function helm_upload {
     curl --insecure -v -F file=@$1 -u "$CHARTMUSEUM_USERNAME:$CHARTMUSEUM_PASSWORD" $CHARTMUSEUM
 }
 
+function fzfpass {
+    pass edit $(find $HOME/git/store -type f -name '*.gpg' | sed 's/\.[^.]*$//' | sed "s/\/home\/vnmntn\/git\/store\///g" | fzf)
+}
+
 function url_to_md {
     curl $1 | pandoc -f html -t markdown > $2
 }
