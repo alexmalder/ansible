@@ -8,7 +8,11 @@ This role using haproxy centos package
 
 ## Role Variables
 
-No role variables
+Getted files from pass
+
+- 'live/vnmntn.com/fullchain.pem'
+- 'live/vnmntn.com/privkey.pem'
+- 'live/dhparams.pem'
 
 ## Dependencies
 
@@ -23,10 +27,6 @@ No role dependencies
     - name: Use haproxy role
       role: haproxy
 ```
-
-## TODO
-
-- [ ] add role variables
 
 ## Links
 

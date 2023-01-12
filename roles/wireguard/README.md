@@ -45,10 +45,6 @@ No role dependencies
       role: wireguard
 ```
 
-## TODO
-
-- [ ] create setup task for remote management
-
 ## Links
 
 - [https://www.wireguard.com/](https://www.wireguard.com/)
