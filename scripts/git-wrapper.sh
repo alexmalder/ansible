@@ -3,7 +3,7 @@
 #set -eo pipefail
 
 WORKDIR=$HOME/git
-NEW_REMOTE_DOMAIN=http://gitlab.vnmntn.com
+NEW_REMOTE_DOMAIN=http://git.vnmntn.com
 NEW_REMOTE_GROUP=alexmalder
 remotes=("gitlab" "origin") # origin is github
 
