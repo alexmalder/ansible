@@ -9,5 +9,5 @@
   when:
     - ansible_distribution == "Alpine"
 
-# - name: Configure system
-#   ansible.builtin.import_tasks: ./configure.yml
+- name: Configure system
+  ansible.builtin.import_tasks: ./configure.yml

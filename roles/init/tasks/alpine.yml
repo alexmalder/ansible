@@ -65,3 +65,15 @@
       - alacritty
       - zathura
       - zathura-pdf-poppler
+
+- name: Install node packages
+  become: true
+  community.general.npm:
+    global: true
+    name: "{{ item }}"
+  with_items:
+    - pyright
+    - pm2
+    - bash-language-server
+    - yaml-language-server
+    - markdownlint-cli
