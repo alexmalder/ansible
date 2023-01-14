@@ -4,6 +4,22 @@ type: kubernetes
 name: default
 
 steps:
+- name: check kube api
+  image: dtzar/helm-kubectl/
+  commands:
+    - kubectl --server $K8S_SERVER --token $K8S_TOKEN get ns --insecure-skip-tls-verify
+  when:
+    branch:
+      - master
+    event:
+      - push
+
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
 - name: ansible lint
   image: alpine:3.17
   commands:
@@ -28,13 +44,13 @@ steps:
     event:
       - push 
 
-- name: run init role
-  image: alpine
-  commands:
-    - apk add ansible
-    - ansible-playbook init.yml
-  when:
-    branch:
-      - master
-    event:
-      - push 
+#- name: run init role
+#  image: alpine
+#  commands:
+#    - apk add ansible
+#    - ansible-playbook init.yml
+#  when:
+#    branch:
+#      - master
+#    event:
+#      - push 
