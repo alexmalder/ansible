@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: default
+name: kube
 
 steps:
 - name: check kube api
@@ -17,7 +17,7 @@ steps:
 ---
 kind: pipeline
 type: kubernetes
-name: default
+name: ansible
 
 steps:
 - name: ansible lint
