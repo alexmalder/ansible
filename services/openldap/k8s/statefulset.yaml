@@ -24,10 +24,8 @@ spec:
         - containerPort: 1636
           name: openldap-sec
         env:
-          - name: ES_JAVA_OPTS 
-            value: '-Xms1024m -Xmx1024m'
-          - name: discovery.type
-            value: single-node
+          - name: key
+            value: 'value'
         volumeMounts:
         - name: data
           mountPath: /bitnami/openldap

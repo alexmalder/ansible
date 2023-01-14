@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openldap
+data:
+  LDAP_ADMIN_USERNAME: admin
+  LDAP_ADMIN_PASSWORD: adminpassword
+  LDAP_ROOT: dc=vnmntn,dc=com
+  LDAP_USERS: user01,user02
+  LDAP_PASSWORDS: password1,password2
