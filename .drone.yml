@@ -8,6 +8,11 @@ steps:
   image: dtzar/helm-kubectl/
   commands:
     - kubectl --server $K8S_SERVER --token $K8S_TOKEN get ns --insecure-skip-tls-verify
+  environment:
+    K8S_SERVER:
+      from_secret: K8S_SERVER
+    K8S_TOKEN:
+      from_secret: K8S_TOKEN
   when:
     branch:
       - master
