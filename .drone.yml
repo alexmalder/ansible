@@ -39,11 +39,11 @@ steps:
       from_secret: K8S_TOKEN
     NAMESPACE:
       from_secret: NAMESPACE
-  when:
-    branch:
-      - master
-    event:
-      - push
+#  when:
+#    branch:
+#      - master
+#    event:
+#      - push
 
 - name: deploy postgres reader
   image: dtzar/helm-kubectl
