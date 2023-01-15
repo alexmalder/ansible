@@ -1,6 +1,6 @@
 ---
 - name: Install ci tools
-  hosts: gitlab-runner
+  hosts: hypervisor
   become: true
   roles:
     - name: Use ci role

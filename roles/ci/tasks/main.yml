@@ -6,9 +6,6 @@
 - name: Install docker-compose
   ansible.builtin.import_tasks: ./docker-compose.yml
 
-- name: Install gitlab-runner
-  ansible.builtin.import_tasks: ./gitlab-runner.yml
-
 - name: Install kubectl
   ansible.builtin.import_tasks: ./kubectl.yml
 
