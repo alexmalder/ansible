@@ -1,0 +1,10 @@
+prometheus:
+  prometheusSpec:
+    volumeClaimTemplate:
+      spec:
+        storageClassName:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 12Gi
+      selector: {}

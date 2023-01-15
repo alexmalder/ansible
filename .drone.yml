@@ -4,13 +4,58 @@ type: kubernetes
 name: kube
 
 steps:
+- name: deploy kube-prometheus-stack
+  image: dtzar/helm-kubectl
+  commands:
+    - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    - helm repo update
+    - helm search repo prometheus-community/kube-prometheus-stack
+    - helm upgrade 
+      --kube-apiserver $K8S_SERVER 
+      --kube-token $K8S_TOKEN 
+      --kube-insecure-skip-tls-verify 
+      --install 
+      --namespace kube-prometheus-stack
+      --create-namespace 
+      kube-prometheus-stack prometheus-community/kube-prometheus-stack
+      --set prometheus.ingress.enabled=true
+      --set prometheus.ingress.ingressClassName=nginx
+      --set prometheus.ingress.hosts[0]=prometheus.vnmntn.com
+      --set alertmanager.ingress.enabled=true
+      --set alertmanager.ingress.ingressClassName=nginx
+      --set alertmanager.ingress.hosts[0]=alertmanager.vnmntn.com
+      --set grafana.ingress.enabled=true
+      --set grafana.ingress.ingressClassName=nginx
+      --set grafana.ingress.hosts[0]=grafana.vnmntn.com
+      -f ./services/kube-prometheus-stack/values.yaml
+  environment:
+    K8S_SERVER:
+      from_secret: K8S_SERVER
+    K8S_TOKEN:
+      from_secret: K8S_TOKEN
+  when:
+    branch:
+      - master
+    event:
+      - push
+
 - name: deploy postgres reader
   image: dtzar/helm-kubectl
   commands:
     - helm repo add bitnami https://charts.bitnami.com/bitnami
     - helm repo update
     - helm search repo postgresql
-    - helm upgrade --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN --kube-insecure-skip-tls-verify --install --namespace $NAMESPACE --create-namespace postgresql-reader bitnami/postgresql --set auth.username=$PG_READER_USER --set auth.password=$PG_READER_PASSWORD --set auth.database=$PG_READER_DB
+    - helm upgrade 
+      --kube-apiserver $K8S_SERVER 
+      --kube-token $K8S_TOKEN 
+      --kube-insecure-skip-tls-verify 
+      --install 
+      --namespace $NAMESPACE 
+      --create-namespace 
+      postgresql-reader bitnami/postgresql 
+      --set auth.username=$PG_READER_USER 
+      --set auth.password=$PG_READER_PASSWORD 
+      --set auth.database=$PG_READER_DB
   environment:
     K8S_SERVER:
       from_secret: K8S_SERVER
@@ -36,7 +81,16 @@ steps:
     - helm repo add bitnami https://charts.bitnami.com/bitnami
     - helm repo update
     - helm search repo postgresql
-    - helm upgrade --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN --kube-insecure-skip-tls-verify --install --namespace $NAMESPACE --create-namespace postgresql-scraper bitnami/postgresql --set auth.username=$PG_SCRAPER_USER --set auth.password=$PG_SCRAPER_PASSWORD --set auth.database=$PG_SCRAPER_DB
+    - helm upgrade 
+      --kube-apiserver $K8S_SERVER 
+      --kube-token $K8S_TOKEN 
+      --kube-insecure-skip-tls-verify 
+      --install --namespace $NAMESPACE 
+      --create-namespace 
+      postgresql-scraper bitnami/postgresql 
+      --set auth.username=$PG_SCRAPER_USER 
+      --set auth.password=$PG_SCRAPER_PASSWORD 
+      --set auth.database=$PG_SCRAPER_DB
   environment:
     K8S_SERVER:
       from_secret: K8S_SERVER
