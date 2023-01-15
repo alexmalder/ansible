@@ -4,17 +4,6 @@ type: kubernetes
 name: kube
 
 steps:
-- name: check kube api
-  image: dtzar/helm-kubectl
-  commands:
-  environment:
-
-  when:
-    branch:
-      - master
-    event:
-      - push
-
 - name: deploy postgres reader
   image: dtzar/helm-kubectl
   commands:
@@ -38,6 +27,8 @@ steps:
       from_secret: K8S_SERVER
     K8S_TOKEN:
       from_secret: K8S_TOKEN
+    NAMESPACE:
+      from_secret: NAMESPACE
     PG_READER_DB:
       from_secret: PG_READER_DB
     PG_READER_PASSWORD:
@@ -73,6 +64,8 @@ steps:
       from_secret: K8S_SERVER
     K8S_TOKEN:
       from_secret: K8S_TOKEN
+    NAMESPACE:
+      from_secret: NAMESPACE
     PG_SCRAPER_DB:
       from_secret: PG_SCRAPER_DB
     PG_SCRAPER_PASSWORD:
