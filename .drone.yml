@@ -18,6 +18,7 @@ steps:
 - name: deploy postgres reader
   image: dtzar/helm-kubectl
   commands:
+    - helm list -n $NAMESPACE --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN
     - helm repo add bitnami https://charts.bitnami.com/bitnami
     - helm repo update
     - helm search repo postgresql
@@ -26,10 +27,10 @@ steps:
       --kube-token $K8S_TOKEN 
       --kube-insecure-skip-tls-verify
       --install
-      --namespace dev
+      --namespace $NAMESPACE
       --create-namespace
-      postgresql-custom bitnami/postgresql
-      --set auth.username=$PG_READER_USER
+      postgresql-reader bitnami/postgresql
+      --set auth.username=$PG_SCRAPER_USER
       --set auth.password=$PG_READER_PASSWORD
       --set auth.database=$PG_READER_DB
   environment:
@@ -52,6 +53,7 @@ steps:
 - name: deploy postgres scraper
   image: dtzar/helm-kubectl
   commands:
+    - helm list -n $NAMESPACE --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN
     - helm repo add bitnami https://charts.bitnami.com/bitnami
     - helm repo update
     - helm search repo postgresql
@@ -60,9 +62,9 @@ steps:
       --kube-token $K8S_TOKEN 
       --kube-insecure-skip-tls-verify
       --install
-      --namespace dev
+      --namespace $NAMESPACE
       --create-namespace
-      postgresql-custom bitnami/postgresql
+      postgresql-scraper bitnami/postgresql
       --set auth.username=$PG_SCRAPER_USER
       --set auth.password=$PG_SCRAPER_PASSWORD
       --set auth.database=$PG_SCRAPER_DB
