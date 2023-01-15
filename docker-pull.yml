@@ -52,7 +52,7 @@
         tag: 3.0.0
   tasks:
     - name: Install docker python module
-      pip:
+      ansible.builtin.pip:
         name:
           - docker
 
