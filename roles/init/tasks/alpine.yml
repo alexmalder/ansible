@@ -65,6 +65,7 @@
       - alacritty
       - zathura
       - zathura-pdf-poppler
+      - pandoc
 
 - name: Install node packages
   become: true

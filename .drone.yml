@@ -7,25 +7,21 @@ steps:
 - name: check kube api
   image: dtzar/helm-kubectl
   commands:
-    - kubectl --server $K8S_SERVER --token $K8S_TOKEN get ns --insecure-skip-tls-verify
   environment:
-    K8S_SERVER:
-      from_secret: K8S_SERVER
-    K8S_TOKEN:
-      from_secret: K8S_TOKEN
+
   when:
     branch:
       - master
     event:
       - push
 
-- name: deploy postgres custom
+- name: deploy postgres reader
   image: dtzar/helm-kubectl
   commands:
     - helm repo add bitnami https://charts.bitnami.com/bitnami
     - helm repo update
     - helm search repo postgresql
-    - helm upgrade 
+    - helm upgrade
       --kube-apiserver $K8S_SERVER 
       --kube-token $K8S_TOKEN 
       --kube-insecure-skip-tls-verify
@@ -33,14 +29,54 @@ steps:
       --namespace dev
       --create-namespace
       postgresql-custom bitnami/postgresql
-      --set auth.username=$PG_CUSTOM_USER
-      --set auth.password=$PG_CUSTOM_PASSWORD
-      --set auth.database=$PG_CUSTOM_DB
+      --set auth.username=$PG_READER_USER
+      --set auth.password=$PG_READER_PASSWORD
+      --set auth.database=$PG_READER_DB
   environment:
     K8S_SERVER:
       from_secret: K8S_SERVER
     K8S_TOKEN:
       from_secret: K8S_TOKEN
+    PG_READER_DB:
+      from_secret: PG_READER_DB
+    PG_READER_PASSWORD:
+      from_secret: PG_READER_PASSWORD
+    PG_READER_USER:
+      from_secret: PG_READER_USER
+  when:
+    branch:
+      - master
+    event:
+      - push
+
+- name: deploy postgres scraper
+  image: dtzar/helm-kubectl
+  commands:
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
+    - helm search repo postgresql
+    - helm upgrade
+      --kube-apiserver $K8S_SERVER 
+      --kube-token $K8S_TOKEN 
+      --kube-insecure-skip-tls-verify
+      --install
+      --namespace dev
+      --create-namespace
+      postgresql-custom bitnami/postgresql
+      --set auth.username=$PG_SCRAPER_USER
+      --set auth.password=$PG_SCRAPER_PASSWORD
+      --set auth.database=$PG_SCRAPER_DB
+  environment:
+    K8S_SERVER:
+      from_secret: K8S_SERVER
+    K8S_TOKEN:
+      from_secret: K8S_TOKEN
+    PG_SCRAPER_DB:
+      from_secret: PG_SCRAPER_DB
+    PG_SCRAPER_PASSWORD:
+      from_secret: PG_SCRAPER_PASSWORD
+    PG_SCRAPER_USER:
+      from_secret: PG_SCRAPER_USER
   when:
     branch:
       - master
