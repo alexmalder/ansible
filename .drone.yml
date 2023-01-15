@@ -4,7 +4,6 @@ type: kubernetes
 name: kube
 
 steps:
-
 - name: deploy kube-prometheus-stack
   image: dtzar/helm-kubectl
   commands:
