@@ -7,11 +7,11 @@ steps:
 - name: deploy postgres reader
   image: dtzar/helm-kubectl
   commands:
-    - helm list -n $NAMESPACE --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN
+    - helm list -n $NAMESPACE --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN --kube-insecure-skip-tls-verify
     - helm repo add bitnami https://charts.bitnami.com/bitnami
     - helm repo update
     - helm search repo postgresql
-    - helm upgrade --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN --kube-insecure-skip-tls-verify --install --namespace $NAMESPACE --create-namespace postgresql-reader bitnami/postgresql --set auth.username=$PG_SCRAPER_USER --set auth.password=$PG_READER_PASSWORD --set auth.database=$PG_READER_DB
+    - helm upgrade --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN --kube-insecure-skip-tls-verify --install --namespace $NAMESPACE --create-namespace postgresql-reader bitnami/postgresql --set auth.username=$PG_READER_USER --set auth.password=$PG_READER_PASSWORD --set auth.database=$PG_READER_DB
   environment:
     K8S_SERVER:
       from_secret: K8S_SERVER
@@ -34,7 +34,7 @@ steps:
 - name: deploy postgres scraper
   image: dtzar/helm-kubectl
   commands:
-    - helm list -n $NAMESPACE --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN
+    - helm list -n $NAMESPACE --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN --kube-insecure-skip-tls-verify
     - helm repo add bitnami https://charts.bitnami.com/bitnami
     - helm repo update
     - helm search repo postgresql
