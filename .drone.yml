@@ -7,7 +7,7 @@ steps:
 - name: deploy kube-prometheus-stack
   image: dtzar/helm-kubectl
   commands:
-    - helm --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN list -n $NAMESPACE
+    - helm --kube-apiserver $K8S_SERVER --kube-token $K8S_TOKEN list -n $NAMESPACE --kube-insecure-skip-tls-verify 
     - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     - helm repo update
     - helm search repo prometheus-community/kube-prometheus-stack
