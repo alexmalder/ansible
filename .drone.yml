@@ -16,7 +16,7 @@ steps:
       --kube-token $K8S_TOKEN 
       --kube-insecure-skip-tls-verify 
       --install 
-      --namespace kube-prometheus-stack
+      --namespace $NAMESPACE
       --create-namespace 
       kube-prometheus-stack prometheus-community/kube-prometheus-stack
       --set prometheus.ingress.enabled=true
@@ -88,7 +88,8 @@ steps:
       --kube-apiserver $K8S_SERVER 
       --kube-token $K8S_TOKEN 
       --kube-insecure-skip-tls-verify 
-      --install --namespace $NAMESPACE 
+      --install 
+      --namespace $NAMESPACE 
       --create-namespace 
       postgresql-scraper bitnami/postgresql 
       --set auth.username=$PG_SCRAPER_USER 
