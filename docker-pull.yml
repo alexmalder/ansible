@@ -44,6 +44,12 @@
         tag: v2.40.5
       - image: registry.k8s.io/kube-state-metrics/kube-state-metrics
         tag: v2.7.0
+      - image: hashicorp/vault-k8s
+        tag: 1.1.0
+      - image: hashicorp/vault
+        tag: 1.12.1
+      - image: nginx/nginx-ingress
+        tag: 3.0.0
   tasks:
     - name: Install docker python module
       pip:
