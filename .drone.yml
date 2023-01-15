@@ -39,11 +39,6 @@ steps:
       from_secret: K8S_TOKEN
     NAMESPACE:
       from_secret: NAMESPACE
-#  when:
-#    branch:
-#      - master
-#    event:
-#      - push
 
 - name: deploy postgres reader
   image: dtzar/helm-kubectl
@@ -75,11 +70,6 @@ steps:
       from_secret: PG_READER_PASSWORD
     PG_READER_USER:
       from_secret: PG_READER_USER
-  when:
-    branch:
-      - master
-    event:
-      - push
 
 - name: deploy postgres scraper
   image: dtzar/helm-kubectl
@@ -111,11 +101,7 @@ steps:
       from_secret: PG_SCRAPER_PASSWORD
     PG_SCRAPER_USER:
       from_secret: PG_SCRAPER_USER
-  when:
-    branch:
-      - master
-    event:
-      - push
+
 ---
 kind: pipeline
 type: kubernetes
@@ -146,13 +132,13 @@ steps:
     event:
       - push 
 
-#- name: run init role
-#  image: alpine
-#  commands:
-#    - apk add ansible
-#    - ansible-playbook init.yml
-#  when:
-#    branch:
-#      - master
-#    event:
-#      - push 
+- name: run init role
+  image: alpine
+  commands:
+    - apk add ansible
+    - ansible-playbook init.yml
+  when:
+    branch:
+      - master
+    event:
+      - push 
