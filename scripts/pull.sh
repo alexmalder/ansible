@@ -2,10 +2,11 @@
 
 set -eo pipefail
 
-WORKDIR="../roles/init/files"
+WORKDIR="$HOME/git/ansible/roles/init/files"
 
-cp -rv ~/.config/negwm .config
-cp -rv ~/.config/nvim .config
-cp -rv ~/.config/kitty .config
-cp -rv ~/.config/qutebrowser .config
-cp -rv ~/.config/picom.conf .config
+cp -rv $HOME/.xinitrc $WORKDIR/home
+cp -rv $XDG_CONFIG_HOME/negwm $WORKDIR/.config
+cp -rv $XDG_CONFIG_HOME/nvim $WORKDIR/.config
+cp -rv $XDG_CONFIG_HOME/kitty $WORKDIR/.config
+cp -rv $XDG_CONFIG_HOME/qutebrowser $WORKDIR/.config
+cp -rv $XDG_CONFIG_HOME/picom.conf $WORKDIR/.config

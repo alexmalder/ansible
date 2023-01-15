@@ -57,9 +57,8 @@
     - name: Generate server config file
       ansible.builtin.template:
         src: "roles/wireguard/templates/server.conf"
-        dest: "/etc/wireguard/wg0-new.conf"
-        owner: vnmntn
-        mode: 0660
+        dest: "/etc/wireguard/wg0.conf"
+        mode: 0640
       become: true
 
     - name: Enable and restart wireguard service

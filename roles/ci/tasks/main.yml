@@ -17,3 +17,4 @@
 
 - name: Clone docker images
   ansible.builtin.import_tasks: ./docker-clone.yml
+  with_items: "{{charts}}"
