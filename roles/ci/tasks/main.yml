@@ -1,5 +1,8 @@
 ---
 # tasks file for ci
+- name: Clone helm charts
+  ansible.builtin.import_tasks: ./helm-clone.yml
+
 - name: Install docker
   ansible.builtin.import_tasks: ./docker.yml
 
@@ -11,3 +14,6 @@
 
 - name: Install helm
   ansible.builtin.import_tasks: ./helm.yml
+
+- name: Clone docker images
+  ansible.builtin.import_tasks: ./docker-clone.yml

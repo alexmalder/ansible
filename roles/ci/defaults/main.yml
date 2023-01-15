@@ -3,3 +3,89 @@ docker_ce_url: 'https://download.docker.com/linux/centos/docker-ce.repo'
 kubectl_url: "https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
 helm_url: "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
 gitlab_runner_script_url: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
+
+registry: git.vnmntn.com/alexmalder
+images:
+  - image: apache/superset
+    tag: latest
+  - image: docker.io/bitnami/memcached
+    tag: 1.6.9-debian-10-r114
+  - image: docker.io/bitnami/postgresql
+    tag: 11.11.0-debian-10-r62
+  - image: docker.io/bitnami/postgresql
+    tag: 14.6.0-debian-11-r13
+  - image: docker.io/bitnami/postgresql
+    tag: 15.1.0-debian-11-r12
+  - image: docker.io/bitnami/postgresql
+    tag: 15.1.0-debian-11-r20
+  - image: docker.io/bitnami/redis
+    tag: 7.0.7-debian-11-r0
+  - image: docker.io/drone/drone
+    tag: 2.12.1
+  - image: drone/drone-runner-kube
+    tag: 1.0.0-rc.3
+  - image: gitea/gitea
+    tag: 1.17.4
+  - image: ldapaccountmanager/lam
+    tag: stable
+  - image: bitnami/openldap
+    tag: 2.6
+  - image: grafana/grafana
+    tag: 9.3.1
+  - image: quay.io/kiwigrid/k8s-sidecar
+    tag: 1.21.0
+  - image: quay.io/prometheus-operator/prometheus-config-reloader
+    tag: v0.61.1
+  - image: quay.io/prometheus-operator/prometheus-operator
+    tag: v0.61.1
+  - image: quay.io/prometheus/alertmanager
+    tag: v0.24.0
+  - image: quay.io/prometheus/node-exporter
+    tag: v1.5.0
+  - image: quay.io/prometheus/prometheus
+    tag: v2.40.5
+  - image: registry.k8s.io/kube-state-metrics/kube-state-metrics
+    tag: v2.7.0
+  - image: hashicorp/vault-k8s
+    tag: 1.1.0
+  - image: hashicorp/vault
+    tag: 1.12.1
+  - image: nginx/nginx-ingress
+    tag: 3.0.0
+
+chartmuseum: https://git.vnmntn.com/api/packages/alexmalder/helm/api/charts
+charts: 
+  - name: bitnami
+    repo: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    version: 12.1.9
+
+  - name: prometheus-community
+    repo: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    version: 44.0.0
+  
+  - name: drone
+    repo: https://charts.drone.io
+    chart: drone
+    version: 0.6.4
+
+  - name: drone     	
+    repo: https://charts.drone.io
+    chart: drone-runner-kube
+    version: 0.1.10
+
+  - name: gitea-charts        	
+    repo: https://dl.gitea.io/charts
+    chart: gitea
+    version: 6.0.5
+
+  - name: nginx-stable        	
+    repo: https://helm.nginx.com/stable
+    chart: nginx-ingress
+    version: 0.16.0
+
+  - name: superset            	
+    repo: https://apache.github.io/superset
+    chart: superset
+    version: 0.8.3
