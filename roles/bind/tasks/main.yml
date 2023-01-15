@@ -15,16 +15,16 @@
 
 - name: Push db configuration
   ansible.builtin.template:
-    src: "roles/bind/files/{{domain}}.db"
-    dest: "/var/named/{{domain}}.db"
+    src: "roles/bind/files/{{ domain }}.db"
+    dest: "/var/named/{{ domain }}.db"
     owner: named
     group: named
     mode: 0660
 
 - name: Push rev configuration
   ansible.builtin.template:
-    src: "roles/bind/files/{{domain}}.rev"
-    dest: "/var/named/{{domain}}.rev"
+    src: "roles/bind/files/{{ domain }}.rev"
+    dest: "/var/named/{{ domain }}.rev"
     owner: named
     group: named
     mode: 0660
