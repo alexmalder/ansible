@@ -12,7 +12,7 @@
     image: drone/drone-runner-docker:1
     restart_policy: always
     env:
-      DRONE_RPC_PROTO: http
+      DRONE_RPC_PROTO: https
       DRONE_RPC_HOST: drone.vnmntn.com
       DRONE_RPC_SECRET: super-duper-secret
       DRONE_RUNNER_CAPACITY: '2'
