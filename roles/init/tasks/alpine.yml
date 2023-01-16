@@ -66,6 +66,8 @@
       - zathura
       - zathura-pdf-poppler
       - pandoc
+      - ctop
+      - htop
 
 - name: Install node packages
   become: true
