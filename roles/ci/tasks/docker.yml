@@ -19,6 +19,6 @@
 - name: Setup service | DOCKER
   ansible.builtin.systemd:
     name: docker
-    state: restarted
+    state: started
     enabled: true
     daemon_reload: true

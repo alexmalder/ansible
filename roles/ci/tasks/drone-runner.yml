@@ -1,7 +1,9 @@
 ---
-- name: Install requests | drone-runner
+- name: Install python requirements | drone-runner
   ansible.builtin.pip:
-    name: requests
+    name:
+      - requests
+      - docker
 
 - name: Container present | drone-runner
   community.docker.docker_container:
