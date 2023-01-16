@@ -14,3 +14,17 @@ spec:
   clusterIP: None
   selector:
     app: openldap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lam
+  labels:
+    app: lam
+spec:
+  ports:
+  - port: 1389
+    name: lam
+  clusterIP: None
+  selector:
+    app: lam
