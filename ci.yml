@@ -1,6 +1,6 @@
 ---
 - name: Install ci tools
-  hosts: hypervisor
+  hosts: openldap
   become: true
   roles:
     - name: Use ci role

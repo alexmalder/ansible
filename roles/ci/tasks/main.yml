@@ -12,5 +12,5 @@
 - name: Install helm
   ansible.builtin.import_tasks: ./helm.yml
 
-- name: Clone docker images
-  ansible.builtin.import_tasks: ./docker-clone.yml
+# - name: Clone docker images
+#   ansible.builtin.import_tasks: ./docker-clone.yml

@@ -17,11 +17,7 @@ all:
           ansible_host: 192.168.122.18
     vm:
       hosts:
-        gitlab-runner:
-          ansible_host: 192.168.122.7
-        gitlab:
-          ansible_host: 192.168.122.8
-        atl:
+        openldap:
           ansible_host: 192.168.122.9
         node1:
           ansible_host: 192.168.122.10
@@ -41,8 +37,6 @@ all:
           ansible_host: 192.168.122.17
         ceph3:
           ansible_host: 192.168.122.18
-        template-80gb:
-          ansible_host: 192.168.122.100
         template-24gb:
           ansible_host: 192.168.122.101
       vars:

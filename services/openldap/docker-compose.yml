@@ -14,7 +14,7 @@ services:
       - LDAP_USERS=user01,user02
       - LDAP_PASSWORDS=password1,password2
     volumes:
-      - 'openldap_data:/bitnami/openldap'
+      - './data:/bitnami/openldap'
   lam:
     image: ldapaccountmanager/lam:stable
     restart: always
@@ -52,6 +52,3 @@ services:
       - LDAP_ADMIN_PASSWORD=adminpassword
       # password for LDAP read-only user
       - LDAP_READONLY_USER_PASSWORD=readonlypw
-
-volumes:
-  openldap_data: {}

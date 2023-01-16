@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: ceph
+  hosts: openldap
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
@@ -34,3 +34,7 @@
     - name: Use sshd role
       ansible.builtin.import_role:
         name: sshd
+
+    - name: Use ci role
+      ansible.builtin.import_role:
+        name: ci
