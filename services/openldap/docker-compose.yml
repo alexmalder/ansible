@@ -4,6 +4,7 @@ version: '2'
 services:
   openldap:
     image: bitnami/openldap:2.6
+    restart: always
     ports:
       - '1389:1389'
       - '1636:1636'
