@@ -13,7 +13,7 @@
       - store
   tasks:
     - name: Delete content & directory
-      file:
+      ansible.builtin.file:
         state: absent
         path: "/tmp/{{ item }}"
       with_items: "{{ repos }}"
@@ -22,15 +22,15 @@
       ansible.builtin.git:
         repo: "{{ gitea_url }}/{{ item }}"
         dest: "/tmp/{{ item }}"
-        single_branch: yes
-        force: yes
+        single_branch: true
+        force: true
         version: master
       with_items: "{{ repos }}"
 
     - name: Git remote add
-      command: "git -C /tmp/{{ item }} remote add {{ github_remote }} {{ github_url }}/{{ item }}"
+      ansible.builtin.command: "git -C /tmp/{{ item }} remote add {{ github_remote }} {{ github_url }}/{{ item }}"
       with_items: "{{ repos }}"
 
     - name: Git push
-      command: "git -C /tmp/{{ item }} push -u github master"
+      ansible.builtin.command: "git -C /tmp/{{ item }} push -u github master"
       with_items: "{{ repos }}"
