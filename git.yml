@@ -12,6 +12,12 @@
       - scraper
       - store
   tasks:
+    - name: Delete content & directory
+      file:
+        state: absent
+        path: "/tmp/{{ item }}"
+      with_items: "{{ repos }}"
+
     - name: Clone repositories into /tmp
       ansible.builtin.git:
         repo: "{{ gitea_url }}/{{ item }}"
@@ -26,5 +32,5 @@
       with_items: "{{ repos }}"
 
     - name: Git push
-      command: "git -C /tmp/{{ item }} push"
+      command: "git -C /tmp/{{ item }} push -u github master"
       with_items: "{{ repos }}"
