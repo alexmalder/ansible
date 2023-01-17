@@ -1,0 +1,30 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    gitea_url: https://git.vnmntn.com/alexmalder
+    github_url: https://github.com/alexmalder
+    github_remote: github
+    repos:
+      - ansible
+      - obsidian
+      - reader
+      - scraper
+      - store
+  tasks:
+    - name: Clone repositories into /tmp
+      ansible.builtin.git:
+        repo: "{{ gitea_url }}/{{ item }}"
+        dest: "/tmp/{{ item }}"
+        single_branch: yes
+        force: yes
+        version: master
+      with_items: "{{ repos }}"
+
+    - name: Git remote add
+      command: "git -C /tmp/{{ item }} remote add {{ github_remote }} {{ github_url }}/{{ item }}"
+      with_items: "{{ repos }}"
+
+    - name: Git push
+      command: "git -C /tmp/{{ item }} push"
+      with_items: "{{ repos }}"
