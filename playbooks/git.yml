@@ -11,6 +11,8 @@
       - reader
       - scraper
       - store
+      - template
+      - vault
   tasks:
     - name: Delete content & directory
       ansible.builtin.file:
