@@ -49,6 +49,26 @@
         tag: 1.12.1
       - image: nginx/nginx-ingress
         tag: 3.0.0
+      - image: python 
+        tag: 3.8
+      - image: redis
+        tag: alpine
+      - image: docker
+        tag: dind
+      - image: drone/drone-runner-docker
+        tag: 1
+      - image: graylog/graylog
+        tag: 5.0
+      - image: drone/git
+        tag: latest
+      - image: docker.redpanda.com/vectorized/redpanda
+        tag: v22.3.8
+      - image: mongo
+        tag: 5.0
+      - image: docker.redpanda.com/vectorized/console
+        tag: v2.1.1
+      - image: opensearchproject/opensearch
+        tag: 2.4.0
 
   tasks:
     - name: Install docker python module | docker-clone
