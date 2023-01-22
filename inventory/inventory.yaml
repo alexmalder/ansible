@@ -17,7 +17,7 @@ all:
           ansible_host: 192.168.122.18
     vm:
       hosts:
-        openldap:
+        docker:
           ansible_host: 192.168.122.9
         node1:
           ansible_host: 192.168.122.10
