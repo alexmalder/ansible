@@ -2,9 +2,9 @@
 - hosts: 127.0.0.1
   connection: local
   vars:
-    gitea_url: https://git.vnmntn.com/alexmalder
-    github_url: https://github.com/alexmalder
-    github_remote: github
+    src_url: https://git.vnmntn.com/alexmalder
+    dest_url: https://gitlab.vnmntn.com/alexmalder
+    dest_remote: dest
     repos:
       - ansible
       - obsidian
@@ -22,7 +22,7 @@
 
     - name: Clone repositories into /tmp
       ansible.builtin.git:
-        repo: "{{ gitea_url }}/{{ item }}"
+        repo: "{{ src_url }}/{{ item }}"
         dest: "/tmp/{{ item }}"
         single_branch: true
         force: true
@@ -30,9 +30,9 @@
       with_items: "{{ repos }}"
 
     - name: Git remote add
-      ansible.builtin.command: "git -C /tmp/{{ item }} remote add {{ github_remote }} {{ github_url }}/{{ item }}"
+      ansible.builtin.command: "git -C /tmp/{{ item }} remote add {{ dest_remote }} {{ dest_url }}/{{ item }}"
       with_items: "{{ repos }}"
 
     - name: Git push
-      ansible.builtin.command: "git -C /tmp/{{ item }} push -u github master"
+      ansible.builtin.command: "git -C /tmp/{{ item }} push -u dest master"
       with_items: "{{ repos }}"
