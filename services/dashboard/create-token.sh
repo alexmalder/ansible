@@ -1,1 +1,1 @@
-kubectl -n dev create token admin-user --duration=336h
+kubectl -n dev create token drone --duration=128h
