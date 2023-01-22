@@ -1,8 +1,0 @@
----
-- name: Archive image
-  community.docker.docker_image:
-    name: "{{ item.image }}"
-    tag: "{{ item.tag }}"
-    archive_path: "/data/images/{{ item.image | replace('/', '-') }}-{{ item.tag }}.tar"
-    source: pull
-  with_items: "{{ images }}"
