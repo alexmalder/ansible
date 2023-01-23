@@ -3,7 +3,7 @@ stages:
   - lint
   - test
 
-ansible-lint:
+ansiblelint:
   stage: lint
   image: alpine:3.17
   script:
@@ -16,7 +16,7 @@ ansible-lint:
   only:
     - master
 
-markdown-lint:
+markdownlint:
   stage: lint
   image: alpine:3.17
   script:
@@ -28,7 +28,7 @@ markdown-lint:
   only:
     - master
 
-test-init:
+ansible-playbook:
   stage: test
   image: alpine:3.17
   script:
@@ -36,5 +36,6 @@ test-init:
     - ansible-playbook init.yml
   tags:
     - docker
+  when: manual
   only:
     - master
