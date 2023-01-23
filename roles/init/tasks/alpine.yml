@@ -68,6 +68,7 @@
       - pandoc
       - ctop
       - htop
+      - nmap
 
 - name: Install node packages
   become: true
