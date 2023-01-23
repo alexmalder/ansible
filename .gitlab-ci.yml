@@ -2,6 +2,7 @@
 stages:
   - lint
   - test
+  - kube
 
 ansiblelint:
   stage: lint
@@ -34,6 +35,61 @@ ansible-playbook:
   script:
     - apk add ansible
     - ansible-playbook init.yml
+  tags:
+    - docker
+  when: manual
+  only:
+    - master
+
+kube-prometheus-stack:
+  stage: kube
+  image: dtzar/helm-kubectl
+  script:
+    - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    - helm repo update
+    - helm search repo prometheus-community/kube-prometheus-stack
+    - helm upgrade 
+      --kube-apiserver $K8S_SERVER 
+      --kube-token $K8S_TOKEN 
+      --kube-insecure-skip-tls-verify 
+      --install 
+      --namespace $NAMESPACE
+      --create-namespace 
+      kube-prometheus-stack prometheus-community/kube-prometheus-stack
+      --set prometheus.ingress.enabled=true
+      --set prometheus.ingress.ingressClassName=nginx
+      --set prometheus.ingress.hosts[0]=prometheus.vnmntn.com
+      --set alertmanager.ingress.enabled=true
+      --set alertmanager.ingress.ingressClassName=nginx
+      --set alertmanager.ingress.hosts[0]=alertmanager.vnmntn.com
+      --set grafana.ingress.enabled=true
+      --set grafana.ingress.ingressClassName=nginx
+      --set grafana.ingress.hosts[0]=grafana.vnmntn.com
+      -f ./services/kube-prometheus-stack/values.yaml
+  tags:
+    - docker
+  when: manual
+  only:
+    - master
+
+postgres-reader:
+  stage: kube
+  image: dtzar/helm-kubectl
+  script:
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
+    - helm search repo postgresql
+    - helm upgrade 
+      --kube-apiserver $K8S_SERVER 
+      --kube-token $K8S_TOKEN 
+      --kube-insecure-skip-tls-verify 
+      --install 
+      --namespace $NAMESPACE 
+      --create-namespace 
+      postgresql-reader bitnami/postgresql 
+      --set auth.username=$PG_READER_USER 
+      --set auth.password=$PG_READER_PASSWORD 
+      --set auth.database=$PG_READER_DB
   tags:
     - docker
   when: manual
