@@ -2,8 +2,8 @@
 - hosts: 127.0.0.1
   connection: local
   vars:
-    src_url: https://git.vnmntn.com/alexmalder
-    dest_url: https://gitlab.vnmntn.com/alexmalder
+    src_url: https://gitlab.vnmntn.com/alexmalder
+    dest_url: https://github.com/alexmalder
     dest_remote: dest
     repos:
       - ansible
