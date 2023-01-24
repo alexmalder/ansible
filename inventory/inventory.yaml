@@ -7,38 +7,14 @@ all:
           ansible_host: 185.137.234.222
           ansible_user: root
           ansible_port: 22
-    ceph:
-      hosts:
-        ceph1:
-          ansible_host: 192.168.122.16
-        ceph2:
-          ansible_host: 192.168.122.17
-        ceph3:
-          ansible_host: 192.168.122.18
     vm:
       hosts:
         docker:
           ansible_host: 192.168.122.9
-        node1:
+        control-plane:
           ansible_host: 192.168.122.10
-        node2:
+        worker:
           ansible_host: 192.168.122.11
-        node3:
-          ansible_host: 192.168.122.12
-        node4:
-          ansible_host: 192.168.122.13
-        node5:
-          ansible_host: 192.168.122.14
-        node6:
-          ansible_host: 192.168.122.15
-        ceph1:
-          ansible_host: 192.168.122.16
-        ceph2:
-          ansible_host: 192.168.122.17
-        ceph3:
-          ansible_host: 192.168.122.18
-        template-24gb:
-          ansible_host: 192.168.122.101
       vars:
         ansible_user: root
         ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22 -W %h:%p -q root@185.137.234.222"'

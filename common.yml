@@ -1,6 +1,8 @@
 ---
 - name: Common play
-  hosts: openldap
+  hosts:
+    - control-plane
+    - worker
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
