@@ -1,10 +1,8 @@
 ---
-- hosts: openldap
+- hosts: docker
   vars:
-    registry: git.vnmntn.com/alexmalder
-    images:
-      - image: apache/superset
-        tag: latest
+    registry: gitlab.vnmntn.com/alexmalder
+    kubernetes:
       - image: docker.io/bitnami/memcached
         tag: 1.6.9-debian-10-r114
       - image: docker.io/bitnami/postgresql
@@ -23,10 +21,6 @@
         tag: 1.0.0-rc.3
       - image: gitea/gitea
         tag: 1.17.4
-      - image: ldapaccountmanager/lam
-        tag: stable
-      - image: bitnami/openldap
-        tag: 2.6
       - image: grafana/grafana
         tag: 9.3.1
       - image: quay.io/kiwigrid/k8s-sidecar
@@ -49,8 +43,6 @@
         tag: 1.12.1
       - image: nginx/nginx-ingress
         tag: 3.0.0
-      - image: python 
-        tag: 3.8
       - image: redis
         tag: alpine
       - image: docker
@@ -69,6 +61,15 @@
         tag: v2.1.1
       - image: opensearchproject/opensearch
         tag: 2.4.0
+    docker:
+      - image: python 
+        tag: 3.8
+      - image: apache/superset
+        tag: latest
+      - image: ldapaccountmanager/lam
+        tag: stable
+      - image: bitnami/openldap
+        tag: 2.6
 
   tasks:
     - name: Install docker python module | docker-clone
@@ -83,4 +84,4 @@
         tag: "{{ item.tag }}"
         push: true
         source: pull
-      with_items: "{{ images }}"
+      with_items: "{{ docker }}"
