@@ -1,20 +1,20 @@
 import os
-# import background
+import background
 import gitlab
 
-# background.n=64
+background.n=64
 
 gitlab_url = os.getenv("GITLAB_URL", "")
 gitlab_token = os.getenv("GITLAB_PASSWORD", "")
 home = os.getenv("HOME", "")
-workdir = home + "/gitlab"
+workdir = home + "/Code"
 try:
     os.mkdir(workdir)
 except FileExistsError:
     print("workdir exists, skipping...")
 
 
-#@background.task
+@background.task
 def clone_or_pull(web_url, repo_name):
     dirs = os.listdir(workdir)
     if repo_name in dirs:
