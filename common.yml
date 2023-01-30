@@ -1,8 +1,6 @@
 ---
 - name: Common play
-  hosts:
-    - control-plane
-    - worker
+  hosts: vm
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:

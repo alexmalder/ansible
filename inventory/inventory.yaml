@@ -11,9 +11,11 @@ all:
       hosts:
         docker:
           ansible_host: 192.168.122.9
-        control-plane:
+        node1:
           ansible_host: 192.168.122.10
-        worker:
+        node2:
+          ansible_host: 192.168.122.11
+        node3:
           ansible_host: 192.168.122.11
       vars:
         ansible_user: root
