@@ -16,7 +16,7 @@ all:
         node2:
           ansible_host: 192.168.122.11
         node3:
-          ansible_host: 192.168.122.11
+          ansible_host: 192.168.122.12
       vars:
         ansible_user: root
         ansible_ssh_common_args: '-o ProxyCommand="ssh -p 22 -W %h:%p -q root@185.137.234.222"'
