@@ -8,11 +8,13 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.vnmntn.com'
-        #registry_external_url "https://gitlab-registry.vnmntn.com:6443"
+        registry_external_url "https://gitlab-registry.vnmntn.com:9443"
+        registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlab.vnmntn.com.crt"
+        registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlab.vnmntn.com.key"
     ports:
       - '8443:443'
       - '8022:22'
-      - '6443:6443'
+      - '9443:9443'
       # - '8080:80'
     volumes:
       - 'config:/etc/gitlab'
