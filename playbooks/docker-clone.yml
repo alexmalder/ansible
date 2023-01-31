@@ -1,67 +1,29 @@
 ---
 - hosts: docker
   vars:
-    registry: gitlab.vnmntn.com/alexmalder
-    kubernetes:
-      - image: docker.io/bitnami/memcached
-        tag: 1.6.9-debian-10-r114
-      - image: docker.io/bitnami/postgresql
-        tag: 11.11.0-debian-10-r62
-      - image: docker.io/bitnami/postgresql
-        tag: 14.6.0-debian-11-r13
-      - image: docker.io/bitnami/postgresql
-        tag: 15.1.0-debian-11-r12
-      - image: docker.io/bitnami/postgresql
-        tag: 15.1.0-debian-11-r20
-      - image: docker.io/bitnami/redis
-        tag: 7.0.7-debian-11-r0
-      - image: docker.io/drone/drone
-        tag: 2.12.1
-      - image: drone/drone-runner-kube
-        tag: 1.0.0-rc.3
-      - image: gitea/gitea
-        tag: 1.17.4
-      - image: grafana/grafana
+    registry: gitlab-registry.vnmntn.com:9443/alexmalder/observability
+    images:
+      - image: quay.io/prometheus/alertmanager 
+        tag: v0.25.0
+      - image: quay.io/prometheus-operator/prometheus-config-reloader 
+        tag: v0.62.0
+      - image: quay.io/kiwigrid/k8s-sidecar 
+        tag: 1.22.0
+      - image: grafana/grafana 
         tag: 9.3.1
-      - image: quay.io/kiwigrid/k8s-sidecar
-        tag: 1.21.0
-      - image: quay.io/prometheus-operator/prometheus-config-reloader
-        tag: v0.61.1
-      - image: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.61.1
-      - image: quay.io/prometheus/alertmanager
-        tag: v0.24.0
-      - image: quay.io/prometheus/node-exporter
-        tag: v1.5.0
-      - image: quay.io/prometheus/prometheus
-        tag: v2.40.5
-      - image: registry.k8s.io/kube-state-metrics/kube-state-metrics
+      - image: registry.k8s.io/kube-state-metrics/kube-state-metrics 
         tag: v2.7.0
-      - image: hashicorp/vault-k8s
-        tag: 1.1.0
-      - image: hashicorp/vault
-        tag: 1.12.1
-      - image: nginx/nginx-ingress
-        tag: 3.0.0
-      - image: redis
-        tag: alpine
-      - image: docker
-        tag: dind
-      - image: drone/drone-runner-docker
-        tag: 1
-      - image: graylog/graylog
-        tag: 5.0
-      - image: drone/git
-        tag: latest
-      - image: docker.redpanda.com/vectorized/redpanda
-        tag: v22.3.8
-      - image: mongo
-        tag: 5.0
-      - image: docker.redpanda.com/vectorized/console
-        tag: v2.1.1
-      - image: opensearchproject/opensearch
-        tag: 2.4.0
-    docker:
+      - image: quay.io/prometheus-operator/prometheus-operator 
+        tag: v0.62.0
+      - image: quay.io/prometheus/node-exporter 
+        tag: v1.5.0
+      - image: grafana/loki 
+        tag: 2.6.1
+      - image: docker.io/grafana/promtail 
+        tag: 2.7.0
+      - image: quay.io/prometheus/prometheus 
+        tag: v2.41.0
+    dev:
       - image: python 
         tag: 3.8
       - image: apache/superset
@@ -84,4 +46,4 @@
         tag: "{{ item.tag }}"
         push: true
         source: pull
-      with_items: "{{ docker }}"
+      with_items: "{{ images }}"
