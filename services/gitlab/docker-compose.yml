@@ -8,10 +8,11 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.vnmntn.com'
-        registry_external_url "https://gitlab-registry.vnmntn.com"
+        registry_external_url "https://gitlab-registry.vnmntn.com:8443"
     ports:
       - '8443:443'
       - '8022:22'
+      - '8443:8443'
       # - '8080:80'
     volumes:
       - 'config:/etc/gitlab'
