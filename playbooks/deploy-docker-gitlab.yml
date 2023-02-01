@@ -1,0 +1,39 @@
+- name: Run gitlab in docker with docker-compose
+  hosts: docker
+  gather_facts: false
+  tasks:
+    - community.docker.docker_compose:
+        project_name: gitlab
+        definition:
+          version: '3.6'
+          services:
+            web:
+              image: 'gitlab/gitlab-ce:15.6.7-ce.0'
+              restart: always
+              hostname: 'gitlab.vnmntn.com'
+              environment:
+                GITLAB_OMNIBUS_CONFIG: |
+                  external_url 'https://gitlab.vnmntn.com'
+                  registry_external_url "https://gitlab-registry.vnmntn.com:9443"
+                  registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlab.vnmntn.com.crt"
+                  registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlab.vnmntn.com.key"
+              ports:
+                - '8443:443'
+                - '8022:22'
+                - '9443:9443'
+                # - '8080:80'
+              volumes:
+                - 'config:/etc/gitlab'
+                - 'logs:/var/log/gitlab'
+                - 'data:/var/opt/gitlab'
+              shm_size: '256m'
+          volumes:
+            config: null
+            logs: null
+            data: null
+      register: output
+      vars:
+        ansible_python_interpreter: /usr/bin/python3.8
+
+    - ansible.builtin.debug:
+        var: output
