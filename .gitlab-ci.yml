@@ -13,7 +13,7 @@ ansiblelint:
     - ansible-galaxy collection install community.general
     - ansible-lint *.yml
   tags:
-    - dind
+    - docker
   only:
     - master
 
@@ -25,7 +25,7 @@ markdownlint:
     - npm i -g markdownlint-cli
     - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
   tags:
-    - dind
+    - docker
   only:
     - master
 
@@ -36,7 +36,7 @@ ansible-playbook:
     - apk add ansible
     - ansible-playbook init.yml
   tags:
-    - dind
+    - docker
   when: manual
   only:
     - master
@@ -67,7 +67,7 @@ kube-prometheus-stack:
       --set grafana.ingress.hosts[0]=grafana.vnmntn.com
       -f ./services/kube-prometheus-stack/values.yaml
   tags:
-    - dind
+    - docker
   when: manual
   only:
     - master
@@ -91,7 +91,7 @@ postgres-reader:
       --set auth.password=$PG_READER_PASSWORD 
       --set auth.database=$PG_READER_DB
   tags:
-    - dind
+    - docker
   when: manual
   only:
     - master
