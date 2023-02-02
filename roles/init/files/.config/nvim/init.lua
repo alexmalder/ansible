@@ -12,4 +12,4 @@ require 'options'
 require 'mappings'
 require 'lsp'
 --require 'colors'
-require 'neg'.setup()
+--require 'neg'.setup()

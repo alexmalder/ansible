@@ -1,7 +1,3 @@
-require('gitsigns').setup{}
---vim.cmd[[let g:rainbow_active = 1]]
---vim.cmd[[let g:fzf_layout = { 'down': '40%' }]]
-vim.cmd("let g:polyglot_disabled = ['markdown', 'yaml']")
 vim.opt.scrollback = 0
 vim.opt.tabstop=4
 vim.opt.shiftwidth = 4
@@ -30,13 +26,20 @@ vim.diagnostic.config({ virtual_text = false })
 vim.cmd[[autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
 vim.cmd[[map gf :e <cfile><CR>]]
 vim.cmd[[let g:nnn#action = {'<c-t>': 'tab split'}]]
+vim.cmd("let g:polyglot_disabled = ['markdown', 'yaml']")
+vim.o.updatetime = 250
 
 -- Show line diagnostics automatically in hover window
-vim.o.updatetime = 250
 vim.cmd[[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
+-- autopairs
 require'nvim-autopairs'.setup{}
+
+-- lsp signature
 cfg = { toggle_key = '<M-r>' }
 require'lsp_signature'.setup{cfg}
+
+-- statusline
 require('wlsample.vscode')
 local windline = require('windline')
 windline.setup({
@@ -52,18 +55,27 @@ windline.setup({
 })
 
 local git_comps = require('windline.components.git')
--- syntax using table
+
 local git_branch = {
     text = git_comps.git_branch(),
     hl_colors = {'white','black'},
     width = 100,
 }
 
--- FLOATERM
+-- floaterm
 vim.cmd[[let g:floaterm_keymap_toggle = '<C-t>']]
 vim.cmd[[let g:floaterm_position = 'right']]
 vim.cmd[[let g:floaterm_height = 1.0]]
 vim.cmd[[let g:floaterm_width = 0.66]]
---vim.cmd[[let g:floaterm_width = '1.0']]
+
+-- colorscheme
+require('boo-colorscheme').use({ 
+  italic = true, -- toggle italics
+  theme = "boo"
+
+})
+
+-- git
 local neogit = require('neogit')
 neogit.setup {}
+require('gitsigns').setup{}

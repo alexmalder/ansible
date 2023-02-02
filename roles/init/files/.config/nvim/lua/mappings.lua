@@ -16,6 +16,7 @@ map('n', '<space>j', ':resize -15<CR>', opts)
 map('n', '<space>k', ':resize +15<CR>', opts)
 map('n', '<space>n', ':NnnPicker %:p:h<CR>', opts)
 map('n', '<space>s', ':Lspsaga hover_doc<CR>', opts)
+map('n', '<space>b', ':Buffers<CR>', opts)
 
 map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
 map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)

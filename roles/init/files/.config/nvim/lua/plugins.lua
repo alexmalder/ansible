@@ -30,8 +30,12 @@ return require('packer').startup(function()
     use 'windwp/nvim-autopairs'
     -- UI/UX
     use 'mcchrish/nnn.vim'
-    use 'neg-serg/neg.nvim'
+    --use 'neg-serg/neg.nvim'
+    --use 'bluz71/vim-moonfly-colors'
     use 'romgrk/barbar.nvim'
+    --use 'Mofiqul/vscode.nvim'
+    --use 'kyazdani42/blue-moon'
+    use 'rockerBOO/boo-colorscheme-nvim'
     use 'windwp/windline.nvim'
     use 'kyazdani42/nvim-web-devicons'
     use 'voldikss/vim-floaterm'
