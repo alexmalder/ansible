@@ -1,8 +1,9 @@
 import os
 import background
+from pprint import pprint
 import gitlab
 
-background.n=64
+#background.n=8
 
 gitlab_url = os.getenv("GITLAB_URL", "")
 gitlab_token = os.getenv("GITLAB_PASSWORD", "")
@@ -14,7 +15,7 @@ except FileExistsError:
     print("workdir exists, skipping...")
 
 
-@background.task
+#@background.task
 def clone_or_pull(web_url, repo_name):
     dirs = os.listdir(workdir)
     if repo_name in dirs:
@@ -30,9 +31,10 @@ def clone_or_pull(web_url, repo_name):
 
 
 with gitlab.Gitlab("https://" + gitlab_url, gitlab_token) as gl:
-    items = gl.projects.list(iterator=True)
-    for item in items:
-        repository = item.asdict()
-        # print(repository)
+    projects = gl.projects.list(iterator=True, owned=True)
+    for project in projects:
+        repository = project.asdict()
         url=repository["ssh_url_to_repo"]
+        statistics = project.additionalstatistics.get()
+        #pprint(repository)
         clone_or_pull(repository["ssh_url_to_repo"], url.split("/")[-1])
