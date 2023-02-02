@@ -36,5 +36,6 @@ with gitlab.Gitlab("https://" + gitlab_url, gitlab_token) as gl:
         repository = project.asdict()
         url=repository["ssh_url_to_repo"]
         statistics = project.additionalstatistics.get()
+        print(statistics)
         #pprint(repository)
         clone_or_pull(repository["ssh_url_to_repo"], url.split("/")[-1])
