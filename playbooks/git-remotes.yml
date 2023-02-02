@@ -7,6 +7,7 @@
     dest_remote: dest
     repos:
       - ansible
+      - observability
       - obsidian
       - reader
       - scraper
@@ -34,5 +35,5 @@
       with_items: "{{ repos }}"
 
     - name: Git push
-      ansible.builtin.command: "git -C /tmp/{{ item }} push -u dest master"
+      ansible.builtin.command: "git -C /tmp/{{ item }} push -u {{ dest_remote }} master"
       with_items: "{{ repos }}"
