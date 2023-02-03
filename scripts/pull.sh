@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-WORKDIR="$HOME/git/ansible/roles/init/files"
+WORKDIR="$HOME/git/ansible/roles/localhost/files"
 
 cp -rv $HOME/.xinitrc $WORKDIR/home
 cp -rv $XDG_CONFIG_HOME/negwm $WORKDIR/.config

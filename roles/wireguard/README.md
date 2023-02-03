@@ -1,10 +1,10 @@
-## BIND
+## WIREGUARD
 
-Install and setup bind dns server
+Install and setup wireguard vpn server
 
 ## Requirements
 
-This role using bind and bind-utils centos packages
+This role using wireguard centos package
 
 ## Role Variables
 

@@ -15,8 +15,8 @@ diff_func() {
 }
 
 main() {
-    diff_func roles/init/files/home "roles\/init\/files\/home\/"
-    diff_func roles/init/files/.config "roles\/init\/files\/"
+    diff_func roles/localhost/files/home "roles\/localhost\/files\/home\/"
+    diff_func roles/localhost/files/.config "roles\/localhost\/files\/"
 }
 
 main

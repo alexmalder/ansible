@@ -34,7 +34,7 @@ ansible-playbook:
   image: alpine:3.17
   script:
     - apk add ansible
-    - ansible-playbook init.yml
+    - ansible-playbook localhost.yml
   tags:
     - docker
   when: manual

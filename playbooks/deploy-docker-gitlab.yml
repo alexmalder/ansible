@@ -1,3 +1,4 @@
+---
 - name: Run gitlab in docker with docker-compose
   hosts: docker
   gather_facts: false
