@@ -1,6 +1,6 @@
 ---
 - name: Setup vector
-  hosts: drone-runner
+  hosts: docker
   roles:
     - name: Use vector role
       role: vector

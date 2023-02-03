@@ -15,18 +15,6 @@
         name: '@Virtualization Host'
         state: present
 
-    # - name: Install packages
-    #   become: true
-    #   community.general.pacman:
-    #     name:
-    #       - libvirt
-    #       - virt-manager
-    #       - ebtables
-    #       - dnsmasq
-    #       - dmidecode
-    #       - qemu-desktop
-    #     state: present
-
     - name: Enable and start libvirtd
       become: true
       ansible.builtin.systemd:
