@@ -1,1 +1,3 @@
 # ignored files or patterns will be here
+ansible.cfg
+inventory
