@@ -3,7 +3,8 @@
   hosts: docker
   gather_facts: false
   tasks:
-    - community.docker.docker_compose:
+    - name: Execute docker-compose
+      community.docker.docker_compose:
         project_name: openldap
         definition:
           version: '3.7'
@@ -50,7 +51,7 @@
                 # configuration database (files or mysql)
                 - LAM_CONFIGURATION_DATABASE=files
                 # LAM Pro license (line breaks can be removed)
-                #- LAM_LICENSE=
+                # - LAM_LICENSE=
                 # deactivate TLS certificate checks, activate for development only
                 - LAM_DISABLE_TLS_CHECK=true
                 # LDAP organisation name for OpenLDAP
@@ -66,5 +67,6 @@
       vars:
         ansible_python_interpreter: /usr/bin/python3.8
 
-    - ansible.builtin.debug:
+    - name: Print debug info
+      ansible.builtin.debug:
         var: output

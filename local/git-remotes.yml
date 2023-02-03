@@ -1,5 +1,6 @@
 ---
-- hosts: 127.0.0.1
+- name: Run playbook locally for git mirror
+  hosts: 127.0.0.1
   connection: local
   vars:
     src_url: https://gitlab.vnmntn.com/alexmalder
@@ -30,10 +31,10 @@
         version: master
       with_items: "{{ repos }}"
 
-    - name: Git remote add
+    - name: Remote add
       ansible.builtin.command: "git -C /tmp/{{ item }} remote add {{ dest_remote }} {{ dest_url }}/{{ item }}"
       with_items: "{{ repos }}"
 
-    - name: Git push
+    - name: Push
       ansible.builtin.command: "git -C /tmp/{{ item }} push -u {{ dest_remote }} master"
       with_items: "{{ repos }}"

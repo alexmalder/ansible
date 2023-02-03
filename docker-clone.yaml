@@ -1,5 +1,6 @@
 ---
-- hosts: docker
+- name: Pull from public and push to private registry
+  hosts: docker
   vars:
     registry: gitlab-registry.vnmntn.com:9443/alexmalder/observability
     images:

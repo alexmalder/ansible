@@ -1,5 +1,6 @@
 ---
-- hosts: 127.0.0.1
+- name: Pull repos from gitlab[owned=true]
+  hosts: 127.0.0.1
   connection: local
   vars:
     params: "owned=true"
@@ -8,14 +9,14 @@
       ansible.builtin.uri:
         url: "{{ GITLAB_URL }}/api/v4/projects?{{ params }}"
         method: GET
-        status_code: 
+        status_code:
           - 200
         return_content: true
         body_format: json
         headers:
           Content-Type: application/json
           PRIVATE-TOKEN: "{{ PRIVATE_TOKEN }}"
-        validate_certs: no
+        validate_certs: false
       register: result
 
     - name: Clone repositories into workdir

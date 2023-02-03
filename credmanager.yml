@@ -21,11 +21,13 @@
         netrc: "{{ netrc_yml.stdout | from_yaml }}"
 
     - name: Generate ssh config
-      template:
+      ansible.builtin.template:
         src: templates/ssh_config.jinja
         dest: ~/.ssh/config
+        mode: 0600
 
     - name: Generate netrc
-      template:
+      ansible.builtin.template:
         src: templates/netrc.jinja
         dest: ~/.netrc
+        mode: 0600

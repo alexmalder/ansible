@@ -1,5 +1,6 @@
 ---
-- hosts: docker
+- name: Deploy drone-runner in docker-container
+  hosts: docker
   tasks:
     - name: Install python requirements | drone-runner
       ansible.builtin.pip:
