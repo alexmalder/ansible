@@ -3,7 +3,7 @@
 
 Host {{ host_name }}
     HostName {{inventory.all.children[key]["hosts"][host_name]["ansible_host"]}}
-    User {{ inventory.all.children[key]["hosts"][host_name]["ansible_host"] }}
+    User {{ inventory.all.children[key]["hosts"][host_name]["ansible_user"] }}
     Port 22
 {% if "jump_host" in inventory.all.children[key]["hosts"][host_name].keys() %}
     ProxyJump {{ inventory.all.children[key]["hosts"][host_name]["jump_host"] }}
