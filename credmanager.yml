@@ -1,18 +1,32 @@
 ---
-- name: Generate wireguard configuration locally
+- name: Register secrets and generate local files
   hosts: 127.0.0.1
   connection: local
   tasks:
-    - name: Register secure variables
+    - name: Register inventory
       ansible.builtin.command: pass show ansible/inventory.yaml
       register: inventory_yaml
       changed_when: inventory_yaml.rc == 0
       failed_when: inventory_yaml.rc != 0
 
-    - name: Set fact from secure variables
+    - name: Set fact from inventory
       ansible.builtin.set_fact:
         inventory: "{{ inventory_yaml.stdout | from_yaml }}"
 
-    - name: Debug config
+    - name: Debug inventory
       debug:
         var: inventory
+
+    - name: Register netrc
+      ansible.builtin.command: pass show ansible/netrc.yml
+      register: netrc_yml
+      changed_when: netrc_yml.rc == 0
+      failed_when: netrc_yml.rc != 0
+
+    - name: Set fact from netrc
+      ansible.builtin.set_fact:
+        netrc: "{{ netrc_yml.stdout | from_yaml }}"
+
+    - name: Debug config
+      debug:
+        var: netrc
