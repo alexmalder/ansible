@@ -9,24 +9,23 @@
       changed_when: inventory_yaml.rc == 0
       failed_when: inventory_yaml.rc != 0
 
-    - name: Set fact from inventory
-      ansible.builtin.set_fact:
-        inventory: "{{ inventory_yaml.stdout | from_yaml }}"
-
-    - name: Debug inventory
-      debug:
-        var: inventory
-
     - name: Register netrc
       ansible.builtin.command: pass show ansible/netrc.yml
       register: netrc_yml
       changed_when: netrc_yml.rc == 0
       failed_when: netrc_yml.rc != 0
 
-    - name: Set fact from netrc
+    - name: Set facts from pass
       ansible.builtin.set_fact:
+        inventory: "{{ inventory_yaml.stdout | from_yaml }}"
         netrc: "{{ netrc_yml.stdout | from_yaml }}"
 
-    - name: Debug config
-      debug:
-        var: netrc
+    - name: Generate ssh config
+      template:
+        src: templates/ssh_config.jinja
+        dest: ~/.ssh/config
+
+    - name: Generate netrc
+      template:
+        src: templates/netrc.jinja
+        dest: ~/.ssh/.netrc
