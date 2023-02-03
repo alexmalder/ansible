@@ -10,8 +10,8 @@ This role using haproxy centos package
 
 Getted files from pass
 
-- 'live/vnmntn.com/fullchain.pem'
-- 'live/vnmntn.com/privkey.pem'
+- 'live/domain.com/fullchain.pem'
+- 'live/domain.com/privkey.pem'
 - 'live/dhparams.pem'
 
 ## Dependencies
@@ -28,13 +28,13 @@ No role dependencies
   connection: local
   tasks:
     - name: Register fullchain_raw
-      ansible.builtin.command: 'pass show live/vnmntn.com/fullchain.pem'
+      ansible.builtin.command: 'pass show live/domain.com/fullchain.pem'
       register: fullchain_raw
       changed_when: fullchain_raw.rc == 0
       failed_when: fullchain_raw.rc != 0
 
     - name: Register privkey_raw
-      ansible.builtin.command: 'pass show live/vnmntn.com/privkey.pem'
+      ansible.builtin.command: 'pass show live/domain.com/privkey.pem'
       register: privkey_raw
       changed_when: privkey_raw.rc == 0
       failed_when: privkey_raw.rc != 0
@@ -54,7 +54,7 @@ No role dependencies
     - name: Add prepared certificate host variable
       ansible.builtin.add_host:
         name: CERTIFICATE
-        vnmntn.com: "{{ fullchain + privkey }}"
+        domain.com: "{{ fullchain + privkey }}"
 
     - name: Add dhparams host variable
       ansible.builtin.add_host:
