@@ -28,4 +28,4 @@
     - name: Generate netrc
       template:
         src: templates/netrc.jinja
-        dest: ~/.ssh/.netrc
+        dest: ~/.netrc
