@@ -1,6 +1,6 @@
 ---
 - name: Deploy gitlab-runner
-  hosts: personal
+  hosts: openvpn
   vars:
     install_sh: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
   become: true

@@ -2,6 +2,8 @@
 - name: Run gitlab in docker with docker-compose
   hosts: docker
   gather_facts: false
+  vars:
+    bind_ip: 0.0.0.0
   tasks:
     - name: Execute docker-compose
       community.docker.docker_compose:
@@ -10,7 +12,7 @@
           version: '3.6'
           services:
             web:
-              image: 'gitlab/gitlab-ce:15.6.7-ce.0'
+              image: 'gitlab/gitlab-ce:14.10.5-ce.0'
               restart: always
               hostname: 'gitlab.vnmntn.com'
               environment:
@@ -20,9 +22,9 @@
                   registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlab.vnmntn.com.crt"
                   registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlab.vnmntn.com.key"
               ports:
-                - '8443:443'
-                - '8022:22'
-                - '9443:9443'
+                - '{{ bind_ip }}:8443:443'
+                - '{{ bind_ip }}:8022:22'
+                - '{{ bind_ip }}:9443:9443'
                 # - '8080:80'
               volumes:
                 - 'config:/etc/gitlab'
