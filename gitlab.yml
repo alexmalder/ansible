@@ -1,7 +1,6 @@
 ---
 - name: Run gitlab in docker with docker-compose
   hosts: openvpn
-  gather_facts: false
   vars:
     bind_ip: 127.0.0.1
   tasks:
@@ -31,10 +30,17 @@
                 - 'logs:/var/log/gitlab'
                 - 'data:/var/opt/gitlab'
               shm_size: '256m'
+            gitlab-runner:
+              image: 'gitlab/gitlab-runner:v14.10.1'
+              volumes:
+                - /var/run/docker.sock:/var/run/docker.sock
+                - gitlab_runner_config:/etc/gitlab-runner
+              restart: unless-stopped
           volumes:
             config: null
             logs: null
             data: null
+            gitlab_runner_config: null
       register: output
       vars:
         ansible_python_interpreter: /usr/bin/python3.8

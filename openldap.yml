@@ -1,6 +1,6 @@
 ---
 - name: Run openldap in docker with docker-compose
-  hosts: docker
+  hosts: openvpn
   gather_facts: false
   tasks:
     - name: Execute docker-compose
@@ -13,8 +13,8 @@
               image: bitnami/openldap:2.6
               restart: always
               ports:
-                - '1389:1389'
-                - '1636:1636'
+                - '127.0.0.1:1389:1389'
+                - '127.0.0.1:1636:1636'
               environment:
                 - LDAP_ADMIN_USERNAME=admin
                 - LDAP_ADMIN_PASSWORD=adminpassword
@@ -27,7 +27,7 @@
               image: ldapaccountmanager/lam:stable
               restart: always
               ports:
-                - 8080:80
+                - '127.0.0.1:8080:80'
               environment:
                 # skip LAM preconfiguration (lam.conf + config.cfg), values: (true/false)
                 # If set to true the other variables below have no effect.
