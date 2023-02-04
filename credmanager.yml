@@ -15,6 +15,12 @@
       changed_when: netrc_yml.rc == 0
       failed_when: netrc_yml.rc != 0
 
+    - name: Register ansible config
+      ansible.builtin.command: pass show ansible/ansible.cfg
+      register: ansible_cfg
+      changed_when: ansible_cfg.rc == 0
+      failed_when: ansible_cfg.rc != 0
+
     - name: Set facts from pass
       ansible.builtin.set_fact:
         inventory: "{{ inventory_yaml.stdout | from_yaml }}"
@@ -30,4 +36,10 @@
       ansible.builtin.template:
         src: templates/netrc.jinja
         dest: ~/.netrc
+        mode: 0600
+
+    - name: Save inventory to inventory directory
+      ansible.builtin.copy:
+        content: "{{ inventory_yaml.stdout }}"
+        dest: ./inventory/inventory.yaml
         mode: 0600

@@ -2,12 +2,20 @@
 # tasks file for ci
 - name: Install docker
   ansible.builtin.import_tasks: ./docker.yml
+  tags:
+    - docker
 
 - name: Install docker-compose
   ansible.builtin.import_tasks: ./docker-compose.yml
+  tags:
+    - docker-compose
 
 - name: Install kubectl
   ansible.builtin.import_tasks: ./kubectl.yml
+  tags:
+    - kubectl
 
 - name: Install helm
   ansible.builtin.import_tasks: ./helm.yml
+  tags:
+    - helm

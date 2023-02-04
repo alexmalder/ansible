@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: openvpn
+  hosts: cloud
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
