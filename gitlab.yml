@@ -1,9 +1,9 @@
 ---
 - name: Run gitlab in docker with docker-compose
-  hosts: docker
+  hosts: openvpn
   gather_facts: false
   vars:
-    bind_ip: 0.0.0.0
+    bind_ip: 127.0.0.1
   tasks:
     - name: Execute docker-compose
       community.docker.docker_compose:
