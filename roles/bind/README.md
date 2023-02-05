@@ -7,7 +7,6 @@ Install and setup bind dns server
 This role using bind and bind-utils centos packages
 
 ## Role Variables
-
 - `domain`: example.com
 - `backward_zone_name`: 0.168.192.in-addr.arpa
 - `listen_ip`: 192.168.122.16
