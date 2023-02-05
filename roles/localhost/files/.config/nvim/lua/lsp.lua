@@ -75,13 +75,9 @@ lsp.omnisharp.setup{
     cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
 }
 lsp.pyright.setup {}
-lsp.jdtls.setup {}
+--lsp.jdtls.setup {}
 --lsp.yamlls.setup {}
-lsp.ansiblels.setup {
-    cmd = { "ansible-language-server", "--stdio" },
-    filetypes = { "yaml" },
-}
-
+--lsp.ansiblels.setup { cmd = { "ansible-language-server", "--stdio" }, filetypes = { "yaml.ansible" }, }
 lsp.rust_analyzer.setup{}
 lsp.clangd.setup{
     cmd = { "/usr/bin/clangd" },

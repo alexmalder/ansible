@@ -95,3 +95,8 @@ require("transparent").setup({
   exclude = {}, -- table: groups you don't want to clear
 })
 
+require('nvim-treesitter.configs').setup {
+  indent = {
+    enable = true,
+  }
+}

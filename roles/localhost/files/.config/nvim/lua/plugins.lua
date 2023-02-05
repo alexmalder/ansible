@@ -26,13 +26,15 @@ return require('packer').startup(function()
     -- SEARCH ENGINE
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
+    use "cuducos/yaml.nvim"
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use "nvim-telescope/telescope.nvim"
     -- COMPLETION
     use 'windwp/nvim-autopairs'
     -- UI/UX
     use 'frazrepo/vim-rainbow'
     use 'mcchrish/nnn.vim'
     --use 'neg-serg/neg.nvim'
-    use 'romgrk/barbar.nvim'
     use 'rockerBOO/boo-colorscheme-nvim'
     use 'xiyaowong/nvim-transparent'
     use 'windwp/windline.nvim'
@@ -48,4 +50,5 @@ return require('packer').startup(function()
     use 'TimUntersberger/neogit'
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'sindrets/diffview.nvim'
+    --use 'lmeijvogel/vim-yaml-helper'
 end)
