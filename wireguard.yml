@@ -4,7 +4,7 @@
   connection: local
   tasks:
     - name: Register secure variables
-      ansible.builtin.command: pass show config/wireguard.yml
+      ansible.builtin.command: pass show ansible/wireguard.yml
       register: wireguard
       changed_when: wireguard.rc == 0
       failed_when: wireguard.rc != 0
@@ -16,46 +16,27 @@
     - name: Add wireguard host variable
       ansible.builtin.add_host:
         name: WIREGUARD
-        clients: "{{ wg_config.clients }}"
+        client: "{{ wg_config.client }}"
         server: "{{ wg_config.server }}"
 
     - name: Create wireguard directory if does no exists
       ansible.builtin.file:
         path: "/etc/wireguard"
         state: directory
-        owner: vnmntn
         mode: 0640
       become: true
 
     - name: Generate client config files
       ansible.builtin.template:
         src: "roles/wireguard/templates/client.conf"
-        dest: "/etc/wireguard/{{ item.name }}.conf"
-        owner: vnmntn
+        dest: "./wireguard/{{ item.name }}.conf"
         mode: 0660
-      loop: "{{ hostvars['WIREGUARD']['clients'] }}"
+      loop: "{{ hostvars['WIREGUARD']['client']['clients'] }}"
       no_log: true
       become: true
 
 - name: Setup wireguard server
   hosts: hypervisor
-  tasks:
-    - name: Install wireguard
-      ansible.builtin.dnf:
-        name:
-          - kmod-wireguard
-          - wireguard-tools
-
-    - name: Generate server config file
-      ansible.builtin.template:
-        src: "roles/wireguard/templates/server.conf"
-        dest: "/etc/wireguard/wg0.conf"
-        mode: 0640
-      become: true
-
-    - name: Enable and restart wireguard service
-      ansible.builtin.systemd:
-        name: wg-quick@wg0
-        state: reloaded
-        enabled: true
-        daemon_reload: true
+  roles:
+    - name: Use wireguard role
+      role: wireguard
