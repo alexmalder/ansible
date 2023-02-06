@@ -37,14 +37,6 @@
       no_log: true
       become: true
 
-    - name: Generate server config file
-      ansible.builtin.template:
-        src: "roles/wireguard/templates/server.conf"
-        dest: "/etc/wireguard/wg0.conf"
-        owner: vnmntn
-        mode: 0660
-      become: true
-
 - name: Setup wireguard server
   hosts: hypervisor
   tasks:

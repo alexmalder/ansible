@@ -20,14 +20,16 @@ server:
     - name: username
       public_key: <client_public_key>
       allowed_ips: 10.10.10.2/32
-clients:
-  - name: username
-    private_key: <client_private_key>
-    address: 10.10.10.2/24
+client:
+  props:
     public_key: <server_public_key>
-    endpoint: <server_public_ip>:50100
-    allowed_ips: 10.10.10.0/24
+    endpoint: <server_endpoint_with_port>
     persistent_keepalive: 25
+    allowed_ips: 10.10.10.0/24
+  clients:
+    - name: username
+      private_key: <client_private_key>
+      address: 10.10.10.2/24
 ```
 
 ## Dependencies
