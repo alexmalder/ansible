@@ -10,7 +10,9 @@
       - ansible
       - observability
       - obsidian
+      - parser
       - reader
+      - recsys
       - scraper
       - store
       - template
