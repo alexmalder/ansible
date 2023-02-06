@@ -55,8 +55,8 @@ def iter_groups(gitlab_url, gl):
 
 
 def main():
-    gitlab_url = os.getenv("GITLAB_URL", "")
-    gitlab_token = os.getenv("GITLAB_PASSWORD", "")
+    gitlab_url = os.getenv("GIT_URL_SECURE", "")
+    gitlab_token = os.getenv("GIT_PASSWORD_SECURE", "")
     gl = gitlab.Gitlab("https://" + gitlab_url, gitlab_token)
     group_variables = iter_groups(gitlab_url, gl)
     project_variables = iter_projects(gitlab_url, gl)

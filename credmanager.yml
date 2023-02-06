@@ -41,7 +41,7 @@
     - name: Generate env for fish
       ansible.builtin.template:
         src: templates/env.fish.jinja
-        dest: ~/env.fish
+        dest: ~/.config/fish/conf.d/env.fish
         mode: 0600
 
     - name: Save inventory to inventory directory
