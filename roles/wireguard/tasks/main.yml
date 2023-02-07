@@ -3,7 +3,7 @@
 - name: Install epel and el
   ansible.builtin.dnf:
     name:
-      - epel-release 
+      - epel-release
       - elrepo-release
 
 - name: Install wireguard
