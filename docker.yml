@@ -1,0 +1,25 @@
+---
+- name: Make me a proxy, please
+  hosts: bastion
+  vars:
+    img_name: 'haproxy'
+    img_tag: '0.0.1'
+    ansible_python_interpreter: '/usr/bin/python3.6'
+  tasks:
+    - name: Build an image and push it to a private repo
+      community.docker.docker_image:
+        build:
+          path: "{{ ansible_env.HOME }}/haproxy"
+        name: "{{ img_name }}"
+        tag: "{{ img_tag }}"
+        push: false
+        source: build
+
+    - name: Re-create a container
+      docker_container:
+        name: "{{ img_name }}"
+        image: "{{ img_name }}:{{ img_tag }}"
+        state: started
+        restart: yes
+        published_ports:
+          - 8080:80
