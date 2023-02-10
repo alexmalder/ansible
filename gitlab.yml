@@ -20,6 +20,10 @@
               environment:
                 GITLAB_OMNIBUS_CONFIG: |
                   external_url 'https://gitlab.{{ bind_domain }}'
+                  registry_nginx['enable'] = true
+                  registry_nginx['listen_port'] = 9443
+                  registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlab.{{ bind_domain }}.crt"
+                  registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlab.{{ bind_domain }}.key"
                   gitlab_rails['ldap_enabled'] = true
                   gitlab_rails['ldap_servers'] = {
                     'main' => {
