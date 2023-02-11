@@ -20,6 +20,6 @@
         name: "{{ img_name }}"
         image: "{{ img_name }}:{{ img_tag }}"
         state: started
-        restart: yes
+        restart: no
         published_ports:
           - 8080:80

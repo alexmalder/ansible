@@ -1,8 +1,6 @@
 ---
 - name: Common play
-  hosts: 
-    - node1-test
-    - node2-test
+  hosts: cloud
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
