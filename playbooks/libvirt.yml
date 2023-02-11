@@ -1,0 +1,12 @@
+---
+- name: Run playbook locally for printing info of vm machines
+  hosts: hypervisor
+  tasks:
+    - name: Register vm info
+      community.libvirt.virt:
+        name: node1-test
+        command: info
+      register: var
+    - name: Debug vm
+      debug:
+        var: var
