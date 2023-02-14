@@ -25,3 +25,4 @@
         dest: "~/Code/{{ item.ssh_url_to_repo.replace('.git', '').split('/')[-1] }}"
         version: "{{ item.default_branch }}"
       with_items: "{{ result.json }}"
+      no_log: true
