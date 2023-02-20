@@ -69,10 +69,7 @@ vim.cmd[[let g:floaterm_height = 1.0]]
 vim.cmd[[let g:floaterm_width = 0.66]]
 
 -- colorscheme
-require('boo-colorscheme').use({ 
-  italic = true, -- toggle italics
-  theme = "boo"
-})
+--require('boo-colorscheme').use({ italic = true, theme = "boo" })
 
 -- git
 local neogit = require('neogit')

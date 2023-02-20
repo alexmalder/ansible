@@ -22,7 +22,18 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-cmdline'
     use 'ray-x/lsp_signature.nvim'
     use 'williamboman/nvim-lsp-installer'
-    use 'glepnir/lspsaga.nvim'
+    use({
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+        config = function()
+            require("lspsaga").setup({})
+        end,
+        requires = {
+            {"nvim-tree/nvim-web-devicons"},
+            --Please make sure you install markdown and markdown_inline parser
+            {"nvim-treesitter/nvim-treesitter"}
+        }
+    })
     -- SEARCH ENGINE
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
@@ -34,7 +45,7 @@ return require('packer').startup(function()
     -- UI/UX
     use 'frazrepo/vim-rainbow'
     use 'mcchrish/nnn.vim'
-    --use 'neg-serg/neg.nvim'
+    use 'neg-serg/neg.nvim'
     use 'rockerBOO/boo-colorscheme-nvim'
     use 'xiyaowong/nvim-transparent'
     use 'windwp/windline.nvim'
@@ -43,6 +54,7 @@ return require('packer').startup(function()
     -- SYNTAX
     use 'makerj/vim-pdf'
     use 'bfrg/vim-cpp-modern'
+    --use 'sheerun/vim-polyglot'
     -- FORMATTERS
     use 'vim-autoformat/vim-autoformat'
     use 'sbdchd/neoformat'
