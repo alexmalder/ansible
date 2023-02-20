@@ -3,10 +3,10 @@
   hosts: bastion
   vars:
     img_name: 'haproxy'
-    img_tag: '0.0.1'
+    img_tag: '0.0.2'
     ansible_python_interpreter: '/usr/bin/python3.6'
   tasks:
-    - name: Build an image and push it to a private repo
+    - name: Build an image locally usage
       community.docker.docker_image:
         build:
           path: "{{ ansible_env.HOME }}/haproxy"
@@ -22,4 +22,5 @@
         state: started
         restart: true
         published_ports:
-          - 8080:80
+          - 8080:443
+          #- 8080:80
