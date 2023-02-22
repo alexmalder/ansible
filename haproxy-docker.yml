@@ -22,5 +22,5 @@
         state: started
         restart: true
         published_ports:
-          - 8080:443
+          - 443:443
           #- 8080:80
