@@ -3,40 +3,43 @@
   hosts: 127.0.0.1
   connection: local
   vars:
-    src_url: https://gitlab.vnmntn.com/alexmalder
     dest_url: https://github.com/alexmalder
-    dest_remote: dest
-    repos:
-      - ansible
-      - observability
-      - obsidian
-      - parser
-      - reader
-      - recsys
-      - scraper
-      - store
-      - template
-      - vault
   tasks:
+    - name: Get list of repos
+      ansible.builtin.uri:
+        url: "https://{{ GIT_URL }}/api/v4/projects"
+        method: GET
+        status_code:
+          - 200
+        return_content: true
+        body_format: json
+        headers:
+          Content-Type: application/json
+          PRIVATE-TOKEN: "{{ PRIVATE_TOKEN }}"
+        validate_certs: false
+      register: result
+
     - name: Delete content & directory
       ansible.builtin.file:
         state: absent
-        path: "/tmp/{{ item }}"
-      with_items: "{{ repos }}"
+        path: "/tmp/{{ item.name }}"
+      with_items: "{{ result.json }}"
 
-    - name: Clone repositories into /tmp
+    - name: Clone repositories into workdir
       ansible.builtin.git:
-        repo: "{{ src_url }}/{{ item }}"
-        dest: "/tmp/{{ item }}"
+        repo: "{{ item.web_url }}"
+        dest: "/tmp/{{ item.name }}"
+        version: master
         single_branch: true
         force: true
-        version: master
-      with_items: "{{ repos }}"
+        #version: "{{ item.default_branch }}"
+      with_items: "{{ result.json }}"
+      # no_log: true
 
     - name: Remote add
-      ansible.builtin.command: "git -C /tmp/{{ item }} remote add {{ dest_remote }} {{ dest_url }}/{{ item }}"
-      with_items: "{{ repos }}"
+      ansible.builtin.command: "git -C /tmp/{{ item.name }} remote add dest {{ dest_url }}/{{ item.name }}"
+      with_items: "{{ result.json }}"
 
     - name: Push
-      ansible.builtin.command: "git -C /tmp/{{ item }} push -u {{ dest_remote }} master"
-      with_items: "{{ repos }}"
+      ansible.builtin.command: "git -C /tmp/{{ item.name }} push -u dest master"
+      with_items: "{{ result.json }}"
