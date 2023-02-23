@@ -37,7 +37,6 @@
       - font-iosevka
       - font-iosevka-nerd
       - font-manager
-      - font-ubuntu-mono-nerd
 
 - name: Install other ALPINE packages | PACKAGES
   become: true
