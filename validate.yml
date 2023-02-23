@@ -5,38 +5,17 @@
   vars:
     base_src: roles/localhost/files/.config
   tasks:
-    - name: Get files of fish
-      ansible.builtin.find:
-        paths: "{{ base_src }}/fish"
-        recurse: yes
-        hidden: true
-      register: result
+    - name: Check fish
+      include_tasks: ./tasks/validate-task.yml
+      vars:
+        diff_path: fish
 
-    - name: Debug fish
-      ansible.builtin.command:
-        cmd: 'diff {{ item.path }} $HOME/.config/{{ item.path.replace("roles/localhost/files/.config/", "") }}'
-      loop: "{{ result.files }}"
+    - name: Check nvim
+      include_tasks: ./tasks/validate-task.yml
+      vars:
+        diff_path: nvim
 
-    - name: Get files of nvim
-      ansible.builtin.find:
-        paths: "{{ base_src }}/nvim"
-        recurse: yes
-        hidden: true
-      register: result
-
-    - name: Debug nvim
-      ansible.builtin.command:
-        cmd: 'diff {{ item.path }} $HOME/.config/{{ item.path.replace("roles/localhost/files/.config/", "") }}'
-      loop: "{{ result.files }}"
-
-    - name: Get files of zathura
-      ansible.builtin.find:
-        paths: "{{ base_src }}/nvim"
-        recurse: yes
-        hidden: true
-      register: result
-
-    - name: Debug zathura
-      ansible.builtin.command:
-        cmd: 'diff {{ item.path }} $HOME/.config/{{ item.path.replace("roles/localhost/files/.config/", "") }}'
-      loop: "{{ result.files }}"
+    - name: Check zathura
+      include_tasks: ./tasks/validate-task.yml
+      vars:
+        diff_path: zathura

@@ -1,0 +1,12 @@
+---
+- name: Get files
+  ansible.builtin.find:
+    paths: "{{ base_src }}/{{ diff_path }}"
+    recurse: yes
+    hidden: true
+  register: result
+
+- name: Diff files
+  ansible.builtin.command:
+    cmd: 'diff {{ item.path }} $HOME/.config/{{ item.path.replace("roles/localhost/files/.config/", "") }}'
+  loop: "{{ result.files }}"
