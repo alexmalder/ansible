@@ -9,14 +9,14 @@
     content: "{{ hostvars['CERTIFICATE']['vnmntn.com'] }}"
     dest: /etc/ssl/certs/vnmntn.com.pem
     owner: haproxy
-    mode: 0640
+    mode: '0640'
 
 - name: Push dhparams in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['dhparams'] }}"
     dest: /etc/haproxy/dhparams.pem
     owner: haproxy
-    mode: 0640
+    mode: '0640'
 
 - name: Push temp configuration
   ansible.builtin.copy:
@@ -24,7 +24,7 @@
     dest: "/etc/haproxy/haproxy_temp.cfg"
     owner: haproxy
     group: haproxy
-    mode: 0640
+    mode: '0640'
 
 - name: Check config
   ansible.builtin.command: haproxy -f /etc/haproxy/haproxy_temp.cfg -c
@@ -37,7 +37,7 @@
     dest: /etc/haproxy/haproxy.cfg
     owner: haproxy
     group: haproxy
-    mode: 0640
+    mode: '0640'
 
 - name: Push service
   ansible.builtin.copy:
@@ -45,7 +45,7 @@
     dest: "/usr/lib/systemd/system/haproxy.service"
     owner: haproxy
     group: haproxy
-    mode: 0640
+    mode: '0640'
 
 - name: Enable and restart haproxy service
   ansible.builtin.systemd:

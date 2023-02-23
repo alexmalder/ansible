@@ -9,7 +9,7 @@
   ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "~/"
-    mode: 0640
+    mode: '0640'
   with_items:
     - src: "roles/{{ role_name }}/files/.config"
     - src: "roles/{{ role_name }}/files/home/.zshrc"
@@ -24,4 +24,4 @@
     src: "roles/{{ role_name }}/files/etc/modprobe.d/{{ ansible_distribution }}.conf"
     dest: /etc/modprobe.d/alsa.conf
     owner: root
-    mode: 0640
+    mode: '0640'

@@ -11,7 +11,7 @@
     dest: /etc/named.conf
     owner: root
     group: named
-    mode: 0640
+    mode: '0640'
 
 - name: Push db configuration
   ansible.builtin.template:
@@ -19,7 +19,7 @@
     dest: "/var/named/{{ domain }}.db"
     owner: named
     group: named
-    mode: 0660
+    mode: '0660'
 
 - name: Push rev configuration
   ansible.builtin.template:
@@ -27,7 +27,7 @@
     dest: "/var/named/{{ domain }}.rev"
     owner: named
     group: named
-    mode: 0660
+    mode: '0660'
 
 - name: Enable and restart named service
   ansible.builtin.systemd:

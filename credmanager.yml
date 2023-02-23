@@ -30,22 +30,22 @@
       ansible.builtin.template:
         src: templates/ssh_config.jinja
         dest: ~/.ssh/config
-        mode: 0600
+        mode: '0600'
 
     - name: Generate netrc
       ansible.builtin.template:
         src: templates/netrc.jinja
         dest: ~/.netrc
-        mode: 0600
+        mode: '0600'
 
     - name: Generate env for fish
       ansible.builtin.template:
         src: templates/env.fish.jinja
         dest: ~/.config/fish/conf.d/netrc.fish
-        mode: 0600
+        mode: '0600'
 
     - name: Save inventory to inventory directory
       ansible.builtin.copy:
         content: "{{ inventory_yaml.stdout }}"
         dest: ./inventory/inventory.yaml
-        mode: 0600
+        mode: '0600'

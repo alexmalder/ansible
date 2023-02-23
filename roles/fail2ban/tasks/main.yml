@@ -7,7 +7,7 @@
   ansible.builtin.copy:
     src: roles/fail2ban/files/jail.local
     dest: /etc/fail2ban/jail.local
-    mode: 0640
+    mode: '0640'
 
 - name: Setup service
   ansible.builtin.systemd:

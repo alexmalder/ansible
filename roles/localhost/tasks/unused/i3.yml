@@ -4,4 +4,4 @@
     src: "roles/{{ role_name }}/templates/i3.jinja"
     dest: ~/.config/i3/config
     owner: "{{ ansible_user }}"
-    mode: 0640
+    mode: '0640'

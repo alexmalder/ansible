@@ -5,7 +5,7 @@
     dest: /etc/ssh/sshd_config
     owner: sshd
     group: sshd
-    mode: 0640
+    mode: '0640'
 
 - name: Enable and restart sshd service
   ansible.builtin.systemd:

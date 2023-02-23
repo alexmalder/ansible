@@ -6,16 +6,16 @@
     base_src: roles/localhost/files/.config
   tasks:
     - name: Check fish
-      include_tasks: validate-task.yml
+      ansible.builtin.include_tasks: ./playbooks/validate-task.yml
       vars:
         diff_path: fish
 
     - name: Check nvim
-      include_tasks: validate-task.yml
+      ansible.builtin.include_tasks: ./playbooks/validate-task.yml
       vars:
         diff_path: nvim
 
     - name: Check zathura
-      include_tasks: validate-task.yml
+      ansible.builtin.include_tasks: ./playbooks/validate-task.yml
       vars:
         diff_path: zathura

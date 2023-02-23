@@ -16,7 +16,7 @@
         source: build
 
     - name: Re-create a container
-      docker_container:
+      community.docker.docker_container:
         name: "{{ img_name }}"
         image: "{{ img_name }}:{{ img_tag }}"
         state: started

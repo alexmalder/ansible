@@ -23,14 +23,14 @@
       ansible.builtin.file:
         path: "/etc/wireguard"
         state: directory
-        mode: 0640
+        mode: '0640'
       become: true
 
     - name: Generate client config files
       ansible.builtin.template:
         src: "roles/wireguard/templates/client.conf"
         dest: "./wireguard/{{ item.name }}.conf"
-        mode: 0660
+        mode: '0660'
       loop: "{{ hostvars['WIREGUARD']['client']['clients'] }}"
       no_log: true
       become: true
