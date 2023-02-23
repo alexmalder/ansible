@@ -9,7 +9,7 @@ diff_func() {
     sed_pattern=$2
     for file in $(find ${find_path} -type f); do
         sed_file=$(echo "$file" | sed "s/$sed_pattern//g")
-        echo "$diff_prog $file $HOME/$sed_file"
+        #echo "$diff_prog $file $HOME/$sed_file"
         $diff_prog $file $HOME/$sed_file
     done
 }
