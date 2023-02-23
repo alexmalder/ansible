@@ -19,14 +19,13 @@ function docker_image_clean
 end
 
 function helm_clone
-    name=$argv[1]
-    chart=$argv[2]
+    set name $argv[1]
+    set chart $argv[2]
     echo "[$name $repo $chart] processing..."
-    #helm repo add $name $repo
-    #helm repo update
-    versions=$(helm search repo $name/$chart -l | awk '(NR>1)' | awk '{ print $2 }')
-    for version in $versions; do
+    set versions $(helm search repo $name/$chart -l | awk '(NR>1)' | awk '{ print $2 }')
+
+    for version in $versions
         helm pull $name/$chart --version $version -d charts
         echo "[version $version of chart $chart from repo $name pulled]"
-    done
+    end
 end
