@@ -96,7 +96,6 @@
       # fonts
       - fontconfig
       - ttf-iosevka-nerd
-      - ttf-ubuntumono-nerd
 
 - name: Install node packages
   become: true
