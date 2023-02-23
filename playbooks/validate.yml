@@ -6,16 +6,16 @@
     base_src: roles/localhost/files/.config
   tasks:
     - name: Check fish
-      include_tasks: ./tasks/validate-task.yml
+      include_tasks: validate-task.yml
       vars:
         diff_path: fish
 
     - name: Check nvim
-      include_tasks: ./tasks/validate-task.yml
+      include_tasks: validate-task.yml
       vars:
         diff_path: nvim
 
     - name: Check zathura
-      include_tasks: ./tasks/validate-task.yml
+      include_tasks: validate-task.yml
       vars:
         diff_path: zathura
