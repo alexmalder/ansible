@@ -8,4 +8,7 @@
 
 - name: Diff files
   ansible.builtin.command: 'diff {{ item.path }} $HOME/.config/{{ item.path.replace("roles/localhost/files/.config/", "") }}'
-  loop: "{{ result.files }}"
+  register: diff_result
+  changed_when: diff_result.rc == 0
+  failed_when: diff_result.rc != 0
+  with_items: "{{ result.files }}"
