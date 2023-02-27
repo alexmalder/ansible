@@ -21,8 +21,8 @@
 
     - name: Clone repositories into workdir
       ansible.builtin.git:
-        repo: "{{ item.ssh_url_to_repo }}"
-        dest: "~/Code/{{ item.ssh_url_to_repo.replace('.git', '').split('/')[-1] }}"
+        repo: "{{ item.web_url }}"
+        dest: "~/Code/{{ item.web_url.replace('.git', '').split('/')[-1] }}"
         version: "{{ item.default_branch }}"
       with_items: "{{ result.json }}"
       # no_log: true
