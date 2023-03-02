@@ -1,5 +1,5 @@
 ---
-- name: Deploy drone-runner in docker-container
+- name: Deploy drone-runner in docker
   hosts: cloud0
   tasks:
     - name: Install python requirements | drone-runner
@@ -8,7 +8,7 @@
           - requests
           - docker
 
-    - name: Container present | drone
+    - name: Container present
       community.docker.docker_container:
         name: drone_server
         state: started
@@ -27,20 +27,3 @@
           DRONE_SERVER_PROTO: https
         volumes:
           - /var/lib/drone:/data
-
-    - name: Container present | drone-runner
-      community.docker.docker_container:
-        name: drone-runner-docker-0
-        state: started
-        restart: true
-        image: drone/drone-runner-docker:1
-        restart_policy: always
-        network_mode: host
-        env:
-          DRONE_RPC_PROTO: https
-          DRONE_RPC_HOST: drone.vnmntn.com
-          DRONE_RPC_SECRET: QACQyoiXKgQ8j7o8sdg
-          DRONE_RUNNER_CAPACITY: '2'
-          DRONE_RUNNER_NAME: drone-runner-docker-0
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock

@@ -25,7 +25,7 @@
 
     - name: Create required directory structure
       ansible.builtin.file:
-        path: "/var/lib/gitea/{{item}}"
+        path: "/var/lib/gitea/{{ item }}"
         state: directory
         mode: '0750'
         owner: git
@@ -63,4 +63,3 @@
         state: restarted
         enabled: true
         daemon_reload: true
-

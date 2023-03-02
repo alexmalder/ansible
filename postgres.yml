@@ -4,12 +4,12 @@
   become: true
   vars:
     users:
-    - user: gitea
-      password: gitea
-      database: gitea
-    - user: drone
-      password: drone
-      database: drone
+      - user: gitea
+        password: gitea
+        database: gitea
+      - user: drone
+        password: drone
+        database: drone
 
     listen_addresses: 127.0.0.1
     allowed_ips: all
@@ -26,14 +26,17 @@
 
     - name: Initialize PostgreSQL
       ansible.builtin.command: "postgresql-setup initdb"
+      register: postgres_init
+      changed_when: postgres_init.rc == 0
+      failed_when: postgres_init.rc != 0
       when: not postgres_data.stat.exists
 
     - name: Setup pg hba
-      template:
+      ansible.builtin.template:
         src: ./templates/pg_hba.conf
         dest: "~/data/pg_hba.conf"
         owner: postgres
-        mode: 0600
+        mode: '0600'
       become: true
       become_user: postgres
 
