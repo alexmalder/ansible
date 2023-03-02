@@ -1,26 +1,5 @@
 ---
 kind: pipeline
-type: docker
-name: default
-
-steps:
-- name: ansible-lint
-  image: alpine
-  commands:
-    - apk add git ansible ansible-lint
-    - ansible-galaxy collection install ansible.posix
-    - ansible-galaxy collection install community.general
-    - ansible-lint *.yml
-
-- name: markdownlint
-  image: alpine
-  commands:
-    - apk add npm
-    - npm i -g markdownlint-cli
-    - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
-
----
-kind: pipeline
 type: exec
 name: default
 
@@ -31,4 +10,4 @@ platform:
 steps:
 - name: greeting
   commands:
-  - echo hello world
+  - docker build . -t ansible-lint
