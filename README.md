@@ -6,4 +6,3 @@
 - `playbooks`: development automation
 - `roles`: general roles storage
 - `scripts`: main scripts
-- `services`: k8s manifests for research
