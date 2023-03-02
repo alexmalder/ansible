@@ -1,6 +1,6 @@
 ---
 - name: Deploy drone-runner in docker-container
-  hosts: docker
+  hosts: cloud0
   tasks:
     - name: Install python requirements | drone-runner
       ansible.builtin.pip:
@@ -15,14 +15,14 @@
         image: drone/drone:2
         restart_policy: always
         published_ports:
-          - 6443:443
-          - 8080:80
+          - 127.0.0.1:8443:443
+          - 127.0.0.1:8080:80
         env:
-          DRONE_GITEA_SERVER: https://try.gitea.io 
-          DRONE_GITEA_CLIENT_ID: 05136e57d80189bef462 
-          DRONE_GITEA_CLIENT_SECRET: 7c229228a77d2cbddaa61ddc78d45e 
-          DRONE_RPC_SECRET: super-duper-secret 
-          DRONE_SERVER_HOST: drone.company.com 
+          DRONE_GITEA_SERVER: https://git.vnmntn.com
+          DRONE_GITEA_CLIENT_ID: 
+          DRONE_GITEA_CLIENT_SECRET:
+          DRONE_RPC_SECRET: 
+          DRONE_SERVER_HOST: drone.vnmntn.com 
           DRONE_SERVER_PROTO: https 
         volumes:
           - /var/lib/drone:/data
@@ -36,7 +36,7 @@
         env:
           DRONE_RPC_PROTO: https
           DRONE_RPC_HOST: drone.vnmntn.com
-          DRONE_RPC_SECRET: super-duper-secret
+          DRONE_RPC_SECRET: 
           DRONE_RUNNER_CAPACITY: '2'
           DRONE_RUNNER_NAME: drone-runner-docker-0
         volumes:
