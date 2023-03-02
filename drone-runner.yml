@@ -19,11 +19,11 @@
           - 127.0.0.1:8080:80
         env:
           DRONE_GITEA_SERVER: https://git.vnmntn.com
-          DRONE_GITEA_CLIENT_ID: 
-          DRONE_GITEA_CLIENT_SECRET:
-          DRONE_RPC_SECRET: 
-          DRONE_SERVER_HOST: drone.vnmntn.com 
-          DRONE_SERVER_PROTO: https 
+          DRONE_GITEA_CLIENT_ID: f4aaf732-218e-4204-bb6b-ac230b433863
+          DRONE_GITEA_CLIENT_SECRET: gto_h6gklli23rfob5uytvkgsic3trmrvd47jt4xlr3txobgmzdt35yq
+          DRONE_RPC_SECRET: QACQyoiXKgQ8j7o8sdg
+          DRONE_SERVER_HOST: drone.vnmntn.com
+          DRONE_SERVER_PROTO: https
         volumes:
           - /var/lib/drone:/data
 
@@ -36,7 +36,7 @@
         env:
           DRONE_RPC_PROTO: https
           DRONE_RPC_HOST: drone.vnmntn.com
-          DRONE_RPC_SECRET: 
+          DRONE_RPC_SECRET: QACQyoiXKgQ8j7o8sdg
           DRONE_RUNNER_CAPACITY: '2'
           DRONE_RUNNER_NAME: drone-runner-docker-0
         volumes:
