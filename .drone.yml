@@ -18,3 +18,17 @@ steps:
     - apk add npm
     - npm i -g markdownlint-cli
     - find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
+
+---
+kind: pipeline
+type: exec
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: greeting
+  commands:
+  - echo hello world
