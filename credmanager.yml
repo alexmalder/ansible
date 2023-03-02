@@ -55,3 +55,9 @@
         content: "{{ inventory_yaml.stdout }}"
         dest: ./inventory/inventory.yaml
         mode: '0600'
+
+    - name: Save ansible_cfg
+      ansible.builtin.copy:
+        content: "{{ ansible_cfg.stdout }}"
+        dest: ./ansible.cfg
+        mode: '0600'
