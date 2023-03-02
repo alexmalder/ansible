@@ -2,6 +2,7 @@
 - name: Install postgres
   hosts: cloud0
   become: true
+
   tasks:
     - name: Download gitea
       ansible.builtin.get_url:
