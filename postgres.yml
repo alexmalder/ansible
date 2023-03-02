@@ -1,11 +1,16 @@
 ---
-- name: Install postgres 12
-  hosts: atl
+- name: Install postgres
+  hosts: cloud0
   become: true
   vars:
-    db_user: atl
-    db_password: atl
-    db_name: atl
+    users:
+    - user: gitea
+      password: gitea
+      database: gitea
+    - user: drone
+      password: drone
+      database: drone
+
     listen_addresses: 127.0.0.1
     allowed_ips: all
   tasks:
@@ -23,6 +28,15 @@
       ansible.builtin.command: "postgresql-setup initdb"
       when: not postgres_data.stat.exists
 
+    - name: Setup pg hba
+      template:
+        src: ./templates/pg_hba.conf
+        dest: "~/data/pg_hba.conf"
+        owner: postgres
+        mode: 0600
+      become: true
+      become_user: postgres
+
     - name: Setup service
       ansible.builtin.systemd:
         name: postgresql
@@ -38,39 +52,30 @@
     - name: Create database
       community.postgresql.postgresql_db:
         state: present
-        name: "{{ db_name }}"
+        name: "{{ item.database }}"
+      with_items: "{{ users }}"
       become: true
       become_user: postgres
 
     - name: Create database user
       community.postgresql.postgresql_user:
         state: present
-        name: "{{ db_user }}"
-        password: "{{ db_password }}"
+        name: "{{ item.user }}"
+        password: "{{ item.password }}"
+      with_items: "{{ users }}"
       become: true
       become_user: postgres
 
     - name: Grant database user access to database
       community.postgresql.postgresql_privs:
         type: database
-        database: "{{ db_name }}"
-        roles: "{{ db_user }}"
+        database: "{{ item.database }}"
+        roles: "{{ item.user }}"
         grant_option: false
         privs: all
+      with_items: "{{ users }}"
       become: true
       become_user: postgres
-
-        #    - name: Allow md5 connection for the database user
-        #      community.postgresql.postgresql_pg_hba:
-        #        dest: "~/data/pg_hba.conf"
-        #        contype: host
-        #        users: "{{ db_user }}"
-        #        source: "{{ allowed_ips }}"
-        #        databases: "{{ db_name }}"
-        #        method: md5
-        #        create: true
-        #      become: true
-        #      become_user: postgres
 
     - name: Setup listen addresses
       ansible.builtin.replace:

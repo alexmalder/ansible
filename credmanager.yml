@@ -44,6 +44,12 @@
         dest: ~/.config/fish/conf.d/netrc.fish
         mode: '0600'
 
+    - name: Create inventory
+      ansible.builtin.file:
+        path: ./inventory
+        state: directory
+        mode: '0700'
+
     - name: Save inventory to inventory directory
       ansible.builtin.copy:
         content: "{{ inventory_yaml.stdout }}"

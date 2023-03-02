@@ -1,0 +1,65 @@
+---
+- name: Install postgres
+  hosts: cloud0
+  become: true
+  tasks:
+    - name: Download gitea
+      ansible.builtin.get_url:
+        url: https://dl.gitea.com/gitea/1.18.5/gitea-1.18.5-linux-amd64
+        dest: /usr/local/bin/gitea
+        mode: 'a+x'
+
+    - name: Add the user gitea
+      ansible.builtin.user:
+        name: git
+        shell: /bin/bash
+
+    - name: Create base directory
+      ansible.builtin.file:
+        path: "/var/lib/gitea"
+        state: directory
+        mode: '0750'
+        owner: git
+        group: git
+
+    - name: Create required directory structure
+      ansible.builtin.file:
+        path: "/var/lib/gitea/{{item}}"
+        state: directory
+        mode: '0750'
+        owner: git
+        group: git
+      with_items:
+        - custom
+        - data
+        - log
+
+    - name: Create config directory
+      ansible.builtin.file:
+        path: "/etc/gitea"
+        state: directory
+        mode: '0770'
+        owner: root
+        group: git
+
+    - name: Push config
+      ansible.builtin.copy:
+        src: "./templates/app.ini"
+        dest: "/etc/gitea/app.ini"
+        owner: root
+        group: git
+        mode: '0770'
+
+    - name: Push service
+      ansible.builtin.copy:
+        src: "./templates/gitea.service"
+        dest: "/usr/lib/systemd/system/gitea.service"
+        mode: '0640'
+
+    - name: Enable and restart haproxy service
+      ansible.builtin.systemd:
+        name: gitea
+        state: restarted
+        enabled: true
+        daemon_reload: true
+
