@@ -5,18 +5,18 @@
     install_sh: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
   become: true
   tasks:
-    - name: Download installation script | gitlab-runner
+    - name: Download installation script
       ansible.builtin.get_url:
         url: "{{ install_sh }}"
         dest: /tmp/script.rpm.sh
         mode: 'a+x'
 
-    - name: Execute gitlab-runner setup script | gitlab-runner
+    - name: Execute gitlab-runner setup script
       ansible.builtin.command: /tmp/script.rpm.sh
       register: myoutput
       changed_when: myoutput.rc != 0
       failed_when: myoutput.rc != 0
 
-    - name: Install gitlab runner | gitlab-runner
+    - name: Install gitlab runner
       ansible.builtin.yum:
         name: gitlab-runner
