@@ -1,0 +1,79 @@
+---
+- name: Deploy docker services
+  hosts: cloud0
+  tasks:
+    - name: Install python requirements
+      ansible.builtin.pip:
+        name:
+          - requests
+          - docker
+      tags:
+        - pip
+
+    - name: Container present
+      community.docker.docker_container:
+        name: drone_server
+        state: started
+        restart: true
+        image: drone/drone:2
+        restart_policy: always
+        published_ports:
+          - 127.0.0.1:8443:443
+          - 127.0.0.1:8080:80
+        env:
+          DRONE_GITEA_SERVER: https://git.vnmntn.com
+          DRONE_GITEA_CLIENT_ID: "{{ GITEA_CLIENT_ID }}"
+          DRONE_GITEA_CLIENT_SECRET: "{{ GITEA_CLIENT_SECRET }}"
+          DRONE_RPC_SECRET: QACQyoiXKgQ8j7o8sdg
+          DRONE_SERVER_HOST: drone.vnmntn.com
+          DRONE_SERVER_PROTO: https
+        volumes:
+          - /var/lib/drone:/data
+      tags:
+        - drone
+
+    - name: Create a volume postgres
+      community.docker.docker_volume:
+        name: postgres
+      tags:
+        - postgres
+
+    - name: Deploy postgres
+      community.docker.docker_container:
+        name: postgres
+        state: started
+        restart: true
+        image: postgres:13
+        restart_policy: always
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        volumes:
+          - postgres:/var/lib/postgresql
+      tags:
+        - postgres
+
+    - name: Create a volume minio
+      community.docker.docker_volume:
+        name: minio
+      tags:
+        - minio
+
+    - name: Deploy minio
+      community.docker.docker_container:
+        name: minio
+        state: started
+        restart: true
+        image: quay.io/minio/minio:RELEASE.2023-02-17T17-52-43Z
+        command: server --console-address ":9001" /app/data
+        published_ports:
+          - 9000:9000
+          - 9001:9001
+        env:
+          MINIO_ROOT_USER: minioadmin
+          MINIO_ROOT_PASSWORD: minioadmin
+        volumes:
+          - minio:/app/data
+      tags:
+        - minio

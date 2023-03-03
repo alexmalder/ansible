@@ -1,12 +1,30 @@
 ---
-- name: Run playbook locally for printing info of vm machines
+- name: Setup libvirt
   hosts: hypervisor
+  vars:
+    centos_stream: http://mirror.truenetwork.ru/centos/8-stream/isos/x86_64
+    image_name: CentOS-Stream-8-x86_64-20221125-boot.iso
   tasks:
-    - name: Register vm info
-      community.libvirt.virt:
-        name: node1-test
-        command: info
-      register: var
-    - name: Debug vm
-      debug:
-        var: var
+    - name: Remove the 'firewalld' package
+      ansible.builtin.yum:
+        name: firewalld
+        state: absent
+
+    - name: Install the 'Virtualization Host' package group
+      ansible.builtin.dnf:
+        name: '@Virtualization Host'
+        state: present
+
+    - name: Enable and start libvirtd
+      become: true
+      ansible.builtin.systemd:
+        name: libvirtd
+        enabled: true
+        daemon_reload: true
+        state: started
+
+    - name: Download 'centos 8 stream' boot image
+      ansible.builtin.get_url:
+        url: "{{ centos_stream }}/{{ image_name }}"
+        dest: "/var/lib/libvirt/images/{{ image_name }}"
+        mode: '0660'

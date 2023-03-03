@@ -1,8 +1,8 @@
 ---
 - name: Pull from public and push to private registry
-  hosts: docker
+  hosts: cloud0
   vars:
-    registry: gitlab-registry.vnmntn.com:9443/alexmalder/observability
+    registry: git.vnmntn.com/alexmalder/observability
     images:
       - image: quay.io/prometheus/alertmanager 
         tag: v0.25.0
