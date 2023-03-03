@@ -20,8 +20,8 @@
           - 127.0.0.1:8080:80
         env:
           DRONE_GITEA_SERVER: https://git.vnmntn.com
-          DRONE_GITEA_CLIENT_ID: fc8ee41a-65b8-403f-b1a8-c44d4870a2ef
-          DRONE_GITEA_CLIENT_SECRET: gto_vtpyzhhyia7s76bnmh6wlbsfbis3z2hbwbhfqot3u7day72rawbq
+          DRONE_GITEA_CLIENT_ID: "{{ GITEA_CLIENT_ID }}"
+          DRONE_GITEA_CLIENT_SECRET: "{{ GITEA_CLIENT_SECRET }}"
           DRONE_RPC_SECRET: QACQyoiXKgQ8j7o8sdg
           DRONE_SERVER_HOST: drone.vnmntn.com
           DRONE_SERVER_PROTO: https
