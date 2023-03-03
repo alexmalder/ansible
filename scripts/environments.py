@@ -6,7 +6,7 @@ import base64
 
 def iter_projects(gitlab_url, gl):
     items = []
-    projects = gl.projects.list(iterator=True, statistics=True)
+    projects = gl.projects.list(iterator=True, statistics=True, owned=True)
     for repository in projects:
         item = {}
         repo = repository.asdict()
@@ -31,7 +31,7 @@ def iter_projects(gitlab_url, gl):
 
 def iter_groups(gitlab_url, gl):
     items = []
-    groups = gl.groups.list(get_all=True)
+    groups = gl.groups.list(get_all=True, owned=True)
     for group in groups:
         item = {}
         group_dict = group.asdict()
@@ -56,8 +56,8 @@ def iter_groups(gitlab_url, gl):
 
 
 def main():
-    gitlab_url = os.getenv("GIT_URL_PUBLIC", "")
-    gitlab_token = os.getenv("GIT_PASSWORD_PUBLIC", "")
+    gitlab_url = os.getenv("GIT_URL_SECURE", "")
+    gitlab_token = os.getenv("GIT_PASSWORD_SECURE", "")
     gl = gitlab.Gitlab("https://" + gitlab_url, gitlab_token)
     group_variables = iter_groups(gitlab_url, gl)
     project_variables = iter_projects(gitlab_url, gl)
