@@ -11,3 +11,10 @@ steps:
 - name: greeting
   commands:
   - docker build . -t ansible-lint
+
+services:
+- name: database
+  image: mysql
+  ports:
+  - 3306
+
