@@ -57,7 +57,7 @@
         dest: "/usr/lib/systemd/system/gitea.service"
         mode: '0640'
 
-    - name: Enable and restart haproxy service
+    - name: Setup service
       ansible.builtin.systemd:
         name: gitea
         state: restarted

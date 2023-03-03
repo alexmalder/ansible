@@ -26,6 +26,12 @@
         mode: '0640'
       become: true
 
+    - name: Create config directory
+      ansible.builtin.file:
+        path: "./wireguard"
+        state: directory
+        mode: '0775'
+
     - name: Generate client config files
       ansible.builtin.template:
         src: "roles/wireguard/templates/client.conf"
@@ -36,7 +42,7 @@
       become: true
 
 - name: Setup wireguard server
-  hosts: hypervisor
+  hosts: cloud0
   roles:
     - name: Use wireguard role
       role: wireguard
