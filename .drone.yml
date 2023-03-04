@@ -8,6 +8,6 @@ platform:
   arch: amd64
 
 steps:
-- name: greeting
+- name: lint
   commands:
-  - docker build . -t ansible-lint
+    - docker build . -t ansible-lint
