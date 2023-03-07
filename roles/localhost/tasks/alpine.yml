@@ -30,13 +30,12 @@
       - ansible
       - ansible-lint
 
-#- name: Install fonts ALPINE packages | PACKAGES
-#  become: true
-#  community.general.apk:
-#    name:
-#      - font-iosevka
-#      - font-iosevka-nerd
-#      - font-manager
+- name: Install fonts ALPINE packages | PACKAGES
+  become: true
+  community.general.apk:
+    name:
+      - font-iosevka-nerd
+      - font-manager
 
 - name: Install other ALPINE packages | PACKAGES
   become: true
@@ -69,14 +68,14 @@
       - htop
       - nmap
 
-#- name: Install node packages
-#  become: true
-#  community.general.npm:
-#    global: true
-#    name: "{{ item }}"
-#  with_items:
-#    - pyright
-#    - pm2
-#    - bash-language-server
-#    - yaml-language-server
-#    - markdownlint-cli
+- name: Install node packages
+  become: true
+  community.general.npm:
+    global: true
+    name: "{{ item }}"
+  with_items:
+    - pyright
+    - pm2
+    - bash-language-server
+    - yaml-language-server
+    - markdownlint-cli
