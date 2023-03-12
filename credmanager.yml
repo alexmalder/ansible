@@ -23,14 +23,7 @@
 
     - name: Set facts from pass
       ansible.builtin.set_fact:
-        inventory: "{{ inventory_yaml.stdout | from_yaml }}"
         netrc: "{{ netrc_yml.stdout | from_yaml }}"
-
-    - name: Generate ssh config
-      ansible.builtin.template:
-        src: templates/ssh_config.jinja
-        dest: ~/.ssh/config
-        mode: '0600'
 
     - name: Generate netrc
       ansible.builtin.template:
@@ -60,4 +53,10 @@
       ansible.builtin.copy:
         content: "{{ ansible_cfg.stdout }}"
         dest: ./ansible.cfg
+        mode: '0600'
+
+    - name: Generate ssh config
+      ansible.builtin.template:
+        src: templates/ssh_config.jinja
+        dest: ~/.ssh/config
         mode: '0600'
