@@ -23,6 +23,7 @@
 
     - name: Set facts from pass
       ansible.builtin.set_fact:
+        inventory: "{{ inventory_yaml.stdout | from_yaml }}"
         netrc: "{{ netrc_yml.stdout | from_yaml }}"
 
     - name: Generate netrc
@@ -44,7 +45,7 @@
         mode: '0700'
 
     - name: Save inventory to inventory directory
-      ansible.builtin.template:
+      ansible.builtin.copy:
         content: "{{ inventory_yaml.stdout }}"
         dest: ./inventory/inventory.yaml
         mode: '0600'
