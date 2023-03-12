@@ -71,6 +71,7 @@ cmp.setup.cmdline('/', {
 lsp.bashls.setup {}
 lsp.tsserver.setup {}
 lsp.gopls.setup {}
+lsp.dartls.setup {}
 lsp.omnisharp.setup{
     cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
 }

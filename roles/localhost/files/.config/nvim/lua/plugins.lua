@@ -50,5 +50,4 @@ return require('packer').startup(function()
     use 'TimUntersberger/neogit'
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'sindrets/diffview.nvim'
-    use 'lmeijvogel/vim-yaml-helper'
 end)

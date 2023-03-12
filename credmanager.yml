@@ -38,7 +38,7 @@
         dest: ~/.netrc
         mode: '0600'
 
-    - name: Generate env for fish
+    - name: Generate git creds for fish
       ansible.builtin.template:
         src: templates/env.fish.jinja
         dest: ~/.config/fish/conf.d/netrc.fish
@@ -51,7 +51,7 @@
         mode: '0700'
 
     - name: Save inventory to inventory directory
-      ansible.builtin.copy:
+      ansible.builtin.template:
         content: "{{ inventory_yaml.stdout }}"
         dest: ./inventory/inventory.yaml
         mode: '0600'
