@@ -11,3 +11,12 @@
 ## Help
 
 `ansible hostname -m ansible.builtin.shell -a 'df -h /'`
+
+## TODO
+
+- [ ] write gitea role
+- [ ] write postgres role
+
+## Authors
+
+<vnmntn@mail.ru>
