@@ -15,16 +15,23 @@
       changed_when: netrc_yml.rc == 0
       failed_when: netrc_yml.rc != 0
 
-    - name: Register ansible config
+    - name: Register ansible configuration file
       ansible.builtin.command: pass show ansible/ansible.cfg
       register: ansible_cfg
       changed_when: ansible_cfg.rc == 0
       failed_when: ansible_cfg.rc != 0
 
+    - name: Register mhosts
+      ansible.builtin.command: pass show ansible/mhosts.yaml
+      register: mhosts_yaml
+      changed_when: mhosts_yaml.rc == 0
+      failed_when: mhosts_yaml.rc != 0
+
     - name: Set facts from pass
       ansible.builtin.set_fact:
         inventory: "{{ inventory_yaml.stdout | from_yaml }}"
         netrc: "{{ netrc_yml.stdout | from_yaml }}"
+        mhosts: "{{ mhosts_yaml.stdout | from_yaml }}"
 
     - name: Generate netrc
       ansible.builtin.template:
@@ -61,3 +68,10 @@
         src: templates/ssh_config.jinja
         dest: ~/.ssh/config
         mode: '0600'
+
+    - name: Generate hosts file
+      ansible.builtin.template:
+        src: templates/hosts
+        dest: /etc/hosts
+        mode: '0644'
+      become: true
