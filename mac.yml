@@ -26,6 +26,18 @@
         - bottom
         - pass
         - wireguard-tools
-        - nodejs18
         - nmap
         - iftop
+        - cargo
+        - nodejs18
+        - npm9
+
+#    - name: Install node packages
+#      community.general.npm:
+#        global: true
+#        name: "{{ item }}"
+#      with_items:
+#        - pyright
+#        - bash-language-server
+#        - yaml-language-server
+#        - markdownlint-cli
