@@ -31,6 +31,17 @@
         - cargo
         - nodejs18
         - npm9
+        - yamllint
+
+    - name: port select
+      command: "sudo port select --set {{ item.target }} {{ item.source }}"
+      with_items:
+        - target: helm
+          source: helm3.11
+        - target: python
+          source: python311
+        - target: python3 
+          source: python311
 
 #    - name: Install node packages
 #      community.general.npm:
