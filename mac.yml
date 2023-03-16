@@ -32,6 +32,10 @@
         - nodejs18
         - npm9
         - yamllint
+        - py-ansible
+        - ansible-lint
+        - ctop
+        - dbeaver-community
 
     - name: port select
       command: "sudo port select --set {{ item.target }} {{ item.source }}"

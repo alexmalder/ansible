@@ -11,5 +11,7 @@ export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 export PATH="$PATH:$HOME/Downloads/flutter/bin"
 export PATH="$PATH:$HOME/Downloads/yandex-cloud/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:/opt/local/flutter"
 export TERM="screen-256color"
 export HELM_EXPERIMENTAL_OCI="1"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk17-temurin/Contents/Home
