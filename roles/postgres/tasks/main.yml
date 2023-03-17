@@ -19,7 +19,7 @@
 
 - name: Setup pg hba
   ansible.builtin.template:
-    src: ./templates/pg_hba.conf
+    src: "roles/postgres/files/pg_hba.conf"
     dest: "~/data/pg_hba.conf"
     owner: postgres
     mode: '0600'
