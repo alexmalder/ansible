@@ -1,0 +1,82 @@
+---
+# tasks file for postgres
+- name: Install a modularity appstream with defined stream and profile
+  ansible.builtin.dnf:
+    name: '@postgresql:12'
+    state: present
+
+- name: Find out if PostgreSQL is initialized
+  ansible.builtin.stat:
+    path: "/var/lib/pgsql/data/pg_hba.conf"
+  register: postgres_data
+
+- name: Initialize PostgreSQL
+  ansible.builtin.command: "postgresql-setup initdb"
+  register: postgres_init
+  changed_when: postgres_init.rc == 0
+  failed_when: postgres_init.rc != 0
+  when: not postgres_data.stat.exists
+
+- name: Setup pg hba
+  ansible.builtin.template:
+    src: ./templates/pg_hba.conf
+    dest: "~/data/pg_hba.conf"
+    owner: postgres
+    mode: '0600'
+  become: true
+  become_user: postgres
+
+- name: Setup service
+  ansible.builtin.systemd:
+    name: postgresql
+    state: restarted
+    enabled: true
+    daemon_reload: true
+
+- name: Install Python packages
+  ansible.builtin.yum:
+    name: python3-psycopg2
+    state: present
+
+- name: Create database
+  community.postgresql.postgresql_db:
+    state: present
+    name: "{{ item.database }}"
+  with_items: "{{ users }}"
+  become: true
+  become_user: postgres
+
+- name: Create database user
+  community.postgresql.postgresql_user:
+    state: present
+    name: "{{ item.user }}"
+    password: "{{ item.password }}"
+  with_items: "{{ users }}"
+  become: true
+  become_user: postgres
+
+- name: Grant database user access to database
+  community.postgresql.postgresql_privs:
+    type: database
+    database: "{{ item.database }}"
+    roles: "{{ item.user }}"
+    grant_option: false
+    privs: all
+  with_items: "{{ users }}"
+  become: true
+  become_user: postgres
+
+- name: Setup listen addresses
+  ansible.builtin.replace:
+    path: "~/data/postgresql.conf"
+    regexp: '.*listen_add.*'
+    replace: "listen_addresses = '{{ listen_addresses }}'"
+  become: true
+  become_user: postgres
+
+- name: Setup service
+  ansible.builtin.systemd:
+    name: postgresql
+    state: restarted
+    enabled: true
+    daemon_reload: true

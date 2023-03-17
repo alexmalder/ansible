@@ -16,7 +16,7 @@
         ldap_admin_password: "{{ ldap_admin_password_raw.stdout }}"
 
 - name: Run openldap in docker with docker-compose
-  hosts: docker
+  hosts: cloud0
   gather_facts: false
   vars:
     bind_ip: 0.0.0.0
@@ -38,15 +38,15 @@
                 - LDAP_ADMIN_USERNAME=admin
                 - LDAP_ADMIN_PASSWORD={{ hostvars['LDAP']['ldap_admin_password'] }}
                 - LDAP_ROOT={{ base_dn }}
-                - LDAP_USERS=user01,user02
-                - LDAP_PASSWORDS=password1,password2
+                #- LDAP_USERS=user01,user02
+                #- LDAP_PASSWORDS=password1,password2
               volumes:
                 - 'openldap:/bitnami/openldap'
             lam:
               image: ldapaccountmanager/lam:stable
               restart: always
               ports:
-                - '{{ bind_ip }}:8080:80'
+                - '{{ bind_ip }}:8090:80'
               environment:
                 # skip LAM preconfiguration (lam.conf + config.cfg), values: (true/false)
                 # If set to true the other variables below have no effect.
