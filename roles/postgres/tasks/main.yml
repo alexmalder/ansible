@@ -42,7 +42,7 @@
   community.postgresql.postgresql_db:
     state: present
     name: "{{ item.database }}"
-  with_items: "{{ users }}"
+  with_items: "{{ hostvars['POSTGRES']['config']['users'] }}"
   become: true
   become_user: postgres
 
@@ -51,7 +51,7 @@
     state: present
     name: "{{ item.user }}"
     password: "{{ item.password }}"
-  with_items: "{{ users }}"
+  with_items: "{{ hostvars['POSTGRES']['config']['users'] }}"
   become: true
   become_user: postgres
 
@@ -62,7 +62,7 @@
     roles: "{{ item.user }}"
     grant_option: false
     privs: all
-  with_items: "{{ users }}"
+  with_items: "{{ hostvars['POSTGRES']['config']['users'] }}"
   become: true
   become_user: postgres
 
@@ -70,7 +70,7 @@
   ansible.builtin.replace:
     path: "~/data/postgresql.conf"
     regexp: '.*listen_add.*'
-    replace: "listen_addresses = '{{ listen_addresses }}'"
+    replace: "listen_addresses = '{{ hostvars['POSTGRES']['config']['listen_addresses'] }}'"
   become: true
   become_user: postgres
 
