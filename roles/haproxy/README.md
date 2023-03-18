@@ -21,49 +21,9 @@ No role dependencies
 ## Example Playbook
 
 ```yaml
----
-- name: Include variables
-  gather_facts: false
-  hosts: 127.0.0.1
-  connection: local
-  tasks:
-    - name: Register fullchain_raw
-      ansible.builtin.command: 'pass show live/domain.com/fullchain.pem'
-      register: fullchain_raw
-      changed_when: fullchain_raw.rc == 0
-      failed_when: fullchain_raw.rc != 0
-
-    - name: Register privkey_raw
-      ansible.builtin.command: 'pass show live/domain.com/privkey.pem'
-      register: privkey_raw
-      changed_when: privkey_raw.rc == 0
-      failed_when: privkey_raw.rc != 0
-
-    - name: Register dhparams_raw
-      ansible.builtin.command: 'pass show live/dhparams.pem'
-      register: dhparams_raw
-      changed_when: dhparams_raw.rc == 0
-      failed_when: dhparams_raw.rc != 0
-
-    - name: Set facts
-      ansible.builtin.set_fact:
-        fullchain: "{{ fullchain_raw.stdout }}"
-        privkey: "{{ privkey_raw.stdout }}"
-        dhparams: "{{ dhparams_raw.stdout }}"
-
-    - name: Add prepared certificate host variable
-      ansible.builtin.add_host:
-        name: CERTIFICATE
-        domain.com: "{{ fullchain + privkey }}"
-
-    - name: Add dhparams host variable
-      ansible.builtin.add_host:
-        name: CERTIFICATE
-        dhparams: "{{ dhparams }}"
-
 - name: Setup haproxy
   gather_facts: false
-  hosts: hypervisor
+  hosts: cloud0
   roles:
     - name: Use haproxy role
       role: haproxy
