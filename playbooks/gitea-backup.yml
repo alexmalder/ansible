@@ -4,10 +4,10 @@
   vars:
     ansible_user: git
   tasks:
-#    - name: Remove default appiconset
-#      file: 
-#        path: "{{ ansible_env.HOME }}/backups"
-#        state: absent
+    - name: Remove old backups
+      file: 
+        path: "{{ ansible_env.HOME }}/backups"
+        state: absent
 
     - name: Create backup directory
       ansible.builtin.file:
