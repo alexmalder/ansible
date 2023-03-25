@@ -1,0 +1,15 @@
+---
+- name: Push service
+  ansible.builtin.copy:
+    src: "roles/haproxy/files/haproxy.service"
+    dest: "/usr/lib/systemd/system/haproxy.service"
+    owner: haproxy
+    group: haproxy
+    mode: '0640'
+
+- name: Enable and restart haproxy service
+  ansible.builtin.systemd:
+    name: haproxy
+    state: restarted
+    enabled: true
+    daemon_reload: true

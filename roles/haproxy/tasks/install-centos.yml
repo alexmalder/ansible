@@ -1,0 +1,4 @@
+---
+- name: Install haproxy
+  ansible.builtin.yum:
+    name: haproxy

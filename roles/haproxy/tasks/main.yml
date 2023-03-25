@@ -1,55 +1,23 @@
 ---
-# tasks file for haproxy
-- name: Install haproxy
-  ansible.builtin.yum:
-    name: haproxy
+- name: Install centos
+  ansible.builtin.import_tasks: ./install-centos.yml
+  tags:
+    - centos
+    - systemd
 
-- name: Push prepared certificate in pem format
-  ansible.builtin.copy:
-    content: "{{ hostvars['CERTIFICATE']['mycert'] }}"
-    dest: /etc/ssl/certs/vnmntn.com.pem
-    owner: haproxy
-    mode: '0640'
+- name: Prepare
+  ansible.builtin.import_tasks: ./prepare.yml
+  tags:
+    - prepare
+    - docker
+    - systemd
 
-- name: Push dhparams in pem format
-  ansible.builtin.copy:
-    content: "{{ hostvars['CERTIFICATE']['dhparams'] }}"
-    dest: /etc/haproxy/dhparams.pem
-    owner: haproxy
-    mode: '0640'
+- name: Deploy docker
+  ansible.builtin.import_tasks: ./deploy-docker.yml
+  tags:
+    - docker
 
-- name: Push temp configuration
-  ansible.builtin.copy:
-    src: "roles/haproxy/files/haproxy.cfg"
-    dest: "/etc/haproxy/haproxy_temp.cfg"
-    owner: haproxy
-    group: haproxy
-    mode: '0640'
-
-- name: Check config
-  ansible.builtin.command: haproxy -f /etc/haproxy/haproxy_temp.cfg -c
-  register: validation_result
-  changed_when: "'Fatal errors found in configuration' not in validation_result.stderr"
-
-- name: Push configuration
-  ansible.builtin.copy:
-    src: "roles/haproxy/files/haproxy.cfg"
-    dest: /etc/haproxy/haproxy.cfg
-    owner: haproxy
-    group: haproxy
-    mode: '0640'
-
-- name: Push service
-  ansible.builtin.copy:
-    src: "roles/haproxy/files/haproxy.service"
-    dest: "/usr/lib/systemd/system/haproxy.service"
-    owner: haproxy
-    group: haproxy
-    mode: '0640'
-
-- name: Enable and restart haproxy service
-  ansible.builtin.systemd:
-    name: haproxy
-    state: restarted
-    enabled: true
-    daemon_reload: true
+- name: Deploy systemd
+  ansible.builtin.import_tasks: ./deploy-systemd.yml
+  tags:
+    - systemd

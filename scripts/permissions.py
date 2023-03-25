@@ -2,8 +2,8 @@ import os
 import gitlab
 import yaml
 
-gitlab_url = os.getenv("GITLAB_URL", "")
-gitlab_token = os.getenv("GITLAB_PASSWORD", "")
+gitlab_url = os.getenv("GIT_URL_SECURE", "")
+gitlab_token = os.getenv("GIT_PASSWORD_SECURE", "")
 
 items = []
 with gitlab.Gitlab("https://" + gitlab_url, gitlab_token) as gl:

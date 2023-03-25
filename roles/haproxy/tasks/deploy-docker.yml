@@ -1,0 +1,26 @@
+---
+- name: Push Dockerfile
+  ansible.builtin.copy:
+    src: "roles/haproxy/files/Dockerfile"
+    dest: "/tmp/haproxy/Dockerfile"
+    mode: '0640'
+
+- name: Build an image locally usage
+  community.docker.docker_image:
+    build:
+      path: "/tmp/haproxy"
+    name: "haproxy-custom"
+    tag: "{{ img_tag }}"
+    push: false
+    source: build
+
+- name: Re-create a container
+  community.docker.docker_container:
+    name: "haproxy-custom"
+    image: "haproxy-custom:{{ img_tag }}"
+    network_mode: host
+    state: started
+    restart: true
+    #published_ports:
+    #  - 80:80
+    #  - 443:443
