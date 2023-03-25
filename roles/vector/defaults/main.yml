@@ -1,4 +1,0 @@
----
-# defaults file for vector
-vector_download_url: 'https://github.com/vectordotdev/vector/releases/download/v0.26.0'
-vector_package_name: 'vector-0.26.0-1.x86_64.rpm'

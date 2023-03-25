@@ -1,6 +1,0 @@
----
-- name: Setup vector
-  hosts: docker
-  roles:
-    - name: Use vector role
-      role: vector
