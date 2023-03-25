@@ -14,6 +14,12 @@
     push: false
     source: build
 
+- name: Run lint
+  command: "docker run haproxy-custom:{{ img_tag }} -c -f /etc/haproxy/haproxy.cfg"
+  register: haproxy_lint
+  changed_when: haproxy_lint.rc == 0
+  failed_when: haproxy_lint.rc != 0
+
 - name: Re-create a container
   community.docker.docker_container:
     name: "haproxy-custom"
