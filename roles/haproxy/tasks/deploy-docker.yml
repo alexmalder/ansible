@@ -15,7 +15,7 @@
     source: build
 
 - name: Run lint
-  command: "docker run haproxy-custom:{{ img_tag }} -c -f /etc/haproxy/haproxy.cfg"
+  ansible.builtin.command: "docker run haproxy-custom:{{ img_tag }} -c -f /etc/haproxy/haproxy.cfg"
   register: haproxy_lint
   changed_when: haproxy_lint.rc == 0
   failed_when: haproxy_lint.rc != 0
@@ -27,6 +27,3 @@
     network_mode: host
     state: started
     restart: true
-    #published_ports:
-    #  - 80:80
-    #  - 443:443
