@@ -14,8 +14,8 @@
 
 ## TODO
 
-- [ ] write gitea role
-- [ ] write postgres role
+- [ ] haproxy dynamic config
+- [ ] haproxy dynamic cert
 
 ## Authors
 
