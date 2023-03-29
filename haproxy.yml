@@ -5,21 +5,21 @@
   connection: local
   tasks:
     - name: Register config
-      ansible.builtin.command: "pass show ansible/{{ haproxy_workdir }}/haproxy.cfg"
+      ansible.builtin.command: "pass show ansible/{{ workdir }}/haproxy.cfg"
       register: haproxy_cfg
       changed_when: haproxy_cfg.rc == 0
       failed_when: haproxy_cfg.rc != 0
       tags: [docker]
 
     - name: Register mycert
-      ansible.builtin.command: "pass show ansible/{{ haproxy_workdir }}/mycert.pem"
+      ansible.builtin.command: "pass show ansible/{{ workdir }}/mycert.pem"
       register: mycert
       changed_when: mycert.rc == 0
       failed_when: mycert.rc != 0
       tags: [docker]
 
     - name: Register dhparams_raw
-      ansible.builtin.command: "pass show ansible/{{ haproxy_workdir }}/dhparams.pem"
+      ansible.builtin.command: "pass show ansible/{{ workdir }}/dhparams.pem"
       register: dhparams_raw
       changed_when: dhparams_raw.rc == 0
       failed_when: dhparams_raw.rc != 0
@@ -27,26 +27,28 @@
 
     - name: Set facts
       ansible.builtin.set_fact:
-        haproxy_cfg: "{{ haproxy_cfg.stdout }}"
+        config: "{{ haproxy_cfg.stdout + '\n' }}"
         mycert: "{{ mycert.stdout }}"
         dhparams: "{{ dhparams_raw.stdout }}"
       tags: [docker]
 
     - name: Add prepared certificate host variable
       ansible.builtin.add_host:
+        haproxy_cfg: "{{ config }}"
         name: CERTIFICATE
         mycert: "{{ mycert }}"
+        dhparams: "{{ dhparams }}"
       tags: [docker]
 
     - name: Add dhparams host variable
       ansible.builtin.add_host:
         name: CERTIFICATE
-        dhparams: "{{ dhparams }}"
       tags: [docker]
 
 - name: Setup haproxy
   gather_facts: false
-  hosts: cloud0
+  hosts: personal
+  become: true
   roles:
     - name: Use haproxy role
       role: haproxy
