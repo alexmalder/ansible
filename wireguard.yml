@@ -4,7 +4,7 @@
   connection: local
   tasks:
     - name: Register secure variables
-      ansible.builtin.command: pass show ansible/wireguard.yml
+      ansible.builtin.command: pass show ansible/wireguard/wireguard.yml
       register: wireguard
       changed_when: wireguard.rc == 0
       failed_when: wireguard.rc != 0

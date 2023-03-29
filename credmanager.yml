@@ -4,25 +4,25 @@
   connection: local
   tasks:
     - name: Register inventory
-      ansible.builtin.command: pass show ansible/inventory.yaml
+      ansible.builtin.command: pass show ansible/credmanager/inventory.yaml
       register: inventory_yaml
       changed_when: inventory_yaml.rc == 0
       failed_when: inventory_yaml.rc != 0
 
     - name: Register netrc
-      ansible.builtin.command: pass show ansible/netrc.yml
+      ansible.builtin.command: pass show ansible/credmanager/netrc.yml
       register: netrc_yml
       changed_when: netrc_yml.rc == 0
       failed_when: netrc_yml.rc != 0
 
     - name: Register ansible configuration file
-      ansible.builtin.command: pass show ansible/ansible.cfg
+      ansible.builtin.command: pass show ansible/credmanager/ansible.cfg
       register: ansible_cfg
       changed_when: ansible_cfg.rc == 0
       failed_when: ansible_cfg.rc != 0
 
     - name: Register mhosts
-      ansible.builtin.command: pass show ansible/mhosts.yaml
+      ansible.builtin.command: pass show ansible/credmanager/hosts.yaml
       register: mhosts_yaml
       changed_when: mhosts_yaml.rc == 0
       failed_when: mhosts_yaml.rc != 0

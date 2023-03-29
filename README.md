@@ -14,8 +14,8 @@
 
 ## TODO
 
-- [ ] haproxy dynamic config
-- [ ] haproxy dynamic cert
+- [x] haproxy pass config
+- [x] haproxy pass cert
 
 ## Authors
 

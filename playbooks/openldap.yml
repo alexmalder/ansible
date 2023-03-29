@@ -5,7 +5,7 @@
   connection: local
   tasks:
     - name: Register variable
-      ansible.builtin.command: "pass show ansible/ldap-admin-password"
+      ansible.builtin.command: "pass show ansible/openldap/ldap-admin-password"
       register: ldap_admin_password_raw
       changed_when: ldap_admin_password_raw.rc == 0
       failed_when: ldap_admin_password_raw.rc != 0
