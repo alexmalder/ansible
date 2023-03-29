@@ -5,7 +5,7 @@
   connection: local
   tasks:
     - name: Register mycert
-      ansible.builtin.command: "pass show ansible/vnmntn.com.new.pem"
+      ansible.builtin.command: "pass show ansible/haproxy/mycert.pem"
       register: mycert
       changed_when: mycert.rc == 0
       failed_when: mycert.rc != 0
