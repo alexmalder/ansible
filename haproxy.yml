@@ -12,7 +12,7 @@
       tags: [docker]
 
     - name: Register dhparams_raw
-      ansible.builtin.command: "pass show ansible/dhparams.pem"
+      ansible.builtin.command: "pass show ansible/haproxy/dhparams.pem"
       register: dhparams_raw
       changed_when: dhparams_raw.rc == 0
       failed_when: dhparams_raw.rc != 0
