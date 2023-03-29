@@ -21,8 +21,7 @@
 
 - name: Push configuration
   ansible.builtin.copy:
-    src: "roles/haproxy/files/haproxy.cfg"
+    content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
     dest: "/tmp/haproxy/haproxy.cfg"
     owner: haproxy
-    group: haproxy
     mode: '0640'

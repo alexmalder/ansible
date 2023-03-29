@@ -4,6 +4,13 @@
   hosts: 127.0.0.1
   connection: local
   tasks:
+    - name: Register config
+      ansible.builtin.command: "pass show ansible/haproxy/haproxy.cfg"
+      register: haproxy_cfg
+      changed_when: haproxy_cfg.rc == 0
+      failed_when: haproxy_cfg.rc != 0
+      tags: [docker]
+
     - name: Register mycert
       ansible.builtin.command: "pass show ansible/haproxy/mycert.pem"
       register: mycert
@@ -20,6 +27,7 @@
 
     - name: Set facts
       ansible.builtin.set_fact:
+        haproxy_cfg: "{{ haproxy_cfg.stdout }}"
         mycert: "{{ mycert.stdout }}"
         dhparams: "{{ dhparams_raw.stdout }}"
       tags: [docker]
