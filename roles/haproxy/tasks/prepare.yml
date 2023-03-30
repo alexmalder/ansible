@@ -9,19 +9,19 @@
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['mycert'] }}"
     dest: "/tmp/haproxy/wildcard.pem"
-    #owner: haproxy
+    # owner: haproxy
     mode: '0640'
 
 - name: Push dhparams in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['dhparams'] }}"
     dest: "/tmp/haproxy/dhparams.pem"
-    #owner: haproxy
+    # owner: haproxy
     mode: '0640'
 
 - name: Push configuration
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
     dest: "/tmp/haproxy/haproxy.cfg"
-    #owner: haproxy
+    # owner: haproxy
     mode: '0640'
