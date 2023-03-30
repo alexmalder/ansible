@@ -9,28 +9,32 @@
       register: haproxy_cfg
       changed_when: haproxy_cfg.rc == 0
       failed_when: haproxy_cfg.rc != 0
-      tags: [docker]
+      tags:
+        - docker
 
     - name: Register mycert
       ansible.builtin.command: "pass show ansible/{{ workdir }}/mycert.pem"
       register: mycert
       changed_when: mycert.rc == 0
       failed_when: mycert.rc != 0
-      tags: [docker]
+      tags:
+        - docker
 
     - name: Register dhparams_raw
       ansible.builtin.command: "pass show ansible/{{ workdir }}/dhparams.pem"
       register: dhparams_raw
       changed_when: dhparams_raw.rc == 0
       failed_when: dhparams_raw.rc != 0
-      tags: [docker]
+      tags:
+        - docker
 
     - name: Set facts
       ansible.builtin.set_fact:
         config: "{{ haproxy_cfg.stdout + '\n' }}"
         mycert: "{{ mycert.stdout }}"
         dhparams: "{{ dhparams_raw.stdout }}"
-      tags: [docker]
+      tags:
+        - docker
 
     - name: Add prepared certificate host variable
       ansible.builtin.add_host:
@@ -38,12 +42,14 @@
         name: CERTIFICATE
         mycert: "{{ mycert }}"
         dhparams: "{{ dhparams }}"
-      tags: [docker]
+      tags:
+        - docker
 
     - name: Add dhparams host variable
       ansible.builtin.add_host:
         name: CERTIFICATE
-      tags: [docker]
+      tags:
+        - docker
 
 - name: Setup haproxy
   gather_facts: false
