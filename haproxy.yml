@@ -53,7 +53,7 @@
 
 - name: Setup haproxy
   gather_facts: false
-  hosts: personal
+  hosts: cloud0
   become: true
   roles:
     - name: Use haproxy role
