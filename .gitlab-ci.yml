@@ -32,6 +32,7 @@ alpine-localinstall:
     - ansible-playbook localhost.yml
   tags:
     - docker
+  when: manual
   only:
     - master
 
@@ -43,5 +44,6 @@ archlinux-localinstall:
     - ansible-playbook localhost.yml
   tags:
     - docker
+  when: manual
   only:
     - master
