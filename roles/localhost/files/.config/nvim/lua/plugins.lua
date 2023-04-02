@@ -51,4 +51,12 @@ return require('packer').startup(function()
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'sindrets/diffview.nvim'
     use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
+
+    use {
+      'akinsho/flutter-tools.nvim',
+      requires = {
+          'nvim-lua/plenary.nvim',
+          'stevearc/dressing.nvim'
+      },
+    }
 end)

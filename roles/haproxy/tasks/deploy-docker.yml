@@ -24,6 +24,7 @@
   community.docker.docker_container:
     name: "haproxy-custom"
     image: "haproxy-custom:{{ img_tag }}"
+    restart_policy: always
     network_mode: host
     state: started
     restart: true

@@ -1,6 +1,6 @@
 vim.opt.scrollback = 0
-vim.opt.tabstop=4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop=2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.hidden = true
 vim.opt.conceallevel = 1
@@ -67,6 +67,7 @@ vim.cmd[[let g:floaterm_keymap_toggle = '<C-t>']]
 vim.cmd[[let g:floaterm_position = 'right']]
 vim.cmd[[let g:floaterm_height = 1.0]]
 vim.cmd[[let g:floaterm_width = 0.66]]
+require("flutter-tools").setup {}
 
 -- git
 local neogit = require('neogit')
@@ -91,3 +92,4 @@ exclude = {}, -- table: groups you don't want to clear
 
 
 vim.cmd('let g:rainbow_active = 1')
+

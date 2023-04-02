@@ -74,6 +74,14 @@
   become: true
   become_user: postgres
 
+- name: Push service
+  copy:
+    src: "roles/postgres/files/postgres.service"
+    dest: "/usr/lib/systemd/system/postgresql.service"
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Setup service
   ansible.builtin.systemd:
     name: postgresql

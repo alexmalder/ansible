@@ -83,3 +83,4 @@ lsp.clangd.setup{
     cmd = { "/usr/bin/clangd" },
     filetypes = { "c", "cpp", "objc" },
 }
+
