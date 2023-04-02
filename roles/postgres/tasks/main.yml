@@ -75,7 +75,7 @@
   become_user: postgres
 
 - name: Push service
-  copy:
+  ansible.builtin.copy:
     src: "roles/postgres/files/postgres.service"
     dest: "/usr/lib/systemd/system/postgresql.service"
     owner: root

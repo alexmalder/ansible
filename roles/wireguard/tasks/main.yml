@@ -20,11 +20,11 @@
   become: true
 
 - name: Ensure sysctl net.ipv4.ip_forward is set to 1
-  sysctl:
+  ansible.posix.sysctl:
     name: net.ipv4.ip_forward
     value: 1
     state: present
-    reload: yes
+    reload: true
 
 - name: Enable and restart wireguard service
   ansible.builtin.systemd:
