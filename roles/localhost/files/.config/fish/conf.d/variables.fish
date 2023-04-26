@@ -1,4 +1,3 @@
-export PASSWORD_STORE_DIR="$HOME/Git/store"
 export VISUAL="nvim"
 export EDITOR="nvim"
 export NNN_OPENER="nvim"
