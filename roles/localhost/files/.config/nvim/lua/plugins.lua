@@ -21,6 +21,11 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'ray-x/lsp_signature.nvim'
+    use 'kkharji/lspsaga.nvim'
+    use 'mfussenegger/nvim-jdtls'
+
+    --use 'hrsh7th/cmp-nvim-lsp-signature-help'
+
     use 'williamboman/nvim-lsp-installer'
     -- SEARCH ENGINE
     use 'junegunn/fzf'
@@ -51,6 +56,8 @@ return require('packer').startup(function()
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'sindrets/diffview.nvim'
     use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
+
+    use 'sharksforarms/neovim-rust'
 
     use {
       'akinsho/flutter-tools.nvim',

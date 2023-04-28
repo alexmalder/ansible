@@ -57,7 +57,8 @@ cmp.setup({
         { name = 'nvim_lsp' },
         --{ name = 'luasnip' },
         { name = 'path' },
-        { name = 'buffer' }
+        { name = 'buffer' },
+        --{ name = 'nvim_lsp_signature_help' }
     })
 })
 cmp.setup.cmdline('/', {
@@ -84,3 +85,8 @@ lsp.clangd.setup{
     filetypes = { "c", "cpp", "objc" },
 }
 
+--local config = {
+--    cmd = {'/path/to/jdt-language-server/bin/jdtls'},
+--    root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+--}
+--require('jdtls').start_or_attach(config)
