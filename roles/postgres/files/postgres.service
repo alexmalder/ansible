@@ -7,7 +7,7 @@
 [Unit]
 Description=PostgreSQL database server
 After=network.target
-Requires=wg-quick@wg0
+#Requires=wg-quick@wg0
 
 [Service]
 RestartSec=2s
