@@ -14,8 +14,9 @@
 
 ## TODO
 
-- [x] haproxy pass config
-- [x] haproxy pass cert
+- [ ] separated ip config for roles
+    - [ ] wireguard
+    - [ ] postgres
 
 ## Authors
 

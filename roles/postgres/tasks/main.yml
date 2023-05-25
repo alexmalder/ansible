@@ -1,8 +1,16 @@
 ---
 # tasks file for postgres
-- name: Install a modularity appstream with defined stream and profile
+
+#- name: Install postgresql centos/almalinux
+#  ansible.builtin.dnf:
+#    name: '@postgresql:12'
+#    state: present
+
+- name: Install postgresql fedora
   ansible.builtin.dnf:
-    name: '@postgresql:12'
+    name:
+      - postgresql-server
+      - postgresql-contrib
     state: present
 
 - name: Find out if PostgreSQL is initialized

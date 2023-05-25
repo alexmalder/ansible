@@ -1,6 +1,7 @@
 ---
 - name: Common play
   hosts: cloud0
+  become: yes
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:
@@ -12,9 +13,9 @@
           - firewalld
         state: absent
 
-    - name: Install epel release
-      ansible.builtin.yum:
-        name: epel-release
+    #- name: Install epel release
+    #  ansible.builtin.yum:
+    #    name: epel-release
 
     - name: Install admin tools
       ansible.builtin.yum:
@@ -30,7 +31,3 @@
           - vim
           - wget
           - nnn
-
-    - name: Use sshd role
-      ansible.builtin.import_role:
-        name: sshd

@@ -43,6 +43,7 @@
 
 - name: Setup wireguard server
   hosts: cloud0
+  become: yes
   roles:
     - name: Use wireguard role
       role: wireguard

@@ -20,6 +20,6 @@
 
 - name: Install postgres
   hosts: cloud0
-  become: true
+  become: yes
   roles:
     - postgres
