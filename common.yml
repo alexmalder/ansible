@@ -31,7 +31,3 @@
           - vim
           - wget
           - nnn
-
-    - name: Use sshd role
-      ansible.builtin.import_role:
-        name: sshd
