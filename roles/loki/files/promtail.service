@@ -1,0 +1,11 @@
+[Unit]
+Description=promtail
+StartLimitBurst=3
+StartLimitIntervalSec=10
+
+[Service]
+Type=simple
+User=loki
+ExecStart=/usr/local/bin/promtail-linux-amd64 -config.file=/etc/loki/promtail.yaml
+Restart=on-failure
+RestartSec=5

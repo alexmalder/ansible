@@ -1,0 +1,6 @@
+- name: Setup loki
+  hosts: cloud0
+  become: yes
+  roles:
+    - name: Use loki role
+      role: loki

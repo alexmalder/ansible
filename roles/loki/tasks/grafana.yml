@@ -1,0 +1,31 @@
+---
+- name: Add the user grafana
+  ansible.builtin.user:
+    name: grafana
+
+- name: Download grafana
+  ansible.builtin.get_url:
+    url: https://dl.grafana.com/oss/release/grafana-9.5.2.linux-amd64.tar.gz
+    dest: /tmp
+    mode: '0644'
+
+- name: Unarchive that is already on the remote machine
+  ansible.builtin.unarchive:
+    src: "/tmp/grafana-9.5.2.linux-amd64.tar.gz"
+    dest: /opt
+    remote_src: yes
+    owner: grafana
+    group: grafana
+
+- name: Push services
+  ansible.builtin.copy:
+    src: "roles/loki/files/grafana.service"
+    dest: "/usr/lib/systemd/system/grafana.service"
+    mode: '0640'
+
+- name: Setup services
+  ansible.builtin.systemd:
+    name: "grafana"
+    state: restarted
+    enabled: true
+    daemon_reload: true

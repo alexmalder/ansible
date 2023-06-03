@@ -1,0 +1,11 @@
+[Unit]
+Description=loki
+StartLimitBurst=3
+StartLimitIntervalSec=10
+
+[Service]
+Type=simple
+User=loki
+ExecStart=/usr/local/bin/loki-linux-amd64 -config.file=/etc/loki/loki.yaml
+Restart=on-failure
+RestartSec=5

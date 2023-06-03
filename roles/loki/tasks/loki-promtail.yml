@@ -1,0 +1,56 @@
+---
+- name: Add the user loki
+  ansible.builtin.user:
+    name: loki
+    home: /etc/loki
+    groups:
+      - postgres
+    create_home: yes
+
+- name: Download zip archives
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: /tmp
+    mode: '0644'
+  with_items:
+    - https://github.com/grafana/loki/releases/download/v2.8.1/loki-linux-amd64.zip
+    - https://github.com/grafana/loki/releases/download/v2.8.2/promtail-linux-amd64.zip
+
+- name: Unarchive that is already on the remote machine
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ item }}"
+    dest: /usr/local/bin
+    remote_src: yes
+  with_items:
+    - loki-linux-amd64.zip
+    - promtail-linux-amd64.zip
+
+- name: Push config files
+  ansible.builtin.copy:
+    src: "roles/loki/files/{{ item }}"
+    dest: "/etc/loki/{{ item }}"
+    owner: loki
+    group: loki
+    mode: '0640'
+  with_items:
+    - loki.yaml
+    - promtail.yaml
+
+- name: Push services
+  ansible.builtin.copy:
+    src: "roles/loki/files/{{ item }}"
+    dest: "/usr/lib/systemd/system/{{ item }}"
+    mode: '0640'
+  with_items:
+    - loki.service
+    - promtail.service
+
+- name: Setup services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+    daemon_reload: true
+  with_items:
+    - loki
+    - promtail
