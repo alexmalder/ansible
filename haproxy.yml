@@ -11,6 +11,7 @@
       failed_when: haproxy_cfg.rc != 0
       tags:
         - docker
+        - systemd
 
     - name: Register mycert
       ansible.builtin.command: "pass show ansible/{{ workdir }}/mycert.pem"
@@ -19,6 +20,7 @@
       failed_when: mycert.rc != 0
       tags:
         - docker
+        - systemd
 
     - name: Register dhparams_raw
       ansible.builtin.command: "pass show ansible/{{ workdir }}/dhparams.pem"
@@ -27,6 +29,7 @@
       failed_when: dhparams_raw.rc != 0
       tags:
         - docker
+        - systemd
 
     - name: Set facts
       ansible.builtin.set_fact:
@@ -35,6 +38,7 @@
         dhparams: "{{ dhparams_raw.stdout }}"
       tags:
         - docker
+        - systemd
 
     - name: Add prepared certificate host variable
       ansible.builtin.add_host:
@@ -44,12 +48,14 @@
         dhparams: "{{ dhparams }}"
       tags:
         - docker
+        - systemd
 
     - name: Add dhparams host variable
       ansible.builtin.add_host:
         name: CERTIFICATE
       tags:
         - docker
+        - systemd
 
 - name: Setup haproxy
   gather_facts: false

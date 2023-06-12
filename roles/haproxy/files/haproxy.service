@@ -2,10 +2,10 @@
 Description=HAProxy Load Balancer
 After=network-online.target
 Wants=network-online.target
-Requires=wg-quick@wg0
+#Requires=wg-quick@wg0
 
 [Service]
-Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid" "CFGDIR=/etc/haproxy/conf.d"
+Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid" # "CFGDIR=/etc/haproxy/conf.d"
 EnvironmentFile=/etc/sysconfig/haproxy
 ExecStartPre=/usr/sbin/haproxy -f $CONFIG -f $CFGDIR -c -q $OPTIONS
 ExecStart=/usr/sbin/haproxy -Ws -f $CONFIG -f $CFGDIR -p $PIDFILE $OPTIONS

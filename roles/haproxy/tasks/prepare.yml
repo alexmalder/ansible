@@ -1,27 +1,27 @@
 ---
 - name: Create haproxy directory if does not exists
   ansible.builtin.file:
-    path: "/tmp/haproxy"
+    path: "{{ confdir }}/haproxy"
     state: directory
     mode: '0640'
 
 - name: Push prepared certificate in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['mycert'] }}"
-    dest: "/tmp/haproxy/wildcard.pem"
-    # owner: haproxy
+    dest: "{{ confdir }}/haproxy/wildcard.pem"
+    owner: "{{ owner }}"
     mode: '0640'
 
 - name: Push dhparams in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['dhparams'] }}"
-    dest: "/tmp/haproxy/dhparams.pem"
-    # owner: haproxy
+    dest: "{{ confdir }}/haproxy/dhparams.pem"
+    owner: "{{ owner }}"
     mode: '0640'
 
 - name: Push configuration
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
-    dest: "/tmp/haproxy/haproxy.cfg"
-    # owner: haproxy
+    dest: "{{ confdir }}/haproxy/haproxy.cfg"
+    owner: "{{ owner }}"
     mode: '0640'
