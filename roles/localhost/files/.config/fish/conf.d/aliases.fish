@@ -6,3 +6,6 @@ alias vim="nvim"
 alias ls="exa"
 alias cl="clear"
 alias s="sudo"
+alias exit="echo 'No action'"
+
+bind ^D "echo 'No action'"

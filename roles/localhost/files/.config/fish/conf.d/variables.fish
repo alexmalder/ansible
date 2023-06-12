@@ -10,6 +10,10 @@ export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 export PATH="$PATH:$HOME/Downloads/yandex-cloud/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:/opt/local/flutter/bin"
+export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:$HOME/.local/share/nvim/lsp_servers/jdtls/bin"
 export TERM="screen-256color"
 export HELM_EXPERIMENTAL_OCI="1"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk17-temurin/Contents/Home
+
+export PASSWORD_STORE_DIR="$HOME/Code/store"

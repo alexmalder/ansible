@@ -1,15 +1,15 @@
 ---
 # tasks file for wireguard
-- name: Install epel and el
-  ansible.builtin.dnf:
-    name:
-      - epel-release
-      - elrepo-release
+#- name: Install epel and el
+#  ansible.builtin.dnf:
+#    name:
+#      - epel-release
+#      - elrepo-release
 
 - name: Install wireguard
   ansible.builtin.dnf:
     name:
-      - kmod-wireguard
+      #- kmod-wireguard
       - wireguard-tools
 
 - name: Generate server config file

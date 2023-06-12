@@ -24,7 +24,7 @@ vim.opt.number = true
 vim.diagnostic.config({ virtual_text = false })
 
 vim.cmd[[autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
-vim.cmd[[map gf :e <cfile><CR>]]
+--vim.cmd[[map gf :e <cfile><CR>]]
 vim.cmd[[let g:nnn#action = {'<c-t>': 'tab split'}]]
 vim.cmd("let g:polyglot_disabled = ['markdown', 'yaml']")
 vim.o.updatetime = 250
