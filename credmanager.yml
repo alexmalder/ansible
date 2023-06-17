@@ -4,44 +4,44 @@
   connection: local
   tasks:
     - name: Register inventory
-      ansible.builtin.command: pass show ansible/credmanager/inventory.yaml
+      ansible.builtin.command: pass show ansible/inventory/inventory.yaml
       register: inventory_yaml
       changed_when: inventory_yaml.rc == 0
       failed_when: inventory_yaml.rc != 0
 
     - name: Register netrc
-      ansible.builtin.command: pass show ansible/credmanager/netrc.yml
-      register: netrc_yml
-      changed_when: netrc_yml.rc == 0
-      failed_when: netrc_yml.rc != 0
+      ansible.builtin.command: pass show ansible/git/netrc
+      register: netrc
+      changed_when: netrc.rc == 0
+      failed_when: netrc.rc != 0
 
-    - name: Register ansible configuration file
-      ansible.builtin.command: pass show ansible/credmanager/ansible.cfg
-      register: ansible_cfg
-      changed_when: ansible_cfg.rc == 0
-      failed_when: ansible_cfg.rc != 0
+    - name: Register netrc.fish
+      ansible.builtin.command: pass show ansible/git/netrc.fish
+      register: netrc_fish
+      changed_when: netrc_fish.rc == 0
+      failed_when: netrc_fish.rc != 0
 
-    - name: Register mhosts
-      ansible.builtin.command: pass show ansible/credmanager/hosts.yaml
-      register: mhosts_yaml
-      changed_when: mhosts_yaml.rc == 0
-      failed_when: mhosts_yaml.rc != 0
+    - name: Register ssh config
+      ansible.builtin.command: pass show ansible/ssh/config
+      register: ssh_config
+      changed_when: ssh_config.rc == 0
+      failed_when: ssh_config.rc != 0
 
-    - name: Set facts from pass
-      ansible.builtin.set_fact:
-        inventory: "{{ inventory_yaml.stdout | from_yaml }}"
-        netrc: "{{ netrc_yml.stdout | from_yaml }}"
-        mhosts: "{{ mhosts_yaml.stdout | from_yaml }}"
+#    - name: Set facts from pass
+#      ansible.builtin.set_fact:
+#        inventory: "{{ inventory_yaml.stdout }}"
+#        netrc: "{{ netrc.stdout }}"
+#        netrc_fish: "{{ netrc_fish.stdout }}"
 
     - name: Generate netrc
-      ansible.builtin.template:
-        src: templates/netrc.jinja
+      ansible.builtin.copy:
+        content: "{{ netrc.stdout }}"
         dest: ~/.netrc
         mode: '0600'
 
     - name: Generate git creds for fish
-      ansible.builtin.template:
-        src: templates/env.fish.jinja
+      ansible.builtin.copy:
+        content: "{{ netrc_fish.stdout }}"
         dest: ~/.config/fish/conf.d/netrc.fish
         mode: '0600'
 
@@ -57,20 +57,14 @@
         dest: ./inventory/inventory.yaml
         mode: '0600'
 
-    - name: Save ansible_cfg
-      ansible.builtin.copy:
-        content: "{{ ansible_cfg.stdout }}"
-        dest: ./ansible.cfg
-        mode: '0600'
-
     - name: Generate ssh config
-      ansible.builtin.template:
-        src: templates/ssh_config.jinja
+      ansible.builtin.copy:
+        content: "{{ ssh_config.stdout }}"
         dest: ~/.ssh/config
         mode: '0600'
 
 #    - name: Generate hosts file
-#      ansible.builtin.template:
+#      ansible.builtin.copy:
 #        src: templates/hosts
 #        dest: /etc/hosts
 #        mode: '0644'
