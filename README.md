@@ -15,8 +15,8 @@
 ## TODO
 
 - [ ] separated ip config for roles
-    - [ ] wireguard
-    - [ ] postgres
+  - [ ] wireguard
+  - [ ] postgres
 
 ## Authors
 

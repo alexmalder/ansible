@@ -10,5 +10,5 @@ Type=simple
 ExecStart=python3 -m negwm
 Restart=on-failure
 RestartSec=5
-#User=alexmalder
+# User=alexmalder
 Environment="XDG_CONFIG_HOME=/var/lib/vnmntn/.config"

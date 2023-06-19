@@ -10,7 +10,7 @@ This role using haproxy centos package
 
 Getted from cli
 
-- -e `workdir=haproxy`: workdir for 
+- -e `workdir=haproxy`: workdir for
 - -e `confdir=/etc`: config dir on remote server
 - -e `owner=haproxy`: owner on remote server
 - --tags `systemd`: `systemd|docker`

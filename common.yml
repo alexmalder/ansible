@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: cloud0
+  hosts: gpg-runner
   become: yes
   tasks:
     - name: Disable SELinux
@@ -31,3 +31,4 @@
           - vim
           - wget
           - nnn
+          - openssl
