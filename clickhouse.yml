@@ -1,0 +1,6 @@
+---
+- name: Install clickhouse
+  hosts: clickhouse-sentry
+  become: yes
+  roles:
+    - clickhouse

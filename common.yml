@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: gpg-runner
+  hosts: clickhouse-sentry
   become: yes
   tasks:
     - name: Disable SELinux
@@ -13,9 +13,9 @@
           - firewalld
         state: absent
 
-    #- name: Install epel release
-    #  ansible.builtin.yum:
-    #    name: epel-release
+    - name: Install epel release
+      ansible.builtin.yum:
+        name: epel-release
 
     - name: Install admin tools
       ansible.builtin.yum:
