@@ -31,3 +31,5 @@ map('n', '<C-<>', '<Cmd>BufferMovePrevious<CR>', opts)
 map('n', '<C->>', '<Cmd>BufferMoveNext<CR>', opts)
 map('n', '<C-p>', '<Cmd>BufferPin<CR>', opts)
 map('n', '<C-c>', '<Cmd>BufferClose<CR>', opts)
+
+map('n', 'cd', '* <Cmd>lua require"telescope".extensions.zoxide.list(require"telescope.themes".get_ivy({layout_config={height=8},border=false}))<CR>', opts)

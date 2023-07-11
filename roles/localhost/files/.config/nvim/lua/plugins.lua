@@ -26,11 +26,20 @@ return require('packer').startup(function()
 
     --use 'hrsh7th/cmp-nvim-lsp-signature-help'
 
+    use {
+      "cuducos/yaml.nvim",
+      ft = { "yaml" }, -- optional
+      requires = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-telescope/telescope.nvim" -- optional
+      },
+    }
+
+
     use 'williamboman/nvim-lsp-installer'
     -- SEARCH ENGINE
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
-    use "cuducos/yaml.nvim"
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use "nvim-telescope/telescope.nvim"
     -- COMPLETION
@@ -44,6 +53,7 @@ return require('packer').startup(function()
     use 'windwp/windline.nvim'
     use 'kyazdani42/nvim-web-devicons'
     use 'voldikss/vim-floaterm'
+    use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
     -- SYNTAX
     use 'makerj/vim-pdf'
     use 'bfrg/vim-cpp-modern'
@@ -52,12 +62,12 @@ return require('packer').startup(function()
     use 'vim-autoformat/vim-autoformat'
     use 'sbdchd/neoformat'
     -- GIT
-    use 'TimUntersberger/neogit'
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'sindrets/diffview.nvim'
-    use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
 
     use 'sharksforarms/neovim-rust'
+    use 'ajeetdsouza/zoxide'
+    use 'jvgrootveld/telescope-zoxide'
 
     use {
       'akinsho/flutter-tools.nvim',
