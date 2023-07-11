@@ -12,12 +12,6 @@
 
 `ansible hostname -m ansible.builtin.shell -a 'df -h /'`
 
-## TODO
-
-- [ ] separated ip config for roles
-  - [ ] wireguard
-  - [ ] postgres
-
 ## Authors
 
 <vnmntn@mail.ru>
