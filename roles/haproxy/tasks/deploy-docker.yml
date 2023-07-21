@@ -2,13 +2,13 @@
 - name: Push Dockerfile
   ansible.builtin.copy:
     src: "roles/haproxy/files/Dockerfile"
-    dest: "/tmp/haproxy/Dockerfile"
+    dest: "{{ confdir }}/haproxy/Dockerfile"
     mode: '0640'
 
 - name: Build an image locally usage
   community.docker.docker_image:
     build:
-      path: "/tmp/haproxy"
+      path: "{{ confdir }}/haproxy"
     name: "haproxy-custom"
     tag: "{{ img_tag }}"
     push: false

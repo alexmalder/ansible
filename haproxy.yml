@@ -58,9 +58,8 @@
         - systemd
 
 - name: Setup haproxy
-  gather_facts: false
-  hosts: cloud0
-  become: true
+  hosts: 
+    - bastion
   roles:
     - name: Use haproxy role
       role: haproxy
