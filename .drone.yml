@@ -11,3 +11,4 @@ steps:
 - name: lint
   commands:
     - docker build . -t ansible-lint
+    - docker system prune -a -f
