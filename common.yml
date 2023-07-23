@@ -1,7 +1,7 @@
 ---
 - name: Common play
   hosts: clickhouse-sentry
-  become: yes
+  become: true
   tasks:
     - name: Disable SELinux
       ansible.posix.selinux:

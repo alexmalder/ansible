@@ -6,11 +6,14 @@
 
 - name: Add clickhouse repository
   ansible.builtin.command: yum-config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo
+  register: add_repository
+  changed_when: add_repository.rc == 0
+  failed_when: add_repository.rc != 0
 
 - name: Install clickhouse server and client
   ansible.builtin.yum:
     name:
-      - clickhouse-server 
+      - clickhouse-server
       - clickhouse-client
 
 - name: Push users and config
@@ -34,6 +37,8 @@
 - name: Register log
   ansible.builtin.command: sudo systemctl status clickhouse-server
   register: clickhouse_log
+  changed_when: clickhouse_log.rc == 0
+  failed_when: clickhouse_log.rc != 0
 
 - name: Print log of the service
   ansible.builtin.debug:
