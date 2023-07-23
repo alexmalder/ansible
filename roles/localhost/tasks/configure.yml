@@ -1,10 +1,4 @@
 ---
-#- name: Install zi to .config
-#  ansible.builtin.git:
-#    repo: "https://github.com/z-shell/zi"
-#    dest: "~/.config/zi"
-#    version: main
-
 - name: Deploy user configuration files
   ansible.builtin.copy:
     src: "{{ item.src }}"

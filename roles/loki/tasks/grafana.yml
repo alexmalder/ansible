@@ -13,7 +13,7 @@
   ansible.builtin.unarchive:
     src: "/tmp/grafana-9.5.2.linux-amd64.tar.gz"
     dest: /opt
-    remote_src: yes
+    remote_src: true
     owner: grafana
     group: grafana
 

@@ -1,14 +1,14 @@
 ---
 # tasks file for clickhouse
 - name: Install yum utils
-  yum:
+  ansible.builtin.yum:
     name: yum-utils
 
 - name: Add clickhouse repository
-  command: yum-config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo
+  ansible.builtin.command: yum-config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo
 
 - name: Install clickhouse server and client
-  yum:
+  ansible.builtin.yum:
     name:
       - clickhouse-server 
       - clickhouse-client
@@ -32,9 +32,9 @@
     state: restarted
 
 - name: Register log
-  command: sudo systemctl status clickhouse-server
+  ansible.builtin.command: sudo systemctl status clickhouse-server
   register: clickhouse_log
 
 - name: Print log of the service
-  debug:
+  ansible.builtin.debug:
     var: clickhouse_log

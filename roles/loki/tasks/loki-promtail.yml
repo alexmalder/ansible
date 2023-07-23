@@ -5,7 +5,7 @@
     home: /etc/loki
     groups:
       - postgres
-    create_home: yes
+    create_home: true
 
 - name: Download zip archives
   ansible.builtin.get_url:
@@ -20,7 +20,7 @@
   ansible.builtin.unarchive:
     src: "/tmp/{{ item }}"
     dest: /usr/local/bin
-    remote_src: yes
+    remote_src: true
   with_items:
     - loki-linux-amd64.zip
     - promtail-linux-amd64.zip

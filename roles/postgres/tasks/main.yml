@@ -1,10 +1,10 @@
 ---
 # tasks file for postgres
 
-#- name: Install postgresql centos/almalinux
-#  ansible.builtin.dnf:
-#    name: '@postgresql:12'
-#    state: present
+# - name: Install postgresql centos/almalinux
+#   ansible.builtin.dnf:
+#     name: '@postgresql:12'
+#     state: present
 
 - name: Install postgresql fedora
   ansible.builtin.dnf:
@@ -112,7 +112,7 @@
     dest: "/usr/lib/systemd/system/postgresql.service"
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
 
 - name: Setup service
   ansible.builtin.systemd:

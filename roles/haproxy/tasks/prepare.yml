@@ -1,11 +1,4 @@
 ---
-#- name: Create haproxy directory if does not exists
-#  ansible.builtin.file:
-#    path: "{{ confdir }}/haproxy"
-#    state: directory
-#    owner: "{{ owner }}"
-#    mode: '0660'
-
 - name: Push prepared certificate in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['mycert'] }}"
