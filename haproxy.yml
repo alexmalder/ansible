@@ -58,7 +58,7 @@
         - systemd
 
 - name: Setup haproxy
-  hosts: bastion
+  hosts: cloud0
   roles:
     - name: Use haproxy role
       role: haproxy

@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: clickhouse-sentry
+  hosts: cloud0
   become: true
   tasks:
     - name: Disable SELinux
