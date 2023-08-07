@@ -1,0 +1,32 @@
+---
+- name: Setup log log_directory
+  ansible.builtin.replace:
+    path: "~/data/postgresql.conf"
+    regexp: '.*log_directory.*'
+    replace: "log_directory = '/var/log/postgres'"
+  become: true
+  become_user: postgres
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /var/log/postgres
+    owner: postgres
+    group: postgres
+    state: directory
+    mode: '0700'
+
+- name: Setup log filename
+  ansible.builtin.replace:
+    path: "~/data/postgresql.conf"
+    regexp: '.*log_filename.*'
+    replace: "log_filename = 'postgresql.log'"
+  become: true
+  become_user: postgres
+
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    state: touch
+    path: /var/log/postgres/postgresql.log
+    owner: postgres
+    group: postgres
+    mode: '0600'

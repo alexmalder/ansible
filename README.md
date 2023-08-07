@@ -8,6 +8,19 @@
 - `scripts`: main scripts
 - `templates`: minimal templates for playbooks
 
+## Pass integration for credmanager
+
+- ansible.cfg
+    - ./ansible.cfg
+    - ~/.ssh/config
+- inventory.yaml
+    - ./inventory/inventory.yaml
+- netrc.yml
+    - ~/.netrc
+    - ~/.config/fish/conf.d/netrc.fish
+- hosts
+    - /etc/hosts
+
 ## Help
 
 `ansible hostname -m ansible.builtin.shell -a 'df -h /'`
