@@ -19,7 +19,7 @@
         config: "{{ postgres_config }}"
 
 - name: Install postgres
-  hosts: analisys
+  hosts: cloud0
   become: true
   roles:
     - postgres
