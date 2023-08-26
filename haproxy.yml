@@ -58,7 +58,7 @@
         - systemd
 
 - name: Setup haproxy
-  hosts: cloud0
+  hosts: gr-test
   roles:
     - name: Use haproxy role
       role: haproxy
