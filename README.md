@@ -11,15 +11,15 @@
 ## Pass integration for credmanager
 
 - ansible.cfg
-    - ./ansible.cfg
-    - ~/.ssh/config
+  - ./ansible.cfg
+  - ~/.ssh/config
 - inventory.yaml
-    - ./inventory/inventory.yaml
+  - ./inventory/inventory.yaml
 - netrc.yml
-    - ~/.netrc
-    - ~/.config/fish/conf.d/netrc.fish
+  - ~/.netrc
+  - ~/.config/fish/conf.d/netrc.fish
 - hosts
-    - /etc/hosts
+  - /etc/hosts
 
 ## Help
 
