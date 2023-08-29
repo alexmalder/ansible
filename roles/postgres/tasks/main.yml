@@ -39,8 +39,8 @@
   become: true
   become_user: postgres
 
-#- name: Setup logging
-#  ansible.builtin.import_tasks: ./log.yml
+# - name: Setup logging
+#   ansible.builtin.import_tasks: ./log.yml
 
 - name: Setup service
   ansible.builtin.systemd:
