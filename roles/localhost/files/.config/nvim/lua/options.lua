@@ -1,3 +1,5 @@
+local neogit = require('neogit')
+
 vim.opt.scrollback = 0
 vim.opt.tabstop=2
 vim.opt.shiftwidth = 2
@@ -71,8 +73,12 @@ require("flutter-tools").setup {}
 
 -- git
 require('gitsigns').setup{}
+neogit.setup()
 
 local au = vim.api.nvim_create_autocmd
+
+-- Lua initialization file
+--vim.cmd [[colorscheme vscode]]
 
 require("transparent").setup({
   groups = { -- table: default groups

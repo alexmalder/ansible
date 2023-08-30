@@ -11,4 +11,5 @@ require 'plugins'
 require 'options'
 require 'mappings'
 require 'lsp'
-require 'neg'.setup()
+require 'colors'
+--require 'neg'.setup()

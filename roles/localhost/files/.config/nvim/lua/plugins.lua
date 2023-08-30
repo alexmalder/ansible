@@ -17,6 +17,7 @@ return require('packer').startup(function()
     use { 'L3MON4D3/LuaSnip' }
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
+    use 'bluz71/vim-moonfly-colors'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
@@ -49,11 +50,11 @@ return require('packer').startup(function()
     use 'mcchrish/nnn.vim'
     use 'Mofiqul/vscode.nvim'
     use 'neg-serg/neg.nvim'
-    use 'xiyaowong/nvim-transparent'
     use 'windwp/windline.nvim'
     use 'kyazdani42/nvim-web-devicons'
     use 'voldikss/vim-floaterm'
-    use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
+    --use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
+    use 'akinsho/bufferline.nvim'
     -- SYNTAX
     use 'makerj/vim-pdf'
     use 'bfrg/vim-cpp-modern'
@@ -64,6 +65,7 @@ return require('packer').startup(function()
     -- GIT
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'sindrets/diffview.nvim'
+    use 'NeogitOrg/neogit'
 
     use 'sharksforarms/neovim-rust'
     use 'ajeetdsouza/zoxide'
@@ -76,4 +78,5 @@ return require('packer').startup(function()
           'stevearc/dressing.nvim'
       },
     }
+    use 'xiyaowong/nvim-transparent'
 end)
