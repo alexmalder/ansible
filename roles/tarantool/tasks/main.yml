@@ -1,0 +1,87 @@
+---
+- name: Stop database
+  ansible.builtin.systemd:
+    name: tarantool@sinapi
+    state: stopped
+    enabled: true
+    daemon_reload: true
+  tags:
+    - database
+
+- name: Collect files
+  find:
+    paths: "/var/lib/tarantool/sinapi/"
+    hidden: true
+    recurse: true
+  register: collected_files
+  tags:
+    - database
+
+- name: Remove collected files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ collected_files.files }}"
+  tags:
+    - database
+
+- name: Template lua
+  template:
+    src: ./config/init.lua
+    dest: /etc/tarantool/instances.available/sinapi.lua
+    owner: tarantool
+    group: tarantool
+    mode: '0640'
+  tags:
+    - database
+
+- name: Setup database
+  ansible.builtin.systemd:
+    name: tarantool@sinapi
+    state: restarted
+    enabled: true
+    daemon_reload: true
+  tags:
+    - database
+
+- name: Create a volume minio
+  community.docker.docker_volume:
+    name: minio
+  tags:
+    - s3
+
+- name: Deploy minio in docker
+  community.docker.docker_container:
+    name: minio
+    state: started
+    restart: true
+    image: quay.io/minio/minio:RELEASE.2023-02-17T17-52-43Z
+    command: server --console-address ":9001" /app/data
+    network_mode: host
+    env:
+      MINIO_ROOT_USER: "{{ MINIO_ROOT_USER }}"
+      MINIO_ROOT_PASSWORD: "{{ MINIO_ROOT_PASSWORD }}"
+    volumes:
+      - minio:/app/data
+  tags:
+    - s3
+
+- name: Container present
+  community.docker.docker_container:
+    name: sinapi-go
+    state: started
+    restart: true
+    image: "{{ CI_REGISTRY }}/{{ DRONE_REPO }}:{{ VERSION }}"
+    restart_policy: always
+    network_mode: host
+    env:
+      TNT_USER: "{{ TNT_USER }}"
+      TNT_PASSWORD: "{{ TNT_PASSWORD }}"
+      TNT_HOST: "{{ TNT_HOST }}"
+      TNT_PORT: "{{ TNT_PORT }}"
+      MINIO_INGRESS_HOST_API: minio:9000
+      MINIO_BUCKET_NAME: proofs
+      MINIO_ACCESS_KEY: "{{ MINIO_ROOT_USER }}"
+      MINIO_SECRET_KEY: "{{ MINIO_ROOT_PASSWORD }}"
+  tags:
+    - application
