@@ -10,12 +10,12 @@
     build:
       path: "{{ confdir }}/haproxy"
     name: "haproxy-custom"
-    tag: "{{ img_tag }}"
+    tag: "{{ ansible_date_time.epoch }}"
     push: false
     source: build
 
 - name: Run lint
-  ansible.builtin.command: "docker run haproxy-custom:{{ img_tag }} -c -f /etc/haproxy/haproxy.cfg"
+  ansible.builtin.command: "docker run haproxy-custom:{{ ansible_date_time.epoch }} -c -f /etc/haproxy/haproxy.cfg"
   register: haproxy_lint
   changed_when: haproxy_lint.rc == 0
   failed_when: haproxy_lint.rc != 0
@@ -23,7 +23,7 @@
 - name: Re-create a container
   community.docker.docker_container:
     name: "haproxy-custom"
-    image: "haproxy-custom:{{ img_tag }}"
+    image: "haproxy-custom:{{ ansible_date_time.epoch }}"
     restart_policy: always
     network_mode: host
     state: started
