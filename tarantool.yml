@@ -1,0 +1,5 @@
+---
+- hosts:
+  - cloud0
+  roles:
+    - tarantool

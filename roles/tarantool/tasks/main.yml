@@ -27,13 +27,14 @@
 
 - name: Template lua
   template:
-    src: ./config/init.lua
+    src: roles/tarantool/files/init.lua
     dest: /etc/tarantool/instances.available/sinapi.lua
     owner: tarantool
     group: tarantool
     mode: '0640'
   tags:
     - database
+    - init
 
 - name: Setup database
   ansible.builtin.systemd:
@@ -43,6 +44,7 @@
     daemon_reload: true
   tags:
     - database
+    - init
 
 - name: Create a volume minio
   community.docker.docker_volume:
