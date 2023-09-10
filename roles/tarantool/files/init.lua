@@ -119,7 +119,12 @@ local function handler(req)
 end
 
 local function get_accounts(req)
-    return req:render{ json = { ['data'] = box.space.accounts:select() } }
+    a = {}
+    accounts = box.space.accounts:select()
+    for i, v in ipairs(accounts) do
+      a[i] = {id=v['id'], username=v['username']}
+    end
+    return req:render{ json = { ['data'] = a } }
 end
 
 local function post_account(req)
