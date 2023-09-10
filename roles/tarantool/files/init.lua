@@ -32,63 +32,63 @@ proofs:format({
     if_not_exists=true
 })
 
-accounts:create_index('primary_index', {
+accounts:create_index('primary', {
     parts = {'id'},
     unique = true,
     type = 'TREE',
     if_not_exists=true
 })
 
-accounts:create_index('username_index', {
+accounts:create_index('username', {
     parts = {'username'},
     unique = true,
     type = 'TREE',
     if_not_exists=true
 })
 
-accounts:create_index('is_active_index', {
+accounts:create_index('is_active', {
     parts = {'is_active'},
     unique = false,
     type = 'TREE',
     if_not_exists=true
 })
 
-sins:create_index('primary_index', {
+sins:create_index('primary', {
     type = 'TREE',
     parts = {'id'},
     unique = true,
     if_not_exists = true
 })
 
-sins:create_index('title_index', {
+sins:create_index('title', {
     type = 'TREE',
     parts = {'title'},
     unique = true,
     if_not_exists = true
 })
 
-proofs:create_index('primary_index', {
+proofs:create_index('primary', {
     type = 'TREE',
     parts = {'id'},
     unique = true,
     if_not_exists = true
 })
 
-proofs:create_index('title_index', {
+proofs:create_index('title', {
     type = 'TREE',
     parts = {'title'},
     unique = true,
     if_not_exists = true
 })
 
-proofs:create_index('account_index', {
+proofs:create_index('account_id', {
     type = 'TREE',
     parts = {'account_id'},
     unique = false,
     if_not_exists = true
 })
 
-proofs:create_index('sin_index', {
+proofs:create_index('sin_id', {
     type = 'TREE',
     parts = {'sin_id'},
     unique = false,
@@ -118,6 +118,28 @@ local function handler(req)
   return resp
 end
 
+local function get_sins(req)
+    a = {}
+    sins = box.space.sins:select()
+    for i, v in ipairs(sins) do
+      a[i] = {id=v['id'], title=v['title'], description=v['description']}
+    end
+    return req:render{ json = { ['data'] = a } }
+end
+
+local function post_sin(req)
+  local lua_table = req:json()
+  sin = box.space.sins:insert{uuid.new(), lua_table['title'], lua_table['description']}
+  return req:render{ json = { ['data'] = {['id'] = sin[1], ['title']=sin[2],['description']=sin[3]} } }
+end
+
+local function delete_sin(req)
+  local id = req:stash('id')    -- here is :id value
+  uuid_id=uuid.fromstr(id)
+  sin = box.space.sins.index.primary:delete{uuid_id}
+  return req:render{ json = { ['data'] = sin } }
+end
+
 local function get_accounts(req)
     a = {}
     accounts = box.space.accounts:select()
@@ -130,7 +152,14 @@ end
 local function post_account(req)
   local lua_table = req:json()
   account = box.space.accounts:insert{uuid.new(), lua_table['username'], lua_table['password'], true}
-  return req:render{ json = { ['account'] = account } }
+  return req:render{ json = { ['data'] = {['id']=account[1],['username']=account[2],is_active=account[4]} } }
+end
+
+local function delete_account(req)
+  local id = req:stash('id')    -- here is :id value
+  uuid_id=uuid.fromstr(id)
+  account = box.space.accounts.index.primary:delete{uuid_id}
+  return req:render{ json = { ['data'] = account } }
 end
 
 local function post_seed(req)
@@ -160,6 +189,10 @@ local server = require('http.server').new(nil, 8080, {charset = "utf8"}) -- list
 server:route({ path = '/', method = 'POST' }, handler)
 server:route({ path = '/accounts', method = 'GET' }, get_accounts)
 server:route({ path = '/accounts', method = 'POST' }, post_account)
+server:route({ path = '/accounts/:id', method = 'POST' }, delete_account)
+server:route({ path = '/sins', method = 'GET' }, get_sins)
+server:route({ path = '/sins', method = 'POST' }, post_sin)
+server:route({ path = '/sins/:id/', method = 'DELETE' }, delete_sin)
 server:route({ path = '/seed', method = 'POST' }, post_seed)
 server:start()
 
