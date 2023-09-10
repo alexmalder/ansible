@@ -1,8 +1,6 @@
-uuid = require('uuid')
+local uuid = require('uuid')
 
-box.cfg {
-    listen = 3301
-}
+box.cfg { listen = 3301 }
 
 box.schema.user.create('tarantool', {password = 'tarantool', if_not_exists = true})
 box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil, {if_not_exists=true})
@@ -12,61 +10,25 @@ proofs = box.schema.create_space("proofs", { if_not_exists = true })
 sins = box.schema.create_space("sins", { if_not_exists = true })
 
 accounts:format({
-    {
-        name = 'id',
-        type = 'uuid',
-    },
-    {
-        name = 'username',
-        type = 'string'
-    },
-    {
-        name = 'password',
-        type = 'string'
-    },
-    {
-        name = 'is_active',
-        type = 'boolean'
-    }
+    { name = 'id', type = 'uuid', },
+    { name = 'username', type = 'string' },
+    { name = 'password', type = 'string' },
+    { name = 'is_active', type = 'boolean' }
 })
 
 sins:format({
-    {
-        name = 'id',
-        type = 'uuid',
-    },
-    {
-        name = 'title',
-        type = 'string'
-    },
-    {
-        name = 'description',
-        type = 'string'
-    },
+    { name = 'id', type = 'uuid', },
+    { name = 'title', type = 'string' },
+    { name = 'description', type = 'string' },
     if_not_exists=true
 })
 
 proofs:format({
-    {
-        name = 'id',
-        type = 'uuid'
-    },
-    {
-        name = 'title',
-        type = 'string'
-    },
-    {
-        name = 'link',
-        type = 'string'
-    },
-    {
-        name = 'account_id',
-        type = 'string'
-    },
-    {
-        name = 'sin_id',
-        type = 'string'
-    },
+    { name = 'id', type = 'uuid' },
+    { name = 'title', type = 'string' },
+    { name = 'link', type = 'string' },
+    { name = 'account_id', type = 'string' },
+    { name = 'sin_id', type = 'string' },
     if_not_exists=true
 })
 
