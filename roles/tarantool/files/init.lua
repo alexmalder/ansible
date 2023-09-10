@@ -95,12 +95,65 @@ proofs:create_index('sin_index', {
     if_not_exists = true
 })
 
-function seed()
-  box.space.accounts:insert{uuid.new(), "alexmalder", "denied", true}
-  box.space.accounts:insert{uuid.new(), "darya", "12345", true}
-  box.space.accounts:insert{uuid.new(), "pavel", "123456", true}
-end
-
 function select_accounts()
   return box.space.accounts:select{}
 end
+
+local function get_keys(json_object, top_key)
+  local keys={}
+  for key,_ in pairs(json_object) do
+    if key == top_key then
+      return true
+    else
+      return false
+    end
+    --table.insert(keys, key)
+  end
+  --return keys
+end
+
+local function handler(req)
+  local lua_table = req:json()
+  local resp = req:render{json = {['data'] = get_keys(lua_table, "id") }}
+  return resp
+end
+
+local function get_accounts(req)
+    return req:render{ json = { ['data'] = box.space.accounts:select() } }
+end
+
+local function post_account(req)
+  --account = box.space.accounts:insert{uuid.new(), }
+  local lua_table = req:json()
+  return req:render{ json = { ['username'] = lua_table['username'] } }
+end
+
+local function post_seed(req)
+  first_user = box.space.accounts:insert{uuid.new(), "alexmalder", "denied", true}
+  print(first_user)
+  box.space.accounts:insert{uuid.new(), "darya", "12345", true}
+  box.space.accounts:insert{uuid.new(), "pavel", "123456", true}
+  -- create sins
+  first_sin = box.space.sins:insert{uuid.new(), "watch videos", "watch some videos on internet"}
+  print(first_sin)
+  box.space.sins:insert{uuid.new(), "send messages", "send messages with messengers"}
+  box.space.sins:insert{uuid.new(), "procrastination", "no comments))"}
+  return req:render{ 
+    json = { ['user'] = {
+      ['id'] = first_user[1],
+      ['username'] = first_user[2],
+      ['password'] = first_user[3],
+    }, ['sin'] = {
+      ['id'] = first_sin[1],
+      ['title'] = first_sin[2],
+      ['description'] = first_sin[3]
+    } }
+  }
+end
+
+local server = require('http.server').new(nil, 8080, {charset = "utf8"}) -- listen *:8080
+server:route({ path = '/', method = 'POST' }, handler)
+server:route({ path = '/accounts', method = 'GET' }, get_accounts)
+server:route({ path = '/accounts', method = 'POST' }, post_account)
+server:route({ path = '/seed', method = 'POST' }, post_seed)
+server:start()
