@@ -1,3 +1,5 @@
+uuid = require('uuid')
+
 box.cfg {
     listen = 3301
 }
@@ -6,10 +8,13 @@ box.schema.user.create('tarantool', {password = 'tarantool', if_not_exists = tru
 box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil, {if_not_exists=true})
 
 accounts = box.schema.create_space('accounts', { if_not_exists = true })
+proofs = box.schema.create_space("proofs", { if_not_exists = true })
+sins = box.schema.create_space("sins", { if_not_exists = true })
+
 accounts:format({
     {
         name = 'id',
-        type = 'string',
+        type = 'uuid',
     },
     {
         name = 'username',
@@ -25,11 +30,10 @@ accounts:format({
     }
 })
 
-sins = box.schema.create_space("sins", { if_not_exists = true })
 sins:format({
     {
         name = 'id',
-        type = 'string',
+        type = 'uuid',
     },
     {
         name = 'title',
@@ -42,11 +46,10 @@ sins:format({
     if_not_exists=true
 })
 
-proofs = box.schema.create_space("proofs", { if_not_exists = true })
 proofs:format({
     {
         name = 'id',
-        type = 'string'
+        type = 'uuid'
     },
     {
         name = 'title',
@@ -129,3 +132,13 @@ proofs:create_index('sin_index', {
     unique = false,
     if_not_exists = true
 })
+
+function seed()
+  box.space.accounts:insert{uuid.new(), "alexmalder", "denied", true}
+  box.space.accounts:insert{uuid.new(), "darya", "12345", true}
+  box.space.accounts:insert{uuid.new(), "pavel", "123456", true}
+end
+
+function select_accounts()
+  return box.space.accounts:select{}
+end
