@@ -123,9 +123,9 @@ local function get_accounts(req)
 end
 
 local function post_account(req)
-  --account = box.space.accounts:insert{uuid.new(), }
   local lua_table = req:json()
-  return req:render{ json = { ['username'] = lua_table['username'] } }
+  account = box.space.accounts:insert{uuid.new(), lua_table['username'], lua_table['password'], true}
+  return req:render{ json = { ['account'] = account } }
 end
 
 local function post_seed(req)
@@ -157,3 +157,4 @@ server:route({ path = '/accounts', method = 'GET' }, get_accounts)
 server:route({ path = '/accounts', method = 'POST' }, post_account)
 server:route({ path = '/seed', method = 'POST' }, post_seed)
 server:start()
+
