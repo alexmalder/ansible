@@ -1,5 +1,5 @@
 ---
-- name: Install postgres
+- name: Install gitea
   hosts: cloud0
   become: true
   roles:
