@@ -1,4 +1,7 @@
 local uuid = require('uuid')
+-- dev
+local http_client = require('http.client').new()
+local json = require('json')
 
 box.cfg { listen = 3301 }
 
@@ -131,6 +134,14 @@ local function post_sin(req)
   return req:render{ json = { ['data'] = {['id'] = sin[1], ['title']=sin[2],['description']=sin[3]} } }
 end
 
+local function put_sin(req)
+  local id = req:stash('id')
+  uuid_id = uuid.fromstr(id)
+  local lua_table = req:json()
+  sin = box.space.sins.index.primary:update({uuid_id}, {{'=', uuid_id, lua_table['title'], lua_table['description']}})
+  return req:render{ json = { ['data'] = {['id'] = sin[1], ['title']=sin[2],['description']=sin[3]} } }
+end
+
 local function delete_sin(req)
   local id = req:stash('id')    -- here is :id value
   uuid_id=uuid.fromstr(id)
@@ -183,6 +194,11 @@ local function post_seed(req)
   }
 end
 
+local function post_test(req)
+  local response = http_client:request('POST', 'http://127.0.0.1:8080/seed')
+  print(response.body)
+end
+
 local server = require('http.server').new(nil, 8080, {charset = "utf8"}) -- listen *:8080
 server:route({ path = '/', method = 'POST' }, handler)
 server:route({ path = '/accounts', method = 'GET' }, get_accounts)
@@ -190,7 +206,8 @@ server:route({ path = '/accounts', method = 'POST' }, post_account)
 server:route({ path = '/accounts/:id', method = 'POST' }, delete_account)
 server:route({ path = '/sins', method = 'GET' }, get_sins)
 server:route({ path = '/sins', method = 'POST' }, post_sin)
-server:route({ path = '/sins/:id/', method = 'DELETE' }, delete_sin)
+server:route({ path = '/sins/:id', method = 'PUT' }, put_sin)
+server:route({ path = '/sins/:id', method = 'DELETE' }, delete_sin)
 server:route({ path = '/seed', method = 'POST' }, post_seed)
+server:route({ path = '/test', method = 'POST' }, post_test)
 server:start()
-

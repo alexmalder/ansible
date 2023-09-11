@@ -8,7 +8,9 @@ down:
 connect:
 	docker exec -it tarantool tarantoolctl connect tarantool:tarantool@127.0.0.1:3301
 
-recreate:
+debug:
 	docker-compose down
-	docker volume rm files_data
+	docker volume rm files_data || exit 0
 	docker-compose up -d
+	http post http://127.0.0.1:8080/test
+	docker logs tarantool
