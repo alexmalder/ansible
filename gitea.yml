@@ -3,4 +3,6 @@
   hosts: cloud0
   become: true
   roles:
-    - gitea
+    - role: gitea
+      vars:
+        gitea_version: 1.20.4
