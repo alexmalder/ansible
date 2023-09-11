@@ -1,0 +1,80 @@
+{
+  "$schema": "https://www.krakend.io/schema/v2.4/krakend.json",
+  "version": 3,
+  "port": 8081,
+  "extra_config": {
+    "backend/http": {
+      "return_error_details": "backend_alias"
+    },
+    "telemetry/logging": {
+      "level": "WARNING",
+      "prefix": "[KRAKEND]",
+      "stdout": true
+    },
+    "telemetry/opencensus": {
+      "sample_rate": 100,
+      "reporting_period": 0,
+      "exporters": {
+        "jaeger": {
+          "endpoint": "http://jaeger:14268/api/traces",
+          "service_name": "krakend",
+          "buffer_max_count": 1000
+        }
+      }
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/auth/sign-up",
+      "method": "POST",
+      "backend": [
+        {
+          "url_pattern": "/auth/sign-up",
+          "host": ["http://app:9001"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/auth/sign-in",
+      "method": "POST",
+      "backend": [
+        {
+          "url_pattern": "/auth/sign-in",
+          "host": ["http://app:9001"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/artifacts",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/artifacts",
+          "host": ["http://artifacts-api:9002"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/artifacts",
+      "method": "POST",
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["http://app:9001"],
+          "roles_key": "http://app:9001/auth/roles",
+          "roles": ["user", "admin"],
+          "operation_debug": true,
+          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "cache": false
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/artifacts",
+          "host": ["http://artifacts-api:9002"]
+        }
+      ]
+    }
+  ]
+}
