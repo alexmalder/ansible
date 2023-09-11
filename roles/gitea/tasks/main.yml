@@ -2,7 +2,7 @@
 # tasks file for gitea
 - name: Download gitea
   ansible.builtin.get_url:
-    url: https://dl.gitea.com/gitea/1.18.5/gitea-1.18.5-linux-amd64
+    url: "https://github.com/go-gitea/gitea/releases/download/v{{ gitea_version }}/gitea-{{ gitea_version }}-linux-amd64"
     dest: /usr/local/bin/gitea
     mode: 'a+x'
 
