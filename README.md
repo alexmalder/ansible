@@ -28,4 +28,3 @@
 ## Authors
 
 <vnmntn@mail.ru>
-
