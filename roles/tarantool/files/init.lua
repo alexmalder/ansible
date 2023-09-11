@@ -95,9 +95,7 @@ proofs:create_index('sin_id', {
     if_not_exists = true
 })
 
-function select_accounts()
-  return box.space.accounts:select{}
-end
+-- http api
 
 local function get_keys(json_object, top_key)
   local keys={}
