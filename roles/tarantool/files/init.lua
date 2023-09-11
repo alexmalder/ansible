@@ -10,9 +10,9 @@ box.schema.user.create('tarantool',
 box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil,
                       {if_not_exists = true})
 
-accounts = box.schema.create_space('accounts', {if_not_exists = true})
-proofs = box.schema.create_space("proofs", {if_not_exists = true})
-sins = box.schema.create_space("sins", {if_not_exists = true})
+local accounts = box.schema.create_space('accounts', {if_not_exists = true})
+local proofs = box.schema.create_space("proofs", {if_not_exists = true})
+local sins = box.schema.create_space("sins", {if_not_exists = true})
 
 accounts:format({
     {name = 'id', type = 'uuid'}, {name = 'username', type = 'string'},
@@ -132,9 +132,24 @@ local function get_sins(req)
     return req:render{json = {['data'] = a}}
 end
 
+local function get_sin(req)
+    a = {}
+    local id = req:stash('id')
+    local uuid_id = uuid.fromstr(id)
+    sins = box.space.sins.index.primary:select{uuid_id}
+    for i, v in ipairs(sins) do
+        a[i] = {
+            id = v['id'],
+            title = v['title'],
+            description = v['description']
+        }
+    end
+    return req:render{json = {['data'] = a}}
+end
+
 local function post_sin(req)
     local lua_table = req:json()
-    sin = box.space.sins:insert{
+    local sin = box.space.sins:insert{
         uuid.new(), lua_table['title'], lua_table['description']
     }
     return req:render{
@@ -150,9 +165,9 @@ end
 
 local function put_sin(req)
     local id = req:stash('id')
-    uuid_id = uuid.fromstr(id)
+    local uuid_id = uuid.fromstr(id)
     local lua_table = req:json()
-    sin = box.space.sins.index.primary:update({uuid_id}, {
+    local sin = box.space.sins.index.primary:update({uuid_id}, {
         {'=', uuid_id, lua_table['title'], lua_table['description']}
     })
     return req:render{
@@ -168,23 +183,52 @@ end
 
 local function delete_sin(req)
     local id = req:stash('id') -- here is :id value
-    uuid_id = uuid.fromstr(id)
-    sin = box.space.sins.index.primary:delete{uuid_id}
+    local uuid_id = uuid.fromstr(id)
+    local sin = box.space.sins.index.primary:delete{uuid_id}
     return req:render{json = {['data'] = sin}}
 end
 
 local function get_accounts(req)
-    a = {}
-    accounts = box.space.accounts:select()
+    local a = {}
+    local accounts = box.space.accounts:select()
     for i, v in ipairs(accounts) do
         a[i] = {id = v['id'], username = v['username']}
     end
     return req:render{json = {['data'] = a}}
 end
 
+local function get_account(req)
+    local a = {}
+    local id = req:stash('id')
+    local uuid_id = uuid.fromstr(id)
+    local accounts = box.space.accounts.index.primary:select{uuid_id}
+    for i, v in ipairs(accounts) do
+        a[i] = {id = v['id'], username = v['username']}
+    end
+    return req:render{json = {['data'] = a}}
+end
+
+local function put_account(req)
+    local id = req:stash('id')
+    local uuid_id = uuid.fromstr(id)
+    local lua_table = req:json()
+    local account = box.space.sins.index.primary:update({uuid_id}, {
+        {'=', uuid_id, lua_table['username'], lua_table['password']}
+    })
+    return req:render{
+        json = {
+            ['data'] = {
+                ['id'] = account[1],
+                ['title'] = account[2],
+                ['description'] = account[3]
+            }
+        }
+    }
+end
+
 local function post_account(req)
     local lua_table = req:json()
-    account = box.space.accounts:insert{
+    local account = box.space.accounts:insert{
         uuid.new(), lua_table['username'], lua_table['password'], true
     }
     return req:render{
@@ -200,8 +244,8 @@ end
 
 local function delete_account(req)
     local id = req:stash('id') -- here is :id value
-    uuid_id = uuid.fromstr(id)
-    account = box.space.accounts.index.primary:delete{uuid_id}
+    local uuid_id = uuid.fromstr(id)
+    local account = box.space.accounts.index.primary:delete{uuid_id}
     return req:render{json = {['data'] = account}}
 end
 
@@ -245,9 +289,12 @@ end
 local server = require('http.server').new(nil, 8080, {charset = "utf8"}) -- listen *:8080
 server:route({path = '/', method = 'POST'}, handler)
 server:route({path = '/accounts', method = 'GET'}, get_accounts)
+server:route({path = '/accounts/:id', method = 'GET'}, get_account)
 server:route({path = '/accounts', method = 'POST'}, post_account)
+server:route({path = '/accounts/:id', method = 'PUT'}, put_account)
 server:route({path = '/accounts/:id', method = 'POST'}, delete_account)
 server:route({path = '/sins', method = 'GET'}, get_sins)
+server:route({path = '/sins/:id', method = 'GET'}, get_sin)
 server:route({path = '/sins', method = 'POST'}, post_sin)
 server:route({path = '/sins/:id', method = 'PUT'}, put_sin)
 server:route({path = '/sins/:id', method = 'DELETE'}, delete_sin)
