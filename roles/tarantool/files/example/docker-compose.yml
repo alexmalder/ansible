@@ -1,0 +1,20 @@
+---
+version: "3.6"
+services:
+  tarantool:
+    image: tarantool/tarantool:2
+    container_name: tarantool-example
+    command: tarantool /opt/tarantool/app/init.lua
+    restart: always
+    environment:
+      TARANTOOL_USER_NAME: tarantool
+      TARANTOOL_USER_PASSWORD: tarantool
+    volumes:
+      - ./init.lua:/opt/tarantool/app/init.lua
+      - data:/var/lib/tarantool
+    ports:
+      - 3301:3301
+      - 8080:8080
+
+volumes:
+  data: null
