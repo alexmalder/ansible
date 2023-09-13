@@ -10,6 +10,11 @@
   tags:
     - docker-compose
 
+- name: Install drone
+  ansible.builtin.import_tasks: ./drone.yml
+  tags:
+    - drone
+
 - name: Install kubectl
   ansible.builtin.import_tasks: ./kubectl.yml
   tags:
