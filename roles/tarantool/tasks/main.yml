@@ -9,7 +9,7 @@
     - database
 
 - name: Collect files
-  find:
+  ansible.builtin.find:
     paths: "/var/lib/tarantool/sinapi/"
     hidden: true
     recurse: true
@@ -18,17 +18,28 @@
     - database
 
 - name: Remove collected files
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: absent
   with_items: "{{ collected_files.files }}"
   tags:
     - database
 
-- name: Template lua
-  template:
-    src: roles/tarantool/files/init.lua
+- name: Push init.lua
+  ansible.builtin.template:
+    src: "roles/tarantool/files/init.lua"
     dest: /etc/tarantool/instances.available/sinapi.lua
+    owner: tarantool
+    group: tarantool
+    mode: '0640'
+  tags:
+    - database
+    - init
+
+- name: Push validation lua
+  ansible.builtin.template:
+    src: "roles/tarantool/files/validate.lua"
+    dest: /etc/tarantool/instances.available/validate.lua
     owner: tarantool
     group: tarantool
     mode: '0640'

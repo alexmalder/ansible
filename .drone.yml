@@ -11,6 +11,7 @@ steps:
 - name: lint
   commands:
     - docker build . -t ansible-lint
-  when:
-    branch:
-    - master
+
+- name: tarantool test
+  commands:
+    - ansible-playbook ./tarantool-local.yml --tags database
