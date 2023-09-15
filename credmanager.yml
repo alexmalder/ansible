@@ -1,12 +1,7 @@
 ---
-# PASS
-# - inventory.yaml
-# - netrc.yml
-# TEMPLATES
-# - netrc.fish
-# - .netrc
-# - ssh_config
-# - hosts
+# configfiles: [inventory, netrc]
+# output: [inventory/inventory, .ssh/config, .netrc, netrc.fish]
+# optional output: [hosts]
 - name: Register secrets and generate local files
   hosts: 127.0.0.1
   connection: local
@@ -18,38 +13,39 @@
       failed_when: inventory_yaml.rc != 0
 
     - name: Register netrc
-      ansible.builtin.command: pass show ansible/git/netrc
+      ansible.builtin.command: pass show ansible/git/netrc.yaml
       register: netrc
       changed_when: netrc.rc == 0
       failed_when: netrc.rc != 0
 
-    - name: Register netrc.fish
-      ansible.builtin.command: pass show ansible/git/netrc.fish
-      register: netrc_fish
-      changed_when: netrc_fish.rc == 0
-      failed_when: netrc_fish.rc != 0
+    - name: Set facts from pass
+      ansible.builtin.set_fact:
+        inventory: "{{ inventory_yaml.stdout | from_yaml }}"
+        netrc: "{{ netrc.stdout | from_yaml }}"
 
-    - name: Register ssh config
-      ansible.builtin.command: pass show ansible/ssh/config
-      register: ssh_config
-      changed_when: ssh_config.rc == 0
-      failed_when: ssh_config.rc != 0
+    - name: Debug inventory
+      debug:
+        var: inventory
 
-#    - name: Set facts from pass
-#      ansible.builtin.set_fact:
-#        inventory: "{{ inventory_yaml.stdout }}"
-#        netrc: "{{ netrc.stdout }}"
-#        netrc_fish: "{{ netrc_fish.stdout }}"
+    - name: Debug netrc
+      debug:
+        var: netrc
+
+    - name: Generate ssh config
+      ansible.builtin.template:
+        src: "./templates/ssh_config.jinja"
+        dest: ~/.ssh/config
+        mode: '0600'
 
     - name: Generate netrc
-      ansible.builtin.copy:
-        content: "{{ netrc.stdout }}"
+      ansible.builtin.template:
+        src: "./templates/netrc.jinja"
         dest: ~/.netrc
         mode: '0600'
 
     - name: Generate git creds for fish
-      ansible.builtin.copy:
-        content: "{{ netrc_fish.stdout }}"
+      ansible.builtin.template:
+        src: "./templates/netrc.fish.jinja"
         dest: ~/.config/fish/conf.d/netrc.fish
         mode: '0600'
 
@@ -63,12 +59,6 @@
       ansible.builtin.copy:
         content: "{{ inventory_yaml.stdout }}"
         dest: ./inventory/inventory.yaml
-        mode: '0600'
-
-    - name: Generate ssh config
-      ansible.builtin.copy:
-        content: "{{ ssh_config.stdout }}"
-        dest: ~/.ssh/config
         mode: '0600'
 
 #    - name: Generate hosts file

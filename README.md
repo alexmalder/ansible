@@ -8,18 +8,16 @@
 - `scripts`: main scripts
 - `templates`: minimal templates for playbooks
 
-## Pass integration for credmanager
+## Local development
 
-- ansible.cfg
-  - ./ansible.cfg
-  - ~/.ssh/config
-- inventory.yaml
-  - ./inventory/inventory.yaml
-- netrc.yml
-  - ~/.netrc
-  - ~/.config/fish/conf.d/netrc.fish
-- hosts
-  - /etc/hosts
+| service   | port |
+| --------- | ---- |
+| grafana   | 3000 |
+| gitea     | 3030 |
+| drone     | 8080 |
+| keycloak  | 8081 |
+| krakend   | 8082 |
+| tarantool | 8090 |
 
 ## Help
 
