@@ -23,14 +23,6 @@
         inventory: "{{ inventory_yaml.stdout | from_yaml }}"
         netrc: "{{ netrc.stdout | from_yaml }}"
 
-    - name: Debug inventory
-      debug:
-        var: inventory
-
-    - name: Debug netrc
-      debug:
-        var: netrc
-
     - name: Generate ssh config
       ansible.builtin.template:
         src: "./templates/ssh_config.jinja"

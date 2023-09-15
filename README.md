@@ -10,14 +10,15 @@
 
 ## Local development
 
-| service   | port |
-| --------- | ---- |
-| grafana   | 3000 |
-| gitea     | 3030 |
-| drone     | 8080 |
-| keycloak  | 8081 |
-| krakend   | 8082 |
-| tarantool | 8090 |
+| service   | port | role      | deployment type |
+| --------- | ---- | --------- | --------------- |
+| haproxy   | 443  | haproxy   | docker          |
+| grafana   | 3000 | loki      | systemd         |
+| gitea     | 3030 | gitea     | systemd         |
+| drone     | 8080 | ci        | docker          |
+| keycloak  | 8081 | tarantool | docker          |
+| krakend   | 8082 | tarantool | docker          |
+| tarantool | 8090 | tarantool | docker          |
 
 ## Help
 
