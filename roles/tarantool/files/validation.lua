@@ -2,7 +2,7 @@
 local STRING_TYPE = "string"
 local NUMBER_TYPE = "number"
 
-local account_schema = {
+account_schema = {
   --type = 'object',
   properties = {
     username = {
@@ -23,6 +23,22 @@ local account_schema = {
   },
 }
 
+sin_schema = {
+  --type object
+  properties = {
+    title = {
+      type = 'string',
+      min = 4,
+      max = 14
+    },
+    description = {
+      type = 'string',
+      min = 4,
+      max = 128,
+    }
+  }
+}
+
 local function key_exists(json_object, top_key)
   local res = false
   for key, _ in pairs(json_object) do
@@ -31,17 +47,6 @@ local function key_exists(json_object, top_key)
     end
   end
   return res
-end
-
-local function key_extra(json_object, schema_properties)
-  for json_key, _ in pairs(json_object) do
-    for schema_key, _ in pairs(schema_properties) do
-      if json_key ~= schema_key then
-        return true
-      end
-    end
-  end
-  return false
 end
 
 local function valid_type(value, datatype)
@@ -106,7 +111,7 @@ local function inArray(array, x)
   return false
 end
 
-local function validate_schema(json_object, schema)
+function validate_schema(json_object, schema)
   local errstack = {}
   for prop, subprops in pairs(schema.properties) do
     local key_found = key_exists(json_object, prop)

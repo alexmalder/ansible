@@ -1,7 +1,25 @@
 ---
 kind: pipeline
 type: exec
-name: default
+name: test
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: deploy tarantool in docker
+  commands:
+    - cd ./roles/tarantool/files 
+    - docker-compose up -d
+    - ansible-playbook playbook.yml
+  environment:
+    KEYCLOAK_HOSTNAME:
+      from_secret: KEYCLOAK_HOSTNAME
+---
+kind: pipeline
+type: exec
+name: lint
 
 platform:
   os: linux
@@ -11,7 +29,3 @@ steps:
 - name: lint
   commands:
     - docker build . -t ansible-lint
-
-- name: tarantool test
-  commands:
-    - ansible-playbook ./tarantool-local.yml --tags database

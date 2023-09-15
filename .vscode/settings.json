@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "test_function",
+        "box",
+        "return",
+        "account_schema",
+        "sin_schema"
+    ]
+}

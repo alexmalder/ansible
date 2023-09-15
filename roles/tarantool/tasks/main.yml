@@ -25,24 +25,18 @@
   tags:
     - database
 
-- name: Push init.lua
+- name: Push lua files
   ansible.builtin.template:
-    src: "roles/tarantool/files/init.lua"
-    dest: /etc/tarantool/instances.available/sinapi.lua
+    src: "roles/tarantool/files/{{item.src}}"
+    dest: "/etc/tarantool/instances.available/{{item.dest}}"
     owner: tarantool
     group: tarantool
     mode: '0640'
-  tags:
-    - database
-    - init
-
-- name: Push validation lua
-  ansible.builtin.template:
-    src: "roles/tarantool/files/validate.lua"
-    dest: /etc/tarantool/instances.available/validate.lua
-    owner: tarantool
-    group: tarantool
-    mode: '0640'
+  loop:
+    - src: init.lua
+      dest: sinapi.lua
+    - src: validation.lua
+      dest: validation.lua
   tags:
     - database
     - init
