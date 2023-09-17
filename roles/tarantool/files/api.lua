@@ -17,11 +17,11 @@ function keycloak_handler(req)
   }}
 end
 
--- sin api
-function get_sins(req)
+-- label api
+function get_labels(req)
   a = {}
-  sins = box.space.sins:select({}, {iterator='GT', limit = 100})
-  for i, v in ipairs(sins) do
+  labels = box.space.labels:select({}, {iterator='GT', limit = 100})
+  for i, v in ipairs(labels) do
     a[i] = {
       id = v['id'],
       title = v['title'],
@@ -31,12 +31,12 @@ function get_sins(req)
   return req:render{json = {['data'] = a}}
 end
 
-function get_sin(req)
+function get_label(req)
   local a = {}
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
-  sins = box.space.sins.index.primary:select{uuid_id}
-  for i, v in ipairs(sins) do
+  labels = box.space.labels.index.primary:select{uuid_id}
+  for i, v in ipairs(labels) do
     a[i] = {
       id = v['id'],
       title = v['title'],
@@ -46,19 +46,19 @@ function get_sin(req)
   return req:render{json = {['data'] = a}}
 end
 
-function post_sin(req)
+function post_label(req)
   local lua_table = req:json()
-  local errstack = validate_schema(lua_table, sin_schema)
+  local errstack = validate_schema(lua_table, label_schema)
   if next(errstack) == nil then
-    local sin = box.space.sins:insert{
+    local label = box.space.labels:insert{
       uuid.new(), lua_table['title'], lua_table['description']
     }
     return req:render{
       json = {
         ['data'] = {
-          ['id'] = sin[1],
-          ['title'] = sin[2],
-          ['description'] = sin[3]
+          ['id'] = label[1],
+          ['title'] = label[2],
+          ['description'] = label[3]
         }
       }
     }
@@ -75,21 +75,21 @@ function post_sin(req)
   end
 end
 
-function put_sin(req)
+function put_label(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
   local lua_table = req:json()
-  local errstack = validate_schema(lua_table, sin_schema)
+  local errstack = validate_schema(lua_table, label_schema)
   if next(errstack) == nil then
-    local sin = box.space.sins.index.primary:update({uuid_id}, {
+    local label = box.space.labels.index.primary:update({uuid_id}, {
       {'=', uuid_id, lua_table['title'], lua_table['description']}
     })
     return req:render{
       json = {
         ['data'] = {
-          ['id'] = sin[1],
-          ['title'] = sin[2],
-          ['description'] = sin[3]
+          ['id'] = label[1],
+          ['title'] = label[2],
+          ['description'] = label[3]
         }
       }
     }
@@ -105,65 +105,65 @@ function put_sin(req)
   end
 end
 
-function delete_sin(req)
+function delete_label(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
-  local sin = box.space.sins.index.primary:delete{uuid_id}
-  return req:render{json = {['data'] = sin}}
+  local label = box.space.labels.index.primary:delete{uuid_id}
+  return req:render{json = {['data'] = label}}
 end
 
--- proof api
-function get_proofs(req)
+-- feed api
+function get_feeds(req)
   a = {}
-  proofs = box.space.proofs:select({}, {iterator='GT', limit = 100})
-  for i, v in ipairs(proofs) do
+  local feed = box.space.feed:select({}, {iterator='GT', limit = 100})
+  for i, v in ipairs(feed) do
     a[i] = {
       id = v['id'],
       title = v['title'],
       link = v['link'],
       account_id = v['account_id'],
-      sin_id = v['sin_id']
+      label_id = v['label_id']
     }
   end
   return req:render{json = {['data'] = a}}
 end
 
-function get_proof(req)
+function get_feed(req)
   local a = {}
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
-  proofs = box.space.proofs.index.primary:select{uuid_id}
-  for i, v in ipairs(proofs) do
+  feed = box.space.feed.index.primary:select{uuid_id}
+  for i, v in ipairs(feed) do
     a[i] = {
       id = v['id'],
       title = v['title'],
       link = v['link'],
       account_id = v['account_id'],
-      sin_id = v['sin_id']
+      label_id = v['label_id']
     }
   end
   return req:render{json = {['data'] = a}}
 end
 
-function post_proof(req)
+function post_feed(req)
   local lua_table = req:json()
-  local errstack = validate_schema(lua_table, proof_schema)
+  local errstack = validate_schema(lua_table, feed_schema)
   if next(errstack) == nil then
-    local proof = box.space.proofs:insert{
+    local feed = box.space.feed:insert{
       uuid.new(),
       lua_table['title'],
       lua_table['link'],
       lua_table['account_id'],
-      lua_table['sin_id']
+      lua_table['label_id']
     }
     return req:render{
       json = {
         ['data'] = {
-          ['id'] = proof[1],
-          ['title'] = proof[2],
-          ['link'] = proof[3],
-          ['account_id'] = proof[4],
-          ['sin_id'] = proof[5]
+          ['id'] = feed[1],
+          ['title'] = feed[2],
+          ['link'] = feed[3],
+          ['account_id'] = feed[4],
+          ['label_id'] = feed[5]
         }
       }
     }
@@ -180,30 +180,30 @@ function post_proof(req)
   end
 end
 
-function put_proof(req)
+function put_feed(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
   local lua_table = req:json()
-  local errstack = validate_schema(lua_table, proof_schema)
+  local errstack = validate_schema(lua_table, feed_schema)
   if next(errstack) == nil then
-    local proof = box.space.proofs.index.primary:update({uuid_id}, {
+    local feed = box.space.feed.index.primary:update({uuid_id}, {
       {
         '=', 
         uuid_id,
         lua_table['title'],
         lua_table['link'],
         lua_table['account_id'],
-        lua_table['sin_id']
+        lua_table['label_id']
       }
     })
     return req:render{
       json = {
         ['data'] = {
-          ['id'] = proof[1],
-          ['title'] = proof[2],
-          ['link'] = proof[3],
-          ['account_id'] = proof[4],
-          ['sin_id'] = proof[5]
+          ['id'] = feed[1],
+          ['title'] = feed[2],
+          ['link'] = feed[3],
+          ['account_id'] = feed[4],
+          ['label_id'] = feed[5]
         }
       }
     }
@@ -219,10 +219,10 @@ function put_proof(req)
   end
 end
 
-function delete_proof(req)
+function delete_feed(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
-  local proof = box.space.proofs.index.primary:delete{uuid_id}
-  return req:render{json = {['data'] = proof}}
+  local feed = box.space.feed.index.primary:delete{uuid_id}
+  return req:render{json = {['data'] = feed}}
 end
 

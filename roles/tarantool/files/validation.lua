@@ -17,7 +17,7 @@ account_schema = {
   }
 }
 
-sin_schema = {
+label_schema = {
   properties = {
     title = {
       type = 'string',
@@ -32,7 +32,7 @@ sin_schema = {
   }
 }
 
-proof_schema = {
+feed_schema = {
   properties = {
     title = {
       type = 'string',
@@ -44,7 +44,7 @@ proof_schema = {
       min = 4,
       max = 128,
     },
-    sin_id = {
+    label_id = {
       type = 'string',
       min = 4,
       max = 128,

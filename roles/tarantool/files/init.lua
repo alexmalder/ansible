@@ -10,21 +10,21 @@ box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil, {
   if_not_exists = true
 })
 
-local proofs = box.schema.create_space("proofs", {
+local feed = box.schema.create_space("feed", {
   if_not_exists = true
 })
-local sins = box.schema.create_space("sins", {
+local labels = box.schema.create_space("labels", {
   if_not_exists = true
 })
 
-sins:format({
+labels:format({
   {name = 'id', type = 'uuid'},
   {name = 'title', type = 'string'},
   {name = 'description', type = 'string'},
   if_not_exists = true
 })
 
-proofs:format({
+feed:format({
   {name = 'id', type = 'uuid'},
   {name = 'title', type = 'string'},
   {name = 'link', type = 'string'},
@@ -33,42 +33,42 @@ proofs:format({
   if_not_exists = true
 })
 
-sins:create_index('primary', {
+labels:create_index('primary', {
   type = 'TREE',
   parts = {'id'},
   unique = true,
   if_not_exists = true
 })
 
-sins:create_index('title', {
+labels:create_index('title', {
   type = 'TREE',
   parts = {'title'},
   unique = true,
   if_not_exists = true
 })
 
-proofs:create_index('primary', {
+feed:create_index('primary', {
   type = 'TREE',
   parts = {'id'},
   unique = true,
   if_not_exists = true
 })
 
-proofs:create_index('title', {
+feed:create_index('title', {
   type = 'TREE',
   parts = {'title'},
   unique = true,
   if_not_exists = true
 })
 
-proofs:create_index('account_id', {
+feed:create_index('account_id', {
   type = 'TREE',
   parts = {'account_id'},
   unique = false,
   if_not_exists = true
 })
 
-proofs:create_index('sin_id', {
+feed:create_index('sin_id', {
   type = 'TREE',
   parts = {'sin_id'},
   unique = false,
@@ -78,17 +78,17 @@ proofs:create_index('sin_id', {
 local server = require('http.server').new(nil, 8090, {charset = "utf8"})
 server:route({path = '/', method = 'GET'}, default_handler)
 server:route({path = '/keycloak/:sub/:roles', method = 'GET'}, keycloak_handler)
--- sins crud
-server:route({path = '/sins', method = 'GET'}, get_sins)
-server:route({path = '/sins/:id', method = 'GET'}, get_sin)
-server:route({path = '/sins', method = 'POST'}, post_sin)
-server:route({path = '/sins/:id', method = 'PUT'}, put_sin)
-server:route({path = '/sins/:id', method = 'DELETE'}, delete_sin)
--- proofs crud
-server:route({path = '/proofs', method = 'GET'}, get_proofs)
-server:route({path = '/proofs/:id', method = 'GET'}, get_proof)
-server:route({path = '/proofs', method = 'POST'}, post_proof)
-server:route({path = '/proofs/:id', method = 'PUT'}, put_proof)
-server:route({path = '/proofs/:id', method = 'DELETE'}, delete_proof)
+-- labels crud
+server:route({path = '/labels', method = 'GET'}, get_sins)
+server:route({path = '/labels/:id', method = 'GET'}, get_sin)
+server:route({path = '/labels', method = 'POST'}, post_sin)
+server:route({path = '/labels/:id', method = 'PUT'}, put_sin)
+server:route({path = '/labels/:id', method = 'DELETE'}, delete_sin)
+-- feed crud
+server:route({path = '/feed', method = 'GET'}, get_proofs)
+server:route({path = '/feed/:id', method = 'GET'}, get_proof)
+server:route({path = '/feed', method = 'POST'}, post_proof)
+server:route({path = '/feed/:id', method = 'PUT'}, put_proof)
+server:route({path = '/feed/:id', method = 'DELETE'}, delete_proof)
 -- server starting
 server:start()
