@@ -6,89 +6,109 @@ box.schema.user.create('tarantool', {
   password = 'tarantool',
   if_not_exists = true
 })
+
 box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil, {
   if_not_exists = true
 })
 
-local proofs = box.schema.create_space("proofs", {
-  if_not_exists = true
-})
-local sins = box.schema.create_space("sins", {
+-- spaces and formats
+local feed = box.schema.create_space("feed", {
   if_not_exists = true
 })
 
-sins:format({
+feed:format({
+  {name = 'id', type = 'uuid'},
+  {name = 'title', type = 'string'},
+  {name = 'link', type = 'string'},
+  {name = 'account_id', type = 'uuid'},
+  if_not_exists = true
+})
+
+local labels = box.schema.create_space("labels", {
+  if_not_exists = true
+})
+
+labels:format({
   {name = 'id', type = 'uuid'},
   {name = 'title', type = 'string'},
   {name = 'description', type = 'string'},
   if_not_exists = true
 })
 
-proofs:format({
-  {name = 'id', type = 'uuid'},
-  {name = 'title', type = 'string'},
-  {name = 'link', type = 'string'},
-  {name = 'account_id', type = 'uuid'},
-  {name = 'sin_id', type = 'uuid'},
+local feed_labels = box.schema.create_space("feed_labels", {
   if_not_exists = true
 })
 
-sins:create_index('primary', {
+feed_labels:format({
+  {name = 'feed_id', type = 'uuid'},
+  {name = 'label_id', type = 'uuid'},
+  if_not_exists = true
+})
+
+-- setup indexes
+feed:create_index('primary', {
   type = 'TREE',
   parts = {'id'},
   unique = true,
   if_not_exists = true
 })
 
-sins:create_index('title', {
+feed:create_index('title', {
   type = 'TREE',
   parts = {'title'},
   unique = true,
   if_not_exists = true
 })
 
-proofs:create_index('primary', {
-  type = 'TREE',
-  parts = {'id'},
-  unique = true,
-  if_not_exists = true
-})
-
-proofs:create_index('title', {
-  type = 'TREE',
-  parts = {'title'},
-  unique = true,
-  if_not_exists = true
-})
-
-proofs:create_index('account_id', {
+feed:create_index('account_id', {
   type = 'TREE',
   parts = {'account_id'},
   unique = false,
   if_not_exists = true
 })
 
-proofs:create_index('sin_id', {
+feed:create_index('label_id', {
   type = 'TREE',
-  parts = {'sin_id'},
+  parts = {'label_id'},
   unique = false,
+  if_not_exists = true
+})
+
+labels:create_index('primary', {
+  type = 'TREE',
+  parts = {'id'},
+  unique = true,
+  if_not_exists = true
+})
+
+labels:create_index('title', {
+  type = 'TREE',
+  parts = {'title'},
+  unique = true,
+  if_not_exists = true
+})
+
+feed_labels:create_index('ids', {
+  type = 'TREE',
+  parts = {'feed_id', 'label_id'},
+  unique = true,
   if_not_exists = true
 })
 
 local server = require('http.server').new(nil, 8090, {charset = "utf8"})
 server:route({path = '/', method = 'GET'}, default_handler)
 server:route({path = '/keycloak/:sub/:roles', method = 'GET'}, keycloak_handler)
--- sins crud
-server:route({path = '/sins', method = 'GET'}, get_sins)
-server:route({path = '/sins/:id', method = 'GET'}, get_sin)
-server:route({path = '/sins', method = 'POST'}, post_sin)
-server:route({path = '/sins/:id', method = 'PUT'}, put_sin)
-server:route({path = '/sins/:id', method = 'DELETE'}, delete_sin)
--- proofs crud
-server:route({path = '/proofs', method = 'GET'}, get_proofs)
-server:route({path = '/proofs/:id', method = 'GET'}, get_proof)
-server:route({path = '/proofs', method = 'POST'}, post_proof)
-server:route({path = '/proofs/:id', method = 'PUT'}, put_proof)
-server:route({path = '/proofs/:id', method = 'DELETE'}, delete_proof)
+-- labels crud
+server:route({path = '/labels', method = 'GET'}, get_labels)
+server:route({path = '/labels/:id', method = 'GET'}, get_label)
+server:route({path = '/labels', method = 'POST'}, post_label)
+server:route({path = '/labels/:id', method = 'PUT'}, put_label)
+server:route({path = '/labels/:id', method = 'DELETE'}, delete_label)
+-- feed crud
+server:route({path = '/feed', method = 'GET'}, get_feeds)
+server:route({path = '/feed/:id', method = 'GET'}, get_feed)
+server:route({path = '/feed', method = 'POST'}, post_feed)
+server:route({path = '/feed/:id', method = 'PUT'}, put_feed)
+server:route({path = '/feed/:id', method = 'DELETE'}, delete_feed)
 -- server starting
 server:start()
