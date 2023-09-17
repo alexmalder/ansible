@@ -52,7 +52,6 @@ return require('packer').startup(function()
     use 'neg-serg/neg.nvim'
     use 'windwp/windline.nvim'
     use 'kyazdani42/nvim-web-devicons'
-    use 'voldikss/vim-floaterm'
     --use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
     use 'akinsho/bufferline.nvim'
     -- SYNTAX

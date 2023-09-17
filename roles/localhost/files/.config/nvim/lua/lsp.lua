@@ -71,6 +71,7 @@ lsp.bashls.setup {}
 lsp.tsserver.setup {}
 lsp.gopls.setup {}
 lsp.dartls.setup {}
+lsp.lua_ls.setup { cmd = {"/opt/local/bin/lua-language-server"}; }
 lsp.omnisharp.setup{
     cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
 }

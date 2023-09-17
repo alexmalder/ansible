@@ -3,7 +3,6 @@ local STRING_TYPE = "string"
 local NUMBER_TYPE = "number"
 
 account_schema = {
-  --type = 'object',
   properties = {
     username = {
       type = 'string',
@@ -14,17 +13,11 @@ account_schema = {
       type = 'string',
       min = 6,
       max = 22,
-    },
-    age = {
-      type = 'number',
-      min = 18,
-      max = 99,
-    },
-  },
+    }
+  }
 }
 
 sin_schema = {
-  --type object
   properties = {
     title = {
       type = 'string',
@@ -32,6 +25,26 @@ sin_schema = {
       max = 14
     },
     description = {
+      type = 'string',
+      min = 4,
+      max = 128,
+    }
+  }
+}
+
+proof_schema = {
+  properties = {
+    title = {
+      type = 'string',
+      min = 4,
+      max = 128,
+    },
+    link = {
+      type = 'string',
+      min = 4,
+      max = 128,
+    },
+    sin_id = {
       type = 'string',
       min = 4,
       max = 128,
@@ -157,7 +170,7 @@ function validate_schema(json_object, schema)
   return errstack
 end
 
-local function print_table(target, t)
+function print_table(target, t)
   print(target)
   for k,v in pairs(t) do
     print(v)
@@ -167,23 +180,23 @@ end
 
 local function validation_test()
   -- correct data type
-  print_table("CORRECT", validate_schema({username="alexmalder", password="012345qwe", age=18}, account_schema))
+  print_table("CORRECT", validate_schema({username="alexmalder", password="012345qwe"}, account_schema))
 
   -- incorrect username
-  print_table("INCORRECT USERNAME MIN", validate_schema({username="alex", password="12345567", age=100}, account_schema))
-  print_table("INCORRECT USERNAME MAX", validate_schema({username="alexmalderalexmalderalexmalder", password="123456", age=100}, account_schema))
+  print_table("INCORRECT USERNAME MIN", validate_schema({username="alex", password="12345567"}, account_schema))
+  print_table("INCORRECT USERNAME MAX", validate_schema({username="alexmalderalexmalderalexmalder", password="123456"}, account_schema))
 
   -- incorrect password
-  print_table("INCORRECT PASSWORD MIN", validate_schema({username="alexmalder", password="123", age=18}, account_schema))
-  print_table("INCORRECT PASSWORD MAX", validate_schema({username="alexmalder", password="dkfjvoernvslhvnre;ovnbkusfvblsierufeoa;rnjfjlfdv", age=18}, account_schema))
+  print_table("INCORRECT PASSWORD MIN", validate_schema({username="alexmalder", password="123"}, account_schema))
+  print_table("INCORRECT PASSWORD MAX", validate_schema({username="alexmalder", password="dkfjvoernvslhvnre;ovnbkusfvblsierufeoa;rnjfjlfdv"}, account_schema))
 
   -- incorrect age
-  print_table("INCORRECT AGE MIN", validate_schema({username="alexmalder", password="12345689", age=14}, account_schema))
-  print_table("INCORRECT AGE MAX", validate_schema({username="alexmalder", password="12345689", age=100}, account_schema))
+  print_table("INCORRECT AGE MIN", validate_schema({username="alexmalder", password="12345689"}, account_schema))
+  print_table("INCORRECT AGE MAX", validate_schema({username="alexmalder", password="12345689"}, account_schema))
 
   -- key error
-  print_table("KEY NOT FOUND", validate_schema({username="alexmalder", age=18}, account_schema))
-  print_table("EXTRA KEY FOUND", validate_schema({username="alexmalder", password="1234568qwe", age=18, new_password="oeruifsuirdfv"}, account_schema))
+  print_table("KEY NOT FOUND", validate_schema({username="alexmalder"}, account_schema))
+  print_table("EXTRA KEY FOUND", validate_schema({username="alexmalder", password="1234568qwe", new_password="oeruifsuirdfv"}, account_schema))
 end
 
-validation_test()
+--validation_test()
