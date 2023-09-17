@@ -12,7 +12,6 @@ steps:
   commands:
     - cd ./roles/tarantool/files 
     - docker-compose up -d
-    - ansible-playbook playbook.yml
   environment:
     KEYCLOAK_HOSTNAME:
       from_secret: KEYCLOAK_HOSTNAME
