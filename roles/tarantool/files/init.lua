@@ -29,7 +29,7 @@ feed:format({
   {name = 'title', type = 'string'},
   {name = 'link', type = 'string'},
   {name = 'account_id', type = 'uuid'},
-  {name = 'sin_id', type = 'uuid'},
+  {name = 'label_id', type = 'uuid'},
   if_not_exists = true
 })
 
@@ -68,9 +68,9 @@ feed:create_index('account_id', {
   if_not_exists = true
 })
 
-feed:create_index('sin_id', {
+feed:create_index('label_id', {
   type = 'TREE',
-  parts = {'sin_id'},
+  parts = {'label_id'},
   unique = false,
   if_not_exists = true
 })
@@ -79,16 +79,16 @@ local server = require('http.server').new(nil, 8090, {charset = "utf8"})
 server:route({path = '/', method = 'GET'}, default_handler)
 server:route({path = '/keycloak/:sub/:roles', method = 'GET'}, keycloak_handler)
 -- labels crud
-server:route({path = '/labels', method = 'GET'}, get_sins)
-server:route({path = '/labels/:id', method = 'GET'}, get_sin)
-server:route({path = '/labels', method = 'POST'}, post_sin)
-server:route({path = '/labels/:id', method = 'PUT'}, put_sin)
-server:route({path = '/labels/:id', method = 'DELETE'}, delete_sin)
+server:route({path = '/labels', method = 'GET'}, get_labels)
+server:route({path = '/labels/:id', method = 'GET'}, get_label)
+server:route({path = '/labels', method = 'POST'}, post_label)
+server:route({path = '/labels/:id', method = 'PUT'}, put_label)
+server:route({path = '/labels/:id', method = 'DELETE'}, delete_label)
 -- feed crud
-server:route({path = '/feed', method = 'GET'}, get_proofs)
-server:route({path = '/feed/:id', method = 'GET'}, get_proof)
-server:route({path = '/feed', method = 'POST'}, post_proof)
-server:route({path = '/feed/:id', method = 'PUT'}, put_proof)
-server:route({path = '/feed/:id', method = 'DELETE'}, delete_proof)
+server:route({path = '/feed', method = 'GET'}, get_feeds)
+server:route({path = '/feed/:id', method = 'GET'}, get_feed)
+server:route({path = '/feed', method = 'POST'}, post_feed)
+server:route({path = '/feed/:id', method = 'PUT'}, put_feed)
+server:route({path = '/feed/:id', method = 'DELETE'}, delete_feed)
 -- server starting
 server:start()

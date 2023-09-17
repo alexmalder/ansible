@@ -59,11 +59,11 @@
       ]
     },
     {
-      "endpoint": "/api/v1/sins",
+      "endpoint": "/api/v1/feeds",
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/sins",
+          "url_pattern": "/feeds",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -76,11 +76,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins/{id}",
+      "endpoint": "/api/v1/feeds/{id}",
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/sins/{id}",
+          "url_pattern": "/feeds/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -93,11 +93,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins",
+      "endpoint": "/api/v1/feeds",
       "method": "POST",
       "backend": [
         {
-          "url_pattern": "/sins",
+          "url_pattern": "/feeds",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -110,11 +110,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins/{id}",
+      "endpoint": "/api/v1/feeds/{id}",
       "method": "PUT",
       "backend": [
         {
-          "url_pattern": "/sins/{id}",
+          "url_pattern": "/feeds/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -127,11 +127,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins/{id}",
+      "endpoint": "/api/v1/feeds/{id}",
       "method": "DELETE",
       "backend": [
         {
-          "url_pattern": "/sins/{id}",
+          "url_pattern": "/feeds/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -144,11 +144,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins",
+      "endpoint": "/api/v1/feeds",
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/sins",
+          "url_pattern": "/feeds",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -161,11 +161,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins/{id}",
+      "endpoint": "/api/v1/feeds/{id}",
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/sins/{id}",
+          "url_pattern": "/feeds/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -178,11 +178,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins",
+      "endpoint": "/api/v1/feeds",
       "method": "POST",
       "backend": [
         {
-          "url_pattern": "/sins",
+          "url_pattern": "/feeds",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -195,11 +195,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins/{id}",
+      "endpoint": "/api/v1/feeds/{id}",
       "method": "PUT",
       "backend": [
         {
-          "url_pattern": "/sins/{id}",
+          "url_pattern": "/feeds/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -212,11 +212,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/sins/{id}",
+      "endpoint": "/api/v1/feeds/{id}",
       "method": "DELETE",
       "backend": [
         {
-          "url_pattern": "/sins/{id}",
+          "url_pattern": "/feeds/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
