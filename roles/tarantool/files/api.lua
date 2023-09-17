@@ -105,6 +105,7 @@ function put_label(req)
   end
 end
 
+-- delete label by id
 function delete_label(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
@@ -121,8 +122,7 @@ function get_feeds(req)
       id = v['id'],
       title = v['title'],
       link = v['link'],
-      account_id = v['account_id'],
-      label_id = v['label_id']
+      account_id = v['account_id']
     }
   end
   return req:render{json = {['data'] = a}}
@@ -138,8 +138,7 @@ function get_feed(req)
       id = v['id'],
       title = v['title'],
       link = v['link'],
-      account_id = v['account_id'],
-      label_id = v['label_id']
+      account_id = v['account_id']
     }
   end
   return req:render{json = {['data'] = a}}
@@ -154,7 +153,6 @@ function post_feed(req)
       lua_table['title'],
       lua_table['link'],
       lua_table['account_id'],
-      lua_table['label_id']
     }
     return req:render{
       json = {
@@ -163,7 +161,6 @@ function post_feed(req)
           ['title'] = feed[2],
           ['link'] = feed[3],
           ['account_id'] = feed[4],
-          ['label_id'] = feed[5]
         }
       }
     }
@@ -193,7 +190,6 @@ function put_feed(req)
         lua_table['title'],
         lua_table['link'],
         lua_table['account_id'],
-        lua_table['label_id']
       }
     })
     return req:render{
@@ -203,7 +199,6 @@ function put_feed(req)
           ['title'] = feed[2],
           ['link'] = feed[3],
           ['account_id'] = feed[4],
-          ['label_id'] = feed[5]
         }
       }
     }
@@ -219,10 +214,10 @@ function put_feed(req)
   end
 end
 
+-- delete feed by id
 function delete_feed(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
   local feed = box.space.feed.index.primary:delete{uuid_id}
   return req:render{json = {['data'] = feed}}
 end
-

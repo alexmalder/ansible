@@ -6,13 +6,24 @@ box.schema.user.create('tarantool', {
   password = 'tarantool',
   if_not_exists = true
 })
+
 box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil, {
   if_not_exists = true
 })
 
+-- spaces and formats
 local feed = box.schema.create_space("feed", {
   if_not_exists = true
 })
+
+feed:format({
+  {name = 'id', type = 'uuid'},
+  {name = 'title', type = 'string'},
+  {name = 'link', type = 'string'},
+  {name = 'account_id', type = 'uuid'},
+  if_not_exists = true
+})
+
 local labels = box.schema.create_space("labels", {
   if_not_exists = true
 })
@@ -24,29 +35,17 @@ labels:format({
   if_not_exists = true
 })
 
-feed:format({
-  {name = 'id', type = 'uuid'},
-  {name = 'title', type = 'string'},
-  {name = 'link', type = 'string'},
-  {name = 'account_id', type = 'uuid'},
+local feed_labels = box.schema.create_space("feed_labels", {
+  if_not_exists = true
+})
+
+feed_labels:format({
+  {name = 'feed_id', type = 'uuid'},
   {name = 'label_id', type = 'uuid'},
   if_not_exists = true
 })
 
-labels:create_index('primary', {
-  type = 'TREE',
-  parts = {'id'},
-  unique = true,
-  if_not_exists = true
-})
-
-labels:create_index('title', {
-  type = 'TREE',
-  parts = {'title'},
-  unique = true,
-  if_not_exists = true
-})
-
+-- setup indexes
 feed:create_index('primary', {
   type = 'TREE',
   parts = {'id'},
@@ -72,6 +71,27 @@ feed:create_index('label_id', {
   type = 'TREE',
   parts = {'label_id'},
   unique = false,
+  if_not_exists = true
+})
+
+labels:create_index('primary', {
+  type = 'TREE',
+  parts = {'id'},
+  unique = true,
+  if_not_exists = true
+})
+
+labels:create_index('title', {
+  type = 'TREE',
+  parts = {'title'},
+  unique = true,
+  if_not_exists = true
+})
+
+feed_labels:create_index('ids', {
+  type = 'TREE',
+  parts = {'feed_id', 'label_id'},
+  unique = true,
   if_not_exists = true
 })
 

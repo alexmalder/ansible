@@ -43,8 +43,13 @@ feed_schema = {
       type = 'string',
       min = 4,
       max = 128,
-    },
-    label_id = {
+    }
+  }
+}
+
+feed_labels_schema = {
+  properties = {
+    feed_id = {
       type = 'string',
       min = 4,
       max = 128,
