@@ -26,11 +26,11 @@ jobs:
 
       - name: Run docker-compose
         run: |
-          cd ./roles/tarantool/files
-          sudo apt install docker-compose
+          cd roles/tarantool/files
+          sudo apt install docker-compose ansible
           docker-compose up -d
           sudo netstat -tulpn
-          curl localhost:8082
+          ansible-playbook playbook.yml
           docker-compose down
 
       - name: Lint ansible

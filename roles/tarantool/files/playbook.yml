@@ -1,0 +1,95 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    keycloak_url: "http://localhost:8081"
+    keycloak_admin_username: "admin"
+    keycloak_admin_password: "Pa55w0rd"
+  tasks:
+    - name: Apply keycloak client, authentication with credentials, direct and service account enabled
+      community.general.keycloak_client:
+        auth_keycloak_url: "{{ keycloak_url }}/auth"
+        auth_realm: master
+        auth_username: "{{ keycloak_admin_username }}"
+        auth_password: "{{ keycloak_admin_password }}"
+        client_id: admin-rest-client
+        direct_access_grants_enabled: true
+        service_accounts_enabled: true
+        state: present
+      register: keycloak_client
+
+    - name: Create a Keycloak realm role, authentication with credentials
+      community.general.keycloak_role:
+        auth_keycloak_url: "{{ keycloak_url }}/auth"
+        auth_realm: master
+        auth_username: "{{ keycloak_admin_username }}"
+        auth_password: "{{ keycloak_admin_password }}"
+        client_id: admin-rest-client
+        name: admin-rest-client-master-role
+        realm: master
+        state: present
+      register: keycloak_role
+
+    - name: Create user
+      community.general.keycloak_user:
+        auth_keycloak_url: "{{ keycloak_url }}/auth"
+        auth_username: "{{ keycloak_admin_username }}"
+        auth_password: "{{ keycloak_admin_password }}"
+        auth_realm: master
+        realm: master
+        username: alexmalder
+        firstName: Alex
+        lastName: Malder
+        email: alexmalder@mail.ru
+        enabled: true
+        emailVerified: false
+        credentials:
+            - type: password
+              value: denied
+              temporary: false
+        state: present
+      register: keycloak_user
+
+    - name: Map a client role to a user, authentication with credentials
+      community.general.keycloak_user_rolemapping:
+        auth_keycloak_url: "{{ keycloak_url }}/auth"
+        auth_username: "{{ keycloak_admin_username }}"
+        auth_password: "{{ keycloak_admin_password }}"
+        auth_realm: master
+        realm: master
+        state: present
+        client_id: admin-rest-client
+        target_username: alexmalder
+        roles:
+          - name: admin-rest-client-master-role
+      register: keycloak_user_rolemapping
+
+    - name: Get a Keycloak client secret, authentication with credentials
+      community.general.keycloak_clientsecret_info:
+        auth_keycloak_url: "{{ keycloak_url }}/auth"
+        auth_username: "{{ keycloak_admin_username }}"
+        auth_password: "{{ keycloak_admin_password }}"
+        auth_realm: master
+        client_id: admin-rest-client
+        realm: master
+      register: keycloak_clientsecret_info
+
+    - name: Debug keycloak_client
+      debug:
+        var: keycloak_client
+
+    - name: Debug keycloak_role
+      debug:
+        var: keycloak_role
+
+    - name: Debug keycloak_user
+      debug:
+        var: keycloak_user
+
+    - name: Debug keycloak_user_rolemapping
+      debug:
+        var: keycloak_user_rolemapping
+
+    - name: Debug keycloak_clientsecret_info
+      debug:
+        var: keycloak_clientsecret_info.clientsecret_info.value
