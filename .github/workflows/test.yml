@@ -30,6 +30,9 @@ jobs:
           sudo apt install docker-compose ansible
           docker-compose up -d
           docker logs ansible-test -f
+          docker logs tarantool
+          docker logs krakend
+          docker-compose down
 
       - name: Lint ansible
         uses: docker/build-push-action@v4
