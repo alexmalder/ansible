@@ -2,10 +2,11 @@
 - hosts: 127.0.0.1
   connection: local
   vars:
-    keycloak_url: "http://keycloak:8080"
+    #keycloak_url: "http://keycloak:8080"
+    keycloak_url: "http://localhost:8081"
     keycloak_admin_username: "admin"
     keycloak_admin_password: "Pa55w0rd"
-    krakend_url: "http://krakend:8082"
+    krakend_url: "http://localhost:8082"
   tasks:
     - name: Apply keycloak client, authentication with credentials, direct and service account enabled
       community.general.keycloak_client:
@@ -14,6 +15,7 @@
         auth_username: "{{ keycloak_admin_username }}"
         auth_password: "{{ keycloak_admin_password }}"
         client_id: admin-rest-client
+        client_authenticator_type: client-jwt
         direct_access_grants_enabled: true
         service_accounts_enabled: true
         state: present
@@ -81,19 +83,19 @@
       debug:
         var: keycloak_user_rolemapping
 
-    - name: Get a Keycloak client secret, authentication with credentials
-      community.general.keycloak_clientsecret_info:
-        auth_keycloak_url: "{{ keycloak_url }}/auth"
-        auth_username: "{{ keycloak_admin_username }}"
-        auth_password: "{{ keycloak_admin_password }}"
-        auth_realm: master
-        client_id: admin-rest-client
-        realm: master
-      register: keycloak_clientsecret_info
-
-    - name: Debug keycloak_clientsecret_info
-      debug:
-        var: keycloak_clientsecret_info
+#    - name: Get a Keycloak client secret, authentication with credentials
+#      community.general.keycloak_clientsecret_info:
+#        auth_keycloak_url: "{{ keycloak_url }}/auth"
+#        auth_username: "{{ keycloak_admin_username }}"
+#        auth_password: "{{ keycloak_admin_password }}"
+#        auth_realm: master
+#        client_id: admin-rest-client
+#        realm: master
+#      register: keycloak_clientsecret_info
+#
+#    - name: Debug keycloak_clientsecret_info
+#      debug:
+#        var: keycloak_clientsecret_info
 
     - name: Login to keycloak behind krakend api gateway
       ansible.builtin.uri:
@@ -102,7 +104,7 @@
         body_format: form-urlencoded
         body:
           client_id: admin-rest-client
-          client_secret: "{{ keycloak_clientsecret_info.clientsecret_info.value }}"
+          #client_secret: "{{ keycloak_clientsecret_info.clientsecret_info.value }}"
           username: alexmalder
           password: denied
           grant_type: password
