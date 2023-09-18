@@ -67,13 +67,6 @@ feed:create_index('account_id', {
   if_not_exists = true
 })
 
-feed:create_index('label_id', {
-  type = 'TREE',
-  parts = {'label_id'},
-  unique = false,
-  if_not_exists = true
-})
-
 labels:create_index('primary', {
   type = 'TREE',
   parts = {'id'},

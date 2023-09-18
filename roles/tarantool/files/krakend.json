@@ -144,11 +144,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/feeds",
+      "endpoint": "/api/v1/labels",
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/feeds",
+          "url_pattern": "/labels",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -161,11 +161,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/feeds/{id}",
+      "endpoint": "/api/v1/labels/{id}",
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/feeds/{id}",
+          "url_pattern": "/labels/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -178,11 +178,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/feeds",
+      "endpoint": "/api/v1/labels",
       "method": "POST",
       "backend": [
         {
-          "url_pattern": "/feeds",
+          "url_pattern": "/labels",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -195,11 +195,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/feeds/{id}",
+      "endpoint": "/api/v1/labels/{id}",
       "method": "PUT",
       "backend": [
         {
-          "url_pattern": "/feeds/{id}",
+          "url_pattern": "/labels/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
@@ -212,11 +212,11 @@
       }
     },
     {
-      "endpoint": "/api/v1/feeds/{id}",
+      "endpoint": "/api/v1/labels/{id}",
       "method": "DELETE",
       "backend": [
         {
-          "url_pattern": "/feeds/{id}",
+          "url_pattern": "/labels/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],

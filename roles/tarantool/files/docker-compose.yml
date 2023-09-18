@@ -14,9 +14,18 @@ services:
       - ./api.lua:/opt/tarantool/.rocks/share/tarantool/override/api.lua
       - ./validation.lua:/opt/tarantool/.rocks/share/tarantool/override/validation.lua
       - tarantool_data:/var/lib/tarantool
-    #ports:
-    #  - 127.0.0.1:3301:3301
-    #  - 127.0.0.1:8090:8090
+    ports:
+      - 127.0.0.1:3301:3301
+      - 127.0.0.1:8090:8090
+    healthcheck:
+      test: tarantool_is_up
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      keycloak:
+        condition: service_healthy
+
   krakend:
     image: devopsfaith/krakend:2.4.3
     container_name: krakend
@@ -25,6 +34,14 @@ services:
       - ./krakend.json:/etc/krakend/krakend.json
     ports:
       - 127.0.0.1:8082:8082
+    healthcheck:
+      test: netstat -tulpn | grep 8082 || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      tarantool:
+        condition: service_healthy
 
   postgres-keycloak:
     image: postgres:14
@@ -36,6 +53,12 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: password
+    healthcheck:
+      test: pg_isready
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   keycloak:
     image: quay.io/keycloak/keycloak:legacy
     container_name: keycloak
@@ -53,12 +76,17 @@ services:
       KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
       KEYCLOAK_LOGLEVEL: ALL
       #JDBC_PARAMS: "ssl=true"
+    healthcheck:
+      test: curl -f http://keycloak:8080 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 30
     ports:
       - 127.0.0.1:8081:8080
     depends_on:
       - postgres-keycloak
 
-  jaeger: 
+  jaeger:
     image: jaegertracing/all-in-one:1.47
     container_name: jaeger
     restart: always
