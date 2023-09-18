@@ -92,4 +92,8 @@
 
     - name: Debug keycloak_clientsecret_info
       debug:
+        var: keycloak_clientsecret_info
+
+    - name: Debug keycloak_clientsecret_info.clientsecret_info.value
+      debug:
         var: keycloak_clientsecret_info.clientsecret_info.value
