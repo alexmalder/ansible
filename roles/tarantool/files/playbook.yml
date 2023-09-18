@@ -117,3 +117,18 @@
     - name: Debug login
       debug:
         var: login.json
+
+    - name: Get subject and roles
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/keycloak"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+        status_code:
+          - 200
+          - 201
+      register: subject_and_roles
+
+    - name: Debug subject_and_roles
+      debug:
+        var: subject_and_roles.json
