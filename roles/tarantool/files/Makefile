@@ -1,6 +1,6 @@
 up:
-	docker-compose --env-file ./.env up -d
-	ansible-playbook playbook.yml
+	docker-compose --env-file ./.env up --build -d
+	docker logs ansible-test -f
 
 down:
 	docker-compose down
