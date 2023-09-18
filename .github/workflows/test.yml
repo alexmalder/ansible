@@ -30,8 +30,8 @@ jobs:
           sudo apt install docker-compose
           docker-compose up -d
           sudo netstat -tulpn
-          docker-compose down
           curl localhost:8082
+          docker-compose down
 
       - name: Lint ansible
         uses: docker/build-push-action@v4
