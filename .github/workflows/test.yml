@@ -24,6 +24,16 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Run docker-compose
+        run: |
+          cd roles/tarantool/files
+          sudo apt install docker-compose ansible
+          docker-compose up -d
+          docker logs ansible-test -f
+          docker logs tarantool
+          docker logs krakend
+          docker-compose down
+
       - name: Lint ansible
         uses: docker/build-push-action@v4
         with:
