@@ -99,6 +99,14 @@ services:
       - "14268:14268"
       - "9411:9411"
 
+  ansible-test:
+    build: .
+    container_name: ansible-test
+    restart: 'no'
+    depends_on:
+      keycloak:
+        condition: service_healthy
+
 volumes:
   tarantool_data: null
   postgres_data: null

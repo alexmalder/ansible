@@ -2,10 +2,10 @@
 - hosts: 127.0.0.1
   connection: local
   vars:
-    keycloak_url: "http://localhost:8081"
+    keycloak_url: "http://keycloak:8080"
     keycloak_admin_username: "admin"
     keycloak_admin_password: "Pa55w0rd"
-    krakend_url: "http://localhost:8082"
+    krakend_url: "http://krakend:8082"
   tasks:
     - name: Apply keycloak client, authentication with credentials, direct and service account enabled
       community.general.keycloak_client:

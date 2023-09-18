@@ -8,4 +8,4 @@ RUN ansible-galaxy collection install community.general
 
 COPY . .
 
-RUN ansible-playbook ./playbook.yml
+CMD ["ansible-playbook", "./playbook.yml"]

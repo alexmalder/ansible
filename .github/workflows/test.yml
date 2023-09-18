@@ -29,9 +29,7 @@ jobs:
           cd roles/tarantool/files
           sudo apt install docker-compose ansible
           docker-compose up -d
-          sudo netstat -tulpn
-          ansible-playbook playbook.yml
-          docker-compose down
+          docker logs ansible-test -f
 
       - name: Lint ansible
         uses: docker/build-push-action@v4
