@@ -27,8 +27,8 @@
 
 - name: Push lua files
   ansible.builtin.template:
-    src: "roles/tarantool/files/{{item.src}}"
-    dest: "/etc/tarantool/instances.available/{{item.dest}}"
+    src: "roles/tarantool/files/{{ item.src }}"
+    dest: "/etc/tarantool/instances.available/{{ item.dest }}"
     owner: tarantool
     group: tarantool
     mode: '0640'

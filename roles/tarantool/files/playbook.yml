@@ -5,6 +5,7 @@
     keycloak_url: "http://localhost:8081"
     keycloak_admin_username: "admin"
     keycloak_admin_password: "Pa55w0rd"
+    krakend_url: "http://localhost:8082"
   tasks:
     - name: Apply keycloak client, authentication with credentials, direct and service account enabled
       community.general.keycloak_client:
@@ -18,6 +19,10 @@
         state: present
       register: keycloak_client
 
+    - name: Debug keycloak_client
+      debug:
+        var: keycloak_client
+
     - name: Create a Keycloak realm role, authentication with credentials
       community.general.keycloak_role:
         auth_keycloak_url: "{{ keycloak_url }}/auth"
@@ -29,6 +34,10 @@
         realm: master
         state: present
       register: keycloak_role
+
+    - name: Debug keycloak_role
+      debug:
+        var: keycloak_role
 
     - name: Create user
       community.general.keycloak_user:
@@ -50,6 +59,10 @@
         state: present
       register: keycloak_user
 
+    - name: Debug keycloak_user
+      debug:
+        var: keycloak_user
+
     - name: Map a client role to a user, authentication with credentials
       community.general.keycloak_user_rolemapping:
         auth_keycloak_url: "{{ keycloak_url }}/auth"
@@ -64,6 +77,10 @@
           - name: admin-rest-client-master-role
       register: keycloak_user_rolemapping
 
+    - name: Debug keycloak_user_rolemapping
+      debug:
+        var: keycloak_user_rolemapping
+
     - name: Get a Keycloak client secret, authentication with credentials
       community.general.keycloak_clientsecret_info:
         auth_keycloak_url: "{{ keycloak_url }}/auth"
@@ -74,26 +91,26 @@
         realm: master
       register: keycloak_clientsecret_info
 
-    - name: Debug keycloak_client
-      debug:
-        var: keycloak_client
-
-    - name: Debug keycloak_role
-      debug:
-        var: keycloak_role
-
-    - name: Debug keycloak_user
-      debug:
-        var: keycloak_user
-
-    - name: Debug keycloak_user_rolemapping
-      debug:
-        var: keycloak_user_rolemapping
-
     - name: Debug keycloak_clientsecret_info
       debug:
         var: keycloak_clientsecret_info
 
-    - name: Debug keycloak_clientsecret_info.clientsecret_info.value
+    - name: Login to keycloak behind krakend api gateway
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/auth/sign-in"
+        method: POST
+        body_format: form-urlencoded
+        body:
+          client_id: admin-rest-client
+          client_secret: "{{ keycloak_clientsecret_info.clientsecret_info.value }}"
+          username: alexmalder
+          password: denied
+          grant_type: password
+        status_code:
+          - 200
+          - 201
+      register: login
+
+    - name: Debug login
       debug:
-        var: keycloak_clientsecret_info.clientsecret_info.value
+        var: login.json

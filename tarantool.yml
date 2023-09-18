@@ -1,6 +1,5 @@
 ---
 - name: Deploy tarantool
-  hosts:
-  - cloud0
+  hosts: cloud0
   roles:
     - tarantool
