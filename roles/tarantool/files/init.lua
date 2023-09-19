@@ -103,5 +103,9 @@ server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'GET'}, get_feed
 server:route({path = '/keycloak/:sub/:roles/feed', method = 'POST'}, post_feed)
 server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'PUT'}, put_feed)
 server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'DELETE'}, delete_feed)
+-- feed label modifications
+server:route({path = '/keycloak/:sub/:roles/fl', method = 'POST'}, post_feed_label)
+server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'PUT'}, put_feed_label)
+server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'DELETE'}, delete_feed_label)
 -- server starting
 server:start()

@@ -132,3 +132,43 @@
     - name: Debug subject_and_roles
       debug:
         var: subject_and_roles.json
+
+    - name: Post label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/labels"
+        method: POST
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: new_title
+          description: new_description
+        status_code:
+          - 200
+          - 201
+      register: label
+
+    - name: Debug label
+      debug:
+        var: label
+
+    - name: Post feed
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/feeds"
+        method: POST
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: new_title
+          link: new_link
+        status_code:
+          - 200
+          - 201
+      register: feed
+
+    - name: Debug feed
+      debug:
+        var: feed

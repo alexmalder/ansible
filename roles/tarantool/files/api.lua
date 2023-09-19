@@ -48,10 +48,14 @@ end
 
 function post_label(req)
   local lua_table = req:json()
+  print(lua_table)
   local errstack = validate_schema(lua_table, label_schema)
+  print(errstack)
   if next(errstack) == nil then
     local label = box.space.labels:insert{
-      uuid.new(), lua_table['title'], lua_table['description']
+      uuid.new(),
+      lua_table['title'],
+      lua_table['description']
     }
     return req:render{
       json = {
@@ -105,7 +109,6 @@ function put_label(req)
   end
 end
 
--- delete label by id
 function delete_label(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
@@ -146,13 +149,15 @@ end
 
 function post_feed(req)
   local lua_table = req:json()
+  local sub = req:stash('sub')
+  print(lua_table, sub)
   local errstack = validate_schema(lua_table, feed_schema)
   if next(errstack) == nil then
     local items = box.space.feed:insert{
       uuid.new(),
       lua_table['title'],
       lua_table['link'],
-      lua_table['account_id'],
+      uuid.fromstr(sub),
     }
     return req:render{
       json = {
@@ -214,10 +219,73 @@ function put_feed(req)
   end
 end
 
--- delete feed by id
 function delete_feed(req)
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
   local items = box.space.feed.index.primary:delete{uuid_id}
   return req:render{json = {['data'] = items}}
+end
+
+-- fl api
+function post_feed_label(req)
+  local lua_table = req:json()
+  local errstack = validate_schema(lua_table, feed_label_schema)
+  if next(errstack) == nil then
+    local items = box.space.feed:insert{
+      lua_table['feed_id'],
+      lua_table['label_id'],
+    }
+    return req:render{
+      json = {
+        ['data'] = {
+          ['feed_id'] = items[1],
+          ['label_id'] = items[2],
+        }
+      }
+    }
+  else
+    local resp = req:render{
+      json = {
+        ['data'] = errstack
+      }
+    }
+    print_table("ERROR STACK", errstack)
+    resp.headers['X-Tarantool-Error'] = 'Validation';
+    resp.status = 400
+    return resp
+  end
+end
+
+function put_feed_label(req)
+  local feed_id = req:stash('feed_id')
+  local label_id = req:stash('label_id')
+  local uuid_feed_id = uuid.fromstr(feed_id)
+  local uuid_label_id = uuid.fromstr(label_id)
+  local label = box.space.feed_labels.index.primary:update({uuid_feed_id, uuid_label_id}, {
+    {
+      '=',
+      lua_table['feed_id'],
+      lua_table['label_id']
+    }
+  })
+  return req:render{
+    json = {
+      ['data'] = {
+        ['feed_id'] = label[1],
+        ['label_id'] = label[2],
+      }
+    }
+  }
+end
+
+function delete_feed_label(req)
+  local feed_id = req:stash('feed_id')
+  local uuid_feed_id = uuid.fromstr(feed_id)
+  local label_id = req:stash('label_id')
+  local uuid_feed_id = uuid.fromstr(feed_id)
+  local fl = box.space.feed_labels.index.primary:delete({
+    feed_id,
+    label_id
+  })
+  return req:render{json = {['data'] = fl}}
 end

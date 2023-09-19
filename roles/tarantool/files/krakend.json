@@ -18,7 +18,8 @@
           "buffer_max_count": 1000
         }
       }
-    }
+    },
+    "input_headers": ["User-Agent", "Accept", "Authorization", "Content-Type"]
   },
   "endpoints": [
     {
@@ -95,6 +96,7 @@
     {
       "endpoint": "/api/v1/feeds",
       "method": "POST",
+      "output_encoding": "no-op",
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds",
@@ -180,6 +182,7 @@
     {
       "endpoint": "/api/v1/labels",
       "method": "POST",
+      "output_encoding": "no-op",
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
