@@ -46,10 +46,6 @@ lsp.gopls.setup {
 lsp.dartls.setup {
   capabilities = capabilities
 }
-lsp.lua_ls.setup {
-  cmd = {"/opt/local/bin/lua-language-server"},
-  capabilities = capabilities
-}
 lsp.omnisharp.setup{
     cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
     capabilities = capabilities
@@ -60,6 +56,7 @@ lsp.pyright.setup {
 lsp.yamlls.setup {
     capabilities = capabilities
 }
+--lsp.lua_ls.setup { cmd = {"/opt/local/bin/lua-language-server"}, capabilities = capabilities }
 --lsp.ansiblels.setup { cmd = { "ansible-language-server", "--stdio" }, filetypes = { "yaml.ansible" }, }
 lsp.rust_analyzer.setup{
     capabilities = capabilities
