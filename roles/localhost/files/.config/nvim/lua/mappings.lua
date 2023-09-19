@@ -10,21 +10,19 @@ map('v', '>', '>gv', opts)
 map('n', 'f', ':FZF<CR>', opts)
 map('n', 'r', ':Rg<CR>', opts)
 
--- resizing
+-- spaces
 map('n', '<space>l', ':vertical resize -15<CR>', opts)
 map('n', '<space>h', ':vertical resize +15<CR>', opts)
 map('n', '<space>j', ':resize -15<CR>', opts)
 map('n', '<space>k', ':resize +15<CR>', opts)
 map('n', '<space>n', ':NnnPicker %:p:h<CR>', opts)
-map('n', '<space>s', ':Lspsaga hover_doc<CR>', opts)
+--map('n', '<space>s', ':Lspsaga hover_doc<CR>', opts)
 map('n', '<space>b', ':Buffers<CR>', opts)
+map("n", "<tab>", ":lua require('fold-cycle').open()<CR>", opts)
+map("n", "<s-tab>", ":lua require('fold-cycle').open()<CR>", opts)
+map('n', 'gd', '<Cmd>lua require"telescope.builtin".lsp_definitions()<CR>', opts)
 
-map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+-- alt and control
 map('n', '<C-,>', '<Cmd>BufferPrevious<CR>', opts)
 map('n', '<C-.>', '<Cmd>BufferNext<CR>', opts)
 map('n', '<C-<>', '<Cmd>BufferMovePrevious<CR>', opts)
