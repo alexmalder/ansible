@@ -22,4 +22,4 @@ debug:
 	docker volume rm files_tarantool_data || exit 0
 	docker-compose --env-file ./.env up -d tarantool
 	docker-compose --env-file ./.env up -d krakend
-	http get localhost:8082/api/v1/keycloak "Authorization: Bearer ${TOKEN}"
+	docker-compose --env-file ./.env up ansible-test
