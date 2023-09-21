@@ -2,9 +2,12 @@
   "$schema": "https://www.krakend.io/schema/v2.4/krakend.json",
   "version": 3,
   "port": 8082,
+  "client_tls": {
+    "allow_insecure_connections": true
+  },
   "extra_config": {
     "telemetry/logging": {
-      "level": "INFO",
+      "level": "DEBUG",
       "prefix": "[KRAKEND]",
       "syslog": false,
       "stdout": true
@@ -183,15 +186,18 @@
     {
       "endpoint": "/api/v1/labels",
       "method": "POST",
-      "output_encoding": "no-op",
+      "output_encoding": "json",
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
-          "encoding": "no-op",
+          "encoding": "json",
           "host": ["https://haproxy:443"]
         }
       ],
       "extra_config": {
+        "validation/json-schema": {
+          "type": "object"
+        },
         "auth/validator": {
           "alg": "RS256",
           "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",

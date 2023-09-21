@@ -40,7 +40,7 @@ services:
       timeout: 5s
       retries: 3
     depends_on:
-      haproxy:
+      tarantool:
         condition: service_healthy
 
   postgres-keycloak:
@@ -77,7 +77,7 @@ services:
       KEYCLOAK_LOGLEVEL: ALL
       #JDBC_PARAMS: "ssl=true"
     healthcheck:
-      test: curl -f http://keycloak:8080 || exit 1
+      test: curl http://keycloak:8080 || exit 1
       interval: 10s
       timeout: 5s
       retries: 30
@@ -106,7 +106,7 @@ services:
     container_name: haproxy
     restart: always
     healthcheck:
-      test: curl -f https://haproxy:443 --insecure || exit 1
+      test: curl https://haproxy:443 --insecure || exit 1
       interval: 10s
       timeout: 5s
       retries: 30
