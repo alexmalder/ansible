@@ -185,19 +185,20 @@
     },
     {
       "endpoint": "/api/v1/labels",
+      "input_query_strings": [
+        "title",
+        "description"
+      ],
       "method": "POST",
-      "output_encoding": "json",
+      "output_encoding": "no-op",
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
-          "encoding": "json",
+          "encoding": "no-op",
           "host": ["https://haproxy:443"]
         }
       ],
       "extra_config": {
-        "validation/json-schema": {
-          "type": "object"
-        },
         "auth/validator": {
           "alg": "RS256",
           "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",

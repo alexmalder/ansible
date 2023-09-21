@@ -47,8 +47,13 @@ function get_label(req)
 end
 
 function post_label(req)
-  local lua_table = req:json()
-  print(lua_table)
+  local title = req:post_param('title')
+  local description = req:post_param('description')
+  print("QUERY", title, description)
+  local lua_table = {
+    ['title'] = title,
+    ['description'] = description
+  }
   local errstack = validate_schema(lua_table, label_schema)
   print(errstack)
   if next(errstack) == nil then
@@ -148,6 +153,7 @@ function get_feed(req)
 end
 
 function post_feed(req)
+  print("REQ QUERY", req.query)
   local lua_table = req:json()
   local sub = req:stash('sub')
   print(lua_table, sub)
@@ -228,7 +234,13 @@ end
 
 -- fl api
 function post_feed_label(req)
-  local lua_table = req:json()
+  local feed_id = req:post_param(feed_id)
+  local label_id = req:post_param(label_id)
+  print(feed_id, label_id)
+  local lua_table = {
+    ['feed_id'] = feed_id,
+    ['label_id'] = label_id
+  }
   local errstack = validate_schema(lua_table, feed_label_schema)
   if next(errstack) == nil then
     local items = box.space.feed:insert{
