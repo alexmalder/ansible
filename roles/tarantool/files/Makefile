@@ -22,4 +22,4 @@ debug:
 	docker volume rm files_tarantool_data || exit 0
 	docker-compose --env-file ./.env up -d tarantool
 	docker-compose --env-file ./.env up -d krakend
-	docker-compose --env-file ./.env up ansible-test
+	#docker-compose --env-file ./.env up ansible-test

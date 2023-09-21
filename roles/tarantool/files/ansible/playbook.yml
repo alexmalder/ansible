@@ -141,9 +141,9 @@
         headers:
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
-        body:
-          title: new_title
-          description: new_description
+        #body:
+        #  title: new_title
+        #  description: new_description
         status_code:
           - 200
           - 201

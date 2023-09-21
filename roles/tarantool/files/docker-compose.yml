@@ -99,23 +99,6 @@ services:
       - "14268:14268"
       - "9411:9411"
 
-  haproxy:
-    build:
-      context: ./haproxy
-      dockerfile: Dockerfile
-    container_name: haproxy
-    restart: always
-    healthcheck:
-      test: curl https://haproxy:443 --insecure || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 30
-    ports:
-      - 443:443
-    depends_on:
-      tarantool:
-        condition: service_healthy
-
   ansible-test:
     build:
       context: ./ansible

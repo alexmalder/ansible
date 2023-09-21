@@ -28,10 +28,22 @@
   "endpoints": [
     {
       "endpoint": "/",
+      "method": "GET",
       "backend": [
         {
           "url_pattern": "/",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/",
+      "method": "POST",
+      "input_query_strings": ["login", "password"],
+      "backend": [
+        {
+          "url_pattern": "/",
+          "host": ["http://tarantool:8090"]
         }
       ]
     },
@@ -59,7 +71,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ]
     },
@@ -69,7 +81,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -86,7 +98,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds/{id}",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -104,7 +116,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -121,7 +133,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds/{id}",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -138,7 +150,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds/{id}",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -155,7 +167,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -172,7 +184,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -185,17 +197,11 @@
     },
     {
       "endpoint": "/api/v1/labels",
-      "input_query_strings": [
-        "title",
-        "description"
-      ],
       "method": "POST",
-      "output_encoding": "no-op",
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
-          "encoding": "no-op",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -212,7 +218,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
@@ -229,7 +235,7 @@
       "backend": [
         {
           "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
-          "host": ["https://haproxy:443"]
+          "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {

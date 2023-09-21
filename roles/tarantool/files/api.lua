@@ -46,9 +46,22 @@ function get_label(req)
   return req:render{json = {['data'] = a}}
 end
 
+function check_login(req)
+  local login = req:param('login')
+  local password = req:param('password')
+  return req:render{
+    json = {
+      ['data'] = {
+        ['login'] = login,
+        ['password'] = password,
+      }
+    }
+  }
+end
+
 function post_label(req)
-  local title = req:post_param('title')
-  local description = req:post_param('description')
+  local title = req:param('title')
+  local description = req:param('description')
   print("QUERY", title, description)
   local lua_table = {
     ['title'] = title,
