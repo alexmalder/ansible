@@ -7,6 +7,13 @@ down:
 	docker volume rm files_tarantool_data
 	docker volume rm files_postgres_data
 
+test_docker:
+	docker-compose --env-file ./.env up --build -d
+	docker logs ansible-test -f
+	docker-compose down
+	docker volume rm files_tarantool_data
+	docker volume rm files_postgres_data
+
 connect:
 	docker exec -it tarantool tarantoolctl connect tarantool:tarantool@127.0.0.1:3301
 
@@ -24,8 +31,7 @@ debug:
 	docker-compose --env-file ./.env up -d krakend
 
 deploy_helm:
-	kubectl apply -f ./helm/tarantool.files.configmap.yaml
-	kubectl apply -f ./helm/tarantool.init.configmap.yaml
-	kubectl apply -f ./helm/tarantool.yaml
-	helm upgrade --install keycloak bitnami/keycloak --version 9.2.2 -f ./helm/keycloak.values.yaml
+	helm install ingress-nginx nginx-stable/nginx-ingress --create-namespace --namespace ingress-nginx
+	helm upgrade --install keycloak bitnami/keycloak -f ./helm/keycloak.values.yaml
 	helm upgrade --install krakend equinixmetal/krakend -f ./helm/krakend.values.yaml
+	#kubectl apply -f ./helm/tarantool.yaml
