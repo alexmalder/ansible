@@ -133,17 +133,34 @@
       debug:
         var: subject_and_roles.json
 
-    - name: Post label
+    - name: Post check login
       ansible.builtin.uri:
-        url: "{{ krakend_url }}/api/v1/labels?title=new_title&description=new_description"
+        url: "{{ krakend_url }}?login=vnmntn&password=denied"
         method: POST
         body_format: json
         headers:
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
-        #body:
-        #  title: new_title
-        #  description: new_description
+        status_code:
+          - 200
+          - 201
+      register: check_login
+
+    - name: Debug check_login
+      debug:
+        var: check_login
+
+    - name: Post label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/labels"
+        method: POST
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: new_title
+          description: new_description
         status_code:
           - 200
           - 201
