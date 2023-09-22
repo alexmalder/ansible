@@ -1,0 +1,118 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tarantool-init-lua
+data:
+  init.lua: |
+    require('api')
+
+    box.cfg {listen = 3301}
+
+    box.schema.user.create('tarantool', {
+      password = 'tarantool',
+      if_not_exists = true
+    })
+
+    box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil, {
+      if_not_exists = true
+    })
+
+    -- spaces and formats
+    local feed = box.schema.create_space("feed", {
+      if_not_exists = true
+    })
+
+    feed:format({
+      {name = 'id', type = 'uuid'},
+      {name = 'title', type = 'string'},
+      {name = 'link', type = 'string'},
+      {name = 'account_id', type = 'uuid'},
+      if_not_exists = true
+    })
+
+    local labels = box.schema.create_space("labels", {
+      if_not_exists = true
+    })
+
+    labels:format({
+      {name = 'id', type = 'uuid'},
+      {name = 'title', type = 'string'},
+      {name = 'description', type = 'string'},
+      if_not_exists = true
+    })
+
+    local feed_labels = box.schema.create_space("feed_labels", {
+      if_not_exists = true
+    })
+
+    feed_labels:format({
+      {name = 'feed_id', type = 'uuid'},
+      {name = 'label_id', type = 'uuid'},
+      if_not_exists = true
+    })
+
+    -- setup indexes
+    feed:create_index('primary', {
+      type = 'TREE',
+      parts = {'id'},
+      unique = true,
+      if_not_exists = true
+    })
+
+    feed:create_index('title', {
+      type = 'TREE',
+      parts = {'title'},
+      unique = true,
+      if_not_exists = true
+    })
+
+    feed:create_index('account_id', {
+      type = 'TREE',
+      parts = {'account_id'},
+      unique = false,
+      if_not_exists = true
+    })
+
+    labels:create_index('primary', {
+      type = 'TREE',
+      parts = {'id'},
+      unique = true,
+      if_not_exists = true
+    })
+
+    labels:create_index('title', {
+      type = 'TREE',
+      parts = {'title'},
+      unique = true,
+      if_not_exists = true
+    })
+
+    feed_labels:create_index('ids', {
+      type = 'TREE',
+      parts = {'feed_id', 'label_id'},
+      unique = true,
+      if_not_exists = true
+    })
+
+    local server = require('http.server').new(nil, 8090, {charset = "utf8"})
+    server:route({path = '/', method = 'GET'}, default_handler)
+    server:route({path = '/keycloak/:sub/:roles', method = 'GET'}, keycloak_handler)
+    -- labels crud
+    server:route({path = '/keycloak/:sub/:roles/labels', method = 'GET'}, get_labels)
+    server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'GET'}, get_label)
+    server:route({path = '/keycloak/:sub/:roles/labels', method = 'POST'}, post_label)
+    server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'PUT'}, put_label)
+    server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'DELETE'}, delete_label)
+    -- feed crud
+    server:route({path = '/keycloak/:sub/:roles/feed', method = 'GET'}, get_feeds)
+    server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'GET'}, get_feed)
+    server:route({path = '/keycloak/:sub/:roles/feed', method = 'POST'}, post_feed)
+    server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'PUT'}, put_feed)
+    server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'DELETE'}, delete_feed)
+    -- feed label modifications
+    server:route({path = '/keycloak/:sub/:roles/fl', method = 'POST'}, post_feed_label)
+    server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'PUT'}, put_feed_label)
+    server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'DELETE'}, delete_feed_label)
+    -- server starting
+    server:start()

@@ -22,4 +22,10 @@ debug:
 	docker volume rm files_tarantool_data || exit 0
 	docker-compose --env-file ./.env up -d tarantool
 	docker-compose --env-file ./.env up -d krakend
-	#docker-compose --env-file ./.env up ansible-test
+
+deploy_helm:
+	kubectl apply -f ./helm/tarantool.files.configmap.yaml
+	kubectl apply -f ./helm/tarantool.init.configmap.yaml
+	kubectl apply -f ./helm/tarantool.yaml
+	helm upgrade --install keycloak bitnami/keycloak --version 9.2.2 -f ./helm/keycloak.values.yaml
+	helm upgrade --install krakend equinixmetal/krakend -f ./helm/krakend.values.yaml

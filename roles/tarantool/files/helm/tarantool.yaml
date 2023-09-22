@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarantool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarantool
+  template:
+    metadata:
+      labels:
+        app: tarantool
+    spec:
+      containers:
+      - name: tarantool
+        image: tarantool/tarantool:2
+        command: ["tarantool"]
+        args: ["/opt/tarantool/app/init.lua"]
+        env:
+        - name: TARANTOOL_USER_NAME
+          value: "tarantool"
+        - name: TARANTOOL_PASSWORD
+          value: "tarantool"
+        volumeMounts:
+        - name: tarantool-init-lua
+          mountPath: /opt/tarantool/app
+        - name: tarantool-files-lua
+          mountPath: /opt/tarantool/.rocks/share/tarantool/override
+      volumes:
+        - name: tarantool-init-lua
+          configMap:
+            name: tarantool-init-lua
+            items:
+            - key: init.lua
+              path: init.lua
+        - name: tarantool-files-lua
+          configMap:
+            name: tarantool-files-lua
+            items:
+            - key: api.lua
+              path: api.lua
+            - key: validation.lua
+              path: validation.lua
