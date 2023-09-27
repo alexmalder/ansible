@@ -47,9 +47,14 @@ feed_schema = {
   }
 }
 
-feed_labels_schema = {
+feed_label_schema = {
   properties = {
     feed_id = {
+      type = 'string',
+      min = 4,
+      max = 128,
+    },
+    label_id = {
       type = 'string',
       min = 4,
       max = 128,
@@ -168,7 +173,7 @@ function validate_schema(json_object, schema)
       table.insert(schema_keys, schema_key)
     end
     if inArray(schema_keys, json_key) == false then
-      table.insert(errstack, key_extra_error(json_key, json_object[json_key]))      
+      table.insert(errstack, key_extra_error(json_key, json_object[json_key]))
     end
   end
 

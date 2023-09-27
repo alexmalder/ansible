@@ -21,7 +21,7 @@ feed:
   type: uuid
 - name: title
   type: string
-- name: link 
+- name: link
   type: string
 - name: account_id
   type: uuid

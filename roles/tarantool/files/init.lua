@@ -1,3 +1,6 @@
+local uuid = require('uuid')
+local json = require('json')
+
 require('api')
 
 box.cfg {listen = 3301}
@@ -67,13 +70,6 @@ feed:create_index('account_id', {
   if_not_exists = true
 })
 
-feed:create_index('label_id', {
-  type = 'TREE',
-  parts = {'label_id'},
-  unique = false,
-  if_not_exists = true
-})
-
 labels:create_index('primary', {
   type = 'TREE',
   parts = {'id'},
@@ -97,18 +93,25 @@ feed_labels:create_index('ids', {
 
 local server = require('http.server').new(nil, 8090, {charset = "utf8"})
 server:route({path = '/', method = 'GET'}, default_handler)
+server:route({path = '/', method = 'POST'}, check_login)
 server:route({path = '/keycloak/:sub/:roles', method = 'GET'}, keycloak_handler)
 -- labels crud
-server:route({path = '/labels', method = 'GET'}, get_labels)
-server:route({path = '/labels/:id', method = 'GET'}, get_label)
-server:route({path = '/labels', method = 'POST'}, post_label)
-server:route({path = '/labels/:id', method = 'PUT'}, put_label)
-server:route({path = '/labels/:id', method = 'DELETE'}, delete_label)
+server:route({path = '/keycloak/:sub/:roles/labels', method = 'GET'}, get_labels)
+server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'GET'}, get_label)
+server:route({path = '/keycloak/:sub/:roles/labels', method = 'POST'}, post_label)
+--server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'PUT'}, put_label)
+server:route({path = '/keycloak/:sub/:roles/labels', method = 'PUT'}, put_label)
+server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'DELETE'}, delete_label)
 -- feed crud
-server:route({path = '/feed', method = 'GET'}, get_feeds)
-server:route({path = '/feed/:id', method = 'GET'}, get_feed)
-server:route({path = '/feed', method = 'POST'}, post_feed)
-server:route({path = '/feed/:id', method = 'PUT'}, put_feed)
-server:route({path = '/feed/:id', method = 'DELETE'}, delete_feed)
+server:route({path = '/keycloak/:sub/:roles/feed', method = 'GET'}, get_feeds)
+server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'GET'}, get_feed)
+server:route({path = '/keycloak/:sub/:roles/feed', method = 'POST'}, post_feed)
+server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'PUT'}, put_feed)
+server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'DELETE'}, delete_feed)
+-- feed label modifications
+server:route({path = '/keycloak/:sub/:roles/fl', method = 'POST'}, post_feed_label)
+server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'PUT'}, put_feed_label)
+server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'DELETE'}, delete_feed_label)
+
 -- server starting
 server:start()
