@@ -9,6 +9,7 @@
 -- ░░░   ░░  ░░░░░░  ░░░░░░     ░░    ░░ ░░░  ░░  ░░
 require 'plugins'
 require 'options'
+require 'telescope-zoxide'
 require 'mappings'
 require 'lsp'
 require 'colors'

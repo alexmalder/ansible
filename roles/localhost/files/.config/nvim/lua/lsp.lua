@@ -1,86 +1,69 @@
 -- LSP
-local lsp = require "lspconfig"
+local lsp = require("lspconfig")
 local luasnip = require("luasnip")
-local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
+local cmp = require("cmp")
 
-local feedkey = function(key, mode)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-local cmp = require "cmp"
 cmp.setup({
     snippet = {
-        expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-        end,
+      expand = function(args)
+        luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      end,
     },
-    mapping = {
-        --['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        --['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            elseif has_words_before() then
-                cmp.complete()
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
-
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-
-                fallback()
-            end
-        end, { "i", "s" }),
-        ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-y>'] = cmp.config.disable,
-        ['<C-e>'] = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        }),
+    mapping = cmp.mapping.preset.insert({
+        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    },
+    }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        --{ name = 'luasnip' },
         { name = 'path' },
         { name = 'buffer' },
-        --{ name = 'nvim_lsp_signature_help' }
+        { name = 'nvim_lsp_signature_help' }
     })
 })
+
 cmp.setup.cmdline('/', {
     sources = {
         { name = 'path' }
     }
 })
 
-lsp.bashls.setup {}
-lsp.tsserver.setup {}
-lsp.gopls.setup {}
-lsp.dartls.setup {}
-lsp.lua_ls.setup { cmd = {"/opt/local/bin/lua-language-server"}; }
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+lsp.bashls.setup {
+  capabilities = capabilities
+}
+lsp.tsserver.setup {
+  capabilities = capabilities
+}
+lsp.gopls.setup {
+  capabilities = capabilities
+}
+lsp.dartls.setup {
+  capabilities = capabilities
+}
 lsp.omnisharp.setup{
     cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
+    capabilities = capabilities
 }
-lsp.pyright.setup {}
-lsp.yamlls.setup {}
+lsp.pyright.setup {
+    capabilities = capabilities
+}
+lsp.yamlls.setup {
+    capabilities = capabilities
+}
+--lsp.lua_ls.setup { cmd = {"/opt/local/bin/lua-language-server"}, capabilities = capabilities }
 --lsp.ansiblels.setup { cmd = { "ansible-language-server", "--stdio" }, filetypes = { "yaml.ansible" }, }
-lsp.rust_analyzer.setup{}
+lsp.rust_analyzer.setup{
+    capabilities = capabilities
+}
 lsp.clangd.setup{
     cmd = { "/usr/bin/clangd" },
     filetypes = { "c", "cpp", "objc" },
+    capabilities = capabilities
 }
 lsp.jdtls.setup{}

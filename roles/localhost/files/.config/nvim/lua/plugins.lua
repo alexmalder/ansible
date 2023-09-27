@@ -21,11 +21,10 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
-    use 'ray-x/lsp_signature.nvim'
     use 'kkharji/lspsaga.nvim'
     use 'mfussenegger/nvim-jdtls'
 
-    --use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
 
     use {
       "cuducos/yaml.nvim",
@@ -35,8 +34,6 @@ return require('packer').startup(function()
         "nvim-telescope/telescope.nvim" -- optional
       },
     }
-
-
     use 'williamboman/nvim-lsp-installer'
     -- SEARCH ENGINE
     use 'junegunn/fzf'
@@ -52,12 +49,11 @@ return require('packer').startup(function()
     use 'neg-serg/neg.nvim'
     use 'windwp/windline.nvim'
     use 'kyazdani42/nvim-web-devicons'
-    --use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
     use 'akinsho/bufferline.nvim'
     -- SYNTAX
     use 'makerj/vim-pdf'
     use 'bfrg/vim-cpp-modern'
-    --use 'sheerun/vim-polyglot'
+    use 'sheerun/vim-polyglot'
     -- FORMATTERS
     use 'vim-autoformat/vim-autoformat'
     use 'sbdchd/neoformat'
@@ -78,4 +74,10 @@ return require('packer').startup(function()
       },
     }
     use 'xiyaowong/nvim-transparent'
+    use {
+      'jghauser/fold-cycle.nvim',
+      config = function()
+        require('fold-cycle').setup()
+      end
+    }
 end)
