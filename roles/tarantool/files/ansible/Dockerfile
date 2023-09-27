@@ -8,4 +8,4 @@ RUN ansible-galaxy collection install community.general
 
 COPY . .
 
-CMD ["ansible-playbook", "./playbook.yml"]
+CMD ["ansible-playbook", "./playbook.yml", "-e", "keycloak_url=http://keycloak:8080/auth", "-e", "krakend_url=http://krakend:8082"]

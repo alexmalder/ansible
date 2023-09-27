@@ -71,7 +71,7 @@ services:
       DB_SCHEMA: public
       DB_PASSWORD: password
       KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
+      KEYCLOAK_PASSWORD: 0qw0db3Dt6haYbyR
       PROXY_ADDRESS_FORWARDING: 'true'
       KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
       KEYCLOAK_LOGLEVEL: ALL
