@@ -1,6 +1,6 @@
 ---
 - name: Setup sshd without password login
-  hosts: hypervisor
+  hosts: cloud0
   roles:
     - name: Use sshd role
       role: sshd
