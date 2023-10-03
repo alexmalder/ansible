@@ -7,13 +7,13 @@
   connection: local
   tasks:
     - name: Register inventory
-      ansible.builtin.command: pass show ansible/inventory/inventory.yaml
+      ansible.builtin.command: pass show ansible/inventory.yaml
       register: inventory_yaml
       changed_when: inventory_yaml.rc == 0
       failed_when: inventory_yaml.rc != 0
 
     - name: Register netrc
-      ansible.builtin.command: pass show ansible/git/netrc.yaml
+      ansible.builtin.command: pass show ansible/netrc.yaml
       register: netrc
       changed_when: netrc.rc == 0
       failed_when: netrc.rc != 0
