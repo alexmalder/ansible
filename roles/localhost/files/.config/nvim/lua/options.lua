@@ -73,6 +73,7 @@ neogit.setup()
 -- Lua initialization file
 --vim.cmd [[colorscheme vscode]]
 
+
 require("transparent").setup({
   groups = { -- table: default groups
     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
@@ -83,6 +84,5 @@ require("transparent").setup({
   extra_groups = {}, -- table: additional groups that should be cleared
   exclude_groups = {}, -- table: groups you don't want to clear
 })
-
 
 vim.cmd('let g:rainbow_active = 1')

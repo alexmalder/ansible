@@ -1,83 +1,67 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
-local execute = vim.api.nvim_command
-vim.o.termguicolors = true
-if fn.empty(fn.glob(install_path)) > 0 then
-    execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-    execute('packadd packer.nvim')
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
-vim.cmd [[packadd packer.nvim]]
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function()
-    -- INITIALIZE
-    use 'wbthomason/packer.nvim'
-    -- LSP
-    use { 'hrsh7th/nvim-cmp' }
-    use { 'saadparwaiz1/cmp_luasnip' }
-    use { 'L3MON4D3/LuaSnip' }
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'bluz71/vim-moonfly-colors'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'kkharji/lspsaga.nvim'
-    use 'mfussenegger/nvim-jdtls'
+vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
-
-    use {
-      "cuducos/yaml.nvim",
-      ft = { "yaml" }, -- optional
-      requires = {
-        "nvim-treesitter/nvim-treesitter",
-        "nvim-telescope/telescope.nvim" -- optional
-      },
-    }
-    use 'williamboman/nvim-lsp-installer'
-    -- SEARCH ENGINE
-    use 'junegunn/fzf'
-    use 'junegunn/fzf.vim'
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use "nvim-telescope/telescope.nvim"
-    -- COMPLETION
-    use 'windwp/nvim-autopairs'
-    -- UI/UX
-    use 'frazrepo/vim-rainbow'
-    use 'mcchrish/nnn.vim'
-    use 'Mofiqul/vscode.nvim'
-    use 'neg-serg/neg.nvim'
-    use 'windwp/windline.nvim'
-    use 'kyazdani42/nvim-web-devicons'
-    use 'akinsho/bufferline.nvim'
-    -- SYNTAX
-    use 'makerj/vim-pdf'
-    use 'bfrg/vim-cpp-modern'
-    use 'sheerun/vim-polyglot'
-    -- FORMATTERS
-    use 'vim-autoformat/vim-autoformat'
-    use 'sbdchd/neoformat'
-    -- GIT
-    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-    use 'sindrets/diffview.nvim'
-    use 'NeogitOrg/neogit'
-
-    use 'sharksforarms/neovim-rust'
-    use 'ajeetdsouza/zoxide'
-    use 'jvgrootveld/telescope-zoxide'
-
-    use {
-      'akinsho/flutter-tools.nvim',
-      requires = {
-          'nvim-lua/plenary.nvim',
-          'stevearc/dressing.nvim'
-      },
-    }
-    use 'xiyaowong/nvim-transparent'
-    use {
-      'jghauser/fold-cycle.nvim',
-      config = function()
-        require('fold-cycle').setup()
-      end
-    }
-end)
+require("lazy").setup(
+  {
+  { 'hrsh7th/nvim-cmp' },
+  { 'saadparwaiz1/cmp_luasnip' },
+  { 'L3MON4D3/LuaSnip' },
+  { 'neovim/nvim-lspconfig' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'bluz71/vim-moonfly-colors' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-cmdline' },
+  { 'kkharji/lspsaga.nvim' },
+  { 'mfussenegger/nvim-jdtls' },
+  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+	{
+	  "cuducos/yaml.nvim",
+	  ft = { "yaml" }, -- optional
+	},
+  'williamboman/nvim-lsp-installer',
+  'junegunn/fzf',
+  'junegunn/fzf.vim',
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  "nvim-telescope/telescope.nvim",
+  'windwp/nvim-autopairs',
+  'frazrepo/vim-rainbow',
+  'mcchrish/nnn.vim',
+  'Mofiqul/vscode.nvim',
+  'neg-serg/neg.nvim',
+  'windwp/windline.nvim',
+  'kyazdani42/nvim-web-devicons',
+  'akinsho/bufferline.nvim',
+  'makerj/vim-pdf',
+  'bfrg/vim-cpp-modern',
+  'vim-autoformat/vim-autoformat',
+  'sbdchd/neoformat',
+  { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+  'sindrets/diffview.nvim',
+  'NeogitOrg/neogit',
+  'sharksforarms/neovim-rust',
+  'ajeetdsouza/zoxide',
+  'jvgrootveld/telescope-zoxide',
+  {
+    'akinsho/flutter-tools.nvim',
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'stevearc/dressing.nvim'
+    },
+  },
+  'xiyaowong/nvim-transparent',
+  }
+)

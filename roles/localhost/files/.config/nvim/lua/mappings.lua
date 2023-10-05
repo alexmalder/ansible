@@ -18,8 +18,6 @@ map('n', '<space>k', ':resize +15<CR>', opts)
 map('n', '<space>n', ':NnnPicker %:p:h<CR>', opts)
 --map('n', '<space>s', ':Lspsaga hover_doc<CR>', opts)
 map('n', '<space>b', ':Buffers<CR>', opts)
-map("n", "<tab>", ":lua require('fold-cycle').open()<CR>", opts)
-map("n", "<s-tab>", ":lua require('fold-cycle').open()<CR>", opts)
 map('n', 'gd', '<Cmd>lua require"telescope.builtin".lsp_definitions()<CR>', opts)
 
 -- alt and control
