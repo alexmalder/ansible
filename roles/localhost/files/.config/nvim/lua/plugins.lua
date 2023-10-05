@@ -56,6 +56,12 @@ require("lazy").setup(
   'ajeetdsouza/zoxide',
   'jvgrootveld/telescope-zoxide',
   {
+    'jghauser/fold-cycle.nvim',
+    config = function()
+      require('fold-cycle').setup()
+    end
+  },
+  {
     'akinsho/flutter-tools.nvim',
     dependencies = {
         'nvim-lua/plenary.nvim',
