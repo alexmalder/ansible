@@ -1,0 +1,100 @@
+{{- if eq .Values.deploymentType "deployment" }}
+apiVersion: apps/v1
+kind: Deployment
+{{- else if eq .Values.deploymentType "rollout" }}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+{{- end }}
+metadata:
+  name: {{ include "tarantool.fullname" . }}
+  labels:
+    {{- include "tarantool.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "tarantool.selectorLabels" . | nindent 6 }}
+  {{- if eq .Values.deploymentType "rollout" }}
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+  template:
+    metadata:
+      annotations:
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "tarantool.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "tarantool.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "tarantool" ]
+          args:
+            - /opt/tarantool/app/init.lua
+          env:
+            - name: tarantool_PORT
+              value: {{ quote .Values.service.targetPort }}
+            - name: FC_ENABLE
+              value: '1'
+            {{- with .Values.tarantool.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
+          {{- if .Values.serviceMonitor.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.serviceMonitor.targetPort }}
+              protocol: TCP
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe: {{ toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe: {{ toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: tarantool-init-lua
+              mountPath: /opt/tarantool/app
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: tarantool-init-lua
+          configMap:
+            name: tarantool-init-lua
+            items:
+            - key: init.lua
+              path: init.lua
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
