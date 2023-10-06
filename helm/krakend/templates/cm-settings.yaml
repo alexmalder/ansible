@@ -1,0 +1,10 @@
+{{- if not .Values.krakend.allInOneImage }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "krakend.fullname" . }}-settings
+data:
+  {{- range $key, $value := .Values.krakend.settings }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,159 @@
+replicaCount: 1
+
+image:
+  registry: docker.io
+  repository: tarantool/tarantool
+  tag: "2"
+  pullPolicy: IfNotPresent
+
+# -- (string) The deployment type to use for the krakend service
+# Valid values are `deployment` and `rollout`
+deploymentType: deployment
+
+# -- (object) The strategy for the krakend deployment. This can either be
+# a `deployment` or a `rollout` strategy.
+# For more information on the Argo Rollout strategy, see https://argo-rollouts.readthedocs.io/en/stable/features/specification/
+strategy: {}
+
+tarantool:
+  #allInOneImage: false
+  env:
+    - name: TARANTOOL_USER_NAME
+      value: "tarantool"
+    - name: TARANTOOL_PASSWORD
+      value: "tarantool"
+  config: ""
+  configFileSource: ""
+  # -- While default configuration does not take into use
+  # templates; you may want to add your own templates here.
+  # Note that you'd need to set a custom configuration file
+  # to use them.
+  templates: {}
+  # -- (object) The service-level "extra_config" settings.
+  # This will directly be translated to JSON and is added only
+  # if you're not fully overriding the configuration via
+  # the `config` setting.
+  # For more information, see https://www.krakend.io/docs/enterprise/configuration/
+  extraConfig:
+    router:
+      "@comment": "The health endpoint checks do not show in the logs"
+      logger_skip_paths:
+        - "/__health"
+
+# -- (list) List of secrets containing the credentials to use for the image
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # -- (bool) Specifies whether a service account should be created
+  create: true
+  # -- (object) The annotations to use for the service account
+  annotations: {}
+  # -- (string) The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- (object) The annotations to use for the krakend pod
+podAnnotations: {}
+
+# -- (object) The securityContext to use for the krakend pod
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# -- (object) The securityContext to use for the krakend container
+securityContext: {}
+#  allowPrivilegeEscalation: false
+#  runAsNonRoot: true
+#  runAsUser: 1000
+#  readOnlyRootFilesystem: true
+#  capabilities:
+#    drop:
+#      - ALL
+#    add:
+#      - NET_BIND_SERVICE
+
+# -- (object) The service settings to use for the krakend service
+service:
+  # -- (string) The External Traffic Policy of the service
+  externalTrafficPolicy: ""
+  # -- (string) The type of service to use
+  type: ClusterIP
+  # -- (int) The port to use for the service
+  port: 8090
+  # -- (int) The target port to use for the service
+  targetPort: 8090
+  # -- (object) The annotations to use for the service
+  annotations: {}
+  # -- (object) The service settings to reach the metrics port
+  metrics:
+    # -- (bool) Specifies whether the metrics port is reachable
+    enabled: false
+    # -- (int) The port to use for the metrics service
+    port: 9100
+    # -- (int) The target port to use for the metrics service
+    targetPort: 9100
+
+# -- (object) The ingress settings to use for the krakend ingress
+ingress:
+  # -- (bool) Specifies whether an ingress should be created
+  enabled: true
+  # -- (string) The class to use for the ingress
+  className: "nginx"
+  # -- (object) The annotations to use for the ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- (list) The list of hosts to use for the ingress
+  hosts:
+    - host: tarantool.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- (object) The resources to use for the krakend pod
+resources: {}
+
+# -- (object) The nodeSelector to use for the krakend pod
+nodeSelector: {}
+
+# -- (object) The tolerations to use for the krakend pod
+tolerations: []
+
+# -- (object) The affinity to use for the krakend pod
+affinity: {}
+
+# -- (array) extraVolumeMounts allows you to mount extra volumes to the krakend pod
+extraVolumeMounts: []
+
+# -- (array) extraVolumes allows you to mount extra volumes to the krakend pod
+extraVolumes: []
+
+# -- (object) The livenessProbe to use for the krakend pod
+livenessProbe:
+  httpGet:
+    path: /
+    port: 8090
+
+# -- (object) The readinessProbe to use for the krakend pod
+readinessProbe:
+  httpGet:
+    path: /
+    port: 8090
+
+# -- (object) The serviceMonitor configures a ServiceMonitor for your application
+serviceMonitor:
+  # -- (bool) Set to true to create a default ServiceMonitor for your application
+  enabled: false
+  # -- Annotations to add to ServiceMonitor
+  annotations: {}
+  # -- Interval for scrape metrics.
+  interval: 10s
+  # -- time out interval when scraping metrics
+  scrapeTimeout: 10s
+  # -- prometheus metrics port exposed by krakend
+  targetPort: 9091

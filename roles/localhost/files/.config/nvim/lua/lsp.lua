@@ -54,7 +54,7 @@ lsp.pyright.setup {
     capabilities = capabilities
 }
 --lsp.yamlls.setup { capabilities = capabilities }
---lsp.lua_ls.setup { cmd = {"/opt/local/bin/lua-language-server"}, capabilities = capabilities }
+lsp.lua_ls.setup { cmd = {"/opt/local/bin/lua-language-server"}, capabilities = capabilities }
 --lsp.ansiblels.setup { cmd = { "ansible-language-server", "--stdio" }, filetypes = { "yaml.ansible" }, }
 lsp.rust_analyzer.setup{
     capabilities = capabilities

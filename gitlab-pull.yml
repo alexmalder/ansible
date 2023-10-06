@@ -7,7 +7,7 @@
   tasks:
     - name: Get list of repos
       ansible.builtin.uri:
-        url: "https://{{ GIT_URL }}/api/v4/groups/{{ GIT_GROUP }}/projects?per_page=1024"
+        url: "https://{{ GIT_URL }}/api/v4/groups/{{ GIT_GROUP }}/projects?per_page=1024&include_subgroups=true"
         method: GET
         status_code:
           - 200
@@ -24,4 +24,6 @@
         repo: "{{ item.web_url }}"
         dest: "{{ workdir }}/{{ item.path_with_namespace }}"
         version: "{{ item.default_branch }}"
-      with_items: "{{ result.json }}"
+      loop_control:
+        label: "{{ item.name_with_namespace }}"
+      loop: "{{ result.json }}"
