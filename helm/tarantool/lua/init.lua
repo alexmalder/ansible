@@ -192,11 +192,13 @@ local function string_valid_length(value, min, max)
 end
 
 local function string_interval_error(prop, string_length, min, max)
+  -- simple format
   local error_string = string.format("field: '%s', string length is not valid with length '%d' but required interval >= '%d' and <= '%s'", prop, string_length, min, max)
   return error_string
 end
 
 local function number_interval_error(prop, json_object_prop, min, max)
+  -- simple format
   local error_string = string.format("field: '%s', number is not valid with value '%s' but required interval >= '%d' and <= '%s'", prop, json_object_prop, min, max)
   return error_string
 end
@@ -206,16 +208,19 @@ local function undefined_type(supported_datatypes, founded_datatype)
 end
 
 local function datatype_error(prop, type_json_object_prop, subprops_type)
+  -- simple format
   local error_string = string.format("field: '%s', not correct data type '%s', but required type is a '%s'", prop, type_json_object_prop, subprops_type)
   return error_string
 end
 
 local function key_found_error(json_object_prop, prop)
+  -- simple format
   local error_string = string.format("field: '%s', key not found but it is required: '%s'", json_object_prop, prop)
   return error_string
 end
 
 local function key_extra_error(json_object_key, json_object_value)
+  -- simple format
   local error_string = string.format("field: '%s', extra key found: '%s'", json_object_value, json_object_key)
   return error_string
 end
