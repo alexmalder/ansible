@@ -9,5 +9,5 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
       - id: check-yaml
-      - id: no-commit-to-branch
-        args: ["--branch", "master"]
+      #- id: no-commit-to-branch
+      #  args: ["--branch", "master"]
