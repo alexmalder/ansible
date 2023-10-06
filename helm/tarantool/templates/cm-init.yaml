@@ -1,0 +1,9 @@
+{{- if not .Values.tarantool.allInOneImage }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "tarantool.fullname" . }}-init-lua
+data:
+  init.lua: |-
+{{ .Files.Get "lua/init.lua" | indent 4 }}
+{{- end }}

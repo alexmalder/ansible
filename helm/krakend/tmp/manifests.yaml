@@ -1,0 +1,454 @@
+---
+# Source: krakend/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: release-name-krakend
+  labels:
+    helm.sh/chart: krakend-v0.1.21
+    app.kubernetes.io/name: krakend
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v0.1.21"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: krakend/templates/cm-config.yaml
+# This ConfigMap contains the initial configuration
+# file for the Krakend.io API Gateway.
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: release-name-krakend-config
+
+data:
+  krakend.tmpl: |
+    {
+        "$schema": "https://www.krakend.io/schema/v3.json",
+        "version": 3,
+        "name": "{{ env "SERVICE_NAME" }} ({{ .service.environment }})",
+        "port": 8080,
+        "timeout": "{{ .service.timeout }}",
+        "cache_ttl":  "{{ .service.cache_ttl }}",
+        "output_encoding": "{{ .service.output_encoding }}",
+        "plugin": {
+            "pattern":".so",
+            "folder": "/usr/lib/krakend/plugins/"
+        },
+        "endpoints": {{ include "endpoints.tmpl" }},
+        "extra_config": {"router":{"@comment":"The health endpoint checks do not show in the logs","logger_skip_paths":["/__health"]}}
+    }
+---
+# Source: krakend/templates/cm-partials.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: release-name-krakend-partials
+data:
+  input_headers.tmpl: |-
+
+    "input_headers": [
+      "*"
+    ]
+  rate_limit_backend.tmpl: |-
+
+    "qos/ratelimit/proxy": {
+      "max_rate": 0.5,
+      "capacity": 1
+    }
+  endpoints.tmpl: |-
+    [
+      {
+        "endpoint": "/",
+        "method": "GET",
+        "input_query_strings": ["login", "password"],
+        "backend": [
+          {
+            "url_pattern": "/",
+            "host": ["http://tarantool:8090"]
+          }
+        ]
+      },
+      {
+        "endpoint": "/",
+        "method": "POST",
+        "input_query_strings": ["login", "password"],
+        "backend": [
+          {
+            "url_pattern": "/",
+            "host": ["http://tarantool:8090"]
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/v1/auth/sign-in",
+        "method": "POST",
+        "output_encoding": "no-op",
+        "backend": [
+          {
+            "url_pattern": "/realms/master/protocol/openid-connect/token",
+            "host": ["http://keycloak:80"]
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/v1/keycloak",
+        "method": "GET",
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        },
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}",
+            "host": ["http://tarantool:8090"]
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/v1/feeds",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/feeds/{id}",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds/{id}",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/feeds",
+        "method": "POST",
+        "output_encoding": "no-op",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/feeds/{id}",
+        "method": "PUT",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds/{id}",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/feeds/{id}",
+        "method": "DELETE",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feeds/{id}",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/labels",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/labels/{id}",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/labels",
+        "method": "POST",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/labels/{id}",
+        "method": "PUT",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/labels/{id}",
+        "method": "DELETE",
+        "backend": [
+          {
+            "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
+            "host": ["http://tarantool:8090"]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "http://keycloak:80/realms/master/protocol/openid-connect/certs",
+            "disable_jwk_security": true
+          }
+        }
+      }
+    ]
+---
+# Source: krakend/templates/cm-settings.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: release-name-krakend-settings
+data:
+  service.json: "{\n\t\"environment\": \"PRODUCTION\",\n\t\"default_host\": \"http://localhost:8080\",\n\t\"timeout\": \"30s\",\n\t\"cache_ttl\": \"30s\"\n  #\"output_encoding\": \"json\"\n}"
+---
+# Source: krakend/templates/cm-templates.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: release-name-krakend-templates
+data:
+---
+# Source: krakend/templates/cm-tests.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: release-name-krakend-tests
+data:
+  tests.yaml: |-
+---
+# Source: krakend/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: release-name-krakend
+  labels:
+    helm.sh/chart: krakend-v0.1.21
+    app.kubernetes.io/name: krakend
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v0.1.21"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: krakend
+    app.kubernetes.io/instance: release-name
+---
+# Source: krakend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-krakend
+  labels:
+    helm.sh/chart: krakend-v0.1.21
+    app.kubernetes.io/name: krakend
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v0.1.21"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: krakend
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      annotations:
+        checksum/cm-config: d48ce5ecda09702a6fd07bca019c2f18a77bc0131d81079c687edc393c2cdf16
+        checksum/cm-partials: 3450bfe7ffee4ca9c2a99df45c8388cf720634a0568d044e4ad045c6a85744e6
+        checksum/cm-settings: 568de32cdd77987c1b77e4bd4f146f31acaf9aad7f60410e4fda155cdc9e6295
+        checksum/cm-templates: e969ef28af0ea0ee6d431219663c88ee6218b9dff096de3fdf76d0ee4e0ce6df
+      labels:
+        app.kubernetes.io/name: krakend
+        app.kubernetes.io/instance: release-name
+    spec:
+      serviceAccountName: release-name-krakend
+      securityContext:
+        {}
+      containers:
+        - name: krakend
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add:
+              - NET_BIND_SERVICE
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "docker.io/devopsfaith/krakend:2.4"
+          imagePullPolicy: IfNotPresent
+          command: [ "/usr/bin/krakend" ]
+          args:
+            - "run"
+            - "-c"
+            - "/etc/krakend-src/config/krakend.tmpl"
+            - "-p"
+            - "8080"
+          env:
+            - name: KRAKEND_PORT
+              value: "8080"
+            - name: FC_ENABLE
+              value: '1'
+            - name: FC_SETTINGS
+              value: "/etc/krakend-src/settings"
+            - name: FC_PARTIALS
+              value: "/etc/krakend-src/partials"
+            - name: FC_TEMPLATES
+              value: "/etc/krakend-src/templates"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /__health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /__health
+              port: http
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: config
+              mountPath: /etc/krakend-src/config
+            - name: partials
+              mountPath: /etc/krakend-src/partials
+            - name: settings
+              mountPath: /etc/krakend-src/settings
+            - name: templates
+              mountPath: /etc/krakend-src/templates
+          resources:
+            {}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: release-name-krakend-config
+        - name: partials
+          configMap:
+            name: release-name-krakend-partials
+        - name: settings
+          configMap:
+            name: release-name-krakend-settings
+        - name: templates
+          configMap:
+            name: release-name-krakend-templates
+---
+# Source: krakend/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: release-name-krakend
+  labels:
+    helm.sh/chart: krakend-v0.1.21
+    app.kubernetes.io/name: krakend
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "v0.1.21"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "krakend.local"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: release-name-krakend
+                port:
+                  number: 80
