@@ -84,10 +84,17 @@ labels:create_index('title', {
   if_not_exists = true
 })
 
-feed_labels:create_index('ids', {
+feed_labels:create_index('primary', {
   type = 'TREE',
   parts = {'feed_id', 'label_id'},
   unique = true,
+  if_not_exists = true
+})
+
+feed_labels:create_index('feed_id', {
+  type = 'TREE',
+  parts = {'feed_id'},
+  unique = false,
   if_not_exists = true
 })
 
@@ -101,12 +108,12 @@ local account_schema = {
     username = {
       type = 'string',
       min = 6,
-      max = 22
+      max = 48
     },
     password = {
       type = 'string',
       min = 6,
-      max = 22,
+      max = 48,
     }
   }
 }
@@ -116,7 +123,7 @@ local label_schema = {
     title = {
       type = 'string',
       min = 4,
-      max = 14
+      max = 48
     },
     description = {
       type = 'string',
@@ -193,13 +200,25 @@ end
 
 local function string_interval_error(prop, string_length, min, max)
   -- simple format
-  local error_string = string.format("field: '%s', string length is not valid with length '%d' but required interval >= '%d' and <= '%s'", prop, string_length, min, max)
+  local error_string = string.format(
+    "field: '%s', string length is not valid with length '%d' but required interval >= '%d' and <= '%s'",
+    prop,
+    string_length,
+    min,
+    max
+  )
   return error_string
 end
 
 local function number_interval_error(prop, json_object_prop, min, max)
   -- simple format
-  local error_string = string.format("field: '%s', number is not valid with value '%s' but required interval >= '%d' and <= '%s'", prop, json_object_prop, min, max)
+  local error_string = string.format(
+    "field: '%s', number is not valid with value '%s' but required interval >= '%d' and <= '%s'",
+    prop,
+    json_object_prop,
+    min,
+    max
+  )
   return error_string
 end
 
@@ -209,7 +228,12 @@ end
 
 local function datatype_error(prop, type_json_object_prop, subprops_type)
   -- simple format
-  local error_string = string.format("field: '%s', not correct data type '%s', but required type is a '%s'", prop, type_json_object_prop, subprops_type)
+  local error_string = string.format(
+    "field: '%s', not correct data type '%s', but required type is a '%s'",
+    prop,
+    type_json_object_prop,
+    subprops_type
+  )
   return error_string
 end
 
@@ -437,15 +461,33 @@ local function delete_label(req)
 end
 
 -- feed api
+
+-- @description
+-- 1. get all feeds with limit (and offset)
+-- 2. get feed_labels by feed_id in `for`
+-- 3. get label by founded feed_id in `for`
 local function get_feeds(req)
   local a = {}
-  local items = box.space.feed:select({}, {iterator='GT', limit = 100})
-  for i, v in ipairs(items) do
+  local local_feeds = box.space.feed:select({}, {iterator='GT', limit = 100})
+  for i, local_feed in ipairs(local_feeds) do
+    local table_labels = {}
+    local local_feed_labels = box.space.feed_labels.index.feed_id:select{local_feed['id']}
+    for idx, local_feed_label in ipairs(local_feed_labels) do
+      local local_labels = box.space.labels.index.primary:select{local_feed_label['label_id']}
+      for lidx, local_label in ipairs(local_labels) do
+        table_labels[idx] = {
+          id = local_label['id'],
+          title = local_label['title'],
+          description = local_label['description']
+        }
+      end
+    end
     a[i] = {
-      id = v['id'],
-      title = v['title'],
-      link = v['link'],
-      account_id = v['account_id']
+      id = local_feed['id'],
+      title = local_feed['title'],
+      link = local_feed['link'],
+      account_id = local_feed['account_id'],
+      labels = table_labels
     }
   end
   return req:render{json = {['data'] = a}}
@@ -547,14 +589,42 @@ local function delete_feed(req)
 end
 
 -- fl api
+--
+local function get_feed_labels(req)
+  local a = {}
+  local items = box.space.feed_labels:select({}, {iterator='GT', limit = 100})
+  for i, v in ipairs(items) do
+    a[i] = {
+      feed_id = v['feed_id'],
+      label_id = v['label_id'],
+    }
+  end
+  return req:render{json = {['data'] = a}}
+end
+
+local function get_feed_labels_by_feed_id(req)
+  local a = {}
+  local feed_id = req:stash('feed_id')
+  local uuid_feed_id = uuid.fromstr(feed_id)
+  local items = box.space.feed_labels.index.feed_id:select{uuid_feed_id}
+  for i, v in ipairs(items) do
+    a[i] = {
+      feed_id = v['feed_id'],
+      label_id = v['label_id'],
+    }
+  end
+  return req:render{json = {
+      ['data'] = a
+  }}
+end
+
 local function post_feed_label(req)
   local lua_table = req:json()
   local errstack = validate_schema(lua_table, feed_label_schema)
   if next(errstack) == nil then
-    local items = box.space.feed:insert{
-      lua_table['feed_id'],
-      lua_table['label_id'],
-    }
+    local uuid_feed_id = uuid.fromstr(lua_table['feed_id'])
+    local uuid_label_id = uuid.fromstr(lua_table['label_id'])
+    local items = box.space.feed_labels:insert{ uuid_feed_id, uuid_label_id }
     return req:render{
       json = {
         ['data'] = {
@@ -620,8 +690,7 @@ local function listen_http_api()
   server:route({path = '/keycloak/:sub/:roles/labels', method = 'GET'}, get_labels)
   server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'GET'}, get_label)
   server:route({path = '/keycloak/:sub/:roles/labels', method = 'POST'}, post_label)
-  --server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'PUT'}, put_label)
-  server:route({path = '/keycloak/:sub/:roles/labels', method = 'PUT'}, put_label)
+  server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'PUT'}, put_label)
   server:route({path = '/keycloak/:sub/:roles/labels/:id', method = 'DELETE'}, delete_label)
   -- feed crud
   server:route({path = '/keycloak/:sub/:roles/feed', method = 'GET'}, get_feeds)
@@ -630,6 +699,8 @@ local function listen_http_api()
   server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'PUT'}, put_feed)
   server:route({path = '/keycloak/:sub/:roles/feed/:id', method = 'DELETE'}, delete_feed)
   -- feed label modifications
+  server:route({path = '/keycloak/:sub/:roles/fl', method = 'GET'}, get_feed_labels)
+  server:route({path = '/keycloak/:sub/:roles/fl/:feed_id', method = 'GET'}, get_feed_labels_by_feed_id)
   server:route({path = '/keycloak/:sub/:roles/fl', method = 'POST'}, post_feed_label)
   server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'PUT'}, put_feed_label)
   server:route({path = '/keycloak/:sub/:roles/fl/:feed_id/:label_id', method = 'DELETE'}, delete_feed_label)
