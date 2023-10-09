@@ -329,6 +329,7 @@
     "backend": [
       {
         "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/fl",
+        "encoding": "no-op",
         "host": ["http://tarantool:8090"]
       }
     ],

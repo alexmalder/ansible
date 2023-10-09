@@ -378,19 +378,6 @@ local function get_label(req)
   return req:render{json = {['data'] = a}}
 end
 
-local function check_login(req)
-  local lua_table = req:json()
-  print("HEADERS of the check_login:", req.headers)
-  return req:render{
-    json = {
-      ['data'] = {
-        ['login'] = lua_table['login'],
-        ['password'] = lua_table['password'],
-      }
-    }
-  }
-end
-
 local function post_label(req)
   local lua_table = req:json()
   local errstack = validate_schema(lua_table, label_schema)
@@ -494,19 +481,16 @@ local function get_feeds(req)
 end
 
 local function get_feed(req)
-  local a = {}
   local id = req:stash('id')
   local uuid_id = uuid.fromstr(id)
-  local items = box.space.feed.index.primary:select{uuid_id}
-  for i, v in ipairs(items) do
-    a[i] = {
-      id = v['id'],
-      title = v['title'],
-      link = v['link'],
-      account_id = v['account_id']
-    }
-  end
-  return req:render{json = {['data'] = a}}
+  local item = box.space.feed.index.primary:get{uuid_id}
+  local response_data = {
+    id = item['id'],
+    title = item['title'],
+    link = item['link'],
+    account_id = item['account_id']
+  }
+  return req:render{json = {['data'] = response_data}}
 end
 
 local function post_feed(req)
@@ -593,13 +577,27 @@ end
 local function get_feed_labels(req)
   local a = {}
   local items = box.space.feed_labels:select({}, {iterator='GT', limit = 100})
-  for i, v in ipairs(items) do
-    a[i] = {
-      feed_id = v['feed_id'],
-      label_id = v['label_id'],
+  if next(items) ~= nil then
+    for i, item in ipairs(items) do
+      a[i] = {
+        feed_id = item['feed_id'],
+        label_id = item['label_id'],
+      }
+    end
+    return req:render{
+      json = {
+        ['data'] = a
+      }
     }
+  else
+    local resp = req:render{
+      json = {
+        ['data'] = 'No Content'
+      }
+    }
+    resp.status = 204
+    return resp
   end
-  return req:render{json = {['data'] = a}}
 end
 
 local function get_feed_labels_by_feed_id(req)
@@ -684,7 +682,6 @@ end
 local function listen_http_api()
   local server = require('http.server').new(nil, 8090, {charset = "utf8"})
   server:route({path = '/', method = 'GET'}, default_handler)
-  server:route({path = '/', method = 'POST'}, check_login)
   server:route({path = '/keycloak/:sub/:roles', method = 'GET'}, keycloak_handler)
   -- labels crud
   server:route({path = '/keycloak/:sub/:roles/labels', method = 'GET'}, get_labels)

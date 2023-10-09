@@ -127,25 +127,21 @@
       debug:
         var: subject_and_roles.json
 
-    - name: Post check login
+    - name: Get feed_label
       ansible.builtin.uri:
-        url: "{{ krakend_url }}"
-        method: POST
-        body_format: json
-        body:
-          login: login
-          password: password
+        url: "{{ krakend_url }}/api/v1/fl"
+        method: GET
         headers:
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
         status_code:
           - 200
           - 201
-      register: check_login
+      register: feed_label
 
-    - name: Debug check_login
+    - name: Debug feed_label
       debug:
-        var: check_login
+        var: feed_label
 
     - name: Post label
       ansible.builtin.uri:
@@ -225,7 +221,7 @@
 
     - name: Get feed
       ansible.builtin.uri:
-        url: "{{ krakend_url }}/api/v1/feed"
+        url: "{{ krakend_url }}/api/v1/feed/{{ feed.json.data.id }}"
         method: GET
         headers:
           Authorization: "Bearer {{ login.json.access_token }}"
