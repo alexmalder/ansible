@@ -18,16 +18,19 @@ and maintained by your friends at Equinix Metal
 ## Installation
 
 * Add the Equinix Metal helm repository
+
 ```bash
 helm repo add equinixmetal https://helm.equinixmetal.com
 ```
 
 * Install the helm chart using default values
+
 ```bash
 helm install krakend equinixmetal/krakend
 ```
 
 > If you are using your own chart, reference the following to your chart's dependencies:
+>
 > ```yaml
 > dependencies:
 >   - name: krakend
@@ -116,8 +119,8 @@ please refer to [the official krakend documentation](https://www.krakend.io/docs
 
 ### Prerequisites
 
-- [helm](https://helm.sh/docs/intro/install/)
-- [helm-docs](https://github.com/norwoodj/helm-docs)
+* [helm](https://helm.sh/docs/intro/install/)
+* [helm-docs](https://github.com/norwoodj/helm-docs)
 
 ### Testing
 
