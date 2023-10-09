@@ -156,7 +156,7 @@
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
         body:
-          title: new_title
+          title: "new_title-{{ ansible_date_time.epoch }}"
           description: new_description
         status_code:
           - 200
@@ -176,8 +176,60 @@
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
         body:
-          title: new_title
+          title: "new_title-{{ ansible_date_time.epoch }}"
           link: new_link
+        status_code:
+          - 200
+          - 201
+      register: feed
+
+    - name: Debug feed
+      debug:
+        var: feed
+
+    - name: Post feed_label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/fl"
+        method: POST
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          feed_id: "{{ feed.json.data.id }}"
+          label_id: "{{ label.json.data.id }}"
+        status_code:
+          - 200
+          - 201
+      register: feed_label
+
+    - name: Debug feed_label
+      debug:
+        var: feed_label
+
+    - name: Get feed_label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/fl/{{ feed.json.data.id }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        status_code:
+          - 200
+          - 201
+      register: feed_label
+
+    - name: Debug feed_label
+      debug:
+        var: feed_label
+
+    - name: Get feed
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/feed"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
         status_code:
           - 200
           - 201
