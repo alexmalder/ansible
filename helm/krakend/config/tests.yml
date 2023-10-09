@@ -127,22 +127,6 @@
       debug:
         var: subject_and_roles.json
 
-    - name: Get feed_label
-      ansible.builtin.uri:
-        url: "{{ krakend_url }}/api/v1/fl"
-        method: GET
-        headers:
-          Authorization: "Bearer {{ login.json.access_token }}"
-          Content-Type: "application/json"
-        status_code:
-          - 200
-          - 201
-      register: feed_label
-
-    - name: Debug feed_label
-      debug:
-        var: feed_label
-
     - name: Post label
       ansible.builtin.uri:
         url: "{{ krakend_url }}/api/v1/labels"
@@ -203,22 +187,6 @@
       debug:
         var: feed_label
 
-    - name: Get feed_label
-      ansible.builtin.uri:
-        url: "{{ krakend_url }}/api/v1/fl/{{ feed.json.data.id }}"
-        method: GET
-        headers:
-          Authorization: "Bearer {{ login.json.access_token }}"
-          Content-Type: "application/json"
-        status_code:
-          - 200
-          - 201
-      register: feed_label
-
-    - name: Debug feed_label
-      debug:
-        var: feed_label
-
     - name: Get feed
       ansible.builtin.uri:
         url: "{{ krakend_url }}/api/v1/feed/{{ feed.json.data.id }}"
@@ -234,3 +202,19 @@
     - name: Debug feed
       debug:
         var: feed
+
+    - name: Get feed_label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/fl/{{ feed.json.data.id }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        status_code:
+          - 200
+          - 201
+      register: feed_label
+
+    - name: Debug feed_label
+      debug:
+        var: feed_label
