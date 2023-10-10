@@ -36,6 +36,7 @@
   "vim-cpp-modern": { "branch": "master", "commit": "0f0529bf2a336a4e824a26b733220548d32697a6" },
   "vim-moonfly-colors": { "branch": "master", "commit": "ae907fd6271a6d28e6c46b2b491d3bce28446e74" },
   "vim-pdf": { "branch": "master", "commit": "af556f163ed5a8c7687b4d606894d12a38c20528" },
+  "vim-polyglot": { "branch": "master", "commit": "bc8a81d3592dab86334f27d1d43c080ebf680d42" },
   "vim-rainbow": { "branch": "master", "commit": "a6c7fd5a2b0193b5dbd03f62ad820b521dea3290" },
   "vscode.nvim": { "branch": "main", "commit": "11b212096a0b2056fc8acaf31c0d62d656b6fd2d" },
   "windline.nvim": { "branch": "master", "commit": "e35fd60ac90018ebb39e5c9d197e8bb2a9629ece" },

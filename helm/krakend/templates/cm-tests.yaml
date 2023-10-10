@@ -1,9 +1,0 @@
-{{- if not .Values.krakend.allInOneImage }}
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ include "krakend.fullname" . }}-tests
-data:
-  tests.yml: |
-{{ .Files.Get "config/tests.yml" | indent 4 }}
-{{- end }}

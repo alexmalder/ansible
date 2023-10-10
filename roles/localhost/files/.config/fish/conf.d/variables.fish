@@ -16,4 +16,4 @@ export TERM="screen-256color"
 export HELM_EXPERIMENTAL_OCI="1"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk17/Contents/Home"
 
-export PASSWORD_STORE_DIR="$HOME/Code/mitdevelopment/mrm/super-app/devops/store"
+export PASSWORD_STORE_DIR="$HOME/Code/alexmalder/store"
