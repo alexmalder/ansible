@@ -1,4 +1,16 @@
 ---
+- name: Print distribution
+  debug:
+    var: ansible_facts['distribution']
+
 - name: Install haproxy
   ansible.builtin.yum:
     name: haproxy
+  when:
+    - ansible_facts['distribution'] == "CentOS"
+
+- name: Install haproxy
+  ansible.builtin.apt:
+    name: haproxy
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
