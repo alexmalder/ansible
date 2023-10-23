@@ -5,7 +5,7 @@
   connection: local
   tasks:
     - name: Register config
-      ansible.builtin.command: "pass show ansible/{{ workdir }}/haproxy.cfg"
+      ansible.builtin.command: "pass show ansible/haproxy.cfg"
       register: haproxy_cfg
       changed_when: haproxy_cfg.rc == 0
       failed_when: haproxy_cfg.rc != 0
@@ -14,7 +14,7 @@
         - systemd
 
     - name: Register mycert
-      ansible.builtin.command: "pass show ansible/{{ workdir }}/mycert.pem"
+      ansible.builtin.command: "pass show ansible/wildcard.pem"
       register: mycert
       changed_when: mycert.rc == 0
       failed_when: mycert.rc != 0
@@ -23,7 +23,7 @@
         - systemd
 
     - name: Register dhparams_raw
-      ansible.builtin.command: "pass show ansible/{{ workdir }}/dhparams.pem"
+      ansible.builtin.command: "pass show ansible/dhparams.pem"
       register: dhparams_raw
       changed_when: dhparams_raw.rc == 0
       failed_when: dhparams_raw.rc != 0
