@@ -27,8 +27,7 @@ vim.diagnostic.config({ virtual_text = false })
 
 vim.cmd[[autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
 --vim.cmd[[map gf :e <cfile><CR>]]
-vim.cmd[[let g:nnn#action = {'<c-t>': 'tab split'}]]
-vim.cmd("let g:polyglot_disabled = ['markdown', 'yaml', 'lua']")
+--vim.cmd("let g:polyglot_disabled = ['markdown', 'yaml', 'lua']")
 vim.o.updatetime = 250
 
 -- Show line diagnostics automatically in hover window
@@ -64,20 +63,13 @@ local git_branch = {
     width = 100,
 }
 
-require("flutter-tools").setup {}
+--require("flutter-tools").setup {}
 
 -- git
 require('gitsigns').setup{}
 neogit.setup()
 
 -- Lua initialization file
---vim.cmd [[colorscheme vscode]]
-
-vim.keymap.set('n', '<tab>', function() return require('fold-cycle').open() end, {silent = true, desc = 'Fold-cycle: open folds'})
-vim.keymap.set('n', '<s-tab>', function() return require('fold-cycle').close() end, {silent = true, desc = 'Fold-cycle: close folds'})
-vim.keymap.set('n', 'zC', function() return require('fold-cycle').close_all() end, {remap = true, silent = true, desc = 'Fold-cycle: close all folds'})
-
-
 require("transparent").setup({
   groups = { -- table: default groups
     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
