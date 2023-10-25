@@ -8,9 +8,8 @@
 --  ███  ░██░░██████░░██████   ░░██   ░██ ███ ░██ ░██
 -- ░░░   ░░  ░░░░░░  ░░░░░░     ░░    ░░ ░░░  ░░  ░░
 require 'plugins'
-require 'options'
-require 'telescope-zoxide'
-require 'mappings'
-require 'lsp'
 require 'colors'
-require 'neg'.setup()
+require 'lsp'
+require 'options'
+require 'mappings'
+require 'telescope-zoxide'
