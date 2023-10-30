@@ -35,6 +35,7 @@ require("lazy").setup(
     'junegunn/fzf.vim',
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     "nvim-telescope/telescope.nvim",
+    'Mofiqul/vscode.nvim',
     'windwp/nvim-autopairs',
     {'romgrk/barbar.nvim',
       dependencies = {
@@ -59,7 +60,7 @@ require("lazy").setup(
     'ajeetdsouza/zoxide',
     'jvgrootveld/telescope-zoxide',
     "water-sucks/darkrose.nvim",
-    --{ 'jghauser/fold-cycle.nvim', config = function() require('fold-cycle').setup() end },
+    { 'jghauser/fold-cycle.nvim', config = function() require('fold-cycle').setup() end },
     { 'akinsho/flutter-tools.nvim', dependencies = { 'nvim-lua/plenary.nvim', 'stevearc/dressing.nvim' }, },
     'xiyaowong/nvim-transparent',
     'hashivim/vim-terraform',
