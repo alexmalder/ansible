@@ -1,71 +1,68 @@
--- LSP
-local lsp = require("lspconfig")
-local luasnip = require("luasnip")
-local cmp = require("cmp")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-cmp.setup({
-    snippet = {
-      expand = function(args)
-        luasnip.lsp_expand(args.body) -- For `luasnip` users.
-      end,
+vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
+
+require("lazy").setup(
+  {
+     'hrsh7th/nvim-cmp',
+     'saadparwaiz1/cmp_luasnip',
+     'L3MON4D3/LuaSnip',
+     'neovim/nvim-lspconfig',
+     'hrsh7th/cmp-nvim-lsp',
+     'hrsh7th/cmp-buffer',
+     'hrsh7th/cmp-path',
+     'hrsh7th/cmp-cmdline',
+     'kkharji/lspsaga.nvim',
+     'mfussenegger/nvim-jdtls',
+     'hrsh7th/cmp-nvim-lsp-signature-help',
+    {
+      "cuducos/yaml.nvim",
+      ft = { "yaml" },
     },
-    mapping = cmp.mapping.preset.insert({
-        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    }),
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'path' },
-        { name = 'buffer' },
-        { name = 'nvim_lsp_signature_help' }
-    })
-})
-
-cmp.setup.cmdline('/', {
-    sources = {
-        { name = 'path' }
-    }
-})
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-lsp.bashls.setup {
-  capabilities = capabilities
-}
-lsp.tsserver.setup {
-  capabilities = capabilities
-}
-lsp.gopls.setup {
-  capabilities = capabilities
-}
-lsp.dartls.setup {
-  capabilities = capabilities
-}
-lsp.omnisharp.setup{
-    cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
-    capabilities = capabilities
-}
-lsp.pyright.setup {
-    capabilities = capabilities
-}
-lsp.terraformls.setup{
-    capabilities=capabilities,
-    command="/opt/local/bin/terraform-ls"
-}
-lsp.lua_ls.setup { cmd = {"/opt/local/bin/lua-language-server"}, capabilities = capabilities }
-lsp.rust_analyzer.setup{
-    capabilities = capabilities
-}
-lsp.clangd.setup{
-    cmd = { "/usr/bin/clangd" },
-    filetypes = { "c", "cpp", "objc" },
-    capabilities = capabilities
-}
-lsp.jdtls.setup{}
---lsp.yamlls.setup { capabilities = capabilities }
---lsp.ansiblels.setup { cmd = { "ansible-language-server", "--stdio" }, filetypes = { "yaml.ansible" }, }
+    'williamboman/nvim-lsp-installer',
+    'junegunn/fzf',
+    'junegunn/fzf.vim',
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    "nvim-telescope/telescope.nvim",
+    'Mofiqul/vscode.nvim',
+    'windwp/nvim-autopairs',
+    {'romgrk/barbar.nvim',
+      dependencies = {
+        'lewis6991/gitsigns.nvim',
+        'nvim-tree/nvim-web-devicons',
+      },
+      --init = function() vim.g.barbar_auto_setup = false end,
+      opts = { },
+      version = '^1.0.0',
+    },
+    'frazrepo/vim-rainbow',
+    'windwp/windline.nvim',
+    'kyazdani42/nvim-web-devicons',
+    'makerj/vim-pdf',
+    'bfrg/vim-cpp-modern',
+    'vim-autoformat/vim-autoformat',
+    'sbdchd/neoformat',
+    { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+    'sindrets/diffview.nvim',
+    'NeogitOrg/neogit',
+    'sharksforarms/neovim-rust',
+    'ajeetdsouza/zoxide',
+    'jvgrootveld/telescope-zoxide',
+    "water-sucks/darkrose.nvim",
+    { 'jghauser/fold-cycle.nvim', config = function() require('fold-cycle').setup() end },
+    { 'akinsho/flutter-tools.nvim', dependencies = { 'nvim-lua/plenary.nvim', 'stevearc/dressing.nvim' }, },
+    'xiyaowong/nvim-transparent',
+    'hashivim/vim-terraform',
+  }
+)

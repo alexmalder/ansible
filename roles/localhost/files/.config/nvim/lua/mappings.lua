@@ -21,4 +21,10 @@ map('n', '<space>s', ':Lspsaga hover_doc<CR>', opts)
 map('n', '<space>b', ':Buffers<CR>', opts)
 map('n', 'gd', '<Cmd>lua require"telescope.builtin".lsp_definitions()<CR>', opts)
 
+-- zoxide
 map('n', 'cd', '* <Cmd>lua require"telescope".extensions.zoxide.list(require"telescope.themes".get_ivy({layout_config={height=8},border=false}))<CR>', opts)
+
+-- folding
+vim.keymap.set('n', '<tab>', function() return require('fold-cycle').open() end, {silent = true, desc = 'Fold-cycle: open folds'})
+vim.keymap.set('n', '<s-tab>', function() return require('fold-cycle').close() end, {silent = true, desc = 'Fold-cycle: close folds'})
+vim.keymap.set('n', 'zC', function() return require('fold-cycle').close_all() end, {remap = true, silent = true, desc = 'Fold-cycle: close all folds'})
