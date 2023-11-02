@@ -59,10 +59,10 @@ require("lazy").setup(
     'sharksforarms/neovim-rust',
     'ajeetdsouza/zoxide',
     'jvgrootveld/telescope-zoxide',
+    'xiyaowong/nvim-transparent',
     "water-sucks/darkrose.nvim",
     { 'jghauser/fold-cycle.nvim', config = function() require('fold-cycle').setup() end },
     { 'akinsho/flutter-tools.nvim', dependencies = { 'nvim-lua/plenary.nvim', 'stevearc/dressing.nvim' }, },
-    'xiyaowong/nvim-transparent',
     'hashivim/vim-terraform',
   }
 )
