@@ -1,0 +1,8 @@
+---
+- name: Common play
+  hosts: cloud0
+  become: true
+  roles:
+    - common
+    - sshd
+    - libvirt

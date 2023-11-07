@@ -1,0 +1,25 @@
+---
+# tasks file for libvirt
+- name: Remove the 'firewalld' package
+  ansible.builtin.yum:
+    name: firewalld
+    state: absent
+
+- name: Install the 'Virtualization Host' package group
+  ansible.builtin.dnf:
+    name: '@Virtualization Host'
+    state: present
+
+- name: Enable and start libvirtd
+  become: true
+  ansible.builtin.systemd:
+    name: libvirtd
+    enabled: true
+    daemon_reload: true
+    state: started
+
+- name: Download 'centos 8 stream' boot image
+  ansible.builtin.get_url:
+    url: "{{ centos_stream }}/{{ image_name }}"
+    dest: "/var/lib/libvirt/images/{{ image_name }}"
+    mode: '0660'
