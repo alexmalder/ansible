@@ -1,0 +1,7 @@
+---
+- name: Common play
+  hosts: bm
+  become: true
+  roles:
+    - common
+    - sshd
