@@ -1,5 +1,7 @@
 ---
 # defaults file for libvirt
 libvirt_images:
-  - https://repo.almalinux.org/almalinux/8.8/isos/x86_64/AlmaLinux-8.8-x86_64-boot.iso
-  - http://mirror.truenetwork.ru/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-20221125-boot.iso
+  - url: https://repo.almalinux.org/almalinux/8.8/isos/x86_64/AlmaLinux-8.8-x86_64-boot.iso
+    name: AlmaLinux-8.8-x86_64-boot.iso
+  - url: https://releases.ubuntu.com/jammy/ubuntu-22.04.3-live-server-amd64.iso
+    name: ubuntu-22.04.3-live-server-amd64.iso

@@ -20,7 +20,7 @@
 
 - name: Download boot images
   ansible.builtin.get_url:
-    url: "{{ item }}"
-    dest: "/var/lib/libvirt/images/{{ item }}"
+    url: "{{ item.url }}"
+    dest: "/var/lib/libvirt/images/{{ item.name }}"
     mode: '0660'
   with_items: "{{ libvirt_images }}"
