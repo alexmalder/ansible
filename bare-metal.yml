@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: cloud0
+  hosts: baremetal
   become: true
   roles:
     - common
