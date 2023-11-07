@@ -3,5 +3,3 @@
 libvirt_images:
   - url: https://repo.almalinux.org/almalinux/8.8/isos/x86_64/AlmaLinux-8.8-x86_64-boot.iso
     name: AlmaLinux-8.8-x86_64-boot.iso
-  - url: https://releases.ubuntu.com/jammy/ubuntu-22.04.3-live-server-amd64.iso
-    name: ubuntu-22.04.3-live-server-amd64.iso
