@@ -10,7 +10,7 @@
     name: '@Virtualization Host'
     state: present
 
-- name: Enable and start libvirtd
+- name: Enable and start 'libvirtd'
   become: true
   ansible.builtin.systemd:
     name: libvirtd
@@ -18,8 +18,9 @@
     daemon_reload: true
     state: started
 
-- name: Download 'centos 8 stream' boot image
+- name: Download boot images
   ansible.builtin.get_url:
-    url: "{{ centos_stream }}/{{ image_name }}"
-    dest: "/var/lib/libvirt/images/{{ image_name }}"
+    url: "{{ item }}"
+    dest: "/var/lib/libvirt/images/{{ item }}"
     mode: '0660'
+  with_items: "{{ libvirt_images }}"
