@@ -5,7 +5,7 @@
 
 - name: Download grafana
   ansible.builtin.get_url:
-    url: https://dl.grafana.com/oss/release/grafana-9.5.2.linux-amd64.tar.gz
+    url: "{{ grafana_download_url }}/{{ grafana_archive_name }}"
     dest: /tmp
     mode: '0644'
 

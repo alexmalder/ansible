@@ -1,0 +1,42 @@
+---
+# tasks file for promtail
+- name: Add the user promtail
+  ansible.builtin.user:
+    name: promtail
+    groups:
+      - postgres
+    create_home: true
+
+- name: Download zip archives
+  ansible.builtin.get_url:
+    url: "{{ promtail_download_url }}"
+    dest: /tmp
+    mode: '0644'
+
+- name: Unarchive that is already on the remote machine
+  ansible.builtin.unarchive:
+    src: "/tmp/promtail-linux-amd64.zip"
+    dest: /usr/local/bin
+    remote_src: true
+  with_items:
+
+- name: Push config files
+  ansible.builtin.copy:
+    src: "roles/loki/files/promtail.yaml"
+    dest: "/etc/loki/promtail.yaml"
+    owner: loki
+    group: loki
+    mode: '0640'
+
+- name: Push services
+  ansible.builtin.copy:
+    src: "roles/loki/files/promtail.service"
+    dest: "/usr/lib/systemd/system/promtail.service"
+    mode: '0640'
+
+- name: Setup services
+  ansible.builtin.systemd:
+    name: promtail
+    state: restarted
+    enabled: true
+    daemon_reload: true
