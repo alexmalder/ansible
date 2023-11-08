@@ -9,36 +9,24 @@
       register: haproxy_cfg
       changed_when: haproxy_cfg.rc == 0
       failed_when: haproxy_cfg.rc != 0
-      tags:
-        - docker
-        - systemd
 
     - name: Register mycert
       ansible.builtin.command: "pass show ansible/wildcard.pem"
       register: mycert
       changed_when: mycert.rc == 0
       failed_when: mycert.rc != 0
-      tags:
-        - docker
-        - systemd
 
     - name: Register dhparams_raw
       ansible.builtin.command: "pass show ansible/dhparams.pem"
       register: dhparams_raw
       changed_when: dhparams_raw.rc == 0
       failed_when: dhparams_raw.rc != 0
-      tags:
-        - docker
-        - systemd
 
     - name: Set facts
       ansible.builtin.set_fact:
         config: "{{ haproxy_cfg.stdout + '\n' }}"
         mycert: "{{ mycert.stdout }}"
         dhparams: "{{ dhparams_raw.stdout }}"
-      tags:
-        - docker
-        - systemd
 
     - name: Add prepared certificate host variable
       ansible.builtin.add_host:
@@ -46,16 +34,10 @@
         name: CERTIFICATE
         mycert: "{{ mycert }}"
         dhparams: "{{ dhparams }}"
-      tags:
-        - docker
-        - systemd
 
     - name: Add dhparams host variable
       ansible.builtin.add_host:
         name: CERTIFICATE
-      tags:
-        - docker
-        - systemd
 
 - name: Setup haproxy
   hosts: cloud0

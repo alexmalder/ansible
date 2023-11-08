@@ -1,5 +1,4 @@
 ---
-
 - name: Push service
   ansible.builtin.copy:
     src: "roles/haproxy/files/haproxy.service"
