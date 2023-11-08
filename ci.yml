@@ -1,6 +1,6 @@
 ---
 - name: Install ci tools
-  hosts: runner
+  hosts: node1
   become: true
   roles:
     - name: Use ci role
