@@ -19,7 +19,7 @@
         config: "{{ postgres_config }}"
 
 - name: Install postgres
-  hosts: cloud0
+  hosts: runner
   become: true
   roles:
     - postgres
