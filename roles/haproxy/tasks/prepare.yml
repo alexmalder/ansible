@@ -2,20 +2,20 @@
 - name: Push prepared certificate in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['mycert'] }}"
-    dest: "{{ confdir }}/haproxy/wildcard.pem"
+    dest: "{{ config_dir }}/wildcard.pem"
     owner: "{{ owner }}"
     mode: '0640'
 
 - name: Push dhparams in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['dhparams'] }}"
-    dest: "{{ confdir }}/haproxy/dhparams.pem"
+    dest: "{{ config_dir }}/dhparams.pem"
     owner: "{{ owner }}"
     mode: '0640'
 
 - name: Push configuration
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
-    dest: "{{ confdir }}/haproxy/haproxy.cfg"
+    dest: "{{ config_dir }}/haproxy.cfg"
     owner: "{{ owner }}"
     mode: '0640'
