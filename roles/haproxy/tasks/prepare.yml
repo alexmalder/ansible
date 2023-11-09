@@ -13,6 +13,19 @@
     owner: "{{ owner }}"
     mode: '0640'
 
+- name: Push temp configuration
+  ansible.builtin.copy:
+    content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
+    dest: "{{ config_dir }}/haproxy_temp.cfg"
+    owner: haproxy
+    group: haproxy
+    mode: '0640'
+
+- name: Check config
+  ansible.builtin.command: "haproxy -f {{ config_dir }}/haproxy_temp.cfg -c"
+  register: validation_result
+  changed_when: "'Fatal errors found in configuration' not in validation_result.stderr"
+
 - name: Push configuration
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
