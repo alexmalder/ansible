@@ -1,0 +1,26 @@
+---
+# tasks file for libvirt
+- name: Remove the 'firewalld' package
+  ansible.builtin.yum:
+    name: firewalld
+    state: absent
+
+- name: Install the 'Virtualization Host' package group
+  ansible.builtin.dnf:
+    name: '@Virtualization Host'
+    state: present
+
+- name: Enable and start 'libvirtd'
+  become: true
+  ansible.builtin.systemd:
+    name: libvirtd
+    enabled: true
+    daemon_reload: true
+    state: started
+
+- name: Download boot images
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "/var/lib/libvirt/images/{{ item.name }}"
+    mode: '0660'
+  with_items: "{{ libvirt_images }}"

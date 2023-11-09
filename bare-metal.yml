@@ -1,7 +1,8 @@
 ---
 - name: Common play
-  hosts: bm
+  hosts: baremetal
   become: true
   roles:
     - common
     - sshd
+    - libvirt

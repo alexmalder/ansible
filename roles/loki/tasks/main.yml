@@ -1,6 +1,0 @@
----
-- name: Install grafana
-  ansible.builtin.import_tasks: ./grafana.yml
-
-- name: Install loki
-  ansible.builtin.import_tasks: ./loki-promtail.yml

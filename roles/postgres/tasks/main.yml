@@ -1,9 +1,8 @@
 ---
 # tasks file for postgres
-
 - name: Install postgresql centos/almalinux
   ansible.builtin.dnf:
-    name: '@postgresql:12'
+    name: '@postgresql:15'
     state: present
   when:
     - ansible_distribution == "AlmaLinux"
@@ -39,8 +38,8 @@
   become: true
   become_user: postgres
 
-# - name: Setup logging
-#   ansible.builtin.import_tasks: ./log.yml
+- name: Setup logging
+  ansible.builtin.import_tasks: ./log.yml
 
 - name: Setup service
   ansible.builtin.systemd:
@@ -54,14 +53,16 @@
     name: python3-psycopg2
     state: present
 
+# need database name
 - name: Create database
   community.postgresql.postgresql_db:
     state: present
-    name: "{{ item.database }}"
-  with_items: "{{ hostvars['POSTGRES']['config']['users'] }}"
+    name: "{{ item.name }}"
+  with_items: "{{ hostvars['POSTGRES']['config']['databases'] }}"
   become: true
   become_user: postgres
 
+# need username and password
 - name: Create database user
   community.postgresql.postgresql_user:
     state: present
@@ -71,6 +72,7 @@
   become: true
   become_user: postgres
 
+# need dbname and username
 - name: Grant database user access to database
   community.postgresql.postgresql_privs:
     type: database
@@ -78,7 +80,7 @@
     roles: "{{ item.user }}"
     grant_option: false
     privs: all
-  with_items: "{{ hostvars['POSTGRES']['config']['users'] }}"
+  with_items: "{{ hostvars['POSTGRES']['config']['bind'] }}"
   become: true
   become_user: postgres
 

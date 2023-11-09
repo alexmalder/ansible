@@ -1,6 +1,6 @@
 ---
 - name: Install ci tools
-  hosts: cloud0
+  hosts: node1
   become: true
   roles:
     - name: Use ci role

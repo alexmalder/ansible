@@ -1,0 +1,5 @@
+---
+# defaults file for libvirt
+libvirt_images:
+  - url: https://repo.almalinux.org/almalinux/8.8/isos/x86_64/AlmaLinux-8.8-x86_64-boot.iso
+    name: AlmaLinux-8.8-x86_64-boot.iso

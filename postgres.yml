@@ -4,7 +4,7 @@
   connection: local
   tasks:
     - name: Register secure variables
-      ansible.builtin.command: pass show ansible/postgres/postgres.yml
+      ansible.builtin.command: pass show ansible/postgres.yml
       register: postgres
       changed_when: postgres.rc == 0
       failed_when: postgres.rc != 0
@@ -19,7 +19,7 @@
         config: "{{ postgres_config }}"
 
 - name: Install postgres
-  hosts: cloud0
+  hosts: runner
   become: true
   roles:
     - postgres

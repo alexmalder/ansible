@@ -1,6 +1,6 @@
 ---
 - name: Setup sshd without password login
-  hosts: cloud0
+  hosts: bm
   roles:
     - name: Use sshd role
       role: sshd
