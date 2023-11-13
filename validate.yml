@@ -8,12 +8,12 @@
     - name: Check fish
       ansible.builtin.include_tasks: ./tasks/validate-task.yml
       vars:
-        diff_path: fish
+        diff_path: fish/conf.d
 
-    - name: Check nvim
+    - name: Check nvim lua
       ansible.builtin.include_tasks: ./tasks/validate-task.yml
       vars:
-        diff_path: nvim
+        diff_path: nvim/lua
 
     - name: Check zathura
       ansible.builtin.include_tasks: ./tasks/validate-task.yml

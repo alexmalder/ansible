@@ -1,6 +1,6 @@
 ---
 - name: Install ci tools
-  hosts: node1
+  hosts: baremetal
   become: true
   roles:
     - name: Use ci role
