@@ -6,9 +6,6 @@
     hidden: true
   register: result
 
-- name: Diff files
-  ansible.builtin.command: 'diff {{ item.path }} $HOME/.config/{{ item.path.replace("roles/localhost/files/.config/", "") }}'
-  register: diff_result
-  changed_when: diff_result.rc == 0
-  failed_when: diff_result.rc != 0
+- name: Check result files
+  ansible.builtin.include_tasks: ./tasks/pull-on-change.yml
   with_items: "{{ result.files }}"

@@ -1,0 +1,11 @@
+---
+- name: Run diff
+  ansible.builtin.command: 'diff {{ item.path }} $HOME/.config/{{ item.path.replace("roles/localhost/files/.config/", "") }}'
+  register: diff_result
+  changed_when: diff_result.rc == 0
+  failed_when: diff_result.rc != 0
+  ignore_errors: true
+
+- name: Debug item
+  command: "cp ~/.config/{{ diff_path }}/{{ item.path.split('/')[-1] }} {{ item.path }}" # this is a source in role
+  when: diff_result.rc != 0
