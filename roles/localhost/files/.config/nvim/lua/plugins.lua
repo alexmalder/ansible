@@ -15,17 +15,18 @@ vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappin
 
 require("lazy").setup(
   {
-     "hrsh7th/nvim-cmp",
-     "saadparwaiz1/cmp_luasnip",
-     "L3MON4D3/LuaSnip",
      "neovim/nvim-lspconfig",
-     "hrsh7th/cmp-nvim-lsp",
-     "hrsh7th/cmp-buffer",
-     "hrsh7th/cmp-path",
-     "hrsh7th/cmp-cmdline",
+     "hrsh7th/nvim-compe",
+     "L3MON4D3/LuaSnip",
+     --"hrsh7th/nvim-cmp",
+     --"saadparwaiz1/cmp_luasnip",
+     --"hrsh7th/cmp-nvim-lsp",
+     --"hrsh7th/cmp-buffer",
+     --"hrsh7th/cmp-path",
+     --"hrsh7th/cmp-cmdline",
+     --"hrsh7th/cmp-nvim-lsp-signature-help",
      "kkharji/lspsaga.nvim",
      "mfussenegger/nvim-jdtls",
-     "hrsh7th/cmp-nvim-lsp-signature-help",
     {
       "cuducos/yaml.nvim",
       ft = { "yaml" },
@@ -71,5 +72,7 @@ require("lazy").setup(
         config = true,
     },
     "hashivim/vim-terraform",
+    "skywind3000/asyncrun.vim",
+    "rafaqz/ranger.vim"
   }
 )

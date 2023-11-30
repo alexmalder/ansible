@@ -68,7 +68,7 @@ local git_branch = {
 -- git
 require('gitsigns').setup{}
 neogit.setup()
-vim.cmd[[set guicursor=v-c-sm:block,n-i-ci-ve:ver25,r-cr-o:hor20]]
+vim.cmd[[set guicursor=v-c-sm:block,n-i-ci-ve:ver25,r-cr-o:ver25]]
 
 -- Lua initialization file
 require("transparent").setup({
@@ -85,5 +85,3 @@ require("transparent").setup({
 vim.cmd('let g:rainbow_active = 1')
 
 vim.opt.termguicolors = true
-
-
