@@ -17,7 +17,7 @@ require("lazy").setup(
   {
      "neovim/nvim-lspconfig",
      "hrsh7th/nvim-compe",
-     "L3MON4D3/LuaSnip",
+     --"L3MON4D3/LuaSnip",
      --"hrsh7th/nvim-cmp",
      --"saadparwaiz1/cmp_luasnip",
      --"hrsh7th/cmp-nvim-lsp",
@@ -72,7 +72,8 @@ require("lazy").setup(
         config = true,
     },
     "hashivim/vim-terraform",
-    "skywind3000/asyncrun.vim",
-    "rafaqz/ranger.vim"
+    "rafaqz/ranger.vim",
+    "tpope/vim-dispatch"
+    --"radenling/vim-dispatch-neovim"
   }
 )
