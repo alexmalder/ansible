@@ -73,7 +73,8 @@ require("lazy").setup(
     },
     "hashivim/vim-terraform",
     "rafaqz/ranger.vim",
-    "tpope/vim-dispatch"
+    "tpope/vim-dispatch",
+    "nvim-tree/nvim-tree.lua"
     --"radenling/vim-dispatch-neovim"
   }
 )
