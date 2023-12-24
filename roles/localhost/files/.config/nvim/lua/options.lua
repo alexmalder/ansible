@@ -1,5 +1,3 @@
-local neogit = require('neogit')
-
 vim.opt.scrollback = 0
 vim.opt.tabstop=2
 vim.opt.shiftwidth = 2
@@ -67,7 +65,6 @@ local git_branch = {
 
 -- git
 require('gitsigns').setup{}
-neogit.setup()
 vim.cmd[[set guicursor=v-c-sm:block,n-i-ci-ve:ver25,r-cr-o:ver25]]
 
 -- Lua initialization file

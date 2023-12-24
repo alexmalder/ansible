@@ -54,7 +54,6 @@ require("lazy").setup(
     "sbdchd/neoformat",
     { "lewis6991/gitsigns.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     "sindrets/diffview.nvim",
-    "NeogitOrg/neogit",
     "sharksforarms/neovim-rust",
     "ajeetdsouza/zoxide",
     "jvgrootveld/telescope-zoxide",
