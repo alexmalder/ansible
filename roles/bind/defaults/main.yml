@@ -1,5 +1,0 @@
----
-domain: vnmntn.pro
-backward_zone_name: 10.10.10.in-addr.arpa # 0.168.192 like
-listen_ip: 192.168.122.16
-allow_query: 10.10.10.0/24
