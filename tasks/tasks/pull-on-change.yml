@@ -7,5 +7,5 @@
   ignore_errors: true
 
 - name: Debug item
-  command: "cp ~/.config/{{ diff_path }}/{{ item.path.split('/')[-1] }} {{ item.path }}" # this is a source in role
+  ansible.builtin.command: "cp ~/.config/{{ diff_path }}/{{ item.path.split('/')[-1] }} {{ item.path }}" # this is a source in role
   when: diff_result.rc != 0

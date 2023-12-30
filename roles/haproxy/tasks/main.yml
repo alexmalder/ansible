@@ -5,8 +5,5 @@
 - name: Prepare
   ansible.builtin.import_tasks: ./prepare.yml
 
-#- name: Deploy docker
-#  ansible.builtin.import_tasks: ./deploy-docker.yml
-
 - name: Deploy systemd
   ansible.builtin.import_tasks: ./deploy-systemd.yml
