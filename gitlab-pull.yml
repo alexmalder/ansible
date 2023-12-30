@@ -8,6 +8,7 @@
     - name: Include pull gitlab
       ansible.builtin.include_tasks: ./tasks/retrieve-gitlab-group.yml
       with_items:
+        - group_id: 2363
         - group_id: 12655
         - group_id: 12106
         - group_id: 11710
