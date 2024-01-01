@@ -123,6 +123,10 @@ lsp.lua_ls.setup {
 lsp.rust_analyzer.setup{
     capabilities = capabilities
 }
+lsp.cmake.setup {
+  --cmd = {"/opt/local/bin/cmake-language-server"},
+  capabilities = capabilities
+}
 lsp.clangd.setup{
     cmd = { "/usr/bin/clangd" },
     filetypes = { "c", "cpp", "objc" },
