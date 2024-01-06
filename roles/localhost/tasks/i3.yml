@@ -5,3 +5,10 @@
     dest: ~/.config/i3/config
     owner: "{{ ansible_user }}"
     mode: '0640'
+
+- name: Push circle script
+  ansible.builtin.template:
+    src: "roles/{{ role_name }}/files/.config/i3/circle"
+    dest: ~/.config/i3/circle
+    owner: "{{ ansible_user }}"
+    mode: '+x'

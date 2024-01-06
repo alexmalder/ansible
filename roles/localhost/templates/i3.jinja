@@ -16,11 +16,11 @@ bindsym {{ item }}
 {% endfor %}
 
 {% for item in vars.circle %}
-bindsym $mod+{{ item[0] }} $circle -t "{{ item[1] }}" -c "{{ item[2] }}"
+bindsym $mod+{{ item.key }} $circle -c "{{ item.command }}" -w "{{ item.ws }}" -a "{{ item.app }}"
 {% endfor %}
 
 {% for item in vars.circle %}
-bindsym $mod+Shift+{{ item[0] }} move container to workspace "{{ item[2] }}"
+bindsym $mod+Shift+{{ item.key }} move container to workspace "{{ item.ws }}"
 {% endfor %}
 
 mode "resize" {

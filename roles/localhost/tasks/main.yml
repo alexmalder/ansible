@@ -1,4 +1,7 @@
 ---
+- name: Setup i3
+  ansible.builtin.import_tasks: ./i3.yml
+
 - name: Install packages for archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
   when:
@@ -11,3 +14,5 @@
 
 - name: Configure system
   ansible.builtin.import_tasks: ./configure.yml
+  when:
+    - ansible_distribution == "Alpine"

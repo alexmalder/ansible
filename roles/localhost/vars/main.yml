@@ -6,6 +6,8 @@ raw:
   - font pango:Iosevka 10
   - for_window [class=".*"] border pixel 0
   - assign [class="kitty"] term
+  - exec --no-startup-id feh --bg-fill ~/.config/i3/purple-19.jpg
+  - exec --no-startup-id picom --config ~/.config/picom.conf
 
 
 setters:
@@ -16,22 +18,30 @@ setters:
 #   - sudo wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -i wlo1
 
 circle:
-  - ["x", "kitty", "term"]
-  - ["w", "qutebrowser", "qutebrowser"]
-  - ["n", "Evernote", "evernote"]
-  - ["v", "virt-manager", "virt-manager"]
-  - ["s", "lens", "lens"]
-  - ["d", "drawio", "draw"]
-  - ["p", "qtpass", "qtpass"]
-  - ["1", "code", "code"]
-  - ["2", "qtcreator", "qtcreator"]
-  - ["z", "zoom", "zoom"]
-  - ["e", "evolution", "evolution"]
-  - ["t", "telegram-desktop", "tg"]
-  - ["a", "android-studio", "android-studio"]
-  - ["b", "dbeaver", "dbeaver"]
-  - ["o", "wps", "wps"]
-  - ["4", "4kvideodownloader", "4kvideodownloader"]
+  - key: x
+    command: kitty
+    app: kitty
+    ws: term
+
+  - key: w 
+    command: qutebrowser
+    app: qutebrowser
+    ws: qutebrowser
+
+  - key: v 
+    command: virt-manager
+    app: virt-manager
+    ws: virt-manager
+
+  - key: d 
+    command: "flatpak run md.obsidian.Obsidian"
+    app: obsidian
+    ws: obsidian
+
+  - key: o
+    command: wps
+    app: wps
+    ws: wps
 
 bindsym:
   - $mod+Return exec kitty
