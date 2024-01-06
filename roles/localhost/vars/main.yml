@@ -38,6 +38,11 @@ circle:
     app: obsidian
     ws: obsidian
 
+  - key: t
+    command: "flatpak run com.github.IsmaelMartinez.teams_for_linux"
+    app: teams-for-linux
+    ws: teams-for-linux
+
   - key: o
     command: wps
     app: wps
