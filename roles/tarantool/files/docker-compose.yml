@@ -3,7 +3,7 @@ services:
   tarantool:
     #image: tarantool/tarantool:2
     build:
-      dockerfile: ./docker/tarantool/Dockerfile
+      dockerfile: ./Dockerfile
       context: .
     container_name: tarantool
     command: tarantool /opt/tarantool/app/init.lua
@@ -12,8 +12,8 @@ services:
       TARANTOOL_USER_NAME: tarantool
       TARANTOOL_USER_PASSWORD: tarantool
     volumes:
-      - ./config/init.lua:/opt/tarantool/app/init.lua
-      - ./config/validation.lua:/opt/tarantool/override/validation.lua
+      - ./init.lua:/opt/tarantool/app/init.lua
+      - ./validation.lua:/opt/tarantool/override/validation.lua
       - tarantool_data:/var/lib/tarantool
     ports:
       - 127.0.0.1:3301:3301
@@ -24,7 +24,7 @@ services:
     container_name: krakend
     restart: always
     volumes:
-      - ./docker/krakend.json:/etc/krakend/krakend.json
+      - ./krakend.json:/etc/krakend/krakend.json
     ports:
       - 127.0.0.1:8082:8082
     #healthcheck:
