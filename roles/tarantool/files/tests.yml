@@ -9,15 +9,18 @@
         auth_password: "{{ keycloak_admin_password }}"
         client_id: admin-rest-client
         client_authenticator_type: client-jwt
-        #client_authenticator_type: client-secret # client-jwt
         direct_access_grants_enabled: true
         service_accounts_enabled: true
         state: present
       register: keycloak_client
+      tags:
+        - keycloak
 
     - name: Debug keycloak_client
       debug:
         var: keycloak_client
+      tags:
+        - keycloak
 
     - name: Create a Keycloak realm role, authentication with credentials
       community.general.keycloak_role:
@@ -30,10 +33,14 @@
         realm: master
         state: present
       register: keycloak_role
+      tags:
+        - keycloak
 
     - name: Debug keycloak_role
       debug:
         var: keycloak_role
+      tags:
+        - keycloak
 
     - name: Create user
       community.general.keycloak_user:
@@ -54,10 +61,14 @@
               temporary: false
         state: present
       register: keycloak_user
+      tags:
+        - keycloak
 
     - name: Debug keycloak_user
       debug:
         var: keycloak_user
+      tags:
+        - keycloak
 
     - name: Map a client role to a user, authentication with credentials
       community.general.keycloak_user_rolemapping:
@@ -77,29 +88,14 @@
       debug:
         var: keycloak_user_rolemapping
 
-    #- name: Get a Keycloak client secret, authentication with credentials
-    #  community.general.keycloak_clientsecret_info:
-    #    auth_keycloak_url: "{{ keycloak_url }}"
-    #    auth_username: "{{ keycloak_admin_username }}"
-    #    auth_password: "{{ keycloak_admin_password }}"
-    #    auth_realm: master
-    #    client_id: admin-rest-client
-    #    realm: master
-    #  register: keycloak_clientsecret_info
-
-    #- name: Debug keycloak_clientsecret_info
-    #  debug:
-    #    var: keycloak_clientsecret_info
-
     - name: Login to keycloak behind krakend api gateway
       ansible.builtin.uri:
-        url: "{{ krakend_url }}/api/v1/auth/sign-in"
-        #url: "{{ keycloak_url }}/realms/master/protocol/openid-connect/token"
+        #url: "{{ krakend_url }}/api/v1/auth/sign-in"
+        url: "{{ keycloak_url }}/realms/master/protocol/openid-connect/token"
         method: POST
         body_format: form-urlencoded
         body:
           client_id: admin-rest-client
-          #client_secret: "{{ keycloak_clientsecret_info.clientsecret_info.value }}"
           username: alexmalder
           password: denied
           grant_type: password
@@ -107,10 +103,14 @@
           - 200
           - 201
       register: login
+      tags:
+        - krakend
 
     - name: Debug login
       debug:
         var: login.json
+      tags:
+        - krakend
 
     - name: Get subject and roles
       ansible.builtin.uri:
@@ -122,32 +122,16 @@
           - 200
           - 201
       register: subject_and_roles
+      tags:
+        - krakend
 
     - name: Debug subject_and_roles
       debug:
         var: subject_and_roles.json
+      tags:
+        - krakend
 
-    - name: Post check login
-      ansible.builtin.uri:
-        url: "{{ krakend_url }}"
-        method: POST
-        body_format: json
-        body:
-          login: login
-          password: password
-        headers:
-          Authorization: "Bearer {{ login.json.access_token }}"
-          Content-Type: "application/json"
-        status_code:
-          - 200
-          - 201
-      register: check_login
-
-    - name: Debug check_login
-      debug:
-        var: check_login
-
-    - name: Post label
+    - name: POST label previous
       ansible.builtin.uri:
         url: "{{ krakend_url }}/api/v1/labels"
         method: POST
@@ -156,18 +140,71 @@
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
         body:
-          title: new_title
-          description: new_description
+          title: "title-{{ ansible_date_time.epoch }}-previous"
+          description: previous
         status_code:
           - 200
           - 201
-      register: label
+      register: label_previous
+      tags:
+        - krakend
 
-    - name: Debug label
+    - name: Debug label_previous
       debug:
-        var: label
+        var: label_previous
+      tags:
+        - krakend
 
-    - name: Post feed
+    - name: PUT label previous
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/labels/{{ label_previous.json.data.id }}"
+        method: PUT
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: "new_title-{{ ansible_date_time.epoch }}-previous"
+          description: updated_previous
+        status_code:
+          - 200
+          - 201
+      register: updated_label_previous
+      tags:
+        - krakend
+
+    - name: Assert new value in label_previous
+      ansible.builtin.assert:
+        that:
+          - updated_label_previous.json.data.description == "updated_previous"
+      tags:
+        - krakend
+
+    - name: POST label latest
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/labels"
+        method: POST
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: "title-{{ ansible_date_time.epoch }}-latest"
+          description: latest
+        status_code:
+          - 200
+          - 201
+      register: label_latest
+      tags:
+        - krakend
+
+    - name: Debug label label
+      debug:
+        var: label_latest
+      tags:
+        - krakend
+
+    - name: POST feed
       ansible.builtin.uri:
         url: "{{ krakend_url }}/api/v1/feed"
         method: POST
@@ -176,13 +213,133 @@
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
         body:
-          title: new_title
+          title: "new_title-{{ ansible_date_time.epoch }}"
           link: new_link
         status_code:
           - 200
           - 201
       register: feed
+      tags:
+        - krakend
+
+    - name: PUT feed
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/feed/{{ feed.json.data.id }}"
+        method: PUT
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: "new_title-{{ ansible_date_time.epoch }}"
+          link: updated_link
+        status_code:
+          - 200
+          - 201
+      register: updated_feed
+      tags:
+        - krakend
+
+    - name: Assert new value in feed key
+      ansible.builtin.assert:
+        that:
+          - updated_feed.json.data.link == "updated_link"
 
     - name: Debug feed
       debug:
         var: feed
+      tags:
+        - krakend
+
+    - name: POST feed_label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/fl"
+        method: POST
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          feed_id: "{{ feed.json.data.id }}"
+          label_id: "{{ label_previous.json.data.id }}"
+        status_code:
+          - 200
+          - 201
+      register: feed_label
+      tags:
+        - krakend
+
+    - name: Debug feed_label
+      debug:
+        var: feed_label
+      tags:
+        - krakend
+
+    - name: PUT feed_label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/fl?feed_id={{ feed.json.data.id }}&label_id={{ label_previous.json.data.id }}"
+        method: PUT
+        body_format: json
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          feed_id: "{{ feed.json.data.id }}"
+          label_id: "{{ label_latest.json.data.id }}"
+        status_code:
+          - 200
+          - 201
+      register: updated_feed_label
+      tags:
+        - krakend
+
+    - name: Debug updated_feed_label
+      debug:
+        var: updated_feed_label
+      tags:
+        - krakend
+
+    - name: Assert new value in feed_label key
+      ansible.builtin.assert:
+        that:
+          - updated_feed_label.json.data.label_id == label_latest.json.data.id
+
+    - name: GET feed
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/feed/{{ feed.json.data.id }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        status_code:
+          - 200
+          - 201
+      register: feed
+      tags:
+        - krakend
+
+    - name: Debug feed
+      debug:
+        var: feed
+      tags:
+        - krakend
+
+    - name: GET feed_label
+      ansible.builtin.uri:
+        url: "{{ krakend_url }}/api/v1/fl/{{ feed.json.data.id }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        status_code:
+          - 200
+          - 201
+      register: feed_label
+      tags:
+        - krakend
+
+    - name: Debug feed_label
+      debug:
+        var: feed_label
+      tags:
+        - krakend

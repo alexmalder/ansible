@@ -59,7 +59,7 @@
       "output_encoding": "no-op",
       "backend": [
         {
-          "url_pattern": "/auth/realms/master/protocol/openid-connect/token",
+          "url_pattern": "/realms/master/protocol/openid-connect/token",
           "host": ["http://keycloak:8080"]
         }
       ]
@@ -70,7 +70,7 @@
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       },
@@ -86,14 +86,14 @@
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feed",
+          "url_pattern": "/keycloak/{JWT.sub}/feed",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -103,14 +103,14 @@
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feed/{id}",
+          "url_pattern": "/keycloak/{JWT.sub}/feed/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -132,14 +132,14 @@
       ],
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feed",
+          "url_pattern": "/keycloak/{JWT.sub}/feed",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -147,16 +147,28 @@
     {
       "endpoint": "/api/v1/feed/{id}",
       "method": "PUT",
+      "output_encoding": "no-op",
+      "input_headers": [
+        "Host",
+        "X-Forwarded-For",
+        "Content-Length",
+        "Content-Type",
+        "Accept-Encoding",
+        "Accept",
+        "X-Forwarded-Host",
+        "Transfer-Encoding",
+        "User-Agent"
+      ],
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feed/{id}",
+          "url_pattern": "/keycloak/{JWT.sub}/feed/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -166,14 +178,14 @@
       "method": "DELETE",
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/feed/{id}",
+          "url_pattern": "/keycloak/{JWT.sub}/feed/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -183,14 +195,14 @@
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
+          "url_pattern": "/keycloak/{JWT.sub}/labels",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -200,14 +212,14 @@
       "method": "GET",
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
+          "url_pattern": "/keycloak/{JWT.sub}/labels/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -229,14 +241,14 @@
       ],
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels",
+          "url_pattern": "/keycloak/{JWT.sub}/labels",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -244,16 +256,28 @@
     {
       "endpoint": "/api/v1/labels/{id}",
       "method": "PUT",
+      "output_encoding": "no-op",
+      "input_headers": [
+        "Host",
+        "X-Forwarded-For",
+        "Content-Length",
+        "Content-Type",
+        "Accept-Encoding",
+        "Accept",
+        "X-Forwarded-Host",
+        "Transfer-Encoding",
+        "User-Agent"
+      ],
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
+          "url_pattern": "/keycloak/{JWT.sub}/labels/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
@@ -263,14 +287,131 @@
       "method": "DELETE",
       "backend": [
         {
-          "url_pattern": "/keycloak/{JWT.sub}/{JWT.resource_access}/labels/{id}",
+          "url_pattern": "/keycloak/{JWT.sub}/labels/{id}",
           "host": ["http://tarantool:8090"]
         }
       ],
       "extra_config": {
         "auth/validator": {
           "alg": "RS256",
-          "jwk_url": "http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/fl",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/keycloak/{JWT.sub}/fl",
+          "host": ["http://tarantool:8090"]
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "roles_key": "resource_access.admin-rest-client.roles",
+          "roles_key_is_nested": true,
+          "roles": ["admin-rest-client-master-role"]
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/fl/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/keycloak/{JWT.sub}/fl/{id}",
+          "host": ["http://tarantool:8090"]
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true,
+          "roles_key": "resource_access.admin-rest-client.roles",
+          "roles_key_is_nested": true,
+          "roles": ["admin-rest-client-master-role"]
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/fl",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "input_headers": [
+        "Host",
+        "X-Forwarded-For",
+        "Content-Length",
+        "Content-Type",
+        "Accept-Encoding",
+        "Accept",
+        "X-Forwarded-Host",
+        "Transfer-Encoding",
+        "User-Agent"
+      ],
+      "backend": [
+        {
+          "url_pattern": "/keycloak/{JWT.sub}/fl",
+          "encoding": "no-op",
+          "host": ["http://tarantool:8090"]
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/fl",
+      "method": "PUT",
+      "output_encoding": "no-op",
+      "input_query_strings": ["feed_id", "label_id"],
+      "input_headers": [
+        "Host",
+        "X-Forwarded-For",
+        "Content-Length",
+        "Content-Type",
+        "Accept-Encoding",
+        "Accept",
+        "X-Forwarded-Host",
+        "Transfer-Encoding",
+        "User-Agent"
+      ],
+      "backend": [
+        {
+          "url_pattern": "/keycloak/{JWT.sub}/fl",
+          "host": ["http://tarantool:8090"]
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
+          "disable_jwk_security": true
+        }
+      }
+    },
+    {
+      "endpoint": "/api/v1/fl/{id}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "url_pattern": "/keycloak/{JWT.sub}/fl/{id}",
+          "host": ["http://tarantool:8090"]
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/master/protocol/openid-connect/certs",
           "disable_jwk_security": true
         }
       }
