@@ -23,17 +23,17 @@ circle:
     app: kitty
     ws: term
 
-  - key: w 
+  - key: w
     command: qutebrowser
     app: qutebrowser
     ws: qutebrowser
 
-  - key: v 
+  - key: v
     command: virt-manager
     app: virt-manager
     ws: virt-manager
 
-  - key: d 
+  - key: d
     command: "flatpak run md.obsidian.Obsidian"
     app: obsidian
     ws: obsidian
