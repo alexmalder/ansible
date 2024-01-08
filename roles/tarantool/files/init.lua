@@ -3,6 +3,19 @@ local json = require('json')
 
 require("validation")
 
+local function dump(o)
+  if type(o) == 'table' then
+    local s = '{ '
+      for k,v in pairs(o) do
+        if type(k) ~= 'number' then k = '"'..k..'"' end
+        s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+    return s .. '} '
+  else
+    return tostring(o)
+  end
+end
+
 -- tarantool part
 local box=box
 
@@ -156,7 +169,6 @@ end
 local function post_label(req)
   local lua_table = req:json()
   local errstack = ValidateSchema(lua_table, LabelSchema)
-  print(errstack)
   if next(errstack) == nil then
     local label = box.space.labels:insert{
       uuid.new(),
