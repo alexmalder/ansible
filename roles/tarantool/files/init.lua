@@ -423,13 +423,19 @@ local function put_feed_label(req)
   local current_label_id = uuid.fromstr(lua_table['old_label_id'])
   local new_feed_id = uuid.fromstr(lua_table['new_feed_id'])
   local new_label_id = uuid.fromstr(lua_table['new_label_id'])
-  local feed_label = box.space.feed_labels:replace({current_feed_id, current_label_id}, {
-    { '=', 1, new_feed_id },
-    { '=', 2, new_label_id },
-  })
+  local deleted
+  local feed_label
+  box.begin()
+  deleted = box.space.feed_labels:delete({current_feed_id, current_label_id})
+  feed_label = box.space.feed_labels:insert{new_feed_id, new_label_id}
+  box.commit()
   return req:render{
     json = {
-      ['data'] = feed_label
+      ['data'] = {
+        ['feed_id'] = feed_label['feed_id'],
+        ['label_id'] = feed_label['label_id'],
+      },
+      ['deleted'] = deleted
     }
   }
 end

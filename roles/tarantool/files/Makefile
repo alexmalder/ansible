@@ -24,5 +24,9 @@ debug:
 
 restart_tarantool:
 	docker-compose down tarantool
-	docker volume prune --all
+	docker-compose down krakend
+	docker volume prune --all --force
 	docker-compose up --build -d
+	ansible-playbook tests.yml -e keycloak_url=http://localhost:8080 -e krakend_url=http://localhost:8082 -e keycloak_admin_username=admin -e keycloak_admin_password=admin || exit 0
+	sleep 2
+	docker-compose logs tarantool
