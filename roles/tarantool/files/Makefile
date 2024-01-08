@@ -21,3 +21,8 @@ debug:
 	docker-compose --env-file ./.env up -d tarantool
 	docker-compose --env-file ./.env up -d krakend
 	http get localhost:8082/api/v1/keycloak "Authorization: Bearer ${TOKEN}"
+
+restart_tarantool:
+	docker-compose down tarantool
+	docker volume prune --all
+	docker-compose up --build -d

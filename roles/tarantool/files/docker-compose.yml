@@ -1,10 +1,10 @@
 version: '3'
 services:
   tarantool:
-    #image: tarantool/tarantool:2
-    build:
-      dockerfile: ./Dockerfile
-      context: .
+    image: tarantool/tarantool:2
+    #build:
+    #  dockerfile: ./Dockerfile
+    #  context: .
     container_name: tarantool
     command: tarantool /opt/tarantool/app/init.lua
     restart: always

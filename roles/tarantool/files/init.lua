@@ -93,7 +93,10 @@ labels:create_index('title', {
 
 feed_labels:create_index('primary', {
   type = 'TREE',
-  parts = {'feed_id', 'label_id'},
+  parts = {
+    {'feed_id'},
+    {'label_id'}
+  },
   unique = true,
   if_not_exists = true
 })
@@ -416,11 +419,13 @@ end
 
 local function put_feed_label(req)
   local lua_table = req:json()
-  local uuid_feed_id = uuid.fromstr(lua_table['feed_id'])
-  local uuid_label_id = uuid.fromstr(lua_table['label_id'])
-  local feed_label = box.space.feed_labels:update({uuid_feed_id, uuid_label_id}, {
-    { '=', 1, uuid_feed_id },
-    { '=', 2, uuid_label_id },
+  local current_feed_id = uuid.fromstr(lua_table['old_feed_id'])
+  local current_label_id = uuid.fromstr(lua_table['old_label_id'])
+  local new_feed_id = uuid.fromstr(lua_table['new_feed_id'])
+  local new_label_id = uuid.fromstr(lua_table['new_label_id'])
+  local feed_label = box.space.feed_labels:replace({current_feed_id, current_label_id}, {
+    { '=', 1, new_feed_id },
+    { '=', 2, new_label_id },
   })
   return req:render{
     json = {

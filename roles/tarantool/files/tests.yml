@@ -277,15 +277,17 @@
 
     - name: PUT feed_label
       ansible.builtin.uri:
-        url: "{{ krakend_url }}/api/v1/fl?feed_id={{ feed.json.data.id }}&label_id={{ label_previous.json.data.id }}"
+        url: "{{ krakend_url }}/api/v1/fl"
         method: PUT
         body_format: json
         headers:
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
         body:
-          feed_id: "{{ feed.json.data.id }}"
-          label_id: "{{ label_latest.json.data.id }}"
+          old_feed_id: "{{ feed.json.data.id }}"
+          old_label_id: "{{ label_previous.json.data.id }}"
+          new_feed_id: "{{ feed.json.data.id }}"
+          new_label_id: "{{ label_latest.json.data.id }}"
         status_code:
           - 200
           - 201
@@ -302,7 +304,7 @@
     - name: Assert new value in feed_label key
       ansible.builtin.assert:
         that:
-          - updated_feed_label.json.data.label_id == label_latest.json.data.id
+          - updated_feed_label.json.data[1] == label_latest.json.data.id
 
     - name: GET feed
       ansible.builtin.uri:
