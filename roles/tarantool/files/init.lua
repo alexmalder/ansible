@@ -1,20 +1,20 @@
 local uuid = require('uuid')
 local json = require('json')
 
-require("validation")
-
-local function dump(o)
+local function dump_my_table(o)
   if type(o) == 'table' then
     local s = '{ '
-      for k,v in pairs(o) do
-        if type(k) ~= 'number' then k = '"'..k..'"' end
-        s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
+    for k,v in pairs(o) do
+      if type(k) ~= 'number' then k = '"'..k..'"' end
+      s = s .. '['..k..'] = ' .. dump_my_table(v) .. ','
+    end
     return s .. '} '
   else
     return tostring(o)
   end
 end
+
+require("validation")
 
 -- tarantool part
 local box=box
@@ -32,6 +32,18 @@ box.schema.user.grant('tarantool', 'read,write,execute', 'universe', nil, {
 })
 
 -- spaces and formats
+local logs = box.schema.create_space("logs", {
+  -- logs space if_not_exists
+  if_not_exists = true
+})
+
+logs:format({
+  {name = 'id', type = 'uuid'},
+  {name = 'reason', type = 'string'},
+  {name = 'text', type = 'string'},
+  if_not_exists = true
+})
+
 local feed = box.schema.create_space("feed", {
   -- feed space if not exists
   if_not_exists = true
@@ -69,6 +81,14 @@ feed_labels:format({
 })
 
 -- setup indexes
+
+logs:create_index('primary', {
+  type = 'TREE',
+  parts = {'id'},
+  unique = true,
+  if_not_exists = true
+})
+
 feed:create_index('primary', {
   type = 'TREE',
   parts = {'id'},
@@ -135,6 +155,12 @@ local function keycloak_handler(req)
     ['sub'] = sub,
     ['roles'] = roles,
   }}
+end
+
+-- logs api
+local function get_logs(req)
+  local items = box.space.logs:select({}, {iterator='GT', limit = 100})
+  return req:render{json = items}
 end
 
 -- label api
@@ -439,6 +465,7 @@ local function put_feed_label(req)
   local feed_label
   box.begin()
   deleted = box.space.feed_labels:delete({current_feed_id, current_label_id})
+  box.space.logs:insert{uuid.new(), "debug deleted", dump_my_table(deleted) }
   feed_label = box.space.feed_labels:insert{new_feed_id, new_label_id}
   box.commit()
   return req:render{
@@ -468,6 +495,8 @@ local function listen_http_api()
   local server = require('http.server').new(nil, 8090, {charset = "utf8"})
   server:route({path = '/', method = 'GET'}, default_handler)
   server:route({path = '/keycloak/:sub/:roles', method = 'GET'}, keycloak_handler)
+  -- logs api
+  server:route({path = '/keycloak/:sub/logs', method = 'GET'}, get_logs)
   -- labels crud
   server:route({path = '/keycloak/:sub/labels', method = 'GET'}, get_labels)
   server:route({path = '/keycloak/:sub/labels/:id', method = 'GET'}, get_label)
