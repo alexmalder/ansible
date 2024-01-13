@@ -82,7 +82,3 @@ require("transparent").setup({
 vim.cmd('let g:rainbow_active = 1')
 
 vim.opt.termguicolors = true
-
-require('hologram').setup{
-    auto_display = true -- WIP automatic markdown image display, may be prone to breaking
-}

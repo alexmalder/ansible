@@ -124,7 +124,6 @@ lsp.rust_analyzer.setup{
     capabilities = capabilities
 }
 lsp.cmake.setup {
-  --cmd = {"/opt/local/bin/cmake-language-server"},
   capabilities = capabilities
 }
 lsp.clangd.setup{
@@ -132,6 +131,11 @@ lsp.clangd.setup{
     filetypes = { "c", "cpp", "objc" },
     capabilities = capabilities
 }
+
+lsp.sqlls.setup {
+  capabilities = capabilities
+}
+
 lsp.jdtls.setup{}
 --lsp.yamlls.setup { capabilities = capabilities }
 --lsp.ansiblels.setup { cmd = { "ansible-language-server", "--stdio" }, filetypes = { "yaml.ansible" }, }
