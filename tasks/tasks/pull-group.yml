@@ -1,9 +1,0 @@
-- name: Clone repositories into workdir
-  ansible.builtin.git:
-    repo: "{{ item.web_url }}"
-    dest: "{{ workdir }}/{{ item.path_with_namespace }}"
-    version: "{{ item.default_branch }}"
-
-- name: Pulled repo
-  ansible.builtin.debug:
-    msg: "{{ item.name_with_namespace }}"

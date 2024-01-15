@@ -12,6 +12,13 @@
     validate_certs: false
   register: result
 
-- name: Pull group
-  ansible.builtin.include_tasks: ./tasks/pull-group.yml
-  with_items: "{{ result.json }}"
+- name: Clone repositories into workdir
+  ansible.builtin.git:
+    repo: "{{ item.web_url }}"
+    dest: "{{ workdir }}/{{ item.path_with_namespace }}"
+    version: "{{ item.default_branch }}"
+  loop: "{{ result.json }}"
+
+#- name: Pull group
+#  ansible.builtin.include_tasks: ./tasks/pull-group.yml
+#  with_items: "{{ result.json }}"
