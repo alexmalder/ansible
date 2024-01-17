@@ -43,6 +43,11 @@ circle:
     app: teams-for-linux
     ws: teams-for-linux
 
+  - key: e
+    command: "flatpak run org.telegram.desktop"
+    app: TelegramDesktop
+    ws: telegram
+
   - key: o
     command: wps
     app: wps
