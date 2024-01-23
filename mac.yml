@@ -1,0 +1,19 @@
+- hosts: 127.0.0.1
+  connection: local
+  become: true
+  tasks:
+    - name: Install a list of ports
+      community.general.macports:
+        name: "{{ item }}"
+      loop:
+        - neovim
+        - neofetch
+        - fish
+        - fzf
+        - ripgrep
+        - pass
+        - eza
+        - nnn
+        - k9s
+        - ctop
+        - colordiff
