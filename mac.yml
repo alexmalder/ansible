@@ -18,5 +18,6 @@
           - colordiff
           - npm10
           - cargo
+          - glab
         selfupdate: true
         upgrade: true
