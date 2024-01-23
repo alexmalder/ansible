@@ -4,17 +4,18 @@
   tasks:
     - name: Install a list of ports
       community.general.macports:
-        name: "{{ item }}"
-      loop:
-        - neovim
-        - neofetch
-        - fish
-        - fzf
-        - ripgrep
-        - pass
-        - eza
-        - nnn
-        - k9s
-        - ctop
-        - colordiff
-        - npm10
+        name:
+          - neovim
+          - neofetch
+          - fish
+          - fzf
+          - ripgrep
+          - pass
+          - eza
+          - nnn
+          - k9s
+          - ctop
+          - colordiff
+          - npm10
+        selfupdate: true
+        upgrade: true
