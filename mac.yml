@@ -17,5 +17,6 @@
           - ctop
           - colordiff
           - npm10
+          - cargo
         selfupdate: true
         upgrade: true
