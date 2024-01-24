@@ -1,25 +1,33 @@
 - hosts: 127.0.0.1
   connection: local
   become: true
+  vars:
+    packages:
+      - neovim
+      - neofetch
+      - fish
+      - fzf
+      - ripgrep
+      - pass
+      - eza
+      - nnn
+      - k9s
+      - ctop
+      - colordiff
+      - npm10
+      - cargo
+      - glab
+      - jq
+      - yq
+      - poppler
   tasks:
     - name: Install a list of ports
       community.general.macports:
-        name:
-          - neovim
-          - neofetch
-          - fish
-          - fzf
-          - ripgrep
-          - pass
-          - eza
-          - nnn
-          - k9s
-          - ctop
-          - colordiff
-          - npm10
-          - cargo
-          - glab
-          - jq
-          - yq
+        name: "{{ item }}"
+      loop: "{{ packages }}"
+
+    - name: Upgrade packages
+      community.general.macports:
+        name: "{{ packages }}"
         selfupdate: true
         upgrade: true
