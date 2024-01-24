@@ -19,5 +19,7 @@
           - npm10
           - cargo
           - glab
+          - jq
+          - yq
         selfupdate: true
         upgrade: true
