@@ -1,8 +1,14 @@
+---
 - hosts: 127.0.0.1
   connection: local
   become: true
   vars:
-    packages:
+    npm_packages:
+      - markdownlint-cli
+      - bash-language-server
+      - yaml-language-server
+      - pyright
+    macports_packages:
       - neovim
       - neofetch
       - fish
@@ -19,17 +25,25 @@
       - glab
       - jq
       - yq
+      - zoxide
       - poppler
       - pandoc
       - texlive-fonts-recommended
   tasks:
-    - name: Install a list of ports
+    - name: Install macports packages
       community.general.macports:
         name: "{{ item }}"
-      loop: "{{ packages }}"
+      loop: "{{ macports_packages }}"
 
-    - name: Upgrade packages
+    - name: Install npm packages
+      community.general.npm:
+        name: "{{ item }}"
+        global: true
+      loop: "{{ npm_packages }}"
+
+    - name: Upgrade macports packages
       community.general.macports:
-        name: "{{ packages }}"
+        name: "{{ macports_packages }}"
         selfupdate: true
         upgrade: true
+
