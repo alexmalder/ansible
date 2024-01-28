@@ -20,6 +20,8 @@
       - jq
       - yq
       - poppler
+      - pandoc
+      - texlive-fonts-recommended
   tasks:
     - name: Install a list of ports
       community.general.macports:
