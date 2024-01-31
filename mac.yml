@@ -29,6 +29,7 @@
       - poppler
       - pandoc
       - texlive-fonts-recommended
+      - htop
   tasks:
     - name: Install macports packages
       community.general.macports:
