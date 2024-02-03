@@ -19,7 +19,7 @@
     url: "https://{{ ansible_host }}"
     validate_certs: false
     method: GET
-    status_codes: 
+    status_codes:
       - 200
       - 404
       - 503
