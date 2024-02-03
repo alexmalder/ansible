@@ -1,2 +1,30 @@
 ---
 # defaults file for init
+localhost_npm_packages:
+  - markdownlint-cli
+  - bash-language-server
+  - yaml-language-server
+  - pyright
+localhost_macports_packages:
+  - neovim
+  - neofetch
+  - fish
+  - fzf
+  - ripgrep
+  - pass
+  - eza
+  - nnn
+  - k9s
+  - ctop
+  - colordiff
+  - npm10
+  - cargo
+  - glab
+  - jq
+  - yq
+  - zoxide
+  - poppler
+  - pandoc
+  - texlive-fonts-recommended
+  - htop
+  - ranger

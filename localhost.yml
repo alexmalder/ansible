@@ -4,5 +4,3 @@
   connection: local
   roles:
     - role: localhost
-      vars:
-        role_name: localhost

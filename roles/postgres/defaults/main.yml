@@ -1,6 +1,6 @@
 ---
 # defaults file for postgres
-users:
+postgres_users:
   - user: gitea
     password: gitea
     database: gitea
@@ -8,5 +8,5 @@ users:
     password: drone
     database: drone
 
-listen_addresses: 127.0.0.1
-allowed_ips: all
+postgres_listen_addresses: 127.0.0.1
+postgres_allowed_ips: all

@@ -1,5 +1,5 @@
 ---
-docker_ce_url: 'https://download.docker.com/linux/centos/docker-ce.repo'
-kubectl_url: "https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
-helm_url: "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
-gitlab_runner_install_sh: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'
+ci_docker_ce_url: 'https://download.docker.com/linux/centos/docker-ce.repo'
+ci_kubectl_url: "https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
+ci_helm_url: "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
+ci_gitlab_runner_install_sh: 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh'

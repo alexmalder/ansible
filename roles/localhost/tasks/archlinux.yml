@@ -1,6 +1,5 @@
 ---
 - name: Install base packages
-  become: true
   community.general.pacman:
     name:
       - zsh
@@ -26,7 +25,6 @@
       - htop
 
 - name: Install dev packages
-  become: true
   community.general.pacman:
     name:
       - python-pip
@@ -43,7 +41,6 @@
       - xdo
 
 - name: Install ops packages
-  become: true
   community.general.pacman:
     name:
       - docker
@@ -57,7 +54,6 @@
       - gopls
 
 - name: Install xorg packages
-  become: true
   community.general.pacman:
     name:
       - xorg
@@ -65,7 +61,6 @@
       - xorg-xinit
 
 - name: Install desktop packages
-  become: true
   community.general.pacman:
     name:
       - sof-firmware
@@ -97,7 +92,6 @@
       - ttf-iosevka-nerd
 
 - name: Install node packages
-  become: true
   community.general.npm:
     global: true
     name: "{{ item }}"

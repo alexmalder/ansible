@@ -1,4 +1,4 @@
 ---
 # defaults file for haproxy
-config_dir: /etc/haproxy
-owner: haproxy
+haproxy_config_dir: /etc/haproxy
+haproxy_owner: haproxy

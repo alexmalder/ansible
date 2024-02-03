@@ -1,11 +1,11 @@
-FROM alpine:3.17
+#FROM almalinux:9
+FROM alpine:3.18
 
 WORKDIR /app
 
-RUN apk add npm git ansible ansible-lint
-RUN npm i -g markdownlint-cli
-RUN ansible-galaxy collection install ansible.posix
-RUN ansible-galaxy collection install community.general
+#RUN dnf update -y && dnf install python-pip npm git -y && pip install ansible ansible-lint && npm i -g markdownlint-cli
+
+RUN apk add npm git py3-pip gcc musl-dev python3-dev libffi-dev && pip install ansible ansible-lint && npm i -g markdownlint-cli
 
 COPY . .
 

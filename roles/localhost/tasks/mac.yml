@@ -1,0 +1,17 @@
+---
+- name: Install macports packages
+  community.general.macports:
+    name: "{{ item }}"
+  loop: "{{ localhost_macports_packages }}"
+
+- name: Install npm packages
+  community.general.npm:
+    name: "{{ item }}"
+    global: true
+  loop: "{{ localhost_npm_packages }}"
+
+- name: Upgrade macports packages
+  community.general.macports:
+    name: "{{ localhost_macports_packages }}"
+    selfupdate: true
+    upgrade: true

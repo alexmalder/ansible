@@ -1,6 +1,5 @@
 ---
 - name: Install base ALPINE packages | PACKAGES
-  become: true
   community.general.apk:
     name:
       - zsh
@@ -31,14 +30,12 @@
       - ansible-lint
 
 - name: Install fonts ALPINE packages | PACKAGES
-  become: true
   community.general.apk:
     name:
       - font-iosevka-nerd
       - font-manager
 
 - name: Install other ALPINE packages | PACKAGES
-  become: true
   community.general.apk:
     name:
       - wl-clipboard
@@ -69,13 +66,7 @@
       - nmap
 
 - name: Install node packages
-  become: true
   community.general.npm:
     global: true
     name: "{{ item }}"
-  with_items:
-    - pyright
-    - pm2
-    - bash-language-server
-    - yaml-language-server
-    - markdownlint-cli
+  with_items: "{{ npm_packages }}"
