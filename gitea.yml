@@ -1,6 +1,6 @@
 ---
 - name: Install gitea
-  hosts: cloud0
+  hosts: cloud
   become: true
   roles:
     - role: gitea

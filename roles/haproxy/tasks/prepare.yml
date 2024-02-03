@@ -2,33 +2,33 @@
 - name: Push prepared certificate in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['mycert'] }}"
-    dest: "{{ config_dir }}/wildcard.pem"
-    owner: "{{ owner }}"
+    dest: "{{ haproxy_config_dir }}/wildcard.pem"
+    owner: "{{ haproxy_owner }}"
     mode: '0640'
 
 - name: Push dhparams in pem format
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['dhparams'] }}"
-    dest: "{{ config_dir }}/dhparams.pem"
-    owner: "{{ owner }}"
+    dest: "{{ haproxy_config_dir }}/dhparams.pem"
+    owner: "{{ haproxy_owner }}"
     mode: '0640'
 
 - name: Push temp configuration
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
-    dest: "{{ config_dir }}/haproxy_temp.cfg"
+    dest: "{{ haproxy_config_dir }}/haproxy_temp.cfg"
     owner: haproxy
     group: haproxy
     mode: '0640'
 
 - name: Check config
-  ansible.builtin.command: "haproxy -f {{ config_dir }}/haproxy_temp.cfg -c"
+  ansible.builtin.command: "haproxy -f {{ haproxy_config_dir }}/haproxy_temp.cfg -c"
   register: validation_result
   changed_when: "'Fatal errors found in configuration' not in validation_result.stderr"
 
 - name: Push configuration
   ansible.builtin.copy:
     content: "{{ hostvars['CERTIFICATE']['haproxy_cfg'] }}"
-    dest: "{{ config_dir }}/haproxy.cfg"
-    owner: "{{ owner }}"
+    dest: "{{ haproxy_config_dir }}/haproxy.cfg"
+    owner: "{{ haproxy_owner }}"
     mode: '0640'

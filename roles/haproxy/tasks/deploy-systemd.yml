@@ -13,3 +13,18 @@
     state: restarted
     enabled: true
     daemon_reload: true
+
+- name: Validate haproxy port
+  ansible.builtin.uri:
+    url: "https://{{ ansible_host }}"
+    validate_certs: false
+    method: GET
+    status_code: 
+      - 200
+      - 404
+      - 503
+  register: haproxy_response
+
+- name: Debug response
+  ansible.builtin.debug:
+    var: haproxy_response

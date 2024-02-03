@@ -1,6 +1,6 @@
 ---
 - name: Install clickhouse
-  hosts: runner
+  hosts: cloud
   become: true
   roles:
     - clickhouse

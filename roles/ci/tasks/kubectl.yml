@@ -1,6 +1,6 @@
 ---
 - name: Download kubectl to /usr/local/bin | KUBECTL
   ansible.builtin.get_url:
-    url: "{{ kubectl_url }}"
+    url: "{{ ci_kubectl_url }}"
     dest: /usr/bin/kubectl
     mode: 'a+x'

@@ -40,7 +40,7 @@
         name: CERTIFICATE
 
 - name: Setup haproxy
-  hosts: baremetal
+  hosts: cloud
   roles:
     - name: Use haproxy role
       role: haproxy

@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: bm
+  hosts: cloud
   become: true
   roles:
     - common
