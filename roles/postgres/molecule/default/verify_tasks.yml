@@ -1,0 +1,15 @@
+---
+- name: Test command
+  ansible.builtin.systemd:
+    name: sssd
+    state: started
+  register: verify_service_running
+
+- name: Debug test command
+  ansible.builtin.debug:
+    msg: "{{ verify_service_running }}"
+
+- name: Verify service running
+  assert:
+    that:
+      - verify_service_running.state == "started"

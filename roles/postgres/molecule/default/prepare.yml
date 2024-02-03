@@ -1,0 +1,17 @@
+---
+- name: prepare
+  hosts: all
+  become: false
+  gather_facts: true
+  tasks:
+    - name: Install common packages
+      ansible.builtin.apt:
+        name: "{{ molecule_prepare_packages }}"
+
+    - name: Install required system packages
+      ansible.builtin.apt:
+        pkg: "{{ required_packages }}"
+
+#    - name: Install sssd packages
+#      ansible.builtin.apt:
+#        name: "{{ sssd_packages }}"

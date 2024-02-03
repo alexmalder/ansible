@@ -1,0 +1,15 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: true
+  become: false
+  tasks:
+    - name: Verify before reboot
+      include_tasks: verify_tasks.yml
+    - name: Reboot service
+      ansible.builtin.systemd:
+        name: sssd
+        state: restarted
+        daemon_reload: true
+    - name: Verify after reboot
+      include_tasks: verify_tasks.yml

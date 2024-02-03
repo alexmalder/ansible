@@ -1,0 +1,43 @@
+---
+# molecule
+molecule_prepare_packages:
+  - python3-apt
+  - gpg
+  - python3-pip
+  - docker
+required_packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - python3-pip
+  - dnsutils
+
+listen_addresses: "*"
+
+databases:
+  - name: gitea
+  - name: drone
+  - name: sentry
+  - name: superset
+
+users:
+  - user: gitea
+    password: gitea
+  - user: drone
+    password: drone
+  - user: sentry
+    password: sentry
+  - user: superset
+    password: superset
+
+bind:
+  - user: gitea
+    database: gitea
+  - user: drone
+    database: drone
+  - user: sentry
+    database: sentry
+  - user: superset
+    database: superset
