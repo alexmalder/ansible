@@ -1,0 +1,16 @@
+---
+- hosts: alpine
+  tasks:
+    - name: Install packages
+      community.general.apk:
+        name: "{{ item }}"
+        update_cache: true
+      loop:
+        - gitea
+        - postgresql14
+
+    - name: Start gitea service
+      service:
+        name: gitea
+        state: started
+        enabled: true
