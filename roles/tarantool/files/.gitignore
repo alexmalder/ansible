@@ -1,5 +1,0 @@
-/.env
-/tags
-/haproxy/*.pem
-/haproxy/*.crt
-/haproxy/*.key

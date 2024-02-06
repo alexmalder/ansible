@@ -1,61 +1,14 @@
----
-# tasks file for gitea
-- name: Download gitea
-  ansible.builtin.get_url:
-    url: "https://github.com/go-gitea/gitea/releases/download/v{{ gitea_version }}/gitea-{{ gitea_version }}-linux-amd64"
-    dest: /usr/local/bin/gitea
-    mode: 'a+x'
+---    
+- name: Install packages
+  community.general.apk:
+    name: "{{ item }}"
+    update_cache: true
+  loop:
+    - gitea
+    - postgresql14
 
-- name: Add the user gitea
-  ansible.builtin.user:
-    name: git
-    shell: /bin/bash
-
-- name: Create base directory
-  ansible.builtin.file:
-    path: "/var/lib/gitea"
-    state: directory
-    mode: '0750'
-    owner: git
-    group: git
-
-- name: Create required directory structure
-  ansible.builtin.file:
-    path: "/var/lib/gitea/{{ item }}"
-    state: directory
-    mode: '0750'
-    owner: git
-    group: git
-  with_items:
-    - custom
-    - data
-    - log
-
-- name: Create config directory
-  ansible.builtin.file:
-    path: "/etc/gitea"
-    state: directory
-    mode: '0770'
-    owner: root
-    group: git
-
-- name: Push config
-  ansible.builtin.copy:
-    src: "roles/gitea/templates/app.ini"
-    dest: "/etc/gitea/app.ini"
-    owner: root
-    group: git
-    mode: '0770'
-
-- name: Push service
-  ansible.builtin.copy:
-    src: "roles/gitea/files/gitea.service"
-    dest: "/usr/lib/systemd/system/gitea.service"
-    mode: '0640'
-
-- name: Setup service
-  ansible.builtin.systemd:
+- name: Start gitea service
+  service:
     name: gitea
-    state: restarted
+    state: started
     enabled: true
-    daemon_reload: true

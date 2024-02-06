@@ -1,20 +1,6 @@
 ---
-- name: Disable SELinux
-  ansible.posix.selinux:
-    state: disabled
-
-- name: Remove ugly packages
-  ansible.builtin.yum:
-    name:
-      - firewalld
-    state: absent
-
-- name: Install epel release
-  ansible.builtin.yum:
-    name: epel-release
-
-- name: Install admin tools
-  ansible.builtin.yum:
+- name: Install common packages
+  community.general.apk:
     name:
       - git
       - unzip
@@ -28,3 +14,4 @@
       - wget
       - nnn
       - openssl
+      - neovim

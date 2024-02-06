@@ -1,8 +1,10 @@
 ---
 - name: Install fail2ban
-  ansible.builtin.yum:
+  community.general.apk:
     name: fail2ban
+    update_cache: true
 
+# @task check fail2ban config path
 - name: Copy fail2ban config
   ansible.builtin.copy:
     src: roles/fail2ban/files/jail.local
