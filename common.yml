@@ -1,6 +1,6 @@
 ---
 - name: Common play
-  hosts: cloud
+  hosts: alpine
   become: true
   roles:
     - common

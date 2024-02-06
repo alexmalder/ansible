@@ -1,6 +1,6 @@
 ---
 - name: Install ci tools
-  hosts: cloud
+  hosts: alpine
   become: true
   roles:
     - name: Use ci role

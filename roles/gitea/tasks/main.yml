@@ -7,6 +7,14 @@
     - gitea
     - postgresql14
 
+- name: Push gitea configuration
+  ansible.builtin.copy:
+    src: ./roles/gitea/templates/app.ini
+    dest: /etc/gitea/app.ini
+    owner: gitea
+    group: www-data
+    mode: '0644'
+
 - name: Start gitea service
   service:
     name: gitea

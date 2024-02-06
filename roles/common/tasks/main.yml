@@ -5,13 +5,40 @@
       - git
       - unzip
       - tar
-      - yum-utils
       - ncdu
       - tmux
       - net-tools
       - htop
       - vim
       - wget
-      - nnn
       - openssl
+    update_cache: true
+
+- name: Push network configuration
+  ansible.builtin.copy:
+    src: roles/common/files/interfaces
+    dest: /etc/network/interfaces
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Restart networking service
+  service:
+    name: networking
+    state: restarted
+
+- name: Push apk repositories
+  ansible.builtin.copy:
+    src: roles/common/files/repositories
+    dest: /etc/apk/repositories
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Install dev packages
+  community.general.apk:
+    name:
+      - nnn
       - neovim
+    update_cache: true
+      #- yum-utils
