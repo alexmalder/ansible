@@ -66,8 +66,8 @@
   become: true
 
 - name: Enable and start iptables service | IPTABLES
-  ansible.builtin.systemd:
+  service:
     name: iptables
-    state: started
+    state: restarted
     enabled: true
   become: true

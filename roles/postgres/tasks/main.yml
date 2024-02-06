@@ -42,11 +42,10 @@
   ansible.builtin.import_tasks: ./log.yml
 
 - name: Setup service
-  ansible.builtin.systemd:
+  service:
     name: postgresql
     state: restarted
     enabled: true
-    daemon_reload: true
 
 - name: Install Python packages
   ansible.builtin.yum:
@@ -101,8 +100,7 @@
     mode: '0644'
 
 - name: Setup service
-  ansible.builtin.systemd:
+  service:
     name: postgresql
     state: restarted
     enabled: true
-    daemon_reload: true

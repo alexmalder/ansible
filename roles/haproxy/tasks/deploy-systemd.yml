@@ -8,11 +8,10 @@
     mode: '0640'
 
 - name: Enable and restart haproxy service
-  ansible.builtin.systemd:
+  service:
     name: haproxy
     state: restarted
     enabled: true
-    daemon_reload: true
 
 - name: Validate haproxy port
   ansible.builtin.uri:
