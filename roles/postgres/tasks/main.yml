@@ -1,56 +1,34 @@
 ---
 # tasks file for postgres
 - name: Install postgresql centos/almalinux
-  ansible.builtin.dnf:
-    name: '@postgresql:15'
-    state: present
-  when:
-    - ansible_distribution == "AlmaLinux"
+  community.general.apk:
+    name: 
+      - postgresql14
+      - py3-psycopg
 
-- name: Install postgresql fedora
-  ansible.builtin.dnf:
-    name:
-      - postgresql-server
-      - postgresql-contrib
-    state: present
-  when:
-    - ansible_distribution == "CentOS"
-    - ansible_distribution == "Fedora"
-
-- name: Find out if PostgreSQL is initialized
-  ansible.builtin.stat:
-    path: "/var/lib/pgsql/data/pg_hba.conf"
-  register: postgres_data
-
-- name: Initialize PostgreSQL
-  ansible.builtin.command: "postgresql-setup initdb"
-  register: postgres_init
-  changed_when: postgres_init.rc == 0
-  failed_when: postgres_init.rc != 0
-  when: not postgres_data.stat.exists
+- name: Init service
+  service:
+    name: postgresql
+    state: started
+    enabled: true
 
 - name: Setup pg hba
   ansible.builtin.template:
-    src: "roles/postgres/files/pg_hba.conf"
-    dest: "~/data/pg_hba.conf"
+    src: "roles/postgres/templates/pg_hba.conf"
+    dest: "/etc/postgresql/pg_hba.conf"
     owner: postgres
+    group: postgres
     mode: '0600'
   become: true
-  become_user: postgres
 
-- name: Setup logging
-  ansible.builtin.import_tasks: ./log.yml
+#- name: Setup logging
+#  ansible.builtin.import_tasks: ./log.yml
 
 - name: Setup service
   service:
     name: postgresql
     state: restarted
     enabled: true
-
-- name: Install Python packages
-  ansible.builtin.yum:
-    name: python3-psycopg2
-    state: present
 
 # need database name
 - name: Create database
@@ -83,6 +61,7 @@
   become: true
   become_user: postgres
 
+# setup listener
 - name: Setup listen addresses
   ansible.builtin.replace:
     path: "~/data/postgresql.conf"
@@ -90,14 +69,6 @@
     replace: "listen_addresses = '{{ hostvars['POSTGRES']['config']['listen_addresses'] }}'"
   become: true
   become_user: postgres
-
-- name: Push service
-  ansible.builtin.copy:
-    src: "roles/postgres/files/postgres.service"
-    dest: "/usr/lib/systemd/system/postgresql.service"
-    owner: root
-    group: root
-    mode: '0644'
 
 - name: Setup service
   service:
