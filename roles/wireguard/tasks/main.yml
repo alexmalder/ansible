@@ -7,7 +7,7 @@
 #       - elrepo-release
 
 - name: Install wireguard
-  community.general.apk:
+  ansible.builtin.dnf:
     name:
       # - kmod-wireguard
       - wireguard-tools
@@ -27,7 +27,7 @@
     reload: true
 
 - name: Enable and restart wireguard service
-  service:
+  ansible.builtin.systemd:
     name: wg-quick@wg0
     state: reloaded
     enabled: true
