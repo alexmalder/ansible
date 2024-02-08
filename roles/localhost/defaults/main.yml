@@ -28,3 +28,4 @@ localhost_macports_packages:
   - texlive-fonts-recommended
   - htop
   - ranger
+  - terraform-ls
