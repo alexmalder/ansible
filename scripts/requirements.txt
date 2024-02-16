@@ -1,2 +1,3 @@
-git+https://gitlab.com/python-gitlab/python-gitlab.git
 pyyaml
+background
+termcolor
