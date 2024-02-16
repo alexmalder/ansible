@@ -60,6 +60,7 @@ require("lazy").setup(
     "xiyaowong/nvim-transparent",
     "water-sucks/darkrose.nvim",
     "neg-serg/neg.nvim",
+    "nvim-tree/nvim-tree.lua",
     --{ "jghauser/fold-cycle.nvim", config = function() require("fold-cycle").setup() end },
     {
         "akinsho/flutter-tools.nvim",
