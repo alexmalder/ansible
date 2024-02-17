@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 from fastapi import Depends
 from fastapi_asyncpg import configure_asyncpg
+from pydantic import BaseModel
 
 import os
+
+class Item(BaseModel):
+    name: str
 
 app = FastAPI()
 
@@ -20,7 +24,12 @@ db=configure_asyncpg(app, get_pg_connection_string())
 async def initialization(conn):
     await conn.execute("SELECT 1")
 
+@app.post("/")
+async def write_root(item: Item, db=Depends(db.connection)):
+    data = await db.fetch("select insert_course($1)", item.name)
+    return {"data": data}
+
 @app.get("/")
 async def read_root(db=Depends(db.connection)):
-    data = await db.fetch("select get_student_with_courses_lf($1, $2, $3)", 128,0,"cv")
-    return {"result": data}
+    data = await db.fetch("")
+    return {"data": data}
