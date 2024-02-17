@@ -22,19 +22,34 @@ db=configure_asyncpg(app, get_pg_connection_string())
 
 @db.on_init
 async def initialization(conn):
+    f = open('./init.sql', 'r')
+    init_sql = f.read()
+    print(init_sql)
+    await conn.execute(init_sql)
+    f.close()
     await conn.execute("SELECT 1")
 
-@app.put("/{item_id}")
-async def put_root(item_id: int, item: Item, db=Depends(db.connection)):
-    data = await db.fetch("select update_course($1, $2)", item_id, item.name)
+@app.get("/courses/students")
+async def read_root(db=Depends(db.connection)):
+    data = await db.fetch("select get_student_with_courses_lf($1, $2, $3)", 128, 0, "cv")
     return {"data": data}
 
-@app.post("/")
-async def write_root(item: Item, db=Depends(db.connection)):
+@app.get("/courses")
+async def select_courses(db=Depends(db.connection)):
+    data = await db.fetch("select select_courses_lf($1, $2)", 128, 0)
+    return {"data": data}
+
+@app.post("/courses")
+async def insert_course(item: Item, db=Depends(db.connection)):
     data = await db.fetch("select insert_course($1)", item.name)
     return {"data": data}
 
-@app.get("/")
-async def read_root(db=Depends(db.connection)):
-    data = await db.fetch("")
+@app.put("/courses/{item_id}")
+async def update_course(item_id: int, item: Item, db=Depends(db.connection)):
+    data = await db.fetch("select update_course($1, $2)", item_id, item.name)
+    return {"data": data}
+
+@app.delete("/courses/{item_id}")
+async def delete_course(item_id: int, db=Depends(db.connection)):
+    data = await db.fetch("select delete_course($1)", item_id)
     return {"data": data}

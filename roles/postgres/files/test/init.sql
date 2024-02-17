@@ -77,7 +77,21 @@ DO $$
   END IF;
 END$$;
 
--- create function insert_course (name)
+-- function select_courses_lf (limit, offset)
+CREATE OR REPLACE FUNCTION select_courses_lf(INTEGER, INTEGER)
+RETURNS o_courses[] LANGUAGE plpgsql AS $$
+DECLARE
+inputLimit ALIAS FOR $1;
+inputOffset ALIAS FOR $2;
+outCourses o_courses[];
+BEGIN
+  select into outCourses courses.* from courses limit inputLimit offset inputOffset;
+  --select * from courses into outCourses;
+  RETURN outCourses;
+END;
+$$;
+
+-- function insert_course (name)
 CREATE OR REPLACE FUNCTION insert_course(text)
 RETURNS INTEGER LANGUAGE plpgsql AS $$
 DECLARE
@@ -89,14 +103,39 @@ BEGIN
 END;
 $$;
 
--- create function get_student_with_courses_lf (limit, offset, like_course)
+-- function update_course (id, name)
+CREATE OR REPLACE FUNCTION update_course(INTEGER, text)
+RETURNS INTEGER LANGUAGE plpgsql AS $$
+DECLARE
+inputID ALIAS FOR $1;
+inputName ALIAS FOR $2;
+outID INTEGER;
+BEGIN
+  update courses set name = inputName where id = inputID returning * into outID;
+  RETURN outID;
+END;
+$$;
+
+-- function delete_course (id)
+CREATE OR REPLACE FUNCTION delete_course(INTEGER)
+RETURNS INTEGER LANGUAGE plpgsql AS $$
+DECLARE
+inputID ALIAS FOR $1;
+outID INTEGER;
+BEGIN
+  delete from courses where id = inputID returning * into outID;
+  RETURN outID;
+END;
+$$;
+
+-- function get_student_with_courses_lf (limit, offset, like_course)
 CREATE OR REPLACE FUNCTION get_student_with_courses_lf(INTEGER, INTEGER, text)
-RETURNS o_students_with_courses LANGUAGE plpgsql AS $$
+RETURNS o_students_with_courses[] LANGUAGE plpgsql AS $$
 DECLARE
 vLimit ALIAS FOR $1;
 vOffset ALIAS for $2;
 likeCourse ALIAS for $3;
-outStudentsWithCourses o_students_with_courses;
+outStudentsWithCourses o_students_with_courses[];
 BEGIN
   select into outStudentsWithCourses students.*,
   --json_agg(json_build_object('id', courses.id, 'name', courses.name)) AS courses
