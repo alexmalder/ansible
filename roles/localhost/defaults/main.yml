@@ -30,3 +30,4 @@ localhost_macports_packages:
   - ranger
   - terraform-ls
   - gopls
+  - lua-language-server
