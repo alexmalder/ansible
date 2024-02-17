@@ -29,3 +29,4 @@ localhost_macports_packages:
   - htop
   - ranger
   - terraform-ls
+  - gopls
