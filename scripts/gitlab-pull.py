@@ -2,9 +2,6 @@ import os
 import background
 from termcolor import colored
 
-# from git import Repo
-# import gitlab
-
 import requests
 
 background.n=64
@@ -31,17 +28,10 @@ def clone_or_pull(web_url, repo_path):
         print(clone_cmd)
         print(colored(clone_cmd, 'green'))
         os.system(clone_cmd)
-        #repo = Repo.clone_from(web_url, workdir+"/"+repo_path)
-        #print(repo)
     else:
         pull_cmd = "git -C %s/%s pull" % (workdir, repo_path)
         print(colored(pull_cmd, 'green'))
         os.system(pull_cmd)
-        #repo = Repo(workdir+"/"+repo_path)
-        #o = repo.remotes.origin
-        #o.pull()
-        #print(o)
-
 
 def get_projects_by_group_id(group_id):
     response = requests.get(
@@ -59,11 +49,3 @@ def main():
           clone_or_pull(url, rel_path)
 
 main()
-
-# with gitlab.Gitlab("https://" + gitlab_url, gitlab_token) as gl:
-#     items = gl.projects.list(iterator=True)
-#     for item in items:
-#         repository = item.asdict()
-#         print(repository)
-#         url=repository["ssh_url_to_repo"]
-#         clone_or_pull(repository["ssh_url_to_repo"], url.split("/")[-1])
