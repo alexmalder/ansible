@@ -11,10 +11,10 @@ def get_pg_connection_string():
     password=os.getenv("PG_PASSWORD")
     host=os.getenv("PG_HOST")
     database=os.getenv("PG_DB")
-    connection_string = "postgresql://%s:%s@%s/%s" % (user, password, host, database)
+    connection_string="postgresql://%s:%s@%s/%s" % (user, password, host, database)
     return connection_string
 
-db = configure_asyncpg(app, get_pg_connection_string())
+db=configure_asyncpg(app, get_pg_connection_string())
 
 @db.on_init
 async def initialization(conn):
