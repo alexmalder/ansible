@@ -1,6 +1,0 @@
----
-- name: Install clickhouse
-  hosts: cloud
-  become: true
-  roles:
-    - clickhouse

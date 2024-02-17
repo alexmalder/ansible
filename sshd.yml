@@ -1,6 +1,6 @@
 ---
 - name: Setup sshd without password login
-  hosts: bm
+  hosts: alpine
   roles:
     - name: Use sshd role
       role: sshd

@@ -1,0 +1,71 @@
+---
+version: '3'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1.2
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/alexmalder
+      KC_DB_USERNAME: alexmalder
+      KC_DB_PASSWORD: alexmalder
+      KC_DB_SCHEMA: public
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_PORT: 8080
+      HEALTHCHECK: "true"
+    command: start-dev #--http-relative-path=/auth
+    ports:
+      - 8080:8080
+    #network_mode: host
+    restart: always
+    depends_on:
+      - keycloak-postgres
+
+  keycloak-postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: alexmalder
+      POSTGRES_USER: alexmalder
+      POSTGRES_PASSWORD: alexmalder
+      PGPORT: 5432
+    volumes:
+      - keycloak_postgres:/var/lib/postgresql
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 1s
+
+  app-postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: alexmalder
+      POSTGRES_USER: alexmalder
+      POSTGRES_PASSWORD: alexmalder
+      PGPORT: 5432
+    volumes:
+      - app_postgres:/var/lib/postgresql
+    ports:
+      - 5455:5452
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 1s
+
+  krakend:
+    image: devopsfaith/krakend:2.4
+    container_name: krakend
+    restart: always
+    volumes:
+      - ./krakend.json:/etc/krakend/krakend.json
+    ports:
+      - 127.0.0.1:8082:8082
+
+volumes:
+  keycloak_postgres:
+  app_postgres:

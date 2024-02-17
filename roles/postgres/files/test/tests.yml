@@ -1,5 +1,10 @@
 - hosts: 127.0.0.1
   connection: local
+  vars:
+    keycloak_admin_username: admin
+    keycloak_admin_password: admin
+    keycloak_url: http://localhost:8080
+    sinapi_url: http://localhost:8090
   tasks:
     - name: Apply keycloak client, authentication with credentials, direct and service account enabled
       community.general.keycloak_client:
@@ -83,10 +88,14 @@
         roles:
           - name: admin-rest-client-master-role
       register: keycloak_user_rolemapping
+      tags:
+        - keycloak
 
     - name: Debug keycloak_user_rolemapping
       debug:
         var: keycloak_user_rolemapping
+      tags:
+        - keycloak
 
     - name: Login to keycloak behind krakend api gateway
       ansible.builtin.uri:
@@ -104,13 +113,117 @@
           - 201
       register: login
       tags:
-        - krakend
+        - keycloak
 
     - name: Debug login
       debug:
         var: login.json
       tags:
-        - krakend
+        - keycloak
+
+    - name: Create discipline first
+      ansible.builtin.uri:
+        url: "{{ sinapi_url }}/api/{{ 1234 | to_uuid }}/disciplines"
+        method: POST
+        body_format: json
+        headers:
+          #Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: "title-{{ ansible_date_time.epoch }}-first"
+          description: discipline_first
+        status_code:
+          - 200
+          - 201
+      register: discipline_first
+      tags:
+        - sinapi
+
+    - name: Create course first
+      ansible.builtin.uri:
+        url: "{{ sinapi_url }}/api/{{ 1234 | to_uuid }}/courses/{{ discipline_first.json.id }}"
+        method: POST
+        body_format: json
+        headers:
+          #Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: "title-{{ ansible_date_time.epoch }}-first"
+          position: 1
+        status_code:
+          - 200
+          - 201
+      register: course_first
+      tags:
+        - sinapi
+
+    - name: Create poll first
+      ansible.builtin.uri:
+        url: "{{ sinapi_url }}/api/{{ 1234 | to_uuid }}/polls/{{ course_first.json.id }}"
+        method: POST
+        body_format: json
+        headers:
+          #Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          title: "title-{{ ansible_date_time.epoch }}-first"
+        status_code:
+          - 200
+          - 201
+      register: poll_first
+      tags:
+        - sinapi
+
+    - name: Create poll instance first
+      ansible.builtin.uri:
+        url: "{{ sinapi_url }}/api/{{ 1234 | to_uuid }}/instances/{{ poll_first.json.id }}"
+        method: POST
+        body_format: json
+        headers:
+          #Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          groupName: "my group name"
+        status_code:
+          - 200
+          - 201
+      register: instance_first
+      tags:
+        - sinapi
+
+    - name: Create question first
+      ansible.builtin.uri:
+        url: "{{ sinapi_url }}/api/{{ 1234 | to_uuid }}/questions/{{ poll_first.json.id }}"
+        method: POST
+        body_format: json
+        headers:
+          #Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          question: "question-{{ ansible_date_time.epoch }}-first"
+        status_code:
+          - 200
+          - 201
+      register: question_first
+      tags:
+        - sinapi
+
+    - name: Create question second
+      ansible.builtin.uri:
+        url: "{{ sinapi_url }}/api/{{ 1234 | to_uuid }}/questions/{{ poll_first.json.id }}"
+        method: POST
+        body_format: json
+        headers:
+          #Authorization: "Bearer {{ login.json.access_token }}"
+          Content-Type: "application/json"
+        body:
+          question: "question-{{ ansible_date_time.epoch }}-second"
+        status_code:
+          - 200
+          - 201
+      register: question_first
+      tags:
+        - sinapi
 
     - name: Get subject and roles
       ansible.builtin.uri:
@@ -277,17 +390,15 @@
 
     - name: PUT feed_label
       ansible.builtin.uri:
-        url: "{{ krakend_url }}/api/v1/fl"
+        url: "{{ krakend_url }}/api/v1/fl?feed_id={{ feed.json.data.id }}&label_id={{ label_previous.json.data.id }}"
         method: PUT
         body_format: json
         headers:
           Authorization: "Bearer {{ login.json.access_token }}"
           Content-Type: "application/json"
         body:
-          old_feed_id: "{{ feed.json.data.id }}"
-          old_label_id: "{{ label_previous.json.data.id }}"
-          new_feed_id: "{{ feed.json.data.id }}"
-          new_label_id: "{{ label_latest.json.data.id }}"
+          feed_id: "{{ feed.json.data.id }}"
+          label_id: "{{ label_latest.json.data.id }}"
         status_code:
           - 200
           - 201
@@ -345,3 +456,4 @@
         var: feed_label
       tags:
         - krakend
+

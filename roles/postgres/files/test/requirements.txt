@@ -1,0 +1,4 @@
+uvicorn
+fastapi
+fastapi_asyncpg
+pyyaml
