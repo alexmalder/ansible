@@ -31,3 +31,4 @@ localhost_macports_packages:
   - terraform-ls
   - gopls
   - lua-language-server
+  - golangci-lint
