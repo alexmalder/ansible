@@ -24,6 +24,11 @@ db=configure_asyncpg(app, get_pg_connection_string())
 async def initialization(conn):
     await conn.execute("SELECT 1")
 
+@app.put("/{item_id}")
+async def put_root(item_id: int, item: Item, db=Depends(db.connection)):
+    data = await db.fetch("select update_course($1, $2)", item_id, item.name)
+    return {"data": data}
+
 @app.post("/")
 async def write_root(item: Item, db=Depends(db.connection)):
     data = await db.fetch("select insert_course($1)", item.name)
