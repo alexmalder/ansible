@@ -1,4 +1,4 @@
----    
+---
 - name: Install packages
   community.general.apk:
     name: "{{ item }}"
@@ -16,7 +16,7 @@
     mode: '0644'
 
 - name: Start gitea service
-  service:
+  ansible.builtin.service:
     name: gitea
     state: started
     enabled: true

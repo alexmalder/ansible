@@ -2,12 +2,12 @@
 # tasks file for postgres
 - name: Install postgresql centos/almalinux
   community.general.apk:
-    name: 
+    name:
       - postgresql14
       - py3-psycopg
 
 - name: Init service
-  service:
+  ansible.builtin.service:
     name: postgresql
     state: started
     enabled: true
@@ -21,11 +21,11 @@
     mode: '0600'
   become: true
 
-#- name: Setup logging
-#  ansible.builtin.import_tasks: ./log.yml
+# - name: Setup logging
+#   ansible.builtin.import_tasks: ./log.yml
 
 - name: Setup service
-  service:
+  ansible.builtin.service:
     name: postgresql
     state: restarted
     enabled: true
@@ -71,7 +71,7 @@
   become_user: postgres
 
 - name: Setup service
-  service:
+  ansible.builtin.service:
     name: postgresql
     state: restarted
     enabled: true

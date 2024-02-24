@@ -12,7 +12,7 @@
     mode: '0640'
 
 - name: Setup service
-  service:
+  ansible.builtin.service:
     name: fail2ban
     state: started
     enabled: true
