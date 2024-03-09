@@ -25,7 +25,6 @@ localhost_macports_packages:
   - zoxide
   - poppler
   - pandoc
-  - texlive-fonts-recommended
   - htop
   - ranger
   - terraform-ls
@@ -37,3 +36,5 @@ localhost_macports_packages:
   - boost
   - cmake-language-server
   - librdkafka
+  - kubectl-1.29
+  - helm-3.14
