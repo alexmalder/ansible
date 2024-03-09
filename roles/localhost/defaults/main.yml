@@ -32,3 +32,8 @@ localhost_macports_packages:
   - gopls
   - lua-language-server
   - golangci-lint
+  - cmake
+  - yaml-cpp
+  - boost
+  - cmake-language-server
+  - librdkafka
