@@ -15,8 +15,8 @@
     update_cache: true
 
 - name: Push network configuration
-  ansible.builtin.copy:
-    src: roles/common/files/interfaces
+  ansible.builtin.template:
+    src: roles/common/templates/interfaces
     dest: /etc/network/interfaces
     owner: root
     group: root
