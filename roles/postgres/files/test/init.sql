@@ -1,4 +1,4 @@
--- drop tables for fresh postgres data instance
+-- удаляем таблицы, чтобы далее создать их с нуля
 DROP TABLE IF EXISTS students CASCADE;
 DROP TABLE IF EXISTS courses CASCADE;
 DROP TABLE IF EXISTS courses_students CASCADE;
@@ -28,11 +28,6 @@ CREATE TABLE IF NOT EXISTS polls (
   course_id INTEGER REFERENCES courses(id)
 );
 
-CREATE TABLE IF NOT EXISTS instances (
-  id SERIAL PRIMARY KEY,
-  poll_id INTEGER REFERENCES polls(id)
-);
-
 CREATE TABLE IF NOT EXISTS questions (
   id SERIAL PRIMARY KEY,
   title VARCHAR(128) NOT NULL,
@@ -44,10 +39,17 @@ CREATE TABLE IF NOT EXISTS answers (
   title VARCHAR(128) NOT NULL,
   choise INTEGER NOT NULL,
   student_id INTEGER REFERENCES students(id),
-  instance_id INTEGER REFERENCES instances(id),
+  polls_id INTEGER REFERENCES pollss(id),
   question_id INTEGER REFERENCES questions(id),
-  PRIMARY KEY (student_id, instance_id, question_id)
+  PRIMARY KEY (student_id, polls_id, question_id)
 );
+
+-- 1. Создать студента
+-- 2. Создать курсы
+-- 3. Привязать курсы к студенту
+-- 4. Создать новый опрос
+-- 5. Привязать к опросу вопросы и ответы
+-- 6. Пройти свой же опрос для теста
 
 INSERT INTO students(name) VALUES ('dmitry'), ('sergey'), ('alex');
 INSERT INTO courses(name) VALUES ('devops'), ('cv'), ('nlp');
