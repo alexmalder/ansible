@@ -1,5 +1,15 @@
 ---
-- name: Common play
+- name: Common 0
+  hosts: alpine0
+  become: true
+  roles:
+    - role: common
+      vars:
+        common_address: 192.168.64.16
+        common_gateway: 192.168.64.1
+        common_netmask: 255.255.255.0
+
+- name: Common docker
   hosts: alpine-docker
   become: true
   roles:
