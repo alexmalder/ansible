@@ -38,3 +38,4 @@ localhost_macports_packages:
   - librdkafka
   - kubectl-1.29
   - helm-3.14
+  - dua-cli
