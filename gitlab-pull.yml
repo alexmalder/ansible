@@ -5,12 +5,25 @@
   vars:
     workdir: "~/Code"
   tasks:
-    - name: Include pull gitlab
-      ansible.builtin.include_tasks: ./tasks/retrieve-gitlab-group.yml
-      with_items:
-        - group_id: 2363
-        - group_id: 12655
-        - group_id: 12106
-        - group_id: 11710
-        - group_id: 1225
-        - group_id: 2267
+    - name: Get list of repos
+      ansible.builtin.uri:
+        url: "https://{{ GIT_URL }}/api/v4/groups/{{ group_id }}/projects?per_page=1024&include_subgroups=true"
+        method: GET
+        status_code:
+          - 200
+        return_content: true
+        body_format: json
+        headers:
+          Content-Type: application/json
+          PRIVATE-TOKEN: "{{ PRIVATE_TOKEN }}"
+        validate_certs: false
+      register: result
+
+    - name: Clone repositories into workdir
+      ansible.builtin.git:
+        repo: "{{ item.web_url }}"
+        dest: "{{ workdir }}/{{ item.path_with_namespace }}"
+        version: "{{ item.default_branch }}"
+      loop: "{{ result.json }}"
+      loop_control:
+        label: "{{ item.name_with_namespace }}"
