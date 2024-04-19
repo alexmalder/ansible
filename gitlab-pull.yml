@@ -26,4 +26,4 @@
         version: "{{ item.default_branch }}"
       loop: "{{ result.json }}"
       loop_control:
-        label: "{{ item.name_with_namespace }}"
+        label: "{{ item.name_with_namespace }} - {{ item.default_branch }}"
