@@ -7,7 +7,7 @@
   connection: local
   tasks:
     - name: Register inventory
-      ansible.builtin.command: pass show ansible/inventory.yaml
+      ansible.builtin.command: "cat {{ ansible_env.HOME }}/Code/devops/ansible/inventory/vm.yml"
       register: inventory_yaml
       changed_when: inventory_yaml.rc == 0
       failed_when: inventory_yaml.rc != 0
