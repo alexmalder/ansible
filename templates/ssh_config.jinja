@@ -1,3 +1,6 @@
+Host *
+    StrictHostKeyChecking no
+
 {% for key in inventory.all.children.keys() %}
 {% for host_name in inventory.all.children[key]["hosts"] %}
 
