@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "master"
-      - "github-actions"
+      - "localhost-optimized"
 
 env:
   TEST_TAG: user/app:test

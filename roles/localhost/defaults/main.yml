@@ -5,6 +5,7 @@ localhost_npm_packages:
   - bash-language-server
   - yaml-language-server
   - pyright
+
 localhost_macports_packages:
   - neovim
   - neofetch
@@ -40,5 +41,86 @@ localhost_macports_packages:
   - dua-cli
   - p7zip
   - kaf
-glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.40.0/downloads
-glab_binary_filename: glab_1.40.0_macOS_arm64.tar.gz
+
+localhost_glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.40.0/downloads
+localhost_glab_binary_filename: glab_1.40.0_macOS_arm64.tar.gz
+
+localhost_pacman_base_packages:
+  - zsh
+  - tmux
+  - mc
+  - ncdu
+  - neovim
+  - git
+  - colordiff
+  - net-tools
+  - fzf
+  - ripgrep
+  - exa
+  - tree
+  - kitty
+  - nnn
+  - npm
+  - cpupower
+  - pass
+  - unzip
+  - netcat
+  - bottom
+  - htop
+
+localhost_pacman_dev_packages:
+  - python-pip
+  - wireguard-tools
+  - make
+  - cmake
+  - llvm
+  - clang
+  - dash
+  - virt-manager
+  - tk
+  - dash
+  - xdo
+
+localhost_pacman_ops_packages:
+  - docker
+  - go
+  - docker-compose
+  - ctop
+  - k9s
+  - glab
+  - kubectl
+  - helm
+  - gopls
+
+localhost_pacman_xorg_packages:
+  - xorg
+  - xorg-server
+  - xorg-xinit
+  
+localhost_pacman_desktop_packages:
+  - sof-firmware
+  - filezilla
+  - font-manager
+  - polybar
+  - i3-gaps
+  - dmenu
+  - qutebrowser
+  - telegram-desktop
+  - evolution
+  - xfce4-power-manager
+  - nautilus
+  - alacritty
+  - xdotool
+  - rofi
+  - gnome-keyring
+  - xclip
+  - qtcreator
+  - deepin-screenshot
+  - dunst
+  - feh
+  - firefox
+  - xf86-input-synaptics
+  - picom
+  - lxappearance
+  - fontconfig
+  - ttf-iosevka-nerd
