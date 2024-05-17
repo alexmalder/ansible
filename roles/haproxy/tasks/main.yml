@@ -1,9 +1,0 @@
----
-- name: Install centos
-  ansible.builtin.import_tasks: ./install-centos.yml
-
-- name: Prepare
-  ansible.builtin.import_tasks: ./prepare.yml
-
-- name: Deploy systemd
-  ansible.builtin.import_tasks: ./deploy-systemd.yml
