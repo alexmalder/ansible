@@ -15,10 +15,10 @@
   when:
     - ansible_distribution == "MacOSX"
 
-- name: Setup i3
-  ansible.builtin.import_tasks: ./i3.yml
-  when:
-    - ansible_distribution == "Archlinux"
+# - name: Setup i3
+#   ansible.builtin.import_tasks: ./i3.yml
+#   when:
+#     - ansible_distribution == "Archlinux"
 
 - name: Deploy user configuration files
   ansible.builtin.copy:
