@@ -1,26 +1,27 @@
 ---
+- name: Install macports packages
+  community.general.macports:
+    name: "{{ item }}"
+  loop: "{{ localhost_macports_packages }}"
+
 - name: Get glab tar.gz
   ansible.builtin.get_url:
-    url: "{{ glab_binary_url }}/{{ glab_binary_filename }}"
+    url: "{{ localhost_glab_binary_url }}/{{ localhost_glab_binary_filename }}"
     dest: /tmp
     mode: '0644'
 
-- name: Extract glab
-  ansible.builtin.command: "tar -xvf /tmp/{{ glab_binary_filename }} -C /tmp"
-  register: extraction_result
-  changed_when: extraction_result.rc == 0
-  failed_when: extraction_result.rc != 0
+- name: Unarchive a file (glab) that is already on the local machine
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ localhost_glab_binary_filename }}"
+    dest: /tmp
+  environment:
+    PATH: "/usr/local/opt/gnu-tar/libexec/gnubin:{{ ansible_env.PATH }}"
 
 - name: Make glab executable
   ansible.builtin.copy:
     src: /tmp/bin/glab
     dest: /opt/local/bin/glab
     mode: a+x
-
-- name: Install macports packages
-  community.general.macports:
-    name: "{{ item }}"
-  loop: "{{ localhost_macports_packages }}"
 
 - name: Install npm packages
   community.general.npm:

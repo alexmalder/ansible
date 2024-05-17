@@ -41,6 +41,7 @@ localhost_macports_packages:
   - dua-cli
   - p7zip
   - kaf
+  - gnutar
 
 localhost_glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.40.0/downloads
 localhost_glab_binary_filename: glab_1.40.0_macOS_arm64.tar.gz
