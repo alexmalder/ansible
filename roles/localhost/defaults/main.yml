@@ -19,7 +19,6 @@ localhost_macports_packages:
   - colordiff
   - npm10
   - cargo
-  - glab
   - jq
   - yq
   - zoxide
@@ -41,3 +40,5 @@ localhost_macports_packages:
   - dua-cli
   - p7zip
   - kaf
+glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.40.0/downloads
+glab_binary_filename: glab_1.40.0_macOS_arm64.tar.gz

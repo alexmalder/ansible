@@ -1,4 +1,19 @@
 ---
+- name: Get glab tar.gz
+  ansible.builtin.get_url:
+    url: "{{ glab_binary_url }}/{{ glab_binary_filename }}"
+    dest: /tmp
+    mode: '0644'
+
+- name: Extract glab
+  ansible.builtin.command: "tar -xvf /tmp/{{ glab_binary_filename }} -C /tmp"
+
+- name: Make glab executable
+  ansible.builtin.copy: 
+    src: /tmp/bin/glab
+    dest: /opt/local/bin/glab
+    mode: a+x
+
 - name: Install macports packages
   community.general.macports:
     name: "{{ item }}"
