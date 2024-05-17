@@ -4,6 +4,25 @@
     name: "{{ item }}"
   loop: "{{ localhost_macports_packages }}"
 
+- name: Get glab tar.gz
+  ansible.builtin.get_url:
+    url: "{{ localhost_glab_binary_url }}/{{ localhost_glab_binary_filename }}"
+    dest: /tmp
+    mode: '0644'
+
+- name: Unarchive a file (glab) that is already on the local machine
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ localhost_glab_binary_filename }}"
+    dest: /tmp
+  environment:
+    PATH: "/usr/local/opt/gnu-tar/libexec/gnubin:{{ ansible_env.PATH }}"
+
+- name: Make glab executable
+  ansible.builtin.copy:
+    src: /tmp/bin/glab
+    dest: /opt/local/bin/glab
+    mode: a+x
+
 - name: Install npm packages
   community.general.npm:
     name: "{{ item }}"

@@ -1,103 +1,26 @@
 ---
 - name: Install base packages
   community.general.pacman:
-    name:
-      - zsh
-      - tmux
-      - mc
-      - ncdu
-      - neovim
-      - git
-      - colordiff
-      - net-tools
-      - fzf
-      - ripgrep
-      - exa
-      - tree
-      - kitty
-      - nnn
-      - npm
-      - cpupower
-      - pass
-      - unzip
-      - netcat
-      - bottom
-      - htop
+    name: "{{ localhost_pacman_base_packages }}"
 
 - name: Install dev packages
   community.general.pacman:
-    name:
-      - python-pip
-      - wireguard-tools
-      - make
-      - cmake
-      - llvm
-      - clang
-      - dash
-      - virt-manager
-      # negwm
-      - tk
-      - dash
-      - xdo
+    name: "{{ localhost_pacman_dev_packages }}"
 
 - name: Install ops packages
   community.general.pacman:
-    name:
-      - docker
-      - go
-      - docker-compose
-      - ctop
-      - k9s
-      - glab
-      - kubectl
-      - helm
-      - gopls
+    name: "{{ localhost_pacman_ops_packages }}"
 
 - name: Install xorg packages
   community.general.pacman:
-    name:
-      - xorg
-      - xorg-server
-      - xorg-xinit
+    name: "{{ localhost_pacman_xorg_packages }}"
 
 - name: Install desktop packages
   community.general.pacman:
-    name:
-      - sof-firmware
-      - filezilla
-      - font-manager
-      - polybar
-      - i3-gaps
-      - dmenu
-      - qutebrowser
-      - telegram-desktop
-      - evolution
-      - xfce4-power-manager
-      - nautilus
-      - alacritty
-      - xdotool
-      - rofi
-      - gnome-keyring
-      - xclip
-      - qtcreator
-      - deepin-screenshot
-      - dunst
-      - feh
-      - firefox
-      - xf86-input-synaptics
-      - picom
-      - lxappearance
-      # fonts
-      - fontconfig
-      - ttf-iosevka-nerd
+    name: "{{ localhost_pacman_desktop_packages }}"
 
 - name: Install node packages
   community.general.npm:
     global: true
     name: "{{ item }}"
-  with_items:
-    - pyright
-    - pm2
-    - bash-language-server
-    - yaml-language-server
-    - markdownlint-cli
+  with_items: "{{ localhost_npm_packages }}"

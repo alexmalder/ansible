@@ -9,24 +9,39 @@
   when:
     - ansible_distribution == "Archlinux"
 
-- name: Install packages for alpine
-  ansible.builtin.import_tasks: ./alpine.yml
-  become: true
-  when:
-    - ansible_distribution == "Alpine"
-
 - name: Install packages for mac
   ansible.builtin.import_tasks: ./mac.yml
   become: true
   when:
     - ansible_distribution == "MacOSX"
 
-- name: Setup i3
-  ansible.builtin.import_tasks: ./i3.yml
-  when:
-    - ansible_distribution == "Alpine"
+# - name: Setup i3
+#   ansible.builtin.import_tasks: ./i3.yml
+#   when:
+#     - ansible_distribution == "Archlinux"
 
-- name: Configure system
-  ansible.builtin.import_tasks: ./configure.yml
+- name: Deploy user configuration files
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "~/"
+    mode: '0640'
+  with_items:
+    - src: "roles/{{ role_name }}/files/.config"
+    - src: "roles/{{ role_name }}/files/home/.clang-format"
+    - src: "roles/{{ role_name }}/files/home/.tmux.conf"
+    - src: "roles/{{ role_name }}/files/home/.xinitrc"
+    - src: "roles/{{ role_name }}/files/home/.Xresources"
   when:
-    - ansible_distribution == "Alpine"
+    - ansible_distribution == "MacOSX"
+  tags:
+    - configuration
+
+- name: Deploy sound configuration file to modprobe for alpine
+  become: true
+  ansible.builtin.copy:
+    src: "roles/{{ role_name }}/files/etc/modprobe.d/{{ ansible_distribution }}.conf"
+    dest: /etc/modprobe.d/alsa.conf
+    owner: root
+    mode: '0640'
+  when:
+    - ansible_distribution == "Archlinux"
