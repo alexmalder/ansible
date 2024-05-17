@@ -7,9 +7,12 @@
 
 - name: Extract glab
   ansible.builtin.command: "tar -xvf /tmp/{{ glab_binary_filename }} -C /tmp"
+  register: extraction_result
+  changed_when: extraction_result.rc == 0
+  failed_when: extraction_result.rc != 0
 
 - name: Make glab executable
-  ansible.builtin.copy: 
+  ansible.builtin.copy:
     src: /tmp/bin/glab
     dest: /opt/local/bin/glab
     mode: a+x

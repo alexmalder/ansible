@@ -96,7 +96,7 @@ localhost_pacman_xorg_packages:
   - xorg
   - xorg-server
   - xorg-xinit
-  
+
 localhost_pacman_desktop_packages:
   - sof-firmware
   - filezilla
