@@ -39,6 +39,8 @@
     - src: "roles/{{ role_name }}/files/home/.Xresources"
   when:
     - ansible_distribution == "MacOSX"
+  tags:
+    - configuration
 
 - name: Deploy sound configuration file to modprobe for alpine
   become: true
