@@ -6,7 +6,7 @@
     - install
     - test
 
-- name: Install packages for archlinux
+- name: Install packages archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
   become: true
   vars:
@@ -18,7 +18,7 @@
     - install
     - test
 
-- name: Install packages for mac
+- name: Install packages mac
   ansible.builtin.import_tasks: ./mac.yml
   become: true
   when:
@@ -42,7 +42,7 @@
     - install
     - test
 
-- name: Install packages for archlinux
+- name: Remove packages archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
   become: true
   vars:

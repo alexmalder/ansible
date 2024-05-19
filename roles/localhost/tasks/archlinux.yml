@@ -28,3 +28,9 @@
     name: "{{ localhost_pacman_desktop_packages }}"
     state: "{{ state }}"
     extra_args: "{{ extra_args }}"
+
+- name: Install node packages
+  community.general.npm:
+    global: true
+    name: "{{ item }}"
+  with_items: "{{ localhost_npm_packages }}"
