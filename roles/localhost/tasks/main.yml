@@ -2,6 +2,9 @@
 - name: Debug ansible_distribution
   ansible.builtin.debug:
     var: ansible_distribution
+  tags:
+    - install
+    - test
 
 - name: Install packages for archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
@@ -11,21 +14,33 @@
     extra_args: ""
   when:
     - ansible_distribution == "Archlinux"
+  tags:
+    - install
+    - test
 
 - name: Install packages for mac
   ansible.builtin.import_tasks: ./mac.yml
   become: true
   when:
     - ansible_distribution == "MacOSX"
+  tags:
+    - install
+    - test
 
 - name: Install node packages
   community.general.npm:
     global: true
     name: "{{ item }}"
   with_items: "{{ localhost_npm_packages }}"
+  tags:
+    - install
+    - test
 
 - name: Configure
   ansible.builtin.import_tasks: ./configure.yml
+  tags:
+    - install
+    - test
 
 - name: Install packages for archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
@@ -35,3 +50,5 @@
     extra_args: "--recursive"
   when:
     - ansible_distribution == "Archlinux"
+  tags:
+    - test
