@@ -47,7 +47,7 @@
   become: true
   vars:
     state: absent
-    extra_args: "--recursive"
+    extra_args: "-Rdd"
   when:
     - ansible_distribution == "Archlinux"
   tags:
