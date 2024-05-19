@@ -4,7 +4,6 @@
     var: ansible_distribution
   tags:
     - install
-    - test
 
 - name: Install packages archlinux
   ansible.builtin.import_tasks: ./archlinux.yml
@@ -16,7 +15,6 @@
     - ansible_distribution == "Archlinux"
   tags:
     - install
-    - test
 
 - name: Install packages mac
   ansible.builtin.import_tasks: ./mac.yml
@@ -25,7 +23,6 @@
     - ansible_distribution == "MacOSX"
   tags:
     - install
-    - test
 
 - name: Install node packages
   community.general.npm:
@@ -34,21 +31,8 @@
   with_items: "{{ localhost_npm_packages }}"
   tags:
     - install
-    - test
 
 - name: Configure
   ansible.builtin.import_tasks: ./configure.yml
   tags:
-    - install
-    - test
-
-- name: Remove packages archlinux
-  ansible.builtin.import_tasks: ./archlinux.yml
-  become: true
-  vars:
-    state: absent
-    extra_args: "-Rdd"
-  when:
-    - ansible_distribution == "Archlinux"
-  tags:
-    - test
+    - configure
