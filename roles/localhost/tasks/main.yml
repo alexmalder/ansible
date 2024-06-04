@@ -24,13 +24,13 @@
   tags:
     - install
 
-- name: Install node packages
-  community.general.npm:
-    global: true
-    name: "{{ item }}"
-  with_items: "{{ localhost_npm_packages }}"
-  tags:
-    - install
+# - name: Install node packages
+#   community.general.npm:
+#     global: true
+#     name: "{{ item }}"
+#   with_items: "{{ localhost_npm_packages }}"
+#   tags:
+#     - install
 
 - name: Configure
   ansible.builtin.import_tasks: ./configure.yml

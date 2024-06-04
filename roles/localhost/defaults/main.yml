@@ -18,7 +18,7 @@ localhost_macports_packages:
   - k9s
   - ctop
   - colordiff
-  - npm10
+  # - npm10
   - cargo
   - jq
   - yq
@@ -61,7 +61,7 @@ localhost_pacman_base_packages:
   - tree
   - kitty
   - nnn
-  - npm
+  # - npm
   - cpupower
   - pass
   - unzip
