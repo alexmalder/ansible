@@ -1,7 +1,0 @@
----
-- name: Setup gitea
-  hosts: cloud
-  become: true
-  roles:
-    - name: Setup gitea
-      role: gitea
