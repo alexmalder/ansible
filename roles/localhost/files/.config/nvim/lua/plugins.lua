@@ -15,9 +15,13 @@ vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappin
 
 require("lazy").setup({
   "neovim/nvim-lspconfig",
-  "hrsh7th/nvim-compe",
+  "neovim/nvim-lspconfig",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/nvim-cmp",
   "L3MON4D3/LuaSnip",
-  "kkharji/lspsaga.nvim",
   "mfussenegger/nvim-jdtls",
   {
     "cuducos/yaml.nvim",
@@ -32,7 +36,6 @@ require("lazy").setup({
   "frazrepo/vim-rainbow",
   "windwp/windline.nvim",
   "kyazdani42/nvim-web-devicons",
-  "makerj/vim-pdf",
   "bfrg/vim-cpp-modern",
   "vim-autoformat/vim-autoformat",
   "sbdchd/neoformat",
@@ -57,5 +60,6 @@ require("lazy").setup({
   "hashivim/vim-terraform",
   "rafaqz/ranger.vim",
   "tpope/vim-dispatch",
-  "bluz71/vim-moonfly-colors"
+  "bluz71/vim-moonfly-colors",
+  "felipec/notmuch-vim"
 })
