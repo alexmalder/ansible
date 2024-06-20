@@ -43,8 +43,8 @@ localhost_macports_packages:
   - kaf
   - gnutar
 
-localhost_glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.40.0/downloads
-localhost_glab_binary_filename: glab_1.40.0_macOS_arm64.tar.gz
+localhost_glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.42.0/downloads
+localhost_glab_binary_filename: glab_1.42.0_macOS_arm64.tar.gz
 
 localhost_pacman_base_packages:
   - zsh

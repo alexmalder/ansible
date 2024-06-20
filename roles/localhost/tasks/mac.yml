@@ -23,11 +23,11 @@
     dest: /opt/local/bin/glab
     mode: a+x
 
-- name: Install npm packages
-  community.general.npm:
-    name: "{{ item }}"
-    global: true
-  loop: "{{ localhost_npm_packages }}"
+# - name: Install npm packages
+#   community.general.npm:
+#     name: "{{ item }}"
+#     global: true
+#   loop: "{{ localhost_npm_packages }}"
 
 - name: Upgrade macports packages
   community.general.macports:
