@@ -78,8 +78,9 @@ lsp.gopls.setup {
 lsp.dartls.setup {
   capabilities = capabilities
 }
-lsp.omnisharp.setup{
-  cmd = { "/usr/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
+lsp.csharp_ls.setup{
+  --cmd = { "/usr/bin/csharp", "--languageserver" , "--hostPID", tostring(pid) },
+  cmd = {"/Users/alexmalder/.dotnet/tools/csharp-ls"},
   capabilities = capabilities
 }
 lsp.pylsp.setup {
