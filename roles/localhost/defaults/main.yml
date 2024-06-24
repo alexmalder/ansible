@@ -42,9 +42,16 @@ localhost_macports_packages:
   - p7zip
   - kaf
   - gnutar
+  - dotnet-sdk-8
 
 localhost_glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.42.0/downloads
 localhost_glab_binary_filename: glab_1.42.0_macOS_arm64.tar.gz
+
+# not implemented
+# dotnet tool install --global dotnet-ef
+localhost_dotnet_packages:
+  - dotnet-ef
+  - csharp-ls
 
 localhost_pacman_base_packages:
   - zsh
