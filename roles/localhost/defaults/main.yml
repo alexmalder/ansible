@@ -43,6 +43,7 @@ localhost_macports_packages:
   - kaf
   - gnutar
   - dotnet-sdk-8
+  - wget
 
 localhost_glab_binary_url: https://gitlab.com/gitlab-org/cli/-/releases/v1.43.0/downloads
 localhost_glab_binary_filename: glab_1.43.0_macOS_arm64.tar.gz
