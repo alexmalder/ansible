@@ -58,7 +58,6 @@ require("lazy").setup({
     config = true,
   },
   "hashivim/vim-terraform",
-  "rafaqz/ranger.vim",
   "tpope/vim-dispatch",
   "bluz71/vim-moonfly-colors",
   {
