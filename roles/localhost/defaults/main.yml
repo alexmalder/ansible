@@ -41,6 +41,8 @@ localhost_macports_packages:
   - glab
   - watch
   - tmux
+  - docker
+  - podman
   # - yaml-cpp
   # - boost
   # - dotnet-sdk-8
