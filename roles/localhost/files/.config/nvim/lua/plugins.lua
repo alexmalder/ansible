@@ -34,7 +34,6 @@ require("lazy").setup({
   "nvim-telescope/telescope.nvim",
   "windwp/nvim-autopairs",
   "frazrepo/vim-rainbow",
-  "windwp/windline.nvim",
   "kyazdani42/nvim-web-devicons",
   "bfrg/vim-cpp-modern",
   "vim-autoformat/vim-autoformat",
@@ -69,5 +68,21 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     }
+  },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+
+      -- Only one of these is needed, not both.
+      "nvim-telescope/telescope.nvim", -- optional
+      "ibhagwan/fzf-lua",              -- optional
+    },
+    config = true
+  },
+  {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' }
   }
 })
