@@ -18,22 +18,17 @@ localhost_macports_packages:
   - k9s
   - ctop
   - colordiff
-  # - npm10
   - cargo
   - jq
   - yq
   - zoxide
-  # - poppler
-  # - pandoc
   - htop
   - ranger
   - terraform-ls
   - gopls
   - lua-language-server
   - golangci-lint
-  # - cmake
-  # - yaml-cpp
-  # - boost
+  - cmake
   - cmake-language-server
   - librdkafka
   - kubectl-1.29
@@ -42,10 +37,16 @@ localhost_macports_packages:
   - p7zip
   - kaf
   - gnutar
-  # - dotnet-sdk-8
   - wget
   - glab
   - watch
+  - tmux
+  # - yaml-cpp
+  # - boost
+  # - dotnet-sdk-8
+  # - npm10
+  # - poppler
+  # - pandoc
 
 # not implemented
 # dotnet tool install --global dotnet-ef
