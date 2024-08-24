@@ -43,6 +43,10 @@ localhost_macports_packages:
   - tmux
   - docker
   - podman
+  - go
+  - s3cmd
+  - gradle
+  - btop
   # - yaml-cpp
   # - boost
   # - dotnet-sdk-8
