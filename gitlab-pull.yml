@@ -15,3 +15,6 @@
     - role: puller
       vars:
         gitlab_puller_group_id: 12106
+    - role: puller
+      vars:
+        gitlab_puller_group_id: 3213
