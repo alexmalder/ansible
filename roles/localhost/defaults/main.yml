@@ -7,6 +7,7 @@ localhost_npm_packages:
   - pyright
 
 localhost_macports_packages:
+  - dotnet-sdk-8
   - neovim
   - neofetch
   - fish
@@ -49,7 +50,6 @@ localhost_macports_packages:
   - btop
   # - yaml-cpp
   # - boost
-  # - dotnet-sdk-8
   # - npm10
   # - poppler
   # - pandoc
