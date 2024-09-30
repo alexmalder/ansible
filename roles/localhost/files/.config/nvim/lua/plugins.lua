@@ -84,5 +84,8 @@ require("lazy").setup({
   {
       'nvim-lualine/lualine.nvim',
       dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
+  {
+    "lewis6991/hover.nvim",
   }
 })
