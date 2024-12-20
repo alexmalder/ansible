@@ -19,3 +19,4 @@ export DOTNET_ROOT=/opt/local/share/dotnet
 #export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk17/Contents/Home"
 
 export PASSWORD_STORE_DIR="$HOME/Code/alexmalder/store"
+export LANG=en_US.UTF-8

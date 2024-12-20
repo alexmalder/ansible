@@ -86,10 +86,10 @@ lsp.csharp_ls.setup{
 lsp.pylsp.setup {
   capabilities = capabilities
 }
-lsp.terraformls.setup{
-  capabilities=capabilities,
-  command="/opt/local/bin/terraform-ls"
-}
+--lsp.terraformls.setup{
+--  capabilities=capabilities,
+--  command="/opt/local/bin/terraform-ls"
+--}
 lsp.lua_ls.setup {
   cmd = {"/opt/local/bin/lua-language-server"},
   capabilities = capabilities
