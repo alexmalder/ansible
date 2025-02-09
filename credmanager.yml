@@ -51,7 +51,6 @@
       ansible.builtin.file:
         path: /etc/ansible
         state: directory
-        owner: alexmalder
         mode: '0700'
       become: true
 
