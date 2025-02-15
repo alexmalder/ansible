@@ -1,17 +1,12 @@
 ---
-- name: Install macports packages
-  community.general.macports:
+- name: Install brew packages
+  community.general.homebrew:
     name: "{{ item }}"
-  loop: "{{ localhost_macports_packages }}"
+    state: present
+  loop: "{{ localhost_brew_packages }}"
 
-# - name: Install npm packages
-#   community.general.npm:
-#     name: "{{ item }}"
-#     global: true
-#   loop: "{{ localhost_npm_packages }}"
-
-- name: Upgrade macports packages
-  community.general.macports:
-    name: "{{ localhost_macports_packages }}"
-    selfupdate: true
-    upgrade: true
+- name: Instal brew casks
+  community.general.homebrew:
+    name: "homebrew/cask/{{ item }}"
+    state: present
+  loop: "{{ localhost_brew_casks }}"

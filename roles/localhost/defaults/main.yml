@@ -6,59 +6,46 @@ localhost_npm_packages:
   - yaml-language-server
   - pyright
 
-localhost_macports_packages:
-  - dotnet-sdk-8
-  - neovim
-  - neofetch
+localhost_brew_packages:
+  - btop
+  - ctop
+  - docker
+  - docker-compose
+  - eza
   - fish
   - fzf
-  - ripgrep
-  - pass
-  - eza
-  - nnn
-  - k9s
-  - ctop
-  - colordiff
-  - cargo
-  - jq
-  - yq
-  - zoxide
-  - htop
-  - ranger
-  - terraform-ls
-  - gopls
-  - lua-language-server
-  - golangci-lint
-  - cmake
-  - cmake-language-server
-  - librdkafka
-  - kubectl-1.29
-  - helm-3.14
-  - dua-cli
-  - p7zip
-  - kaf
-  - gnutar
-  - wget
   - glab
-  - watch
-  - tmux
-  - docker
-  - podman
   - go
-  - s3cmd
-  - gradle
-  - btop
-  # - yaml-cpp
-  # - boost
-  # - npm10
-  # - poppler
-  # - pandoc
+  - gopls
+  - helm
+  - htop
+  - k9s
+  - kubernetes-cli
+  - neovim
+  - nmap
+  - nnn
+  - pass
+  - podman
+  - python@3.11
+  - ripgrep
+  - tmux
+  - yq
 
-# not implemented
-# dotnet tool install --global dotnet-ef
-localhost_dotnet_packages:
-  - dotnet-ef
-  - csharp-ls
+localhost_brew_casks:
+  - dbeaver-community
+  - firefox
+  - google-chrome
+  - libreoffice
+  - podman-desktop
+  - shotcut
+  - utm
+  - zoom
+  - element
+  - freelens
+  - iterm2
+  - obsidian
+  - thor
+  - yandex-cloud-cli
 
 localhost_pacman_base_packages:
   - zsh
