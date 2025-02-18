@@ -30,6 +30,8 @@ localhost_brew_packages:
   - ripgrep
   - tmux
   - yq
+  - s3cmd
+  - httpie
 
 localhost_brew_casks:
   - dbeaver-community
