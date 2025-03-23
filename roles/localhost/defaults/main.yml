@@ -7,7 +7,10 @@ localhost_npm_packages:
   - pyright
 
 localhost_brew_packages:
+  - bash-language-server
+  - bottom
   - btop
+  - colordiff
   - ctop
   - docker
   - docker-compose
@@ -16,38 +19,53 @@ localhost_brew_packages:
   - fzf
   - glab
   - go
+  - go-jira
   - gopls
+  - grafana
   - helm
   - htop
+  - httpie
   - k9s
+  - kube-capacity
   - kubernetes-cli
+  - lua-language-server
+  - ncdu
   - neovim
   - nmap
   - nnn
+  - openssl@3
   - pass
   - podman
   - python@3.11
   - ripgrep
-  - tmux
-  - yq
   - s3cmd
-  - httpie
+  - speedtest-cli
+  - tmux
+  - watch
+  - wget
+  - winetricks
+  - yq
 
 localhost_brew_casks:
+  - alt-tab
   - dbeaver-community
+  - element
   - firefox
+  - freelens
   - google-chrome
+  - gstreamer-runtime
+  - iterm2
   - libreoffice
+  - obsidian
   - podman-desktop
   - shotcut
-  - utm
-  - zoom
-  - element
-  - freelens
-  - iterm2
-  - obsidian
   - thor
+  - ticktick
+  - transmission
+  - utm
+  - wine-stable
   - yandex-cloud-cli
+  - zoom
 
 localhost_pacman_base_packages:
   - zsh

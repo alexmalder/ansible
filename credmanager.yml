@@ -1,33 +1,15 @@
 ---
-# configfiles: [inventory, netrc]
-# output: [inventory/inventory, .ssh/config, .netrc, netrc.fish]
-# optional output: [hosts]
+# configfiles: [netrc]
+# output: [.netrc, netrc.fish]
 - name: Register secrets and generate local files
   hosts: 127.0.0.1
   connection: local
   tasks:
-    - name: Register inventory
-      ansible.builtin.command: "cat {{ ansible_env.HOME }}/Code/devops/ansible/inventory/vm.yml"
-      register: inventory_yaml
-      changed_when: inventory_yaml.rc == 0
-      failed_when: inventory_yaml.rc != 0
-
     - name: Register netrc
       ansible.builtin.command: pass show ansible/netrc.yaml
       register: netrc
       changed_when: netrc.rc == 0
       failed_when: netrc.rc != 0
-
-    - name: Set facts from pass
-      ansible.builtin.set_fact:
-        inventory: "{{ inventory_yaml.stdout | from_yaml }}"
-        netrc: "{{ netrc.stdout | from_yaml }}"
-
-    - name: Generate simple hosts file from inventory
-      ansible.builtin.template:
-        src: "./templates/hosts.j2"
-        dest: "~/Documents/hosts.txt"
-        mode: '0600'
 
     - name: Generate ssh config
       ansible.builtin.template:
@@ -47,22 +29,3 @@
         dest: ~/.config/fish/conf.d/netrc.fish
         mode: '0600'
 
-    - name: Create ansible directory
-      ansible.builtin.file:
-        path: /etc/ansible
-        state: directory
-        mode: '0700'
-      become: true
-
-    - name: Save inventory to inventory directory
-      ansible.builtin.copy:
-        content: "{{ inventory_yaml.stdout }}"
-        dest: /etc/ansible/inventory.yaml
-        mode: '0600'
-
-#    - name: Generate hosts file
-#      ansible.builtin.copy:
-#        src: templates/hosts
-#        dest: /etc/hosts
-#        mode: '0644'
-#      become: true

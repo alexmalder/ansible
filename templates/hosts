@@ -1,3 +1,0 @@
-{% for item in mhosts.hosts %}
-{{item.ip}} {{item.host}}
-{% endfor %}
