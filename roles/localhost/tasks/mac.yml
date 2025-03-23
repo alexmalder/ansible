@@ -10,3 +10,13 @@
     name: "homebrew/cask/{{ item }}"
     state: present
   loop: "{{ localhost_brew_casks }}"
+
+- name: Update homebrew
+  community.general.homebrew:
+    update_homebrew: true
+    upgrade_all: true
+  register: homebrew_update_status
+
+- name: Debug update
+  ansible.builtin.debug:
+    var: homebrew_update_status
