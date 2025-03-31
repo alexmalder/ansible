@@ -91,7 +91,7 @@ lsp.pylsp.setup {
 --  command="/opt/local/bin/terraform-ls"
 --}
 lsp.lua_ls.setup {
-  cmd = {"/opt/local/bin/lua-language-server"},
+  cmd = {"lua-language-server"},
   capabilities = capabilities
 }
 lsp.rust_analyzer.setup{

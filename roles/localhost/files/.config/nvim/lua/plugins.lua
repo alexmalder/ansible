@@ -87,5 +87,8 @@ require("lazy").setup({
   },
   {
     "lewis6991/hover.nvim",
+  },
+  {
+    "mcchrish/nnn.vim"
   }
 })
