@@ -22,17 +22,20 @@ localhost_brew_packages:
   - go-jira
   - gopls
   - grafana
+  - hadolint
   - helm
   - htop
   - httpie
   - k9s
   - kube-capacity
   - kubernetes-cli
+  - logcli
   - lua-language-server
   - ncdu
   - neovim
   - nmap
   - nnn
+  - openconnect
   - openssl@3
   - pass
   - podman
@@ -48,6 +51,7 @@ localhost_brew_packages:
 
 localhost_brew_casks:
   - alt-tab
+  - bitwarden
   - dbeaver-community
   - element
   - firefox
