@@ -18,7 +18,6 @@
 
 - name: Install packages mac
   ansible.builtin.import_tasks: ./mac.yml
-  become: true
   when:
     - ansible_distribution == "MacOSX"
   tags:

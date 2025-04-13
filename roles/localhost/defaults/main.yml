@@ -27,7 +27,7 @@ localhost_brew_packages:
   - htop
   - httpie
   - k9s
-  - kube-capacity
+  # - kube-capacity
   - kubernetes-cli
   - logcli
   - lua-language-server
