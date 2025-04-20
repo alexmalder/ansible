@@ -5,7 +5,7 @@ services:
       - VIRTUAL_HOST=bitwarden.vnmntn.ru
       - DEFAULT_EMAIL=vnmntn@mail.ru
       - WEBSOCKET_ENABLED=true 
-      - SIGNUPS_ALLOWED=false
+      - SIGNUPS_ALLOWED=true
     image: vaultwarden/server:1.26.0-alpine
     restart: unless-stopped
     ports:
