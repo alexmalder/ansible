@@ -1,0 +1,12 @@
+---
+- name: Configure and deploy
+  community.general.docker_container:
+    name: "{{ bitwarden_container_name }}"
+    image: "{{ bitwarden_image }}"
+    state: started
+    user:
+    ports: "{{ bitwarden_ports }}"
+    volumes: "{{ bitwarden_volumes }}"
+    env: "{{ bitwarden_env }}"
+    restart_policy: always
+    restart: true

@@ -1,40 +1,18 @@
 # Ansible
 
-## Systemd based roles
+## Roles and playbooks
 
-- libvirt
-- wireguard
-- haproxy
+- gitlab-pull: used for gitlab pull all repos by project
 
-## OpenRC based roles
+## Free playbooks
 
-- fail2ban
-- gitea
-- postgres
-- sshd
+- credmanager.yml: not actual
 
-## Script-like based roles
+## Scripts
 
-- ci (kubectl, helm, docker, docker-compose)
-- common (alpine only)
-- localhost
+- validate: dotfiles validator and puller
 
-## Script-like playbooks
-
-- gitlab-pull
-- validate (dotfiles)
-- docker-clone
-- git-remotes
-- gitea-backup
-- gitlab (docker)
-- openldap (docker)
-
-## TODO
-
-- [ ] common role using with multi distributions
-- [ ] postgres alpine setup
-
-## Help
+## Custom commands execution note
 
 `ansible hostname -m ansible.builtin.shell -a 'df -h /'`
 
