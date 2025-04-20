@@ -14,7 +14,9 @@
 
 ## Custom commands execution note
 
-`ansible hostname -m ansible.builtin.shell -a 'df -h /'`
+- `ansible hostname -m ansible.builtin.shell -a 'df -h /'`
+
+> check custom command for hostname | ansible shell
 
 ## Authors
 
