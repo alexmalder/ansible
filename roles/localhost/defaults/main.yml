@@ -38,7 +38,6 @@ localhost_brew_packages:
   - openconnect
   - openssl@3
   - pass
-  - podman
   - python@3.11
   - ripgrep
   - s3cmd
@@ -61,7 +60,6 @@ localhost_brew_casks:
   - iterm2
   - libreoffice
   - obsidian
-  - podman-desktop
   - shotcut
   - thor
   - ticktick
