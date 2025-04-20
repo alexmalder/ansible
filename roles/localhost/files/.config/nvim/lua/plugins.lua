@@ -43,8 +43,12 @@ require("lazy").setup({
   "sharksforarms/neovim-rust",
   "ajeetdsouza/zoxide",
   "jvgrootveld/telescope-zoxide",
-  "xiyaowong/nvim-transparent",
   "water-sucks/darkrose.nvim",
+  {
+      'tribela/transparent.nvim',
+      event = 'VimEnter',
+      config = true,
+  },
   "neg-serg/neg.nvim",
   "nvim-tree/nvim-tree.lua",
   {
@@ -90,5 +94,8 @@ require("lazy").setup({
   },
   {
     "mcchrish/nnn.vim"
+  },
+  {
+    "paulfrische/reddish.nvim"
   }
 })

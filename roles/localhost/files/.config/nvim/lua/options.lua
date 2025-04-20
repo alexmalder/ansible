@@ -81,18 +81,6 @@ require('lualine').setup {
 require('gitsigns').setup{}
 vim.cmd[[set guicursor=v-c-sm:block,n-i-ci-ve:ver25,r-cr-o:ver25]]
 
--- Lua initialization file
-require("transparent").setup({
-  groups = { -- table: default groups
-    'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
-    'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
-    'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
-    'SignColumn', 'CursorLineNr', 'EndOfBuffer',
-  },
-  extra_groups = {}, -- table: additional groups that should be cleared
-  exclude_groups = {}, -- table: groups you don't want to clear
-})
-
 vim.cmd('let g:rainbow_active = 1')
 
 vim.opt.termguicolors = true

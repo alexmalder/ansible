@@ -69,9 +69,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 lsp.bashls.setup {
   capabilities = capabilities
 }
-lsp.ts_ls.setup {
-  capabilities = capabilities
-}
+-- lsp.ts_ls.setup { capabilities = capabilities }
 lsp.gopls.setup {
   capabilities = capabilities
 }
