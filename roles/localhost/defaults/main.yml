@@ -47,6 +47,7 @@ localhost_brew_packages:
   - wget
   - winetricks
   - yq
+  - sshpass
 
 localhost_brew_casks:
   - alt-tab
