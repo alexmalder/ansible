@@ -2,11 +2,9 @@
 
 ## Roles and playbooks
 
+- bitwarden: deploy vaultwarden service in docker
 - gitlab-pull: used for gitlab pull all repos by project
-
-## Free playbooks
-
-- credmanager.yml: not actual
+- localhost: setup localhost packages, but configurations tasks in progress
 
 ## Scripts
 
