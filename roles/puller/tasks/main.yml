@@ -1,7 +1,7 @@
 ---
 - name: Get list of repos
   ansible.builtin.uri:
-    url: "https://{{ lookup('ansible.builtin.env', 'GIT_URL_SECURE', default=Undefined) }}/api/v4/groups/{{ gitlab_puller_group_id }}/projects?per_page=1024&include_subgroups=true"
+    url: "https://{{ lookup('ansible.builtin.env', 'GIT_URL_SECURE', default=Undefined) }}/{{ puller_endpoint }}"
     method: GET
     status_code:
       - 200
@@ -16,7 +16,7 @@
 - name: Clone repositories into workdir
   ansible.builtin.git:
     repo: "{{ item.web_url }}"
-    dest: "{{ workdir }}/{{ item.path_with_namespace }}"
+    dest: "{{ puller_workdir }}/{{ item.path_with_namespace }}"
     version: "{{ item.default_branch }}"
   loop: "{{ result.json }}"
   loop_control:
