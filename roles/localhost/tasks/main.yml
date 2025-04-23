@@ -5,17 +5,6 @@
   tags:
     - install
 
-- name: Install packages archlinux
-  ansible.builtin.import_tasks: ./archlinux.yml
-  become: true
-  vars:
-    state: present
-    extra_args: ""
-  when:
-    - ansible_distribution == "Archlinux"
-  tags:
-    - install
-
 - name: Install packages mac
   ansible.builtin.import_tasks: ./mac.yml
   when:
