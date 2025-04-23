@@ -3,8 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - "master"
-      - "localhost-optimized"
+      - "main"
 
 env:
   TEST_TAG: user/app:test
