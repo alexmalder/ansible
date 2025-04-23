@@ -1,7 +1,0 @@
-{% for item in netrc %}
-
-export GIT_URL_{{ item.name | upper }}={{ item.machine }}
-export GIT_USERNAME_{{ item.name | upper }}={{ item.login }}
-export GIT_PASSWORD_{{ item.name | upper }}={{ item.password }}
-
-{% endfor %}
