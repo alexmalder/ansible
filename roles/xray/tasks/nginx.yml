@@ -1,0 +1,21 @@
+---
+- name: Install nginx
+  ansible.builtin.apt:
+    name:
+      - nginx
+    state: present
+    update_cache: true
+  notify: Restart nginx
+
+- name: Copy site config
+  ansible.builtin.template:
+    src: server.conf.j2
+    dest: /etc/nginx/sites-available/default
+    mode: "0640"
+  notify: Restart nginx
+
+- name: Setup nginx service
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: true
+    state: started

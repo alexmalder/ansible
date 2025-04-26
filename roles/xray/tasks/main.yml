@@ -1,0 +1,6 @@
+---
+- name: Setup nginx
+  ansible.builtin.include_tasks: nginx.yml
+
+- name: Setup xray
+  ansible.builtin.include_tasks: xray.yml

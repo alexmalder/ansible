@@ -1,0 +1,43 @@
+---
+- name: Download installation script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/XTLS/Xray-install/main/install-release.sh
+    dest: "{{ ansible_env.HOME }}/install-release.sh"
+    mode: "0600"
+
+- name: Execute installation script
+  ansible.builtin.command: /bin/bash {{ ansible_env.HOME }}/install-release.sh
+  ignore_errors: "{{ ansible_check_mode }}" # noqa ignore-errors
+
+- name: Copy server config
+  ansible.builtin.copy:
+    content: "{{ xray_server_config | to_json }}"
+    dest: "{{ xray_config_dir }}/config.json"
+    mode: "0640"
+  notify: Restart xray
+
+- name: Create ssl dir
+  ansible.builtin.file:
+    path: "{{ xray_ssl_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy ssl cert
+  ansible.builtin.copy:
+    content: "{{ xray_ssl_cert }}"
+    dest: "{{ xray_ssl_dir }}/{{ xray_ssl_cert_name }}"
+    mode: "0640"
+  notify: Restart xray
+
+- name: Copy ssl private key
+  ansible.builtin.copy:
+    content: "{{ xray_ssl_private_key }}"
+    dest: "{{ xray_ssl_dir }}/{{ xray_ssl_private_key_name }}"
+    mode: "0640"
+  notify: Restart xray
+
+- name: Setup xray service
+  ansible.builtin.systemd:
+    name: xray
+    enabled: true
+    state: started
