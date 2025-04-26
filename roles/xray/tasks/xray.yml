@@ -6,9 +6,7 @@
     mode: '0600'
 
 - name: Execute installation script
-  script: "{{ ansible_env.HOME }}/install-release.sh"
-  args:
-    executable: /bin/bash
+  command: "/bin/bash {{ ansible_env.HOME }}/install-release.sh"
   ignore_errors: "{{ ansible_check_mode }}" # noqa ignore-errors
 
 - name: Copy server config
