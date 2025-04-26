@@ -12,6 +12,9 @@ COPY . .
 
 RUN find . | grep "\.md" | xargs -I % sh -c "markdownlint %"
 
-RUN ansible-lint *.yml
+RUN ansible-lint ./xray.yml
+RUN ansible-lint ./bitwarden.yml
+RUN ansible-lint ./gitlab-pull.yml
+RUN ansible-lint ./localhost.yml
 
 #RUN ansible-playbook ./localhost.yml
