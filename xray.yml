@@ -1,0 +1,5 @@
+---
+- name: Run xray server with nginx
+  hosts: host2
+  roles:
+    - xray
