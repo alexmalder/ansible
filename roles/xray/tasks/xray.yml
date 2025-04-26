@@ -7,6 +7,9 @@
 
 - name: Execute installation script
   ansible.builtin.command: /bin/bash {{ ansible_env.HOME }}/install-release.sh
+  register: installation_log
+  changed_when: installation_log.rc == 0
+  failed_when: installation_log.rc != 0
   ignore_errors: "{{ ansible_check_mode }}" # noqa ignore-errors
 
 - name: Copy server config

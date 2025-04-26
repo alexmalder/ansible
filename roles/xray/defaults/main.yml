@@ -58,10 +58,3 @@ xray_client_0_config:
       settings:
         auth: noauth
         udp: true
-  routing:
-    domainStrategy: IPOnDemand
-    rules:
-      - type: field
-        ip:
-          - geoip:private
-        outboundTag: direct
