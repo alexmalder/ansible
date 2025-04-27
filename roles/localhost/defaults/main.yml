@@ -2,7 +2,6 @@
 # defaults file for init
 localhost_brew_packages:
   - bash-language-server
-  - bottom
   - btop
   - colordiff
   - ctop
@@ -21,17 +20,19 @@ localhost_brew_packages:
   - htop
   - httpie
   - k9s
-  # - kube-capacity
   - kubernetes-cli
   - logcli
   - lua-language-server
+  - markdownlint-cli
   - ncdu
   - neovim
   - nmap
   - nnn
   - openconnect
-  - openssl@3
+  - ossp-uuid
   - pass
+  - podman
+  - pueue
   - python@3.11
   - ripgrep
   - s3cmd
@@ -40,9 +41,9 @@ localhost_brew_packages:
   - watch
   - wget
   - winetricks
+  - wireguard-tools
+  - xray
   - yq
-  - sshpass
-  - markdownlint-cli
 
 localhost_brew_casks:
   - alt-tab
@@ -50,6 +51,7 @@ localhost_brew_casks:
   - dbeaver-community
   - element
   - firefox
+  - font-ubuntu-mono-nerd-font
   - freelens
   - google-chrome
   - gstreamer-runtime
