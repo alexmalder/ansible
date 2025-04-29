@@ -22,7 +22,6 @@ require("lazy").setup({
   "hrsh7th/cmp-cmdline",
   "hrsh7th/nvim-cmp",
   "L3MON4D3/LuaSnip",
-  "mfussenegger/nvim-jdtls",
   {
     "cuducos/yaml.nvim",
     ft = { "yaml" },
@@ -33,46 +32,21 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   "nvim-telescope/telescope.nvim",
   "windwp/nvim-autopairs",
-  "frazrepo/vim-rainbow",
   "kyazdani42/nvim-web-devicons",
-  "bfrg/vim-cpp-modern",
-  "vim-autoformat/vim-autoformat",
   "sbdchd/neoformat",
   { "lewis6991/gitsigns.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   "sindrets/diffview.nvim",
   "sharksforarms/neovim-rust",
   "ajeetdsouza/zoxide",
   "jvgrootveld/telescope-zoxide",
-  "water-sucks/darkrose.nvim",
   {
       'tribela/transparent.nvim',
       event = 'VimEnter',
       config = true,
   },
-  "neg-serg/neg.nvim",
   "nvim-tree/nvim-tree.lua",
-  {
-    "akinsho/flutter-tools.nvim",
-    lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
-    },
-    config = true,
-  },
   "hashivim/vim-terraform",
   "tpope/vim-dispatch",
-  "bluz71/vim-moonfly-colors",
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-  },
   {
     "NeogitOrg/neogit",
     dependencies = {
@@ -95,7 +69,19 @@ require("lazy").setup({
   {
     "mcchrish/nnn.vim"
   },
+  -- colors
   {
-    "paulfrische/reddish.nvim"
+      "zenbones-theme/zenbones.nvim",
+      -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+      -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+      -- In Vim, compat mode is turned on as Lush only works in Neovim.
+      dependencies = "rktjmp/lush.nvim",
+      lazy = false,
+      priority = 1000,
+      -- you can set set configuration options here
+      config = function()
+        vim.g.zenbones_darken_comments = 45
+        vim.cmd.colorscheme('zenbones')
+      end
   }
 })
