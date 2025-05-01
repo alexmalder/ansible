@@ -1,6 +1,6 @@
 ---
 bitwarden_container_name: bitwarden-server
-bitwarden_image: vaultwarden/server:1.32.7
+bitwarden_image: vaultwarden/server:1.32.7 # try up to 1.33.2
 bitwarden_ports:
   - 8080:80
 bitwarden_volumes:
