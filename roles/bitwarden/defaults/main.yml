@@ -11,3 +11,4 @@ bitwarden_env:
   WEBSOCKET_ENABLED: "true"
   SIGNUPS_ALLOWED: "false"
   ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
+  INCREASE_NOTE_SIZE_LIMIT: "true"
