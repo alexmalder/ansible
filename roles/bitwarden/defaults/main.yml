@@ -6,7 +6,8 @@ bitwarden_ports:
 bitwarden_volumes:
   - /var/lib/bitwarden:/data
 bitwarden_env:
-  VIRTUAL_HOST: vnmntn.ru
+  DOMAIN: https://vnmntn.ru
   DEFAULT_EMAIL: vnmntn@mail.ru
   WEBSOCKET_ENABLED: "true"
   SIGNUPS_ALLOWED: "false"
+  ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
