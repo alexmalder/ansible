@@ -7,8 +7,13 @@ bitwarden_volumes:
   - /var/lib/bitwarden:/data
 bitwarden_env:
   DOMAIN: https://vnmntn.ru
-  DEFAULT_EMAIL: vnmntn@mail.ru
+  DEFAULT_EMAIL: "{{ bitwarden_email_mailbox }}"
   WEBSOCKET_ENABLED: "true"
   SIGNUPS_ALLOWED: "false"
-  ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
   INCREASE_NOTE_SIZE_LIMIT: "true"
+  # ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
+  SMTP_HOST: smtp.mail.ru
+  SMTP_FROM: "{{ bitwarden_email_mailbox }}"
+  SMTP_FROM_NAME: Vaultwarden
+  SMTP_USERNAME: "{{ bitwarden_email_mailbox }}"
+  SMTP_PASSWORD: "{{ bitwarden_email_password }}"
