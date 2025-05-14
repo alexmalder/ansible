@@ -47,7 +47,7 @@ localhost_brew_packages:
 
 localhost_brew_casks:
   - alt-tab
-  - bitwarden
+  # - bitwarden
   - dbeaver-community
   - element
   - firefox
