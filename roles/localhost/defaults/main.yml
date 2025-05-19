@@ -2,6 +2,7 @@
 # defaults file for init
 localhost_brew_packages:
   - bash-language-server
+  - bitwarden-cli
   - btop
   - colordiff
   - ctop
@@ -19,6 +20,7 @@ localhost_brew_packages:
   - helm
   - htop
   - httpie
+  - hugo
   - k9s
   - kubernetes-cli
   - logcli
@@ -37,6 +39,7 @@ localhost_brew_packages:
   - ripgrep
   - s3cmd
   - speedtest-cli
+  - sshpass
   - tmux
   - watch
   - wget
@@ -47,21 +50,28 @@ localhost_brew_packages:
 
 localhost_brew_casks:
   - alt-tab
-  # - bitwarden
   - dbeaver-community
+  - duckduckgo
   - element
   - firefox
+  - floorp
+  - font-adwaita-mono-nerd-font
+  - font-mononoki-nerd-font
+  - font-roboto-mono-nerd-font
   - font-ubuntu-mono-nerd-font
   - freelens
   - google-chrome
   - gstreamer-runtime
   - iterm2
   - libreoffice
+  - microsoft-auto-update
+  - microsoft-outlook
+  - monokle
   - obsidian
+  - podman-desktop
   - shotcut
   - thor
   - transmission
   - utm
-  - wine-stable
   - yandex-cloud-cli
   - zoom
