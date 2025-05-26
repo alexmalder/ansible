@@ -69,7 +69,6 @@ require("lazy").setup({
   {
     "mcchrish/nnn.vim"
   },
-  -- colors
   {
       "zenbones-theme/zenbones.nvim",
       -- Optionally install Lush. Allows for more configuration or extending the colorscheme
@@ -83,5 +82,14 @@ require("lazy").setup({
         vim.g.zenbones_darken_comments = 45
         vim.cmd.colorscheme('zenbones')
       end
+  },
+  {
+      "water-sucks/darkrose.nvim",
+      lazy = false,
+      priority = 1000,
+      italic = false,
+      -- config = function()
+      --   vim.cmd.colorscheme('darkrose')
+      -- end
   }
 })
