@@ -15,7 +15,6 @@ localhost_brew_packages:
   - go
   - go-jira
   - gopls
-  - grafana
   - hadolint
   - helm
   - htop
@@ -33,6 +32,7 @@ localhost_brew_packages:
   - openconnect
   - ossp-uuid
   - pass
+  - pastel
   - podman
   - pueue
   - python@3.11
@@ -44,12 +44,12 @@ localhost_brew_packages:
   - watch
   - wget
   - winetricks
-  - wireguard-tools
   - xray
   - yq
 
 localhost_brew_casks:
   - alt-tab
+  - darktable
   - dbeaver-community
   - duckduckgo
   - element
@@ -71,7 +71,7 @@ localhost_brew_casks:
   - podman-desktop
   - shotcut
   - thor
+  - ticktick
   - transmission
   - utm
-  - yandex-cloud-cli
   - zoom
