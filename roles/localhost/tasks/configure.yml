@@ -13,8 +13,6 @@
 
 - name: Pull configuration files
   ansible.builtin.copy:
-    src: "{{ item }}"  
-    dest: "{{ item }}"
+    src: "{{ ansible_env.HOME }}/{{ item }}"  
+    dest: "roles/localhost/files/{{ item }}"
   with_items: "{{ localhost_dotfiles }}"
-  tags:
-    - pull
