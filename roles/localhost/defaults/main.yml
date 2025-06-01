@@ -75,3 +75,24 @@ localhost_brew_casks:
   - transmission
   - utm
   - zoom
+
+localhost_dotfiles:
+  - .config/nvim/init.lua
+  - .config/nvim/lua/colors.lua     
+  - .config/nvim/lua/plugins.lua  
+  - .config/nvim/lua/lsp.lua          
+  - .config/nvim/lua/telescope-zoxide.lua
+  - .config/nvim/lua/mappings.lua
+  - .config/nvim/lua/options.lua
+  - .config/nvim/lazy-lock.json
+  - .config/nvim/.gitignore
+  - .config/fish/conf.d/aliases.fish
+  - .config/fish/conf.d/.gitignore
+  - .config/fish/conf.d/functions.fish
+  - .config/fish/conf.d/variables.fish
+  - .tmux.conf
+
+localhost_home_linux_spec:
+  - .Xresources
+  - .clang-format
+  - .xinitrc
