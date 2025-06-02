@@ -12,7 +12,12 @@
   tags:
     - install
 
-- name: Configure
-  ansible.builtin.import_tasks: ./configure.yml
+- name: Pull config files
+  ansible.builtin.import_tasks: ./pull.yml
   tags:
     - pull
+
+- name: Push config files
+  ansible.builtin.import_tasks: ./push.yml
+  tags:
+    - push

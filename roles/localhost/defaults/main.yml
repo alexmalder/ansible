@@ -78,9 +78,9 @@ localhost_brew_casks:
 
 localhost_dotfiles:
   - .config/nvim/init.lua
-  - .config/nvim/lua/colors.lua     
-  - .config/nvim/lua/plugins.lua  
-  - .config/nvim/lua/lsp.lua          
+  - .config/nvim/lua/colors.lua
+  - .config/nvim/lua/plugins.lua
+  - .config/nvim/lua/lsp.lua
   - .config/nvim/lua/telescope-zoxide.lua
   - .config/nvim/lua/mappings.lua
   - .config/nvim/lua/options.lua
