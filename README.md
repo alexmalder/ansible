@@ -2,13 +2,23 @@
 
 ## Roles and playbooks
 
-- bitwarden: deploy vaultwarden service in docker
-- gitlab-pull: used for gitlab pull all repos by project
-- localhost: setup localhost packages, but configurations tasks in progress
+### bitwarden
 
-## Scripts
+- deploy vaultwarden service in docker
 
-- validate: dotfiles validator and puller
+### gitlab-pull
+
+- used for gitlab pull all repos by project
+
+### localhost
+
+- setup localhost packages, but configurations tasks in progress
+
+#### Tags
+
+- install
+- pull
+- push
 
 ## Custom commands execution note
 
