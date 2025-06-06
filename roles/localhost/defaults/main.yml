@@ -62,7 +62,6 @@ localhost_brew_casks:
   - freelens
   - google-chrome
   - gstreamer-runtime
-  - iterm2
   - libreoffice
   - microsoft-auto-update
   - microsoft-outlook
