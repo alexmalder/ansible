@@ -11,11 +11,8 @@ maddy_ports:
 maddy_volumes:
   - "/var/lib/maddy/data:/data"
   - "/var/lib/maddy/certs:/etc/maddy/certs"
-  #- /var/lib/maddy/certs/certificate.crt:/etc/maddy/certs/vnmntn.ru/fullchain.pem 
-  #- /var/lib/maddy/certs/private.key:/etc/maddy/certs/vnmntn.ru/privkey.pem
 maddy_env:
   TEST_KEY: TEST_VALUE
-
 maddy_workdirs:
   - "/var/lib/maddy"
   - "/var/lib/maddy/data"
