@@ -77,20 +77,11 @@ require("lazy").setup({
       dependencies = "rktjmp/lush.nvim",
       lazy = false,
       priority = 1000,
+      italic = false,
       -- you can set set configuration options here
       config = function()
-        vim.g.zenbones_darken_comments = 45
-        --vim.cmd.colorscheme('zenwritten')
-        vim.cmd.colorscheme('rosebones')
+        vim.cmd.colorscheme('zenwritten')
+        --vim.cmd.colorscheme('rosebones')
       end
-  },
-  {
-      "water-sucks/darkrose.nvim",
-      lazy = false,
-      priority = 1000,
-      italic = false,
-      -- config = function()
-      --   vim.cmd.colorscheme('darkrose')
-      -- end
   }
 })
