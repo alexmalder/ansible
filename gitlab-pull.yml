@@ -11,7 +11,7 @@
         puller_group_id: 2363
     - role: puller
       vars:
-        puller_group_id: 3213
+        puller_group_id: 18823
     - role: puller
       vars:
         puller_group_id: 17527
