@@ -9,9 +9,16 @@
     body_format: json
     headers:
       Content-Type: application/json
-      PRIVATE-TOKEN: "{{ lookup('ansible.builtin.env', 'GIT_PASSWORD_SECURE', default=Undefined) }}"
+      Authorization: "Bearer {{ lookup('ansible.builtin.env', 'GIT_PASSWORD_SECURE', default=Undefined) }}"
     validate_certs: false
   register: result
+
+- name: Debug repositories
+  debug:
+    msg: "{{ item.web_url }}"
+  loop: "{{ result.json }}"
+  loop_control:
+    label: "{{ item.web_url }}"
 
 - name: Clone repositories into workdir
   ansible.builtin.git:
