@@ -9,7 +9,7 @@
     body_format: json
     headers:
       Content-Type: application/json
-      Authorization: "Bearer {{ lookup('ansible.builtin.env', 'GIT_PASSWORD_SECURE', default=Undefined) }}"
+      PRIVATE-TOKEN: "{{ lookup('ansible.builtin.env', 'GIT_PASSWORD_SECURE', default=Undefined) }}"
     validate_certs: false
   register: result
 
