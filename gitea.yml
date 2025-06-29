@@ -1,0 +1,5 @@
+---
+- name: Run gitea in docker
+  hosts: host1
+  roles:
+    - gitea

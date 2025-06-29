@@ -1,0 +1,13 @@
+---
+gitea_container_name: gitea
+gitea_image: docker.gitea.com/gitea:1.24.2
+gitea_ports:
+  - "3000:3000"
+  - "222:22"
+gitea_volumes:
+  - /var/lib/gitea:/data
+  - /etc/timezone:/etc/timezone:ro
+  - /etc/localtime:/etc/localtime:ro
+gitea_env:
+  USER_UID: "1000"
+  USER_GID: "1000"
