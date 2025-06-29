@@ -1,0 +1,7 @@
+---
+- name: Deploy user configuration files
+  ansible.builtin.copy:
+    src: "roles/localhost/files/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    mode: '0640'
+  with_items: "{{ localhost_dotfiles }}"

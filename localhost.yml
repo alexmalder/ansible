@@ -1,0 +1,6 @@
+---
+- name: Setup system
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - role: localhost

@@ -1,0 +1,14 @@
+---
+- name: Configure and deploy
+  community.general.docker_container:
+    name: "{{ gitea_container_name }}"
+    image: "{{ gitea_image }}"
+    state: started
+    user:
+    ports: "{{ gitea_ports }}"
+    volumes: "{{ gitea_volumes }}"
+    env: "{{ gitea_env }}"
+    restart_policy: always
+    restart: true
+  tags:
+    - deploy

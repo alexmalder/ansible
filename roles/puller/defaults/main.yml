@@ -1,0 +1,5 @@
+---
+# defaults file for gitlab-puller
+puller_workdir: "~/Code"
+puller_endpoint_args: "per_page=1024&include_subgroups=true"
+puller_endpoint: "api/v4/groups/{{ puller_group_id }}/projects?{{ puller_endpoint_args }}"

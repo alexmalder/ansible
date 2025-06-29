@@ -1,0 +1,17 @@
+---
+- name: Pull repos from gitlab by gitlab_puller_group_id
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - role: puller
+      vars:
+        puller_group_id: 2267
+    - role: puller
+      vars:
+        puller_group_id: 2363
+    - role: puller
+      vars:
+        puller_group_id: 18823
+    - role: puller
+      vars:
+        puller_group_id: 17527

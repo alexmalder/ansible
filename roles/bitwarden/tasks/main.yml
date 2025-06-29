@@ -1,0 +1,43 @@
+---
+- name: Configure and deploy
+  community.general.docker_container:
+    name: "{{ bitwarden_container_name }}"
+    image: "{{ bitwarden_image }}"
+    state: started
+    user:
+    ports: "{{ bitwarden_ports }}"
+    volumes: "{{ bitwarden_volumes }}"
+    env: "{{ bitwarden_env }}"
+    restart_policy: always
+    restart: true
+  tags:
+    - deploy
+
+- name: Stop server
+  community.docker.docker_container:
+    name: bitwarden-server
+    state: started
+  tags:
+    - backup
+
+- name: Sending an e-mail with database single file
+  community.general.mail:
+    host: smtp.mail.ru
+    port: 465
+    username: "{{ bitwarden_email_mailbox }}"
+    password: "{{ bitwarden_email_password }}"
+    from: "{{ bitwarden_email_mailbox }}"
+    to: "{{ bitwarden_email_mailbox }}"
+    subject: Ansible-backup
+    body: System {{ ansible_hostname }} has been successfully backuped.
+    attach:
+      - /var/lib/bitwarden/db.sqlite3
+  tags:
+    - backup
+
+- name: Start server
+  community.docker.docker_container:
+    name: bitwarden-server
+    state: started
+  tags:
+    - backup

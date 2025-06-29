@@ -1,0 +1,20 @@
+---
+maddy_domain: vnmntn.ru
+maddy_container_name: maddy
+maddy_image: foxcpp/maddy:0.7
+maddy_ports:
+  - 25:25
+  - 143:143
+  - 465:465
+  - 587:587
+  - 993:993
+maddy_volumes:
+  - "/var/lib/maddy/data:/data"
+  - "/var/lib/maddy/certs:/etc/maddy/certs"
+maddy_env:
+  TEST_KEY: TEST_VALUE
+maddy_workdirs:
+  - "/var/lib/maddy"
+  - "/var/lib/maddy/data"
+  - "/var/lib/maddy/certs"
+  - "/var/lib/maddy/certs/{{ maddy_domain }}"

@@ -1,0 +1,19 @@
+---
+bitwarden_container_name: bitwarden-server
+bitwarden_image: vaultwarden/server:1.33.2
+bitwarden_ports:
+  - 8080:80
+bitwarden_volumes:
+  - /var/lib/bitwarden:/data
+bitwarden_env:
+  DOMAIN: https://vnmntn.ru
+  DEFAULT_EMAIL: "{{ bitwarden_email_mailbox }}"
+  WEBSOCKET_ENABLED: "true"
+  SIGNUPS_ALLOWED: "false"
+  INCREASE_NOTE_SIZE_LIMIT: "true"
+  # ADMIN_TOKEN: "{{ bitwarden_admin_token }}"
+  SMTP_HOST: smtp.mail.ru
+  SMTP_FROM: "{{ bitwarden_email_mailbox }}"
+  SMTP_FROM_NAME: Vaultwarden
+  SMTP_USERNAME: "{{ bitwarden_email_mailbox }}"
+  SMTP_PASSWORD: "{{ bitwarden_email_password }}"

@@ -1,0 +1,30 @@
+---
+- name: Get list of repos
+  ansible.builtin.uri:
+    url: "https://{{ lookup('ansible.builtin.env', 'GIT_URL_SECURE', default=Undefined) }}/{{ puller_endpoint }}"
+    method: GET
+    status_code:
+      - 200
+    return_content: true
+    body_format: json
+    headers:
+      Content-Type: application/json
+      PRIVATE-TOKEN: "{{ lookup('ansible.builtin.env', 'GIT_PASSWORD_SECURE', default=Undefined) }}"
+    validate_certs: false
+  register: result
+
+- name: Debug repositories
+  debug:
+    msg: "{{ item.web_url }}"
+  loop: "{{ result.json }}"
+  loop_control:
+    label: "{{ item.web_url }}"
+
+- name: Clone repositories into workdir
+  ansible.builtin.git:
+    repo: "{{ item.web_url }}"
+    dest: "{{ puller_workdir }}/{{ item.path_with_namespace }}"
+    version: "{{ item.default_branch }}"
+  loop: "{{ result.json }}"
+  loop_control:
+    label: "{{ item.path_with_namespace }}"

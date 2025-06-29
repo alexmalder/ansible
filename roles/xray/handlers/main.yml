@@ -1,0 +1,12 @@
+---
+- name: Restart nginx
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: true
+    state: restarted
+
+- name: Restart xray
+  ansible.builtin.systemd:
+    name: xray
+    enabled: true
+    state: restarted

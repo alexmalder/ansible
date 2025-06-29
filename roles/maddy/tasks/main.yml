@@ -1,0 +1,27 @@
+---
+- name: Create working dirs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items: "{{ maddy_workdirs }}"
+
+- name: Copy config
+  ansible.builtin.copy:
+    src: "files/maddy.conf"
+    dest: "/var/lib/maddy/data/maddy.conf"
+    mode: "0640"
+
+- name: Configure and deploy
+  community.general.docker_container:
+    name: "{{ maddy_container_name }}"
+    image: "{{ maddy_image }}"
+    state: started
+    user:
+    ports: "{{ maddy_ports }}"
+    volumes: "{{ maddy_volumes }}"
+    env: "{{ maddy_env }}"
+    restart_policy: always
+    restart: true
+  tags:
+    - deploy

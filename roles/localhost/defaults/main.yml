@@ -1,0 +1,94 @@
+---
+# defaults file for init
+localhost_brew_packages:
+  - bash-language-server
+  - bitwarden-cli
+  - btop
+  - colordiff
+  - ctop
+  - docker
+  - docker-compose
+  - eza
+  - fish
+  - fzf
+  - glab
+  - go
+  - go-jira
+  - gopls
+  - hadolint
+  - helm
+  - htop
+  - httpie
+  - hugo
+  - k9s
+  - kubernetes-cli
+  - logcli
+  - lua-language-server
+  - markdownlint-cli
+  - ncdu
+  - neovim
+  - nmap
+  - nnn
+  - openconnect
+  - ossp-uuid
+  - pass
+  - pastel
+  - podman
+  - pueue
+  - python@3.11
+  - ripgrep
+  - s3cmd
+  - speedtest-cli
+  - sshpass
+  - tmux
+  - watch
+  - wget
+  - winetricks
+  - xray
+  - yq
+
+localhost_brew_casks:
+  - alt-tab
+  - darktable
+  - dbeaver-community
+  - duckduckgo
+  - element
+  - firefox
+  - floorp
+  - font-adwaita-mono-nerd-font
+  - font-mononoki-nerd-font
+  - font-roboto-mono-nerd-font
+  - font-ubuntu-mono-nerd-font
+  - freelens
+  - google-chrome
+  - gstreamer-runtime
+  - libreoffice
+  - microsoft-auto-update
+  - microsoft-outlook
+  - monokle
+  - obsidian
+  - podman-desktop
+  - shotcut
+  - thor
+  - ticktick
+  - transmission
+  - utm
+  - zoom
+
+localhost_dotfiles:
+  - .config/nvim/init.lua
+  - .config/nvim/lua/colors.lua
+  - .config/nvim/lua/plugins.lua
+  - .config/nvim/lua/lsp.lua
+  - .config/nvim/lua/telescope-zoxide.lua
+  - .config/nvim/lua/mappings.lua
+  - .config/nvim/lua/options.lua
+  - .config/fish/conf.d/aliases.fish
+  - .config/fish/conf.d/functions.fish
+  - .config/fish/conf.d/variables.fish
+  - .tmux.conf
+
+localhost_home_linux_spec:
+  - .Xresources
+  - .clang-format
+  - .xinitrc

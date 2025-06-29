@@ -1,0 +1,5 @@
+---
+- name: Run bitwarden in docker
+  hosts: host1
+  roles:
+    - bitwarden

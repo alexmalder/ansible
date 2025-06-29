@@ -1,0 +1,30 @@
+---
+- name: Debug ansible_distribution
+  ansible.builtin.debug:
+    var: ansible_distribution
+  tags:
+    - install
+
+- name: Install packages mac
+  ansible.builtin.import_tasks: ./mac.yml
+  when:
+    - ansible_distribution == "MacOSX"
+  tags:
+    - install
+
+- name: Install packages ubuntu
+  ansible.builtin.import_tasks: ./ubuntu.yml
+  when:
+    - ansible_distribution == "Ubuntu"
+  tags:
+    - install
+
+- name: Pull config files
+  ansible.builtin.import_tasks: ./pull.yml
+  tags:
+    - pull
+
+- name: Push config files
+  ansible.builtin.import_tasks: ./push.yml
+  tags:
+    - push

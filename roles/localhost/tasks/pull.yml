@@ -1,0 +1,7 @@
+---
+- name: Pull configuration files
+  ansible.builtin.copy:
+    src: "{{ ansible_env.HOME }}/{{ item }}"
+    dest: "roles/localhost/files/{{ item }}"
+    mode: '0640'
+  with_items: "{{ localhost_dotfiles }}"
