@@ -81,7 +81,7 @@ lsp.csharp_ls.setup{
   cmd = {"/Users/alexmalder/.dotnet/tools/csharp-ls"},
   capabilities = capabilities
 }
-lsp.pylsp.setup {
+lsp.pyright.setup {
   capabilities = capabilities
 }
 --lsp.terraformls.setup{

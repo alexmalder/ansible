@@ -7,9 +7,12 @@
 --  ░██  ░██░██░░░░ ░██   ░██ ░░████  ░██ ░██ ░██ ░██
 --  ███  ░██░░██████░░██████   ░░██   ░██ ███ ░██ ░██
 -- ░░░   ░░  ░░░░░░  ░░░░░░     ░░    ░░ ░░░  ░░  ░░
+
 require 'plugins'
-require 'colors'
 require 'lsp'
-require 'options'
 require 'mappings'
+require 'markdown'
+require 'options'
+require 'statusline'
 require 'telescope-zoxide'
+require 'treesitter'
