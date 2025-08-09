@@ -6,7 +6,6 @@ localhost_brew_packages:
   - btop
   - colordiff
   - ctop
-  - docker
   - docker-compose
   - eza
   - fish
@@ -33,8 +32,9 @@ localhost_brew_packages:
   - ossp-uuid
   - pass
   - pastel
-  - podman
+  - poppler
   - pueue
+  - pyright
   - python@3.11
   - ripgrep
   - s3cmd
@@ -46,6 +46,7 @@ localhost_brew_packages:
   - winetricks
   - xray
   - yq
+  - zoxide
 
 localhost_brew_casks:
   - alt-tab
