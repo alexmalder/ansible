@@ -50,25 +50,25 @@ localhost_brew_packages:
 
 localhost_brew_casks:
   - alt-tab
-  - darktable
+  - bitwarden
   - dbeaver-community
+  - docker-desktop
   - duckduckgo
   - element
   - firefox
-  - floorp
-  - font-adwaita-mono-nerd-font
-  - font-mononoki-nerd-font
-  - font-roboto-mono-nerd-font
+  - font-iosevka-nerd-font
+  - font-iosevka-term-nerd-font
   - font-ubuntu-mono-nerd-font
   - freelens
   - google-chrome
   - gstreamer-runtime
+  - iterm2
   - libreoffice
+  - mattermost
   - microsoft-auto-update
   - microsoft-outlook
   - monokle
   - obsidian
-  - podman-desktop
   - shotcut
   - thor
   - ticktick
