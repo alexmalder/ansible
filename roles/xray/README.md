@@ -18,7 +18,7 @@
 
 ## Secrets
 
-- xray_domain
+- xray_address
 - xray_client_X_id
 - xray_client_X_email
 - xray_ssl_private_key

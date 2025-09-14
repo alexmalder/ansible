@@ -13,6 +13,12 @@ xray_server_config:
           - id: "{{ xray_client_0_id }}"
             level: 0
             email: "{{ xray_client_0_email }}"
+          - id: "{{ xray_client_1_id }}"
+            level: 0
+            email: "{{ xray_client_1_email }}"
+          - id: "{{ xray_client_2_id }}"
+            level: 0
+            email: "{{ xray_client_2_email }}"
         decryption: none
         fallbacks:
           - dest: 80
@@ -20,7 +26,7 @@ xray_server_config:
         network: tcp
         security: tls
         tlsSettings:
-          serverName: "{{ xray_domain }}"
+          serverName: "{{ xray_address }}"
           alpn:
             - http/1.1
           certificates:
@@ -36,7 +42,7 @@ xray_client_0_config:
     - protocol: vless
       settings:
         vnext:
-          - address: "{{ xray_domain }}"
+          - address: "{{ xray_address }}"
             port: 443
             users:
               - id: "{{ xray_client_0_id }}"
@@ -47,7 +53,67 @@ xray_client_0_config:
         security: tls
         tlsSettings:
           allowInsecure: true
-          serverName: "{{ xray_domain }}"
+          serverName: "{{ xray_address }}"
+          alpn:
+            - h2
+            - http/1.1
+  inbounds:
+    - port: 10800
+      listen: 127.0.0.1
+      protocol: socks
+      settings:
+        auth: noauth
+        udp: true
+
+xray_client_1_config:
+  log:
+    loglevel: warning
+  outbounds:
+    - protocol: vless
+      settings:
+        vnext:
+          - address: "{{ xray_address }}"
+            port: 443
+            users:
+              - id: "{{ xray_client_1_id }}"
+                encryption: none
+                level: 0
+      streamSettings:
+        network: tcp
+        security: tls
+        tlsSettings:
+          allowInsecure: true
+          serverName: "{{ xray_address }}"
+          alpn:
+            - h2
+            - http/1.1
+  inbounds:
+    - port: 10800
+      listen: 127.0.0.1
+      protocol: socks
+      settings:
+        auth: noauth
+        udp: true
+
+xray_client_2_config:
+  log:
+    loglevel: warning
+  outbounds:
+    - protocol: vless
+      settings:
+        vnext:
+          - address: "{{ xray_address }}"
+            port: 443
+            users:
+              - id: "{{ xray_client_2_id }}"
+                encryption: none
+                level: 0
+      streamSettings:
+        network: tcp
+        security: tls
+        tlsSettings:
+          allowInsecure: true
+          serverName: "{{ xray_address }}"
           alpn:
             - h2
             - http/1.1

@@ -39,6 +39,10 @@
     mode: "0640"
   notify: Restart xray
 
+- name: Register client config directly
+  debug:
+    msg: "{{ xray_client_1_config | to_json }}"
+
 - name: Setup xray service
   ansible.builtin.systemd:
     name: xray
