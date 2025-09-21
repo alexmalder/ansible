@@ -2,7 +2,6 @@
 # defaults file for init
 localhost_brew_packages:
   - bash-language-server
-  - bitwarden-cli
   - btop
   - colordiff
   - ctop
@@ -10,6 +9,7 @@ localhost_brew_packages:
   - eza
   - fish
   - fzf
+  - git
   - glab
   - go
   - go-jira
@@ -28,6 +28,7 @@ localhost_brew_packages:
   - neovim
   - nmap
   - nnn
+  - ollama
   - openconnect
   - ossp-uuid
   - pass
@@ -38,35 +39,33 @@ localhost_brew_packages:
   - python@3.11
   - ripgrep
   - s3cmd
-  - speedtest-cli
+  - sevenzip
   - sshpass
   - tmux
   - watch
   - wget
-  - winetricks
+  - wimlib
   - xray
   - yq
   - zoxide
+  - zsh
 
 localhost_brew_casks:
   - alt-tab
-  - bitwarden
   - dbeaver-community
   - docker-desktop
   - duckduckgo
-  - element
   - firefox
   - font-iosevka-nerd-font
   - font-iosevka-term-nerd-font
   - font-ubuntu-mono-nerd-font
+  - font-ubuntu-nerd-font
   - freelens
   - google-chrome
   - gstreamer-runtime
   - iterm2
+  - jitsi-meet
   - libreoffice
-  - mattermost
-  - microsoft-auto-update
-  - microsoft-outlook
   - monokle
   - obsidian
   - shotcut

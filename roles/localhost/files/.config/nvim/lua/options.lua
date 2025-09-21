@@ -41,3 +41,6 @@ vim.opt.termguicolors = true
 
 -- local neogit = require('neogit')
 -- neogit.setup {}
+--
+vim.cmd[[set linebreak]]
+vim.cmd[[set textwidth=80]]

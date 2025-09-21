@@ -79,8 +79,17 @@ require("lazy").setup({
       italic = false,
       -- you can set set configuration options here
       config = function()
-        vim.cmd.colorscheme('zenwritten')
+        --vim.cmd.colorscheme('zenwritten')
         --vim.cmd.colorscheme('rosebones')
+      end
+  },
+  {
+  "wnkz/monoglow.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
+      config = function()
+        vim.cmd.colorscheme('monoglow-lack')
       end
   },
   {
