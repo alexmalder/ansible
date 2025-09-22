@@ -1,5 +1,4 @@
 -- LSP
-local lsp = require("lspconfig")
 vim.o.completeopt = "menuone,noselect"
 
 local cmp = require'cmp'
@@ -16,8 +15,6 @@ cmp.setup({
     end,
   },
   window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
   },
 
 
@@ -64,50 +61,23 @@ cmp.setup.cmdline(':', {
 
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 
-lsp.bashls.setup {
+vim.lsp.enable('pyright')
+vim.lsp.config('pyright', {
   capabilities = capabilities
-}
--- lsp.ts_ls.setup { capabilities = capabilities }
-lsp.gopls.setup {
-  capabilities = capabilities
-}
-lsp.dartls.setup {
-  capabilities = capabilities
-}
-lsp.csharp_ls.setup{
-  --cmd = { "/usr/bin/csharp", "--languageserver" , "--hostPID", tostring(pid) },
-  cmd = {"/Users/alexmalder/.dotnet/tools/csharp-ls"},
-  capabilities = capabilities
-}
-lsp.pyright.setup {
-  capabilities = capabilities
-}
---lsp.terraformls.setup{
---  capabilities=capabilities,
---  command="/opt/local/bin/terraform-ls"
---}
-lsp.lua_ls.setup {
-  cmd = {"lua-language-server"},
-  capabilities = capabilities
-}
-lsp.rust_analyzer.setup{
-  capabilities = capabilities
-}
-lsp.cmake.setup {
-  capabilities = capabilities
-}
-lsp.clangd.setup{
-  cmd = { "/usr/bin/clangd" },
-  filetypes = { "c", "cpp", "objc" },
-  capabilities = capabilities
-}
+})
 
-lsp.sqlls.setup {
+vim.lsp.enable('gopls')
+vim.lsp.config('gopls', {
   capabilities = capabilities
-}
+})
 
-lsp.jdtls.setup{}
---lsp.yamlls.setup { capabilities = capabilities }
---lsp.ansiblels.setup { cmd = { "ansible-language-server", "--stdio" }, filetypes = { "yaml.ansible" }, }
+vim.lsp.enable('bashls')
+vim.lsp.config('bashls', {
+  capabilities = capabilities
+})
+
+vim.lsp.enable('ts_ls')
+vim.lsp.config('ts_ls', {
+  capabilities = capabilities
+})
