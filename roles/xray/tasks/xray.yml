@@ -41,7 +41,7 @@
 
 - name: Register client config directly
   debug:
-    msg: "{{ xray_client_2_config | to_json }}"
+    msg: "{{ xray_client_3_config | to_json }}"
 
 - name: Setup xray service
   ansible.builtin.systemd:

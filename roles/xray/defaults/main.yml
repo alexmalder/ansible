@@ -19,6 +19,9 @@ xray_server_config:
           - id: "{{ xray_client_2_id }}"
             level: 0
             email: "{{ xray_client_2_email }}"
+          - id: "{{ xray_client_3_id }}"
+            level: 0
+            email: "{{ xray_client_3_email }}"
         decryption: none
         fallbacks:
           - dest: 80
@@ -106,6 +109,36 @@ xray_client_2_config:
             port: 443
             users:
               - id: "{{ xray_client_2_id }}"
+                encryption: none
+                level: 0
+      streamSettings:
+        network: tcp
+        security: tls
+        tlsSettings:
+          allowInsecure: true
+          serverName: "{{ xray_address }}"
+          alpn:
+            - h2
+            - http/1.1
+  inbounds:
+    - port: 10800
+      listen: 127.0.0.1
+      protocol: socks
+      settings:
+        auth: noauth
+        udp: true
+
+xray_client_3_config:
+  log:
+    loglevel: warning
+  outbounds:
+    - protocol: vless
+      settings:
+        vnext:
+          - address: "{{ xray_address }}"
+            port: 443
+            users:
+              - id: "{{ xray_client_3_id }}"
                 encryption: none
                 level: 0
       streamSettings:
