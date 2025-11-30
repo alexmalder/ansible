@@ -7,6 +7,7 @@ localhost_brew_packages:
   - ctop
   - docker-compose
   - eza
+  - ffmpeg
   - fish
   - fzf
   - git
@@ -19,18 +20,20 @@ localhost_brew_packages:
   - htop
   - httpie
   - hugo
+  - imagemagick
   - k9s
   - kubernetes-cli
   - logcli
   - lua-language-server
   - markdownlint-cli
   - ncdu
+  - neofetch
   - neovim
   - nmap
   - nnn
-  - ollama
   - openconnect
   - ossp-uuid
+  - pandoc
   - pass
   - pastel
   - poppler
@@ -58,17 +61,17 @@ localhost_brew_casks:
   - firefox
   - font-iosevka-nerd-font
   - font-iosevka-term-nerd-font
-  - font-ubuntu-mono-nerd-font
-  - font-ubuntu-nerd-font
   - freelens
   - google-chrome
-  - gstreamer-runtime
   - iterm2
   - jitsi-meet
   - libreoffice
+  - lm-studio
   - monokle
   - obsidian
   - shotcut
+  - shottr
+  - telegram-desktop
   - thor
   - ticktick
   - transmission
