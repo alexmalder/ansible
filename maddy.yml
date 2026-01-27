@@ -1,6 +1,0 @@
----
-- name: Run maddy in docker
-  hosts: host1
-  become: true
-  roles:
-    - maddy
