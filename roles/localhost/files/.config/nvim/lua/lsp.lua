@@ -77,7 +77,20 @@ vim.lsp.config('bashls', {
   capabilities = capabilities
 })
 
+vim.lsp.enable('yamlls')
+vim.lsp.config('yamlls', {
+  capabilities = capabilities,
+  --settings = {
+  --  yaml = {
+  --    schemas = {
+  --      ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml"] = "/*"
+  --    }
+  --  }
+  --}
+})
+
 vim.lsp.enable('ts_ls')
 vim.lsp.config('ts_ls', {
   capabilities = capabilities
 })
+

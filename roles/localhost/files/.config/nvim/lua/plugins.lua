@@ -22,14 +22,15 @@ require("lazy").setup({
   "hrsh7th/cmp-cmdline",
   "hrsh7th/nvim-cmp",
   "L3MON4D3/LuaSnip",
-  {
-    "cuducos/yaml.nvim",
-    ft = { "yaml" },
-  },
   "williamboman/nvim-lsp-installer",
   "junegunn/fzf",
   "junegunn/fzf.vim",
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    version = 'v0.10.0',
+    lazy = false,
+    build = ':TSUpdate'
+  },
   "nvim-telescope/telescope.nvim",
   "windwp/nvim-autopairs",
   "kyazdani42/nvim-web-devicons",
@@ -37,6 +38,15 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   "sindrets/diffview.nvim",
   "sharksforarms/neovim-rust",
+  {
+    "https://tangled.org/cuducos.me/yaml.nvim",
+    ft = { "yaml" }, -- optional
+    dependencies = {
+      "folke/snacks.nvim", -- optional
+      "nvim-telescope/telescope.nvim", -- optional
+      "ibhagwan/fzf-lua" -- optional
+    },
+  },
   "ajeetdsouza/zoxide",
   "jvgrootveld/telescope-zoxide",
   {
@@ -45,7 +55,6 @@ require("lazy").setup({
       config = true,
   },
   "hashivim/vim-terraform",
-  "tpope/vim-dispatch",
   {
     "NeogitOrg/neogit",
     dependencies = {
@@ -69,30 +78,6 @@ require("lazy").setup({
     "mcchrish/nnn.vim"
   },
   {
-      "zenbones-theme/zenbones.nvim",
-      -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-      -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-      -- In Vim, compat mode is turned on as Lush only works in Neovim.
-      dependencies = "rktjmp/lush.nvim",
-      lazy = false,
-      priority = 1000,
-      italic = false,
-      -- you can set set configuration options here
-      config = function()
-        --vim.cmd.colorscheme('zenwritten')
-        --vim.cmd.colorscheme('rosebones')
-      end
-  },
-  {
-  "wnkz/monoglow.nvim",
-      lazy = false,
-      priority = 1000,
-      opts = {},
-      config = function()
-        vim.cmd.colorscheme('monoglow-lack')
-      end
-  },
-  {
       'MeanderingProgrammer/render-markdown.nvim',
       dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
       -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
@@ -105,11 +90,30 @@ require("lazy").setup({
     'makerj/vim-pdf'
   },
   {
+    "aktersnurra/no-clown-fiesta.nvim",
+	  theme = "dark", -- supported themes are: dark, dim, light
+	  transparent = false, -- Enable this to disable the bg color
+	  styles = {
+	    -- You can set any of the style values specified for `:h nvim_set_hl`
+	    comments = {},
+	    functions = {},
+	    keywords = {},
+	    lsp = {},
+	    match_paren = {},
+	    type = {},
+	    variables = {},
+	  },
+    config = function()
+        vim.cmd("colorscheme no-clown-fiesta")
+    end,
+  },
+  {
     "hedyhli/outline.nvim",
     config = function()
       -- Example mapping to toggle outline
-      vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>",
-        { desc = "Toggle Outline" })
+      vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>", { 
+	desc = "Toggle Outline" 
+      })
 
       require("outline").setup {
         -- Your setup opts here (leave empty to use defaults)
@@ -118,3 +122,4 @@ require("lazy").setup({
   },
 
 })
+
